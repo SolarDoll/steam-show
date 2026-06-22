@@ -56,6 +56,24 @@
   .kh-dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3);transition:.3s}
   .kh-dots i.on{background:var(--accent);transform:scale(1.4)}
   @media(max-width:760px){.kh-dots{display:none}}
+  /* ГЕО — дуги-перелёты между городами */
+  .fa{position:relative;aspect-ratio:1;border-radius:20px;overflow:hidden;border:1px solid var(--line);
+    background:radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--accent) 14%,transparent),transparent 60%),
+      radial-gradient(circle at 72% 80%,color-mix(in srgb,var(--accent2) 12%,transparent),transparent 55%),var(--bg2)}
+  .fa svg{position:absolute;inset:0;width:100%;height:100%}
+  .fa .base{fill:none;stroke:color-mix(in srgb,var(--ink) 16%,transparent);stroke-width:1}
+  .fa .fly{fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-dasharray:5 320;
+    filter:drop-shadow(0 0 6px var(--accent2))}
+  .fa .city{fill:var(--accent2);filter:drop-shadow(0 0 6px var(--accent2))}
+  .fa .halo{fill:none;stroke:var(--accent2);stroke-width:1.2;animation:faHalo 2.6s ease-out infinite}
+  @keyframes faHalo{0%{r:4;opacity:.6}100%{r:17;opacity:0}}
+  @keyframes faFly{to{stroke-dashoffset:-325}}
+  .fa-core{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none}
+  .fa-core b{font-family:var(--display);font-weight:700;font-size:clamp(20px,3.4vw,30px);
+    background:linear-gradient(100deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 2px 18px rgba(0,0,0,.6)}
+  .fa-core small{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+  @media(prefers-reduced-motion:reduce){.fa .fly,.fa .halo{animation:none}}
 </style>
 </head>
 <body>
@@ -99,7 +117,7 @@
   <!-- ПРОГРАММЫ — BENTO (как pitch2): 1 крупная + 4 -->
   <section id="programs" data-spine>
     <div class="wrap">
-      <div class="sec-head reveal"><span class="kicker">The repertoire</span>
+      <div class="sec-head reveal"><span class="kicker">Our Shows</span>
         <h2>Five worlds of show.</h2>
         <p>Все пять на одном экране, флагман — крупнее. Название и теги читаются сразу, кнопка View more открывает галерею.</p></div>
       <div data-cards="bento" data-media="static"></div>
@@ -118,11 +136,30 @@
           <span class="geo-pill">Jordan</span><span class="geo-pill world">+ 20 countries on request</span>
         </div>
       </div>
-      <div class="reveal from-right"><div class="globe">
-        <div class="core"><b>WORLD</b><small>WIDE</small></div>
-        <span class="ping" style="top:30%;left:40%"></span>
-        <span class="ping" style="top:55%;left:62%;animation-delay:.8s"></span>
-        <span class="ping" style="top:68%;left:38%;animation-delay:1.5s"></span>
+      <div class="reveal from-right"><div class="fa">
+        <svg viewBox="0 0 300 300" aria-hidden="true">
+          <g>
+            <path class="base" d="M60,90 Q150,20 245,95"/><path class="base" d="M60,90 Q30,150 95,200"/>
+            <path class="base" d="M150,55 Q250,110 210,205"/><path class="base" d="M245,95 Q250,190 150,250"/>
+            <path class="base" d="M95,200 Q150,170 210,205"/>
+          </g>
+          <g>
+            <path class="fly" style="animation:faFly 3.2s linear infinite" d="M60,90 Q150,20 245,95"/>
+            <path class="fly" style="animation:faFly 4s linear infinite .6s" d="M60,90 Q30,150 95,200"/>
+            <path class="fly" style="animation:faFly 3.6s linear infinite .3s" d="M150,55 Q250,110 210,205"/>
+            <path class="fly" style="animation:faFly 4.4s linear infinite .9s" d="M245,95 Q250,190 150,250"/>
+            <path class="fly" style="animation:faFly 3s linear infinite 1.2s" d="M95,200 Q150,170 210,205"/>
+          </g>
+          <g>
+            <circle class="halo" cx="60" cy="90"/><circle class="city" cx="60" cy="90" r="4"/>
+            <circle class="halo" cx="150" cy="55" style="animation-delay:.5s"/><circle class="city" cx="150" cy="55" r="4"/>
+            <circle class="halo" cx="245" cy="95" style="animation-delay:1s"/><circle class="city" cx="245" cy="95" r="4"/>
+            <circle class="halo" cx="95" cy="200" style="animation-delay:1.4s"/><circle class="city" cx="95" cy="200" r="4"/>
+            <circle class="halo" cx="210" cy="205" style="animation-delay:.8s"/><circle class="city" cx="210" cy="205" r="4"/>
+            <circle class="halo" cx="150" cy="250" style="animation-delay:1.8s"/><circle class="city" cx="150" cy="250" r="4"/>
+          </g>
+        </svg>
+        <div class="fa-core"><b>WORLDWIDE</b><small>20+ countries</small></div>
       </div></div>
     </div>
     <div class="wrap"><div class="stats reveal">
