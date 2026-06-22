@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Steam Show — Split Stage</title>
+<link rel="icon" href="../assets/Logo_final.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{--bg:#0b0710;--panel:#15101c;--text:#f4eff5;--accent:#FF3D6E;--accent2:#FF7A1F;--line:rgba(255,255,255,.12);--mid:#a89fb0;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:"Manrope",system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;cursor:pointer;border:none;background:none}
+  img{display:block;max-width:100%}
+
+  nav{position:absolute;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:20px clamp(18px,3vw,40px);}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;font-size:13px;cursor:pointer}
+  .brand img{width:26px}
+  .nav-cta{font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:var(--accent);color:#10060a;padding:11px 20px;border-radius:100px}
+
+  .split{display:grid;grid-template-columns:0.92fr 1.08fr;min-height:100svh;}
+  .panelL{position:relative;z-index:10;display:flex;flex-direction:column;justify-content:center;padding:96px clamp(22px,4vw,56px) 56px;}
+  .eyebrow{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent2);font-weight:800;margin-bottom:26px}
+  .showlist{display:flex;flex-direction:column;gap:2px;margin:0 0 30px;border-top:1px solid var(--line)}
+  .showitem{display:flex;align-items:baseline;gap:16px;padding:18px 4px;border-bottom:1px solid var(--line);cursor:pointer;transition:padding .35s ease,color .3s;color:var(--mid);}
+  .showitem .idx{font-size:12px;font-weight:800;letter-spacing:.1em;opacity:.5;width:28px;flex:0 0 auto}
+  .showitem .nm{font-family:"Anton",sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(22px,2.6vw,34px);line-height:1;letter-spacing:.01em;transition:color .3s}
+  .showitem .ty{margin-left:auto;font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.55;white-space:nowrap}
+  .showitem:hover,.showitem.on{color:var(--text);padding-left:16px}
+  .showitem.on .nm{color:var(--accent)}
+  .showitem.on{border-bottom-color:var(--accent)}
+  .lead{color:var(--mid);font-size:15px;max-width:42ch;margin-bottom:22px}
+  .ctas{display:flex;gap:12px;flex-wrap:wrap}
+  .solid{background:var(--accent);color:#10060a;font-weight:800;padding:14px 24px;border-radius:100px;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase}
+  .ghost{border:1px solid var(--line);padding:14px 22px;border-radius:100px;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;display:inline-flex;gap:9px;align-items:center}
+  .ghost:hover{border-color:var(--accent)} .pd{width:8px;height:8px;border-radius:50%;background:var(--accent2)}
+
+  .panelR{position:relative;overflow:hidden;background:#000;}
+  .rimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s ease,transform 6s ease;transform:scale(1.05)}
+  .rimg.show{opacity:1;transform:scale(1)}
+  .panelR::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,7,16,.85),transparent 30%),linear-gradient(0deg,rgba(11,7,16,.9),transparent 45%);}
+  .rcap{position:absolute;left:clamp(22px,3vw,46px);right:clamp(22px,3vw,46px);bottom:clamp(28px,4vw,52px);z-index:3;}
+  .rcap h2{font-family:"Anton",sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(40px,6vw,92px);line-height:.9;letter-spacing:.005em}
+  .rcap .meta{display:flex;gap:18px;margin:14px 0 18px;font-size:13px;color:#e9e2ee;flex-wrap:wrap}
+  .rcap .meta span{opacity:.85} .rcap .meta b{color:var(--accent2)}
+  .open{background:#fff;color:#10060a;font-weight:800;padding:13px 22px;border-radius:100px;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase}
+
+  .more{padding:clamp(54px,8vw,90px) clamp(22px,4vw,56px);max-width:1200px;margin:0 auto}
+  .more h3{font-family:"Anton",sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(22px,3vw,36px);margin-bottom:6px}
+  .more p{color:var(--mid);font-size:14px;margin-bottom:16px}
+  .tags{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:10px}
+  .tags .lbl{width:100%;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7b7283;margin-bottom:4px}
+  .tags span{border:1px solid var(--line);padding:9px 15px;border-radius:100px;font-size:13px;color:#d8d0de}
+  .tags.hot span{border-color:color-mix(in srgb,var(--accent) 45%,var(--line));color:var(--accent2)}
+  .world{margin-top:40px;border-top:1px solid var(--line);padding-top:34px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .world span{font-size:13px;color:#d8d0de;border:1px solid var(--line);padding:8px 14px;border-radius:100px}
+  .world .more-c{border:none;color:var(--accent2);font-weight:700}
+  footer{border-top:1px solid var(--line);margin-top:46px;padding-top:34px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px}
+  footer .c a{display:block;color:var(--mid);font-size:15px;margin-bottom:8px}footer .c a:hover{color:var(--accent2)}
+
+  @media(max-width:900px){
+    .split{grid-template-columns:1fr;}
+    .panelR{min-height:62svh;order:-1}
+    .panelL{padding-top:30px}
+    .showitem .ty{display:none}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand" onclick="scrollTo({top:0,behavior:'smooth'})"><img src="../assets/dragon-light.png" alt=""/> Steam Show</div>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Book the show</button>
+</nav>
+
+<section class="split">
+  <div class="panelL">
+    <div class="eyebrow">Fire · LED · Dragons — worldwide</div>
+    <div class="showlist" id="list"></div>
+    <p class="lead">Pick a show — see it live on the right. Large-scale fire, light and stilt spectacles for events worldwide.</p>
+    <div class="ctas">
+      <button class="solid" id="openActive">Open gallery</button>
+      <button class="ghost" onclick="SS.openReel()"><span class="pd"></span> Watch reel</button>
+    </div>
+  </div>
+  <div class="panelR" id="stage">
+    <img class="rimg" id="imgA" alt=""/><img class="rimg" id="imgB" alt=""/>
+    <div class="rcap">
+      <h2 id="rName"></h2>
+      <div class="meta" id="rMeta"></div>
+      <button class="open" id="openActive2">Open gallery →</button>
+    </div>
+  </div>
+</section>
+
+<div class="more">
+  <h3>Effects &amp; add-ons</h3>
+  <p>We layer effects into any programme — some on almost every show, others on request.</p>
+  <div class="tags hot"><span class="lbl">Usually included</span><span>Flamethrowers</span><span>Fire cannons</span><span>Fire cubes</span><span>Pyrotechnics</span></div>
+  <div class="tags"><span class="lbl">On request</span><span>Paper show</span><span>Fire hearts</span><span>Confetti</span><span>Fire on stilts</span></div>
+  <div class="world"><strong style="font-family:'Anton';text-transform:uppercase;letter-spacing:.02em;margin-right:8px">We travel anywhere —</strong><span>Europe</span><span>The Gulf</span><span>Middle East</span><span class="more-c">+ 20 countries worldwide</span></div>
+  <footer id="contact">
+    <div><h3>Let’s light up your event</h3><p>Tell us the date, place and vibe — we’ll send a tailored offer.</p></div>
+    <div class="c"><a href="#">Instagram ↗</a><a href="mailto:hello@steamshow.com">Email ↗</a><a href="#">WhatsApp ↗</a><a href="#">Telegram ↗</a><a href="https://www.youtube.com/@SteamShowby" target="_blank">YouTube ↗</a></div>
+  </footer>
+</div>
+
+<script src="media.js"></script>
+<script src="lib.js"></script>
+<script>
+(function(){
+  var list=document.getElementById('list'), imgs=[document.getElementById('imgA'),document.getElementById('imgB')], front=0;
+  var rName=document.getElementById('rName'), rMeta=document.getElementById('rMeta');
+  var active=SS.ORDER[0];
+  // список
+  list.innerHTML=SS.ORDER.map(function(id,i){var s=SS.SHOWS[id];
+    return '<div class="showitem'+(i===0?' on':'')+'" data-id="'+id+'"><span class="idx">0'+(i+1)+'</span><span class="nm">'+s.name.replace(' Show','')+'</span><span class="ty">'+s.type+'</span></div>';}).join('');
+  function setActive(id){active=id;var s=SS.SHOWS[id],c=SS.counts(id);
+    // crossfade
+    var back=imgs[1-front]; back.onload=function(){back.classList.add('show');imgs[front].classList.remove('show');front=1-front;};
+    back.src=SS.cover(id);
+    rName.textContent=s.name;
+    var m=[]; if(c.p)m.push('<span><b>'+c.p+'</b> photos</span>'); if(c.v)m.push('<span><b>'+c.v+'</b> videos</span>'); if(c.c)m.push('<span><b>'+c.c+'</b> costumes</span>');
+    rMeta.innerHTML=m.join('');
+    list.querySelectorAll('.showitem').forEach(function(el){el.classList.toggle('on',el.dataset.id===id);});
+  }
+  list.querySelectorAll('.showitem').forEach(function(el){
+    el.addEventListener('mouseenter',function(){setActive(el.dataset.id);});
+    el.addEventListener('click',function(){setActive(el.dataset.id);SS.openProgram(el.dataset.id);});
+  });
+  document.getElementById('openActive').addEventListener('click',function(){SS.openProgram(active);});
+  document.getElementById('openActive2').addEventListener('click',function(){SS.openProgram(active);});
+  // init
+  imgs[0].src=SS.cover(active); imgs[0].classList.add('show'); setActive(active);
+})();
+</script>
+</body>
+</html>

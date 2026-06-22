@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Steam Show — раунд 6 (разные структуры)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{--bg:#0b0710;--panel:#15101c;--line:rgba(255,255,255,.1);--ink:#f4eff5;--mid:#a89fb0;--dim:#6c6470;--accent:#FF3D6E;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Manrope",system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(60% 50% at 10% 0%,rgba(255,61,110,.16),transparent 60%),radial-gradient(50% 50% at 92% 6%,rgba(255,122,31,.12),transparent 60%);}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1280px;margin:0 auto;padding:clamp(2rem,5vw,4rem) clamp(1.2rem,4vw,3rem)}
+  header{border-bottom:1px solid var(--line)}
+  .eyebrow{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:1rem}
+  h1{font-family:"Anton",sans-serif;font-weight:400;font-size:clamp(2.4rem,7vw,4.4rem);line-height:.95;letter-spacing:.01em;text-transform:uppercase}
+  .lead{color:var(--mid);max-width:72ch;margin-top:1.1rem}
+  .note{margin-top:1.4rem;padding:1rem 1.2rem;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--mid);font-size:.95rem;max-width:74ch}
+  .note b{color:var(--ink)}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.6rem;margin-top:2.4rem}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}}
+  .card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--panel);transition:transform .4s,border-color .4s;display:flex;flex-direction:column}
+  .card:hover{transform:translateY(-5px);border-color:var(--accent)}
+  .thumb{position:relative;overflow:hidden;background:#000;border-bottom:1px solid var(--line)}
+  .thumb iframe{border:0;transform-origin:top left;pointer-events:none}
+  .thumb a.cover{position:absolute;inset:0;z-index:2;display:flex;align-items:flex-end;padding:1rem;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.6));opacity:0;transition:opacity .35s}
+  .card:hover .thumb a.cover{opacity:1}
+  .thumb .open{font-size:.8rem;font-weight:800;letter-spacing:.04em;padding:.5rem .9rem;border-radius:100px;background:var(--ink);color:#0b0710}
+  .body{padding:1.3rem 1.4rem 1.5rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+  .num{font-size:.74rem;font-weight:800;letter-spacing:.14em;color:var(--accent)}
+  .name{font-family:"Anton",sans-serif;font-weight:400;font-size:1.5rem;text-transform:uppercase;letter-spacing:.01em}
+  .desc{color:var(--mid);font-size:.93rem}
+  .mech{margin-top:.3rem;font-size:.9rem;color:#d6cfde}.mech b{color:var(--accent);font-weight:700}
+  footer{border-top:1px solid var(--line);color:var(--dim);font-size:.85rem;text-align:center;padding:2.5rem}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <p class="eyebrow">Steam Show · раунд 6 · разные структуры</p>
+  <h1>Четыре разных каркаса</h1>
+  <p class="lead">Тут у каждого варианта своя СТРУКТУРА (не «hero + сетка») и более дерзкий герой. Тёмно, ярко, большие реальные фото — как тебе нравится.</p>
+  <p class="note"><b>Фишки в движении</b> — открывай на весь экран. R1 наводи на список, R2 крути колесо (листает вбок), R3 скролль (полноэкранные секции), R4 смотри как едет стена. Внутри клик по программе → вкладки Costumes/Photos/Videos.</p>
+</div></header>
+
+<div class="wrap">
+  <div class="grid">
+
+    <article class="card">
+      <div class="thumb"><iframe src="r1-split.html" loading="lazy" title="Split"></iframe><a class="cover" href="r1-split.html" target="_blank"><span class="open">Открыть ↗</span></a></div>
+      <div class="body"><span class="num">R1 · SPLIT STAGE</span><h2 class="name">Сплит-экран</h2>
+        <p class="desc">Слева список шоу, справа огромное фото.</p>
+        <p class="mech"><b>Структура:</b> фиксированный сплит, фото справа меняется при наведении на шоу. Никакой сетки.</p>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb"><iframe src="r2-reel.html" loading="lazy" title="Reel"></iframe><a class="cover" href="r2-reel.html" target="_blank"><span class="open">Открыть ↗</span></a></div>
+      <div class="body"><span class="num">R2 · HORIZONTAL REEL</span><h2 class="name">Кинолента вбок</h2>
+        <p class="desc">Весь сайт листается горизонтально.</p>
+        <p class="mech"><b>Структура:</b> полноэкранные панели, колесо двигает вбок; каждое шоу — отдельный кадр.</p>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb"><iframe src="r3-deck.html" loading="lazy" title="Deck"></iframe><a class="cover" href="r3-deck.html" target="_blank"><span class="open">Открыть ↗</span></a></div>
+      <div class="body"><span class="num">R3 · DECK</span><h2 class="name">Полноэкранная колода</h2>
+        <p class="desc">Видео + гигантский текст с инверсией.</p>
+        <p class="mech"><b>Структура:</b> скролл-снап на весь экран; герой — «STEAM SHOW» поверх видео в режиме инверсии; каждое шоу — полноэкранная секция.</p>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb"><iframe src="r4-wall.html" loading="lazy" title="Wall"></iframe><a class="cover" href="r4-wall.html" target="_blank"><span class="open">Открыть ↗</span></a></div>
+      <div class="body"><span class="num">R4 · PHOTO WALL</span><h2 class="name">Живая фото-стена</h2>
+        <p class="desc">Ряды фото едут в разные стороны — это и есть навигация.</p>
+        <p class="mech"><b>Структура:</b> стена из реальных кадров вместо hero; клик по любому фото → его программа.</p>
+      </div>
+    </article>
+
+  </div>
+</div>
+
+<footer>Steam Show · раунд 6 · разные структуры, дерзкие герои</footer>
+
+<script>
+  var BASE_W=1440,RATIO=0.62;
+  function fit(){document.querySelectorAll('.thumb').forEach(function(t){
+    var f=t.querySelector('iframe');var w=t.clientWidth;var s=w/BASE_W;
+    f.style.width=BASE_W+'px';f.style.height=Math.round(BASE_W*RATIO)+'px';f.style.transform='scale('+s+')';
+    t.style.height=Math.round(BASE_W*RATIO*s)+'px';});}
+  addEventListener('load',fit);addEventListener('resize',fit);fit();
+</script>
+</body>
+</html>

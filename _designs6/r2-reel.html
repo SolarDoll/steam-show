@@ -1,0 +1,412 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Steam Show — Fire · LED · Dragons</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@600;700;800;900&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0a0708;
+  --panel:#140d12;
+  --text:#f4f1ea;
+  --accent:#FF5A1F;
+  --accent2:#E5187A;
+  --line:#2a2230;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--text);font-family:'Manrope',system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;overflow:hidden;}
+body{height:100%;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;}
+
+/* ---------- TOP HUD: progress + dots ---------- */
+.hud{position:fixed;inset:0 0 auto 0;z-index:60;pointer-events:none;
+  padding:18px clamp(16px,4vw,40px) 0;}
+.hud-row{display:flex;align-items:center;justify-content:space-between;gap:18px;}
+.brand-mini{display:flex;align-items:center;gap:11px;pointer-events:auto;}
+.brand-mini img{height:30px;width:auto;display:block;filter:drop-shadow(0 2px 10px rgba(0,0,0,.6));}
+.brand-mini b{font-family:'Archivo';font-weight:900;letter-spacing:.16em;font-size:13px;text-transform:uppercase;}
+.hud-yt{pointer-events:auto;font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  border:1px solid var(--line);padding:8px 14px;border-radius:100px;opacity:.8;transition:.25s;}
+.hud-yt:hover{opacity:1;border-color:var(--accent);color:var(--accent);}
+
+.progress{position:fixed;left:0;top:0;height:3px;width:100%;z-index:61;background:rgba(255,255,255,.06);}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));
+  box-shadow:0 0 16px var(--accent);transition:width .12s linear;}
+
+.dots{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:60;
+  display:flex;gap:10px;align-items:center;}
+.dots button{width:9px;height:9px;border-radius:50%;border:0;background:rgba(255,255,255,.25);
+  transition:.3s var(--ease);padding:0;}
+.dots button.on{background:var(--accent);width:30px;border-radius:6px;box-shadow:0 0 12px var(--accent);}
+
+.scroll-cue{position:fixed;right:clamp(16px,4vw,40px);bottom:26px;z-index:60;
+  font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;opacity:.5;
+  display:flex;align-items:center;gap:9px;}
+.scroll-cue .ln{width:42px;height:1px;background:currentColor;position:relative;overflow:hidden;}
+.scroll-cue .ln::after{content:"";position:absolute;inset:0;width:14px;background:var(--accent);
+  animation:slide 1.8s var(--ease) infinite;}
+@keyframes slide{0%{transform:translateX(-14px)}100%{transform:translateX(42px)}}
+
+/* ---------- REEL TRACK ---------- */
+.viewport{position:fixed;inset:0;overflow:hidden;}
+.track{display:flex;height:100vh;height:100dvh;will-change:transform;}
+.panel{position:relative;flex:0 0 100vw;height:100vh;height:100dvh;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:flex-end;}
+
+/* intro panel */
+.intro{justify-content:center;align-items:center;text-align:center;
+  background:
+    radial-gradient(120% 90% at 50% 18%, rgba(229,24,122,.22), transparent 55%),
+    radial-gradient(120% 100% at 80% 90%, rgba(255,90,31,.20), transparent 55%),
+    var(--bg);}
+.intro .glow{position:absolute;inset:0;z-index:0;background:
+  radial-gradient(40% 50% at 50% 50%, rgba(255,90,31,.10), transparent 70%);
+  mix-blend-mode:screen;}
+.intro-logo{height:clamp(56px,9vw,104px);width:auto;margin-bottom:clamp(18px,3vw,30px);
+  filter:drop-shadow(0 8px 40px rgba(255,90,31,.45));position:relative;z-index:1;}
+.intro h1{position:relative;z-index:1;font-family:'Anton';font-weight:400;
+  font-size:clamp(58px,16vw,230px);line-height:.84;letter-spacing:.005em;text-transform:uppercase;
+  background:linear-gradient(180deg,#fff 30%,#ffd9c4 70%,var(--accent));
+  -webkit-background-clip:text;background-clip:text;color:transparent;}
+.intro h1 .l2{display:block;background:linear-gradient(180deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;background-clip:text;color:transparent;}
+.tag{position:relative;z-index:1;margin-top:clamp(16px,2.5vw,26px);font-family:'Archivo';font-weight:700;
+  letter-spacing:.26em;text-transform:uppercase;font-size:clamp(11px,1.5vw,16px);opacity:.85;}
+.tag .sep{color:var(--accent);margin:0 .5em;}
+.cta{position:relative;z-index:1;margin-top:clamp(26px,4vw,40px);display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 28px;border-radius:100px;
+  font-family:'Archivo';font-weight:800;letter-spacing:.04em;font-size:13.5px;text-transform:uppercase;
+  border:1px solid var(--line);background:rgba(255,255,255,.03);transition:.3s var(--ease);}
+.btn .ar{transition:transform .3s var(--ease);}
+.btn:hover .ar{transform:translateX(5px);}
+.btn-primary{background:linear-gradient(100deg,var(--accent),var(--accent2));color:#10070a;border-color:transparent;
+  box-shadow:0 10px 40px -10px var(--accent);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 50px -10px var(--accent);}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+
+/* show panels */
+.show .bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;
+  transform:scale(1.08);will-change:transform;}
+.show .shade{position:absolute;inset:0;z-index:1;background:
+  linear-gradient(90deg, rgba(8,5,7,.85) 0%, rgba(8,5,7,.35) 38%, rgba(8,5,7,.05) 60%, transparent 80%),
+  linear-gradient(0deg, rgba(8,5,7,.92) 2%, rgba(8,5,7,.25) 32%, transparent 55%);}
+.show .inner{position:relative;z-index:2;padding:0 clamp(20px,5vw,80px) clamp(64px,9vh,110px);max-width:1100px;}
+.idx{font-family:'Archivo';font-weight:900;font-size:13px;letter-spacing:.2em;color:var(--accent);margin-bottom:14px;}
+.idx em{font-style:normal;opacity:.45;color:var(--text);}
+.show-type{font-family:'Archivo';font-weight:700;font-size:clamp(11px,1.5vw,14px);letter-spacing:.24em;
+  text-transform:uppercase;opacity:.8;margin-bottom:8px;}
+.show h2{font-family:'Anton';font-weight:400;text-transform:uppercase;line-height:.86;letter-spacing:.01em;
+  font-size:clamp(46px,9vw,140px);margin-bottom:18px;text-shadow:0 6px 40px rgba(0,0,0,.6);}
+.show p.desc{max-width:46ch;font-size:clamp(14px,1.4vw,17px);line-height:1.5;opacity:.88;margin-bottom:24px;}
+.counts{display:flex;gap:30px;margin-bottom:30px;flex-wrap:wrap;}
+.counts .c b{font-family:'Anton';font-size:clamp(28px,3.6vw,46px);line-height:1;display:block;color:#fff;}
+.counts .c span{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.6;}
+.counts .c b i{font-style:normal;font-size:.45em;color:var(--accent);vertical-align:super;margin-left:3px;}
+
+/* outro / contact panel */
+.outro{background:
+  radial-gradient(100% 80% at 15% 20%, rgba(229,24,122,.18), transparent 55%),
+  radial-gradient(110% 90% at 90% 90%, rgba(255,90,31,.16), transparent 55%),
+  var(--panel);
+  justify-content:center;}
+.outro .inner{position:relative;z-index:2;padding:clamp(40px,7vh,80px) clamp(20px,5vw,80px);
+  max-width:1180px;width:100%;margin:0 auto;}
+.outro h2{font-family:'Anton';text-transform:uppercase;line-height:.9;letter-spacing:.01em;
+  font-size:clamp(40px,7vw,108px);margin-bottom:8px;}
+.outro h2 span{background:linear-gradient(100deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;background-clip:text;color:transparent;}
+.outro .lede{font-size:clamp(14px,1.5vw,18px);opacity:.8;max-width:52ch;margin-bottom:clamp(26px,4vh,44px);}
+.fx-cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(22px,4vw,56px);margin-bottom:clamp(26px,4vh,44px);}
+.fx-h{font-family:'Archivo';font-weight:800;font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:14px;}
+.tags{display:flex;flex-wrap:wrap;gap:9px;}
+.tag-chip{font-size:12.5px;padding:8px 15px;border-radius:100px;border:1px solid var(--line);
+  background:rgba(255,255,255,.02);letter-spacing:.02em;}
+.tag-chip.req{border-style:dashed;opacity:.85;}
+.world{display:flex;flex-wrap:wrap;gap:8px 22px;margin-bottom:clamp(26px,4vh,40px);
+  font-family:'Archivo';font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:clamp(12px,1.5vw,16px);}
+.world .sep{color:var(--accent);}
+.world em{font-style:normal;color:var(--accent);}
+.contacts{display:flex;flex-wrap:wrap;gap:11px;border-top:1px solid var(--line);padding-top:clamp(22px,3.5vh,32px);}
+.contacts a{display:inline-flex;align-items:center;gap:9px;padding:13px 20px;border-radius:100px;
+  border:1px solid var(--line);font-family:'Archivo';font-weight:700;font-size:13px;letter-spacing:.04em;
+  transition:.3s var(--ease);}
+.contacts a:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);}
+.contacts a.yt:hover{border-color:var(--accent2);color:var(--accent2);}
+
+/* reveal animation per active panel */
+.panel .inner > *,.intro > *{opacity:0;transform:translateY(26px);
+  transition:opacity .7s var(--ease),transform .7s var(--ease);}
+.panel.active .inner > *,.panel.active.intro > *{opacity:1;transform:none;}
+.panel.active .inner > *:nth-child(2){transition-delay:.06s;}
+.panel.active .inner > *:nth-child(3){transition-delay:.12s;}
+.panel.active .inner > *:nth-child(4){transition-delay:.18s;}
+.panel.active .inner > *:nth-child(5){transition-delay:.24s;}
+.panel.active .inner > *:nth-child(6){transition-delay:.30s;}
+.panel.active.show .bg{transition:transform 1.4s var(--ease);transform:scale(1.0);}
+
+/* ---------- MOBILE: vertical scroll-snap ---------- */
+@media (max-width:760px), (pointer:coarse){
+  html,body{overflow:auto;height:auto;}
+  .viewport{position:static;overflow:visible;}
+  .track{display:block;height:auto;transform:none!important;}
+  .panel{flex:none;width:100%;height:100vh;height:100dvh;scroll-snap-align:start;}
+  .scroll-cue,.dots{display:none;}
+  body{scroll-snap-type:y mandatory;}
+  .panel .inner > *,.intro > *{opacity:1;transform:none;}
+  .show .shade{background:
+    linear-gradient(0deg, rgba(8,5,7,.94) 4%, rgba(8,5,7,.4) 40%, transparent 70%);}
+  .show .inner{max-width:none;}
+  .fx-cols{grid-template-columns:1fr;}
+  .counts{gap:22px;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .panel .inner > *,.intro > *{opacity:1!important;transform:none!important;transition:none!important;}
+  .scroll-cue .ln::after{animation:none;}
+}
+</style>
+
+<div class="progress"><i id="bar"></i></div>
+
+<div class="hud">
+  <div class="hud-row">
+    <a class="brand-mini" href="#" onclick="return false">
+      <img src="../assets/dragon-light.png" alt="Steam Show">
+      <b>Steam&nbsp;Show</b>
+    </a>
+    <a class="hud-yt" href="https://www.youtube.com/@SteamShowby" target="_blank" rel="noopener">YouTube ↗</a>
+  </div>
+</div>
+
+<div class="viewport">
+  <div class="track" id="track"></div>
+</div>
+
+<div class="dots" id="dots"></div>
+<div class="scroll-cue"><span>Scroll</span><span class="ln"></span></div>
+
+<script src="media.js"></script>
+<script src="lib.js"></script>
+<script>
+(function(){
+  const track=document.getElementById('track');
+  const ORDER=SS.ORDER;
+
+  /* ---------- BUILD PANELS ---------- */
+  const panels=[];
+
+  // 0 — intro
+  panels.push(`
+    <section class="panel intro" data-i="0">
+      <div class="glow"></div>
+      <img class="intro-logo" src="../assets/dragon-light.png" alt="">
+      <h1>Steam<span class="l2">Show</span></h1>
+      <p class="tag">Fire <span class="sep">·</span> LED <span class="sep">·</span> Dragons <span class="sep">·</span> Worldwide</p>
+      <div class="cta">
+        <button class="btn btn-primary" id="exploreBtn">Explore shows <span class="ar">→</span></button>
+        <button class="btn btn-ghost" onclick="SS.openReel()">▶ Watch reel</button>
+      </div>
+    </section>`);
+
+  // 1..5 — one per show
+  ORDER.forEach((id,n)=>{
+    const s=SS.SHOWS[id], c=SS.counts(id), cover=SS.cover(id);
+    const total=ORDER.length;
+    panels.push(`
+    <section class="panel show" data-i="${n+1}" data-id="${id}">
+      <div class="bg" style="background-image:url('${cover}')"></div>
+      <div class="shade"></div>
+      <div class="inner">
+        <div class="idx">${String(n+1).padStart(2,'0')} <em>/ ${String(total).padStart(2,'0')}</em></div>
+        <div class="show-type">${s.type}</div>
+        <h2>${s.name}</h2>
+        <p class="desc">${s.desc}</p>
+        <div class="counts">
+          <div class="c"><b>${c.p}</b><span>Photos</span></div>
+          <div class="c"><b>${c.v}</b><span>Videos</span></div>
+          ${c.c?`<div class="c"><b>${c.c}</b><span>Costumes</span></div>`:''}
+        </div>
+        <div><button class="btn btn-primary" onclick="SS.openProgram('${id}')">Open gallery <span class="ar">→</span></button></div>
+      </div>
+    </section>`);
+  });
+
+  // last — effects + worldwide + contacts
+  panels.push(`
+    <section class="panel outro" data-i="${ORDER.length+1}">
+      <div class="inner">
+        <div class="show-type">Bring the spectacle</div>
+        <h2>Light it <span>up.</span></h2>
+        <p class="lede">From a flame-breathing dragon to glowing giants — engineered for galas, festivals and brand activations across the globe.</p>
+        <div class="fx-cols">
+          <div>
+            <div class="fx-h">Usually included</div>
+            <div class="tags">
+              <span class="tag-chip">Flamethrowers</span>
+              <span class="tag-chip">Fire cannons</span>
+              <span class="tag-chip">Fire cubes</span>
+              <span class="tag-chip">Pyrotechnics</span>
+            </div>
+          </div>
+          <div>
+            <div class="fx-h">On request</div>
+            <div class="tags">
+              <span class="tag-chip req">Paper show</span>
+              <span class="tag-chip req">Fire hearts</span>
+              <span class="tag-chip req">Confetti</span>
+            </div>
+          </div>
+        </div>
+        <div class="world">
+          <span>Europe</span><span class="sep">·</span><span>The Gulf</span><span class="sep">·</span>
+          <span>Middle East</span><span class="sep">·</span><span><em>20+</em> countries</span>
+        </div>
+        <div class="contacts">
+          <a href="https://instagram.com/steamshow" target="_blank" rel="noopener">Instagram ↗</a>
+          <a href="mailto:info@steamshow.by">Email ↗</a>
+          <a href="https://wa.me/" target="_blank" rel="noopener">WhatsApp ↗</a>
+          <a href="https://t.me/" target="_blank" rel="noopener">Telegram ↗</a>
+          <a class="yt" href="https://www.youtube.com/@SteamShowby" target="_blank" rel="noopener">YouTube ↗</a>
+        </div>
+      </div>
+    </section>`);
+
+  track.innerHTML=panels.join('');
+  const sections=[...track.querySelectorAll('.panel')];
+  const N=sections.length;
+
+  /* ---------- DOTS ---------- */
+  const dotsWrap=document.getElementById('dots');
+  const labels=['Intro',...ORDER.map(id=>SS.SHOWS[id].name),'Contact'];
+  sections.forEach((_,i)=>{
+    const b=document.createElement('button');
+    b.title=labels[i]||('Panel '+(i+1));
+    b.addEventListener('click',()=>goTo(i));
+    dotsWrap.appendChild(b);
+  });
+  const dots=[...dotsWrap.children];
+  const bar=document.getElementById('bar');
+
+  /* ---------- DETECT MODE ---------- */
+  const mqMobile=window.matchMedia('(max-width:760px), (pointer:coarse)');
+  const reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  let target=0, current=0, idx=0, raf=null, vw=window.innerWidth;
+  function maxScroll(){return (N-1)*vw;}
+
+  function setActive(i){
+    if(i===idx)return;
+    idx=i;
+    sections.forEach((s,k)=>s.classList.toggle('active',k===i));
+    dots.forEach((d,k)=>d.classList.toggle('on',k===i));
+  }
+
+  function applyTransform(x){
+    track.style.transform='translate3d('+(-x)+'px,0,0)';
+    const prog=maxScroll()?(x/maxScroll()):0;
+    bar.style.width=(prog*100)+'%';
+    const near=Math.round(x/vw);
+    setActive(Math.max(0,Math.min(N-1,near)));
+  }
+
+  function loop(){
+    current+=(target-current)*(reduce?1:0.09);
+    if(Math.abs(target-current)<0.5){current=target;applyTransform(current);raf=null;return;}
+    applyTransform(current);
+    raf=requestAnimationFrame(loop);
+  }
+  function kick(){if(!raf)raf=requestAnimationFrame(loop);}
+
+  function goTo(i){
+    if(mqMobile.matches){sections[i].scrollIntoView({behavior:reduce?'auto':'smooth'});return;}
+    i=Math.max(0,Math.min(N-1,i));
+    target=i*vw;
+    if(reduce){current=target;applyTransform(current);setActive(i);} else kick();
+  }
+
+  /* ---------- DESKTOP: wheel -> horizontal ---------- */
+  function onWheel(e){
+    if(mqMobile.matches)return;
+    // если открыт overlay галереи — не перехватываем
+    const ov=document.getElementById('ssOv');
+    if(ov&&ov.classList.contains('on'))return;
+    const lb=document.getElementById('ssLb');
+    if(lb&&lb.classList.contains('on'))return;
+    e.preventDefault();
+    const d=Math.abs(e.deltaY)>=Math.abs(e.deltaX)?e.deltaY:e.deltaX;
+    target=Math.max(0,Math.min(maxScroll(),target+d));
+    kick();
+  }
+  window.addEventListener('wheel',onWheel,{passive:false});
+
+  /* keyboard */
+  window.addEventListener('keydown',e=>{
+    const ov=document.getElementById('ssOv'),lb=document.getElementById('ssLb');
+    if((ov&&ov.classList.contains('on'))||(lb&&lb.classList.contains('on')))return;
+    if(mqMobile.matches)return;
+    if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();goTo(idx+1);}
+    if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();goTo(idx-1);}
+    if(e.key==='Home'){goTo(0);}
+    if(e.key==='End'){goTo(N-1);}
+  });
+
+  /* touch swipe on desktop-ish touch (when horizontal mode active) */
+  let tx=0,ty=0,swiping=false;
+  window.addEventListener('touchstart',e=>{
+    if(mqMobile.matches)return;
+    tx=e.touches[0].clientX;ty=e.touches[0].clientY;swiping=true;
+  },{passive:true});
+  window.addEventListener('touchmove',e=>{
+    if(mqMobile.matches||!swiping)return;
+    const dx=tx-e.touches[0].clientX, dy=ty-e.touches[0].clientY;
+    if(Math.abs(dx)>Math.abs(dy)){
+      target=Math.max(0,Math.min(maxScroll(),target+dx*1.4));
+      tx=e.touches[0].clientX;ty=e.touches[0].clientY;kick();
+    }
+  },{passive:true});
+  window.addEventListener('touchend',()=>{swiping=false;if(!mqMobile.matches)goTo(Math.round(target/vw));});
+
+  document.getElementById('exploreBtn').addEventListener('click',()=>goTo(1));
+
+  /* ---------- MOBILE: observe active panel for dots/bar ---------- */
+  function setupMobile(){
+    const io=new IntersectionObserver(es=>{
+      es.forEach(en=>{if(en.isIntersecting){
+        const i=sections.indexOf(en.target);
+        sections.forEach((s,k)=>s.classList.toggle('active',k===i));
+      }});
+    },{threshold:0.5});
+    sections.forEach(s=>io.observe(s));
+  }
+
+  /* ---------- INIT / RESIZE ---------- */
+  function init(){
+    if(mqMobile.matches){
+      track.style.transform='';
+      sections[0].classList.add('active');
+      setupMobile();
+    }else{
+      vw=window.innerWidth;
+      sections[0].classList.add('active');
+      dots[0].classList.add('on');
+      applyTransform(0);
+    }
+  }
+  let rt=null;
+  window.addEventListener('resize',()=>{
+    clearTimeout(rt);
+    rt=setTimeout(()=>{
+      if(mqMobile.matches)return;
+      vw=window.innerWidth;
+      target=idx*vw;current=target;applyTransform(current);
+    },120);
+  });
+
+  init();
+})();
+</script>
