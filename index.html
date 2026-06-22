@@ -1,33 +1,334 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Steam Show</title>
-  <style>
-    :root { color-scheme: dark; }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-      background: #14110e;
-      color: #e8e2d8;
-    }
-    main { text-align: center; padding: 2rem; }
-    h1 {
-      font-size: clamp(2.5rem, 8vw, 5rem);
-      letter-spacing: 0.04em;
-      margin-bottom: 0.5rem;
-    }
-    p { opacity: 0.6; font-size: 1.1rem; }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Steam Show — Fire, LED &amp; Dragon Performances Worldwide</title>
+  <meta name="description" content="Steam Show — large-scale fire, LED and stilt-walking performances for festivals, weddings and corporate events worldwide. Dragon fire shows, flame cannons, LED costumes and more." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Steam Show — Fire, LED &amp; Dragon Performances" />
+  <meta property="og:description" content="Large-scale fire, LED and stilt shows for events worldwide." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/Logo_final.png" />
+
+  <link rel="icon" type="image/png" href="assets/Logo_final.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main>
-    <h1>Steam Show</h1>
-    <p>Hello World — coming soon.</p>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="header">
+    <a class="brand" href="#top" aria-label="Steam Show — home">
+      <img src="assets/Logo_final.png" alt="Steam Show" class="brand__logo" />
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      <a href="#shows">Shows</a>
+      <a href="#effects">Effects</a>
+      <a href="#world">Worldwide</a>
+      <a href="#about">About</a>
+    </nav>
+
+    <a href="#contact" class="btn btn--ghost nav__cta">Book us</a>
+
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <!-- mobile drawer -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <a href="#shows">Shows</a>
+    <a href="#effects">Effects</a>
+    <a href="#world">Worldwide</a>
+    <a href="#about">About</a>
+    <a href="#contact" class="btn btn--fire">Book us</a>
+  </div>
+
+  <main id="top">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero">
+      <!-- VIDEO SLOT: replace the animated poster below with a real loop, e.g.
+           <video class="hero__video" autoplay muted loop playsinline poster="assets/hero-poster.jpg">
+             <source src="assets/hero.mp4" type="video/mp4" />
+           </video> -->
+      <div class="hero__media" aria-hidden="true">
+        <div class="hero__embers" id="embers"></div>
+      </div>
+      <div class="hero__veil" aria-hidden="true"></div>
+
+      <div class="hero__content">
+        <p class="eyebrow reveal">Fire · LED · Dragons — worldwide</p>
+        <h1 class="hero__title reveal">
+          We set the stage <span class="ital">on&nbsp;fire.</span>
+        </h1>
+        <p class="hero__lead reveal">
+          Large-scale fire, LED and stilt-walking spectacles for festivals,
+          weddings and private events — performed across Europe, the Middle East
+          and beyond.
+        </p>
+        <div class="hero__actions reveal">
+          <a href="#shows" class="btn btn--fire">Explore our shows</a>
+          <button class="btn btn--ghost" data-yt="" data-title="Steam Show — Showreel">
+            <span class="play-dot"></span> Watch showreel
+          </button>
+        </div>
+      </div>
+
+      <a href="#shows" class="hero__scroll" aria-label="Scroll down">
+        <span></span>
+      </a>
+    </section>
+
+    <!-- ============ MARQUEE ============ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Dragon Fire Show</span><i>✦</i>
+        <span>Classic Fire Show</span><i>✦</i>
+        <span>LED Fire Show</span><i>✦</i>
+        <span>LED Show</span><i>✦</i>
+        <span>Stilt Walkers</span><i>✦</i>
+        <span>Pyrotechnics</span><i>✦</i>
+        <span>Flame Cannons</span><i>✦</i>
+        <span>Dragon Fire Show</span><i>✦</i>
+        <span>Classic Fire Show</span><i>✦</i>
+        <span>LED Fire Show</span><i>✦</i>
+        <span>LED Show</span><i>✦</i>
+        <span>Stilt Walkers</span><i>✦</i>
+        <span>Pyrotechnics</span><i>✦</i>
+        <span>Flame Cannons</span><i>✦</i>
+      </div>
+    </div>
+
+    <!-- ============ SHOWS / CATALOGUE ============ -->
+    <section class="section shows" id="shows">
+      <div class="section__head reveal">
+        <p class="eyebrow">The catalogue</p>
+        <h2 class="section__title">Choose your spectacle</h2>
+        <p class="section__sub">
+          Every programme below can be tailored to your venue and scaled up with
+          extra effects. Filter, watch, and pick what fits your event.
+        </p>
+      </div>
+
+      <div class="filters reveal" id="filters" role="tablist" aria-label="Filter shows">
+        <button class="chip is-active" data-filter="all">All</button>
+        <button class="chip" data-filter="dragon">Dragon</button>
+        <button class="chip" data-filter="fire">Fire</button>
+        <button class="chip" data-filter="led">LED</button>
+        <button class="chip" data-filter="stilts">Stilt walkers</button>
+      </div>
+
+      <div class="grid" id="grid">
+
+        <!-- Dragon Fire Show -->
+        <article class="card" data-cats="dragon fire" data-yt="" data-title="Dragon Fire Show">
+          <div class="card__media" data-tone="dragon">
+            <span class="card__tag">Signature</span>
+            <span class="card__play"><span class="play-dot"></span></span>
+          </div>
+          <div class="card__body">
+            <h3 class="card__title">Dragon Fire Show</h3>
+            <p class="card__text">
+              Our signature act — a living mechanical dragon breathing real fire.
+              Cinematic, larger-than-life and unmistakably ours.
+            </p>
+            <ul class="card__meta"><li>Fire</li><li>Dragon</li><li>Headliner</li></ul>
+          </div>
+        </article>
+
+        <!-- Classic Fire Show -->
+        <article class="card" data-cats="fire" data-yt="" data-title="Classic Fire Show">
+          <div class="card__media" data-tone="fire">
+            <span class="card__play"><span class="play-dot"></span></span>
+          </div>
+          <div class="card__body">
+            <h3 class="card__title">Classic Fire Show</h3>
+            <p class="card__text">
+              Big, bold fire choreography — staged in the style you need:
+              fantasy, post-apocalyptic or rock. Flame cubes, fans and fire-breathing.
+            </p>
+            <ul class="card__meta"><li>Fantasy</li><li>Post-apoc</li><li>Rock</li></ul>
+          </div>
+        </article>
+
+        <!-- LED Fire Show -->
+        <article class="card" data-cats="fire led" data-yt="" data-title="LED Fire Show">
+          <div class="card__media" data-tone="ledfire">
+            <span class="card__play"><span class="play-dot"></span></span>
+          </div>
+          <div class="card__body">
+            <h3 class="card__title">LED Fire Show</h3>
+            <p class="card__text">
+              Fire performance in glowing LED costumes — the heat of flame meets
+              programmable light for a hybrid, high-energy spectacle.
+            </p>
+            <ul class="card__meta"><li>Fire</li><li>LED</li><li>Hybrid</li></ul>
+          </div>
+        </article>
+
+        <!-- LED Show -->
+        <article class="card" data-cats="led" data-yt="" data-title="LED Show">
+          <div class="card__media" data-tone="led">
+            <span class="card__play"><span class="play-dot"></span></span>
+          </div>
+          <div class="card__body">
+            <h3 class="card__title">LED Show</h3>
+            <p class="card__text">
+              Pure light performance with multiple costume options — sleek,
+              futuristic and perfect for indoor stages and galas.
+            </p>
+            <ul class="card__meta"><li>LED</li><li>Multiple looks</li><li>Indoor-ready</li></ul>
+          </div>
+        </article>
+
+        <!-- Stilt Walkers -->
+        <article class="card" data-cats="stilts" data-yt="" data-title="Stilt Walkers">
+          <div class="card__media" data-tone="stilts">
+            <span class="card__play"><span class="play-dot"></span></span>
+          </div>
+          <div class="card__body">
+            <h3 class="card__title">Stilt Walkers</h3>
+            <p class="card__text">
+              A wardrobe of striking stilt characters — booked as roaming
+              animation or built into a full stilt-walking show.
+            </p>
+            <ul class="card__meta"><li>Animation</li><li>Full show</li><li>Many costumes</li></ul>
+          </div>
+        </article>
+
+        <!-- Custom -->
+        <article class="card card--cta" data-cats="dragon fire led stilts">
+          <div class="card__body">
+            <h3 class="card__title">Your own show</h3>
+            <p class="card__text">
+              Mixing acts, matching a theme, scaling for a stadium — tell us the
+              event and we’ll design the programme around it.
+            </p>
+            <a href="#contact" class="btn btn--fire">Build a programme</a>
+          </div>
+        </article>
+
+      </div>
+      <p class="grid__empty" id="gridEmpty" hidden>Nothing in this category yet.</p>
+    </section>
+
+    <!-- ============ EFFECTS ============ -->
+    <section class="section effects" id="effects">
+      <div class="section__head reveal">
+        <p class="eyebrow">Add-ons</p>
+        <h2 class="section__title">Scale it up</h2>
+        <p class="section__sub">
+          Optional effects we can layer into any programme.
+        </p>
+      </div>
+      <div class="effects__list reveal">
+        <div class="fx">Pyrotechnics</div>
+        <div class="fx">Flame cannons</div>
+        <div class="fx">Flamethrowers</div>
+        <div class="fx">Fire cubes</div>
+        <div class="fx">Paper show</div>
+        <div class="fx">Fire hearts</div>
+        <div class="fx">Confetti</div>
+        <div class="fx">Stilt-walker fire</div>
+      </div>
+    </section>
+
+    <!-- ============ WORLDWIDE ============ -->
+    <section class="section world" id="world">
+      <div class="world__inner">
+        <div class="world__text reveal">
+          <p class="eyebrow">On the road</p>
+          <h2 class="section__title">We perform everywhere</h2>
+          <p class="section__sub">
+            Regulars on the European festival circuit and on contract across the
+            Middle East — and open to events anywhere in the world.
+          </p>
+          <div class="stats">
+            <div class="stat"><b>10+</b><span>years on stage</span></div>
+            <div class="stat"><b>20+</b><span>countries</span></div>
+            <div class="stat"><b>∞</b><span>events to come</span></div>
+          </div>
+        </div>
+        <ul class="world__places reveal">
+          <li>Europe — festivals</li>
+          <li>UAE</li>
+          <li>Qatar</li>
+          <li>Saudi Arabia</li>
+          <li>Oman</li>
+          <li>Turkey</li>
+          <li>Jordan</li>
+          <li>Worldwide on request</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="section about" id="about">
+      <div class="about__inner reveal">
+        <img src="assets/dragon_gold.png" alt="" class="about__dragon" aria-hidden="true" />
+        <div class="about__text">
+          <p class="eyebrow">Who we are</p>
+          <h2 class="section__title">We are the dragons</h2>
+          <p class="section__sub">
+            Steam Show is a performance team built around one idea: spectacle that
+            people remember. Fire, light and characters that turn an event into a
+            story — engineered to be safe, scalable and unforgettable.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section contact" id="contact">
+      <div class="contact__inner reveal">
+        <p class="eyebrow">Get in touch</p>
+        <h2 class="section__title">Let’s light up your event</h2>
+        <p class="section__sub">
+          Tell us the date, the place and the vibe — we’ll send a tailored offer.
+        </p>
+        <div class="contact__links">
+          <a href="mailto:hello@steamshow.com" class="clink">
+            <span class="clink__k">Email</span>
+            <span class="clink__v">hello@steamshow.com</span>
+          </a>
+          <a href="#" class="clink">
+            <span class="clink__k">Instagram</span>
+            <span class="clink__v">@steamshow</span>
+          </a>
+          <a href="#" class="clink">
+            <span class="clink__k">WhatsApp / Telegram</span>
+            <span class="clink__v">Message us</span>
+          </a>
+          <a href="#" class="clink">
+            <span class="clink__k">YouTube</span>
+            <span class="clink__v">Watch our channel</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
   </main>
+
+  <footer class="footer">
+    <span>© <span id="year"></span> Steam Show</span>
+    <span class="footer__tag">Fire · LED · Dragons — worldwide</span>
+  </footer>
+
+  <!-- ============ LIGHTBOX ============ -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+    <button class="lightbox__close" id="lightboxClose" aria-label="Close">×</button>
+    <div class="lightbox__frame" id="lightboxFrame"></div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
