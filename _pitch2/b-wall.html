@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Steam Show — Hybrid B · Wall</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+<style>
+  /* ===== HERO B — живая фото-стена (клик по кадру → шоу) ===== */
+  .hero-wall{position:relative;height:100svh;min-height:600px;overflow:hidden;background:var(--bg);
+    display:flex;flex-direction:column;justify-content:center;gap:clamp(8px,1.4vw,16px);padding:clamp(8px,1.4vw,16px) 0}
+  .row{display:flex;gap:clamp(8px,1.4vw,16px);width:max-content;flex-shrink:0;will-change:transform}
+  .row.r1{animation:slideL 72s linear infinite}
+  .row.r2{animation:slideR 90s linear infinite}
+  .row.r3{animation:slideL 62s linear infinite}
+  .row.r4{animation:slideR 98s linear infinite}
+  @keyframes slideL{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes slideR{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+  .tile{position:relative;flex:0 0 auto;width:clamp(160px,20vw,300px);height:clamp(118px,14vw,210px);
+    border-radius:12px;overflow:hidden;cursor:pointer;background:#000;border:1px solid rgba(255,255,255,.05);
+    transition:transform .45s var(--ease),filter .45s ease,box-shadow .45s ease}
+  .tile img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+  .tile .tag{position:absolute;left:10px;bottom:9px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+    padding:4px 9px;border-radius:100px;background:rgba(10,7,8,.55);backdrop-filter:blur(6px);
+    opacity:0;transform:translateY(6px);transition:.4s ease;font-weight:500;border:1px solid rgba(255,255,255,.12)}
+  .hero-wall.hovering .tile{filter:brightness(.4) saturate(.7)}
+  .hero-wall.hovering .tile:hover{filter:brightness(1.08) saturate(1.1);transform:scale(1.12);z-index:5;
+    box-shadow:0 24px 60px -18px rgba(0,0,0,.9),0 0 0 1px var(--fire)}
+  .tile:hover img{transform:scale(1.12)}
+  .tile:hover .tag{opacity:1;transform:none}
+  .scrim{position:absolute;inset:0;z-index:10;pointer-events:none;
+    background:
+      radial-gradient(120% 90% at 50% 50%,rgba(10,7,8,.32) 0%,rgba(10,7,8,.78) 55%,rgba(10,7,8,.95) 100%),
+      linear-gradient(180deg,rgba(10,7,8,.55),transparent 22%,transparent 72%,var(--bg));
+    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
+  .scrim>*{pointer-events:auto}
+  .hero-kicker{font-size:clamp(11px,1.1vw,13px);letter-spacing:.42em;text-transform:uppercase;
+    color:var(--fire);margin-bottom:18px}
+  .hero-title{font-size:clamp(64px,15vw,230px);
+    background:linear-gradient(92deg,var(--ember),var(--fire) 42%,#fff 74%,var(--gold-2));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 6px 40px rgba(255,90,31,.25))}
+  .hero-tagline{font-size:clamp(14px,1.7vw,20px);max-width:32ch;color:#e3d8cc;margin-top:18px;line-height:1.4}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:30px}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:15px 28px;border-radius:100px;
+    font-size:.82rem;font-weight:600;letter-spacing:.04em;transition:.25s;border:1px solid var(--line-2);color:var(--text)}
+  .btn.solid{background:var(--fire);color:#180603;border-color:transparent}
+  .btn.solid:hover{transform:translateY(-2px);box-shadow:0 14px 36px -12px var(--fire)}
+  .btn.ghost:hover{border-color:var(--text);background:rgba(255,255,255,.05)}
+  .scroll-hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:11;
+    font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--faint);
+    display:flex;flex-direction:column;align-items:center;gap:8px;animation:bob 2.4s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,7px)}}
+  .scroll-hint .ln{width:1px;height:30px;background:linear-gradient(var(--fire),transparent)}
+  @media(max-width:860px){
+    .row.r4{display:none}
+    .tile{width:clamp(132px,40vw,200px);height:clamp(98px,30vw,150px)}
+    .hero-wall.hovering .tile{filter:none}
+    .hero-wall.hovering .tile:hover{transform:scale(1.04)}
+  }
+  @media(prefers-reduced-motion:reduce){.row{animation:none!important}.scroll-hint{animation:none}}
+</style>
+</head>
+<body>
+
+<div id="sky"></div>
+<div id="embers" aria-hidden="true"></div>
+<div class="spine" id="spine" aria-hidden="true"><div class="spine__track"></div><div class="spine__fill" id="spineFill"></div></div>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top"><span class="mark"></span>Steam&nbsp;Show</a>
+    <nav class="nav-links">
+      <a href="#programs">Programs</a><a href="#world">Worldwide</a><a href="#contact">Contact</a>
+    </nav>
+    <a class="nav-cta" href="#contact">Book the show</a>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO B: photo wall -->
+  <header class="hero-wall" id="wall" aria-label="Steam Show photo wall">
+    <div class="scrim">
+      <div class="hero-kicker">Fire · LED · Stilts · Worldwide</div>
+      <h1 class="hero-title display">Steam<br>Show</h1>
+      <p class="hero-tagline">A wall of fire, light and giants. Every frame is a real moment from the show.</p>
+      <div class="hero-cta">
+        <a class="btn solid" href="#contact">▶ Watch reel</a>
+        <a class="btn ghost" href="#programs">Explore shows</a>
+      </div>
+    </div>
+    <div class="scroll-hint"><span>Scroll</span><span class="ln"></span></div>
+  </header>
+
+  <!-- TICKER -->
+  <div class="ticker" aria-hidden="true">
+    <div class="tt">
+      <b>Pyrotechnics</b><b>Flame cannons</b><b>Flamethrowers</b><b>Fire cubes</b><b>Fire hearts</b><b>Paper show</b><b>Confetti</b><b>Fire on stilts</b>
+      <b>Pyrotechnics</b><b>Flame cannons</b><b>Flamethrowers</b><b>Fire cubes</b><b>Fire hearts</b><b>Paper show</b><b>Confetti</b><b>Fire on stilts</b>
+    </div>
+  </div>
+
+  <!-- PROGRAMS -->
+  <section class="programs" id="programs">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="num">01 — Programs</span>
+        <h2 class="display">Five <em>worlds</em> of show.</h2>
+        <p>Pick one, or stack several into a single night — then load it up with effects. Every block opens a full gallery of photos, videos and costume options.</p>
+      </div>
+      <div class="pgrid" data-stagger>
+        <article class="card big c-fire reveal">
+          <img src="../assets/web/dragon/dragon-003.jpg" alt="Dragon fire show" loading="lazy" />
+          <div class="meta"><span class="kicker">Signature</span><h3 class="display">Dragon Fire Show</h3>
+            <div class="tags"><span>Headline act</span><span>Large-scale fire</span></div></div>
+        </article>
+        <article class="card tall c-ember reveal">
+          <img src="../assets/web/fire/fire-006.jpg" alt="Fire show" loading="lazy" />
+          <div class="meta"><span class="kicker">Fantasy · Post-apoc · Rock</span><h3 class="display">Fire Show</h3>
+            <div class="tags"><span>Your chosen style</span></div></div>
+        </article>
+        <article class="card std c-led reveal">
+          <img src="../assets/web/ledfire/ledfire-004.jpg" alt="LED fire show" loading="lazy" />
+          <div class="meta"><span class="kicker">Glow + Flame</span><h3 class="display">LED Fire Show</h3>
+            <div class="tags"><span>Light + real fire</span></div></div>
+        </article>
+        <article class="card std c-led reveal">
+          <img src="../assets/web/led/led-002.jpg" alt="LED show" loading="lazy" />
+          <div class="meta"><span class="kicker">Pure light</span><h3 class="display">LED Show</h3>
+            <div class="tags"><span>Many looks</span></div></div>
+        </article>
+        <article class="card std c-gold reveal">
+          <img src="../assets/web/stilts/stilts-005.jpg" alt="Stilt walkers" loading="lazy" />
+          <div class="meta"><span class="kicker">Animation or full show</span><h3 class="display">Stilt Walkers</h3>
+            <div class="tags"><span>Dozens of costumes</span></div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORLD -->
+  <section class="world" id="world">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="num">02 — Worldwide</span>
+        <h2 class="display">Booked across <em>the map</em>.</h2>
+      </div>
+      <div class="geo-grid">
+        <div class="reveal">
+          <p style="color:var(--muted);font-size:1.05rem;max-width:48ch">Regulars on the European festival circuit and on contract across the Gulf — and open to events anywhere in the world.</p>
+          <div class="geo-list">
+            <span class="geo-pill">Europe — festivals</span><span class="geo-pill">UAE</span>
+            <span class="geo-pill">Qatar</span><span class="geo-pill">Saudi Arabia</span>
+            <span class="geo-pill">Oman</span><span class="geo-pill">Jordan</span>
+            <span class="geo-pill">Turkey</span><span class="geo-pill world">Worldwide on request</span>
+          </div>
+          <p class="geo-note">The countries are just examples — name the city, and we bring the fire to it.</p>
+        </div>
+        <div class="reveal">
+          <div class="globe">
+            <div class="core"><b>WORLD</b><small>WIDE</small></div>
+            <span class="ping" style="top:30%;left:40%"></span>
+            <span class="ping" style="top:55%;left:62%;animation-delay:.8s"></span>
+            <span class="ping" style="top:68%;left:38%;animation-delay:1.5s"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="contact-card reveal">
+        <div class="contact-in">
+          <span class="num">Let's talk</span>
+          <h2 class="display">Book the <em>Steam Show</em>.</h2>
+          <p>Tell us the event, the country and the date — we'll bring the spectacle. Replies usually within a day.</p>
+          <div class="channels" data-stagger>
+            <a class="ch reveal" href="#"><span class="t">Instagram</span><span class="v display">@steamshow</span><span class="arrow">Follow →</span></a>
+            <a class="ch reveal" href="mailto:hello@steamshow.com"><span class="t">Email</span><span class="v display">hello@steamshow</span><span class="arrow">Write →</span></a>
+            <a class="ch reveal" href="#"><span class="t">Messengers</span><span class="v display">WhatsApp · TG</span><span class="arrow">Message →</span></a>
+            <a class="ch reveal" href="#"><span class="t">YouTube</span><span class="v display">Steam Show</span><span class="arrow">Watch →</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="foot-in"><span>© Steam Show — Fire · LED · Dragons</span><span>Hybrid B · Wall</span></div>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+  (function(){
+    var wall=document.getElementById('wall');
+    var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+    var mobile=matchMedia('(max-width:860px)').matches;
+    var P=window.SS_PHOTOS, names={dragon:'Dragon Fire',fire:'Fire Show',ledfire:'LED Fire',led:'LED Show',stilts:'Stilt Walkers'};
+    var pool=[]; Object.keys(P).forEach(function(k){ P[k].forEach(function(src){ pool.push({src:src,id:k,name:names[k]}); }); });
+    for(var i=pool.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=pool[i];pool[i]=pool[j];pool[j]=t;}
+    var nRows=mobile?3:4, rc=['r1','r2','r3','r4'], perRow=Math.max(8,Math.ceil(pool.length/nRows));
+    var frag=document.createDocumentFragment();
+    for(var r=0;r<nRows;r++){
+      var row=document.createElement('div'); row.className='row '+rc[r];
+      var html='';
+      for(var k=0;k<perRow;k++){ var t=pool[(r*perRow+k)%pool.length];
+        html+='<button class="tile" aria-label="'+t.name+'"><img loading="lazy" src="'+t.src+'" alt="'+t.name+'"/><span class="tag">'+t.name+'</span></button>'; }
+      row.innerHTML=html+html; frag.appendChild(row);
+    }
+    wall.insertBefore(frag,wall.firstChild);
+    if(!mobile){
+      wall.addEventListener('pointerover',function(e){ if(e.target.closest('.tile')) wall.classList.add('hovering'); });
+      wall.addEventListener('pointerout',function(e){ if(!e.relatedTarget||!e.relatedTarget.closest||!e.relatedTarget.closest('.tile')) wall.classList.remove('hovering'); });
+    }
+    if(reduce) document.querySelectorAll('.row').forEach(function(row){ row.style.transform='translateX(0)'; });
+  })();
+</script>
+</body>
+</html>

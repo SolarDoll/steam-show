@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Steam Show — гибриды (round 2)</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0a0708;color:#F7F1E8;font-family:"Space Grotesk",sans-serif;
+    min-height:100vh;padding:64px 24px;line-height:1.6;
+    background-image:radial-gradient(140% 90% at 50% 120%,rgba(255,90,31,.18),transparent 55%)}
+  .wrap{max-width:1100px;margin:0 auto}
+  h1{font-family:"Anton",sans-serif;font-size:clamp(2.2rem,6vw,4rem);text-transform:uppercase;line-height:.9;margin-bottom:14px}
+  h1 em{font-style:normal;color:transparent;-webkit-text-stroke:1.5px #FFB347}
+  .sub{color:#a89b8e;max-width:64ch;margin-bottom:14px}
+  .recipe{color:#a89b8e;max-width:70ch;margin-bottom:44px;font-size:.92rem;border-left:2px solid #FF5A1F;padding-left:16px}
+  .recipe b{color:#FFB347;font-weight:500}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}}
+  .c{display:flex;flex-direction:column;border:1px solid rgba(247,241,232,.14);border-radius:14px;
+    padding:30px;text-decoration:none;color:inherit;min-height:240px;transition:.35s}
+  .c:hover{transform:translateY(-5px);border-color:var(--a)}
+  .c .tag{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--a)}
+  .c h2{font-family:"Anton",sans-serif;text-transform:uppercase;font-size:1.9rem;margin:14px 0 10px}
+  .c p{color:#a89b8e;font-size:.92rem;flex:1}
+  .c .go{margin-top:16px;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--a)}
+  .c1{--a:#FF5A1F}.c2{--a:#FFB347}.c3{--a:#FF7A18}
+  .note{margin-top:42px;color:#6b6056;font-size:.84rem}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Гибриды — <em>round 2</em></h1>
+    <p class="sub">Одна общая база, три разных hero-скрина. Выбираем hero (остальное у всех одинаковое).</p>
+    <p class="recipe">База по твоему рецепту: <b>тёплый «saga»-фон со светяшками</b> (scroll-saga) + <b>вертикальная полоска-spine слева</b> (v3-saga) + <b>карточки шоу</b> (от Pulse, с приятным появлением) + <b>строка фишек</b> + <b>мир с глобусом</b> и <b>контакты</b> (neon-pulse / reel). База НЕ от Pulse — тёплая, огонь/золото.</p>
+    <div class="grid">
+      <a class="c c1" href="a-kinetic.html">
+        <span class="tag">A — Kinetic</span>
+        <h2>Kinetic</h2>
+        <p>Реальные фото сменяются на весь экран + крупная типографика + ротатор слова (We bring → Dragons / Fire / LED / Giants).</p>
+        <span class="go">Открыть →</span>
+      </a>
+      <a class="c c2" href="b-wall.html">
+        <span class="tag">B — Wall</span>
+        <h2>Wall</h2>
+        <p>Живая фото-стена из рядов (как навигация-витрина). Наведение гасит соседей и выделяет кадр. Крупный градиентный заголовок.</p>
+        <span class="go">Открыть →</span>
+      </a>
+      <a class="c c3" href="c-bigtype.html">
+        <span class="tag">C — BigType</span>
+        <h2>BigType</h2>
+        <p>Hero-видео на весь экран + огромные буквы с выделением словами цветом (Fire / light / &amp; dragons).</p>
+        <span class="go">Открыть →</span>
+      </a>
+    </div>
+    <p class="note">Раунд 1 (3 настроения) лежит рядом: <a href="../_pitch/index.html" style="color:#FFB347">_pitch/index.html</a></p>
+  </div>
+</body>
+</html>
