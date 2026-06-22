@@ -1,0 +1,349 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steam Show — Fire · LED · Stilts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0708;
+  --panel:#140d12;
+  --text:#f4f1ea;
+  --accent:#FF5A1F;
+  --accent2:#11d3ff;
+  --accent3:#ff2e9a;
+  --line:#2a2230;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:'Space Grotesk',system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none;}
+.display{font-family:'Anton',Impact,sans-serif;font-weight:400;letter-spacing:.01em;text-transform:uppercase;line-height:.86;}
+
+/* ============ PHOTO WALL HERO ============ */
+.wall{
+  position:relative;height:100svh;min-height:600px;overflow:hidden;
+  background:var(--bg);display:flex;flex-direction:column;justify-content:center;gap:clamp(8px,1.4vw,18px);
+  padding:clamp(8px,1.4vw,18px) 0;
+}
+.row{
+  display:flex;gap:clamp(8px,1.4vw,18px);width:max-content;flex-shrink:0;
+  will-change:transform;
+}
+.row.r1{animation:slideL 70s linear infinite;}
+.row.r2{animation:slideR 88s linear infinite;}
+.row.r3{animation:slideL 60s linear infinite;}
+.row.r4{animation:slideR 96s linear infinite;}
+@keyframes slideL{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+@keyframes slideR{from{transform:translateX(-50%);}to{transform:translateX(0);}}
+
+.tile{
+  position:relative;flex:0 0 auto;
+  width:clamp(160px,20vw,300px);height:clamp(118px,14vw,210px);
+  border-radius:12px;overflow:hidden;cursor:pointer;background:#000;
+  outline:0;border:1px solid rgba(255,255,255,.04);
+  transition:transform .45s cubic-bezier(.2,.7,.2,1), filter .45s ease, box-shadow .45s ease;
+}
+.tile img{width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .8s cubic-bezier(.2,.7,.2,1);}
+.tile .tag{
+  position:absolute;left:10px;bottom:9px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  padding:4px 9px;border-radius:100px;background:rgba(8,5,7,.55);backdrop-filter:blur(6px);
+  opacity:0;transform:translateY(6px);transition:.4s ease;font-weight:500;
+  border:1px solid rgba(255,255,255,.12);
+}
+.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(8,5,7,.5));
+  opacity:0;transition:.4s ease;}
+/* when hovering a row, dim siblings, pop the target */
+.wall.hovering .tile{filter:brightness(.42) saturate(.7);}
+.wall.hovering .tile:hover{
+  filter:brightness(1.08) saturate(1.1);transform:scale(1.12);z-index:5;
+  box-shadow:0 24px 60px -18px rgba(0,0,0,.9), 0 0 0 1px var(--accent);
+}
+.tile:hover img{transform:scale(1.12);}
+.tile:hover .tag,.tile:hover::after{opacity:1;transform:none;}
+
+/* scrim + hero copy */
+.scrim{
+  position:absolute;inset:0;z-index:10;pointer-events:none;
+  background:
+    radial-gradient(120% 90% at 50% 50%, rgba(10,7,8,.35) 0%, rgba(10,7,8,.78) 55%, rgba(10,7,8,.94) 100%),
+    linear-gradient(180deg, rgba(10,7,8,.55), transparent 22%, transparent 72%, var(--bg));
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  padding:24px;
+}
+.scrim>*{pointer-events:auto;}
+.kicker{font-size:clamp(11px,1.1vw,13px);letter-spacing:.42em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:18px;}
+.hero-title{
+  font-size:clamp(64px,15.5vw,250px);
+  background:linear-gradient(92deg,var(--accent3),var(--accent) 42%,#fff 72%,var(--accent2));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+  filter:drop-shadow(0 6px 40px rgba(255,90,31,.25));
+}
+.tagline{font-size:clamp(14px,1.7vw,20px);max-width:30ch;opacity:.85;margin-top:18px;line-height:1.4;}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:30px;}
+.btn{
+  font-family:inherit;font-size:14px;font-weight:700;letter-spacing:.04em;
+  padding:15px 30px;border-radius:100px;cursor:pointer;border:1px solid var(--line);
+  background:none;color:var(--text);transition:.25s ease;display:inline-flex;align-items:center;gap:9px;
+}
+.btn.solid{background:var(--accent);color:#160707;border-color:transparent;}
+.btn.solid:hover{transform:translateY(-2px);box-shadow:0 14px 36px -12px var(--accent);}
+.btn.ghost:hover{border-color:var(--text);background:rgba(255,255,255,.05);}
+.btn svg{width:15px;height:15px;}
+.scroll-hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:11;
+  font-size:11px;letter-spacing:.3em;text-transform:uppercase;opacity:.5;display:flex;flex-direction:column;
+  align-items:center;gap:8px;animation:bob 2.4s ease-in-out infinite;}
+@keyframes bob{0%,100%{transform:translate(-50%,0);}50%{transform:translate(-50%,7px);}}
+.scroll-hint .ln{width:1px;height:30px;background:linear-gradient(var(--accent),transparent);}
+
+/* ============ SHOWS NAV (text rows) ============ */
+.section{max-width:1200px;margin:0 auto;padding:clamp(70px,11vw,140px) clamp(20px,5vw,48px);}
+.sec-label{font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.sec-head{font-size:clamp(30px,5vw,56px);max-width:18ch;margin-bottom:clamp(34px,5vw,56px);
+  letter-spacing:-.01em;line-height:1.02;}
+
+.shows{border-top:1px solid var(--line);}
+.show-row{
+  display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:clamp(14px,3vw,40px);
+  padding:clamp(20px,3vw,34px) 4px;border-bottom:1px solid var(--line);cursor:pointer;
+  position:relative;transition:.35s ease;
+}
+.show-row .num{font-size:13px;opacity:.4;font-variant-numeric:tabular-nums;}
+.show-name{font-size:clamp(28px,5.4vw,62px);transition:.35s cubic-bezier(.2,.7,.2,1);
+  transform-origin:left center;}
+.show-type{font-size:13px;letter-spacing:.06em;opacity:.55;text-transform:uppercase;white-space:nowrap;}
+.show-count{font-size:13px;opacity:.55;font-variant-numeric:tabular-nums;white-space:nowrap;
+  display:flex;gap:14px;}
+.show-count b{color:var(--accent);font-weight:700;}
+.show-row .go{font-size:26px;opacity:0;transform:translateX(-8px);transition:.35s ease;color:var(--accent);}
+.show-row:hover{padding-left:clamp(10px,2vw,26px);}
+.show-row:hover .show-name{color:var(--accent);}
+.show-row:hover .go{opacity:1;transform:none;}
+.show-row::before{content:"";position:absolute;left:0;top:0;height:100%;width:0;
+  background:linear-gradient(90deg,rgba(255,90,31,.08),transparent);transition:.4s ease;z-index:-1;}
+.show-row:hover::before{width:100%;}
+
+/* ============ EFFECTS + REACH ============ */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,90px);align-items:start;}
+.fx-grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;}
+.chip{font-size:13px;padding:10px 17px;border-radius:100px;border:1px solid var(--line);
+  display:inline-flex;align-items:center;gap:9px;background:var(--panel);}
+.chip .dot{width:7px;height:7px;border-radius:50%;}
+.chip.inc .dot{background:var(--accent);}
+.chip.req .dot{background:var(--accent2);}
+.legend{display:flex;gap:22px;font-size:12px;opacity:.6;margin-top:18px;flex-wrap:wrap;}
+.legend span{display:inline-flex;align-items:center;gap:7px;}
+.legend i{width:7px;height:7px;border-radius:50%;display:inline-block;}
+
+.reach{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px;}
+.reach .place{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:clamp(22px,3.4vw,38px);
+  line-height:1;color:transparent;-webkit-text-stroke:1px rgba(244,241,234,.55);}
+.reach .place.fill{color:var(--accent);-webkit-text-stroke:1px var(--accent);}
+.reach .dotsep{align-self:center;opacity:.4;}
+
+/* ============ CONTACT ============ */
+.contact{background:var(--panel);border-top:1px solid var(--line);}
+.contact-inner{max-width:1200px;margin:0 auto;padding:clamp(60px,9vw,120px) clamp(20px,5vw,48px);}
+.big-cta{font-size:clamp(40px,9vw,120px);margin-bottom:clamp(36px,6vw,64px);
+  background:linear-gradient(92deg,#fff,var(--accent));-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;}
+.links{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;border-top:1px solid var(--line);}
+.link{display:flex;align-items:center;justify-content:space-between;padding:24px 6px;
+  border-bottom:1px solid var(--line);font-size:clamp(16px,2vw,21px);transition:.3s ease;cursor:pointer;}
+.link:hover{padding-left:16px;color:var(--accent);}
+.link .ch{opacity:.4;font-size:12px;letter-spacing:.2em;text-transform:uppercase;}
+.foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;margin-top:48px;
+  font-size:12px;opacity:.45;letter-spacing:.04em;}
+
+@media(max-width:860px){
+  .row.r4{display:none;}
+  .tile{width:clamp(132px,40vw,200px);height:clamp(98px,30vw,150px);}
+  .show-row{grid-template-columns:auto 1fr;gap:10px 16px;}
+  .show-type,.show-count{grid-column:2;font-size:12px;}
+  .show-count{order:3;}
+  .show-row .go{display:none;}
+  .split{grid-template-columns:1fr;}
+  .wall.hovering .tile{filter:none;}
+  .wall.hovering .tile:hover{transform:scale(1.04);}
+}
+@media(prefers-reduced-motion:reduce){
+  .row{animation:none !important;}
+  .scroll-hint{animation:none;}
+  html{scroll-behavior:auto;}
+}
+</style>
+
+<!-- ============ HERO: PHOTO WALL ============ -->
+<header class="wall" id="wall" aria-label="Steam Show photo wall — click any photo to open that show">
+  <!-- rows injected by JS -->
+  <div class="scrim">
+    <div class="kicker">Fire · LED · Stilts · Worldwide</div>
+    <h1 class="hero-title display">Steam<br>Show</h1>
+    <p class="tagline">A wall of fire, light and giants. Tap any frame to step into the show.</p>
+    <div class="hero-cta">
+      <button class="btn solid" id="reelBtn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        Watch reel
+      </button>
+      <a class="btn ghost" href="#shows">Explore shows</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>Scroll</span><span class="ln"></span></div>
+</header>
+
+<!-- ============ SHOWS NAV ============ -->
+<section class="section" id="shows">
+  <div class="sec-label">The repertoire</div>
+  <h2 class="sec-head display">Five shows.<br>Pick your spectacle.</h2>
+  <div class="shows" id="showList"></div>
+</section>
+
+<!-- ============ EFFECTS + REACH ============ -->
+<section class="section" style="padding-top:0">
+  <div class="split">
+    <div>
+      <div class="sec-label">Special effects</div>
+      <h3 class="sec-head display" style="font-size:clamp(24px,3.6vw,40px);margin-bottom:24px">Built into the act</h3>
+      <div class="fx-grid">
+        <span class="chip inc"><span class="dot"></span>Flamethrowers</span>
+        <span class="chip inc"><span class="dot"></span>Fire cubes</span>
+        <span class="chip inc"><span class="dot"></span>Pyrotechnics</span>
+        <span class="chip inc"><span class="dot"></span>LED costumes</span>
+        <span class="chip req"><span class="dot"></span>Cold sparks</span>
+        <span class="chip req"><span class="dot"></span>CO₂ jets</span>
+        <span class="chip req"><span class="dot"></span>Confetti</span>
+        <span class="chip req"><span class="dot"></span>Custom characters</span>
+      </div>
+      <div class="legend">
+        <span><i style="background:var(--accent)"></i>Usually included</span>
+        <span><i style="background:var(--accent2)"></i>On request</span>
+      </div>
+    </div>
+    <div>
+      <div class="sec-label">Where we play</div>
+      <h3 class="sec-head display" style="font-size:clamp(24px,3.6vw,40px);margin-bottom:24px">Worldwide</h3>
+      <div class="reach">
+        <span class="place fill">Europe</span><span class="dotsep">·</span>
+        <span class="place">The Gulf</span><span class="dotsep">·</span>
+        <span class="place">Middle East</span>
+      </div>
+      <p class="tagline" style="margin-top:22px;opacity:.7;max-width:34ch;text-align:left">Performed across <b style="color:var(--accent)">20+ countries</b> — from intimate galas to festival main stages.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<footer class="contact">
+  <div class="contact-inner">
+    <div class="sec-label">Get in touch</div>
+    <h2 class="big-cta display">Let's light it up</h2>
+    <div class="links">
+      <a class="link" href="https://www.instagram.com/steamshow.by/" target="_blank" rel="noopener"><span>Instagram</span><span class="ch">@steamshow.by</span></a>
+      <a class="link" href="mailto:steamshow.by@gmail.com"><span>Email</span><span class="ch">steamshow.by@gmail.com</span></a>
+      <a class="link" href="https://wa.me/375291234567" target="_blank" rel="noopener"><span>WhatsApp</span><span class="ch">Message us</span></a>
+      <a class="link" href="https://t.me/steamshow" target="_blank" rel="noopener"><span>Telegram</span><span class="ch">@steamshow</span></a>
+      <a class="link" href="https://www.youtube.com/@SteamShowby" target="_blank" rel="noopener"><span>YouTube</span><span class="ch">@SteamShowby</span></a>
+    </div>
+    <div class="foot">
+      <span>© Steam Show — Fire · LED · Stilt performance</span>
+      <span>Europe · The Gulf · Middle East</span>
+    </div>
+  </div>
+</footer>
+
+<script src="media.js"></script>
+<script src="lib.js"></script>
+<script>
+(function(){
+  var wall = document.getElementById('wall');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var mobile = window.matchMedia('(max-width:860px)').matches;
+
+  // ---- gather many real photos from ALL shows, tagged with program id ----
+  var pool = [];
+  SS.ORDER.forEach(function(id){
+    var ph = SS.data(id).photos || [];
+    ph.forEach(function(src){ pool.push({src:src, id:id, name:SS.SHOWS[id].name}); });
+  });
+  // shuffle (deterministic-ish Fisher-Yates)
+  for(var i=pool.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=pool[i];pool[i]=pool[j];pool[j]=t;}
+
+  var nRows = mobile ? 3 : 4;
+  var rowClass = ['r1','r2','r3','r4'];
+  // distribute pool across rows, ensure each row has enough tiles to fill width
+  var perRow = Math.max(8, Math.ceil(pool.length / nRows));
+
+  var frag = document.createDocumentFragment();
+  for(var r=0; r<nRows; r++){
+    var row = document.createElement('div');
+    row.className = 'row ' + rowClass[r];
+    // slice (wrap around the pool so every row is full and varied)
+    var tiles = [];
+    for(var k=0;k<perRow;k++){
+      tiles.push(pool[(r*perRow + k) % pool.length]);
+    }
+    // build one set of tile HTML, then duplicate it for seamless loop (translateX -50%)
+    var html = tiles.map(function(t){
+      return '<button class="tile" data-id="'+t.id+'" aria-label="Open '+t.name+'">'
+        + '<img loading="lazy" src="'+t.src+'" alt="'+t.name+'"/>'
+        + '<span class="tag">'+t.name+'</span></button>';
+    }).join('');
+    row.innerHTML = html + html; // duplicate => seamless
+    frag.appendChild(row);
+  }
+  // insert rows before the scrim (which is first child currently)
+  wall.insertBefore(frag, wall.firstChild);
+
+  // ---- click delegation: open the program for the tile ----
+  wall.addEventListener('click', function(e){
+    var tile = e.target.closest('.tile');
+    if(!tile) return;
+    SS.openProgram(tile.getAttribute('data-id'));
+  });
+
+  // ---- hover state: dim siblings (handled by CSS .wall.hovering) ----
+  if(!mobile){
+    wall.addEventListener('pointerover', function(e){
+      if(e.target.closest('.tile')) wall.classList.add('hovering');
+    });
+    wall.addEventListener('pointerout', function(e){
+      if(!e.relatedTarget || !e.relatedTarget.closest || !e.relatedTarget.closest('.tile')){
+        wall.classList.remove('hovering');
+      }
+    });
+  }
+
+  // ---- reel button ----
+  document.getElementById('reelBtn').addEventListener('click', function(){ SS.openReel(); });
+
+  // ---- build text-row show nav ----
+  var list = document.getElementById('showList');
+  list.innerHTML = SS.ORDER.map(function(id, i){
+    var s = SS.SHOWS[id], c = SS.counts(id);
+    var counts = '<span><b>'+c.p+'</b> photos</span><span><b>'+c.v+'</b> videos</span>'
+      + (c.c ? '<span><b>'+c.c+'</b> looks</span>' : '');
+    return '<div class="show-row" data-id="'+id+'">'
+      + '<span class="num">0'+(i+1)+'</span>'
+      + '<span class="show-name display">'+s.name+'</span>'
+      + '<span class="show-type">'+s.type+'</span>'
+      + '<span class="show-count">'+counts+'</span>'
+      + '<span class="go">→</span>'
+      + '</div>';
+  }).join('');
+  list.addEventListener('click', function(e){
+    var row = e.target.closest('.show-row');
+    if(row) SS.openProgram(row.getAttribute('data-id'));
+  });
+
+  // ---- reduced motion: freeze rows (CSS handles animation:none, ensure stable position) ----
+  if(reduce){
+    document.querySelectorAll('.row').forEach(function(row){ row.style.transform='translateX(0)'; });
+  }
+})();
+</script>
