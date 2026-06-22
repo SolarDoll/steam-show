@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steam Show — _pitch4 · 9 переделок</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#08080C;--bg2:#0F0F18;--ink:#EAEAF5;--muted:#9A9AB8;--line:rgba(255,255,255,.1);
+    --saga:#E6C877;--pulse:#2AD4FF;--reel:#FF7A18}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Inter",system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 28px}
+  header.top{padding:80px 0 30px;text-align:center}
+  header.top .eyebrow{font:600 12px/1 "Space Grotesk";letter-spacing:.3em;text-transform:uppercase;color:var(--pulse)}
+  header.top h1{font-family:"Space Grotesk";font-weight:700;font-size:clamp(34px,6vw,64px);margin:16px 0 14px;letter-spacing:-.02em}
+  header.top p{color:var(--muted);max-width:60ch;margin:0 auto;font-size:16px}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-top:26px;font-size:13px;color:var(--muted)}
+  .legend b{font-weight:600}
+  .feat{max-width:820px;margin:30px auto 0;padding:20px 24px;border:1px solid var(--line);border-radius:14px;background:var(--bg2);
+    font-size:14px;color:var(--muted)}
+  .feat b{color:var(--ink)}
+  .group{padding:46px 0 10px}
+  .group h2{font-family:"Space Grotesk";font-weight:700;font-size:26px;display:flex;align-items:center;gap:12px}
+  .group h2 .dot{width:12px;height:12px;border-radius:50%}
+  .group .gd{color:var(--muted);font-size:14.5px;margin:8px 0 24px;max-width:70ch}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--bg2);
+    transition:transform .25s,border-color .25s,box-shadow .25s}
+  .card:hover{transform:translateY(-5px);border-color:var(--ac);box-shadow:0 20px 50px -24px var(--ac)}
+  .card .vis{height:120px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:14px;
+    background:radial-gradient(120% 120% at 70% 10%,color-mix(in srgb,var(--ac) 55%,transparent),transparent 60%),
+      linear-gradient(160deg,#16161f,#0c0c14)}
+  .card .vis .tag{font:600 11px/1 "Space Grotesk";letter-spacing:.14em;text-transform:uppercase;color:var(--ac);
+    padding:6px 10px;border:1px solid color-mix(in srgb,var(--ac) 45%,transparent);border-radius:99px;background:rgba(0,0,0,.3)}
+  .card .body{padding:18px;flex:1;display:flex;flex-direction:column}
+  .card .nm{font-family:"Space Grotesk";font-weight:600;font-size:18px}
+  .card .meta{font-size:12.5px;color:var(--muted);margin-top:6px;letter-spacing:.02em}
+  .card .desc{font-size:13.5px;color:var(--muted);margin-top:12px;flex:1}
+  .card .open{margin-top:16px;font:600 13px/1 "Space Grotesk";color:var(--ac);display:inline-flex;gap:8px;align-items:center}
+  footer{padding:60px 0;text-align:center;color:var(--muted);font-size:13px}
+  @media(max-width:780px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Steam Show · pitch4</div>
+    <h1>9 переделок — 3 базы × 3 варианта</h1>
+    <p>Три базовых сайта (Saga / Pulse / Reel) переработаны по фидбэку. Общий набор фишек одинаков во всех; различаются <b>херо-скрин</b> и <b>подача карточек шоу</b>.</p>
+    <div class="feat">
+      <b>Во всех 9 вариантах:</b> карточки шоу с прикольным reveal-появлением · градиентный фон со светяшками (из scroll-saga) ·
+      бегущая строка фишек под херо · spine-навигация с узлами (из v3-saga) · блок «ездим по всему миру» — глобус с пингами (из neon-pulse) ·
+      контакты-каналы · реальные фото и галереи (клик по карточке/фото открывает галерею + лайтбокс с видео).
+    </div>
+    <div class="legend">
+      <span><b style="color:var(--saga)">●</b> Saga — тёплый gold/serif</span>
+      <span><b style="color:var(--pulse)">●</b> Pulse — неон cyan/magenta</span>
+      <span><b style="color:var(--reel)">●</b> Reel — кино/Anton</span>
+    </div>
+  </header>
+
+  <!-- SAGA -->
+  <section class="group" style="--ac:var(--saga)">
+    <h2><span class="dot" style="background:var(--saga)"></span>База A — Saga</h2>
+    <p class="gd">Кинематографичный тёплый скин: ночь, разгорающаяся в огонь по скроллу, золотой serif (Cormorant), эмберы.</p>
+    <div class="grid">
+      <a class="card" style="--ac:var(--saga)" href="saga-1.html">
+        <div class="vis"><span class="tag">Hero: фото-стена</span></div>
+        <div class="body"><div class="nm">Saga · Photo Wall</div>
+          <div class="meta">Карточки: ряды (pulse-стиль)</div>
+          <div class="desc">Херо — стена реальных фото, едущая в разные стороны (из r4-wall), с золотым serif-заголовком. Карточки въезжают clip-wipe'ом.</div>
+          <span class="open">Открыть →</span></div></a>
+      <a class="card" style="--ac:var(--saga)" href="saga-2.html">
+        <div class="vis"><span class="tag">Hero: кинетик-ротатор</span></div>
+        <div class="body"><div class="nm">Saga · Kinetic</div>
+          <div class="meta">Карточки: glow-сетка</div>
+          <div class="desc">Херо «We bring → Dragons/Fire/LED…» (из d5) на кроссфейде реальных фото. Карточки со светящейся рамкой.</div>
+          <span class="open">Открыть →</span></div></a>
+      <a class="card" style="--ac:var(--saga)" href="saga-3.html">
+        <div class="vis"><span class="tag">Hero: НОВОЕ · Ignition</span></div>
+        <div class="body"><div class="nm">Saga · Ignition</div>
+          <div class="meta">Карточки: кино-лента</div>
+          <div class="desc">Новая идея: заголовок «прожигается» огненным градиентом на загрузке + дракон-силуэт. Карточки — горизонтальная плёнка.</div>
+          <span class="open">Открыть →</span></div></a>
+    </div>
+  </section>
+
+  <!-- PULSE -->
+  <section class="group" style="--ac:var(--pulse)">
+    <h2><span class="dot" style="background:var(--pulse)"></span>База B — Pulse</h2>
+    <p class="gd">Неоновый скин: cyan/magenta/lime, Space Grotesk, дрейфующие неон-пятна, светящиеся рамки.</p>
+    <div class="grid">
+      <a class="card" style="--ac:var(--pulse)" href="pulse-1.html">
+        <div class="vis"><span class="tag">Hero: кинетик-ротатор</span></div>
+        <div class="body"><div class="nm">Pulse · Kinetic</div>
+          <div class="meta">Карточки: glow-сетка</div>
+          <div class="desc">Ротатор слов в неон-градиенте на кроссфейде фото. Карточки со светящейся неон-рамкой — здесь играют сильнее всего.</div>
+          <span class="open">Открыть →</span></div></a>
+      <a class="card" style="--ac:var(--pulse)" href="pulse-2.html">
+        <div class="vis"><span class="tag">Hero: большие буквы</span></div>
+        <div class="body"><div class="nm">Pulse · Big Type</div>
+          <div class="meta">Карточки: ряды</div>
+          <div class="desc">«Where fire meets the light» с неон-выделением + дракон в неон-кольцах со скан-линией (из 08). Карточки-ряды.</div>
+          <span class="open">Открыть →</span></div></a>
+      <a class="card" style="--ac:var(--pulse)" href="pulse-3.html">
+        <div class="vis"><span class="tag">Hero: НОВОЕ · Portal</span></div>
+        <div class="body"><div class="nm">Pulse · Portal</div>
+          <div class="meta">Карточки: кино-лента</div>
+          <div class="desc">Новая идея: дракон в расходящихся неон-кольцах + скан-линия + glitch-заголовок с RGB-расщеплением. Карточки — плёнка.</div>
+          <span class="open">Открыть →</span></div></a>
+    </div>
+  </section>
+
+  <!-- REEL -->
+  <section class="group" style="--ac:var(--reel)">
+    <h2><span class="dot" style="background:var(--reel)"></span>База C — Reel</h2>
+    <p class="gd">Киношный скин: Anton, перфорация плёнки, огненные градиенты, большие буквы с выделением цветом.</p>
+    <div class="grid">
+      <a class="card" style="--ac:var(--reel)" href="reel-1.html">
+        <div class="vis"><span class="tag">Hero: видео</span></div>
+        <div class="body"><div class="nm">Reel · Film</div>
+          <div class="meta">Карточки: кино-лента</div>
+          <div class="desc">Полноэкранное видео + киноплёнка + «Roll the Fire Reel» гигантским Anton. Карточки — горизонтальная плёнка с драгом.</div>
+          <span class="open">Открыть →</span></div></a>
+      <a class="card" style="--ac:var(--reel)" href="reel-2.html">
+        <div class="vis"><span class="tag">Hero: фото-стена</span></div>
+        <div class="body"><div class="nm">Reel · Photo Wall</div>
+          <div class="meta">Карточки: ряды</div>
+          <div class="desc">Стена реальных фото + большой Anton-заголовок с огненным/белым выделением. Карточки-ряды.</div>
+          <span class="open">Открыть →</span></div></a>
+      <a class="card" style="--ac:var(--reel)" href="reel-3.html">
+        <div class="vis"><span class="tag">Hero: НОВОЕ · Marquee</span></div>
+        <div class="body"><div class="nm">Reel · Marquee</div>
+          <div class="meta">Карточки: glow-сетка</div>
+          <div class="desc">Новая идея: слои гигантских контурных Anton-слов едут навстречу за заголовком (большие буквы + цвет). Карточки-glow.</div>
+          <span class="open">Открыть →</span></div></a>
+    </div>
+  </section>
+
+  <footer>Steam Show · _pitch4 — vanilla HTML/CSS/JS, реальные фото из assets/web. © <span id="yr"></span></footer>
+</div>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>

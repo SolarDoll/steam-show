@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steam Show — Pulse · Kinetic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="parts.css">
+<style>
+  :root{
+    --bg:#07070C; --bg2:#0C0C18; --ink:#EAEAF5; --muted:#9A9AB8;
+    --line:rgba(255,255,255,.09); --sky-top:#13314f;
+    --accent:#2AD4FF; --accent2:#FF2AD4; --accent3:#B6FF2A;
+    --display:"Space Grotesk","Inter",sans-serif; --body:"Inter",system-ui,sans-serif;
+  }
+  .grad-text{background:linear-gradient(100deg,var(--accent),var(--accent2) 55%,var(--accent3));
+    -webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 100%;animation:hue 8s linear infinite}
+  @keyframes hue{to{background-position:200% 0}}
+  /* HERO — кинетический ротатор (из d5), скин Pulse */
+  .kh{position:relative;height:100svh;min-height:620px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;
+    padding:0 clamp(20px,4vw,46px) clamp(34px,6vh,72px)}
+  .kh-bg{position:absolute;inset:0;z-index:0}
+  .kh-bg .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.12);
+    transition:opacity 1.4s ease,transform 6s linear;filter:saturate(1.15)}
+  .kh-bg .slide.on{opacity:1;transform:scale(1)}
+  .kh::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:radial-gradient(120% 80% at 50% 30%,transparent 28%,color-mix(in srgb,var(--bg) 60%,transparent) 100%),
+      linear-gradient(180deg,color-mix(in srgb,var(--bg) 55%,transparent) 0%,transparent 24%,transparent 48%,var(--bg) 100%)}
+  .kh::before{content:"";position:absolute;inset:0;z-index:1;mix-blend-mode:overlay;opacity:.5;pointer-events:none;
+    background:radial-gradient(60% 80% at 85% 30%,var(--accent2),transparent 60%),radial-gradient(50% 70% at 10% 80%,var(--accent),transparent 60%)}
+  .kh-in{position:relative;z-index:2}
+  .kh-eyebrow{display:inline-flex;align-items:center;gap:9px;font:600 12px/1 var(--display);letter-spacing:.28em;
+    text-transform:uppercase;color:var(--accent);padding:8px 14px;border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);
+    border-radius:99px;background:color-mix(in srgb,var(--accent) 5%,transparent);margin-bottom:20px}
+  .kh-eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);animation:kp 1.8s infinite}
+  @keyframes kp{0%,100%{opacity:.4;transform:scale(.8)}50%{opacity:1;transform:scale(1.25)}}
+  .kh h1{font-family:var(--display);font-weight:700;font-size:clamp(50px,12vw,150px);line-height:.92;color:var(--ink);letter-spacing:-.01em}
+  .kh .we{display:block}
+  .rotator{position:relative;display:inline-block;min-width:5em;height:1em;overflow:hidden;vertical-align:bottom}
+  .rotator .word{position:absolute;left:0;top:0;white-space:nowrap;opacity:0;transform:translateY(.6em);
+    transition:opacity .5s ease,transform .5s cubic-bezier(.2,.9,.2,1);
+    background:linear-gradient(100deg,var(--accent),var(--accent2) 55%,var(--accent3));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .rotator .word.on{opacity:1;transform:none}
+  .rotator .word.out{opacity:0;transform:translateY(-.6em)}
+  .kh-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:26px}
+  .kh-foot p{max-width:46ch;color:var(--muted);font-size:clamp(14px,1.5vw,17px)}
+  .kh-cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hbtn{font:600 14px/1 var(--display);letter-spacing:.03em;padding:15px 26px;border-radius:100px;transition:.25s;display:inline-flex;align-items:center;gap:9px}
+  .hbtn.solid{background:linear-gradient(100deg,var(--accent),var(--accent2));color:#07070C;box-shadow:0 0 28px color-mix(in srgb,var(--accent) 40%,transparent)}
+  .hbtn.solid:hover{transform:translateY(-2px);box-shadow:0 0 44px color-mix(in srgb,var(--accent2) 55%,transparent)}
+  .hbtn.ghost{border:1px solid rgba(255,255,255,.18);color:var(--ink);background:rgba(255,255,255,.02)}
+  .hbtn.ghost:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 0 22px color-mix(in srgb,var(--accent) 30%,transparent)}
+  .kh-dots{position:absolute;right:clamp(20px,4vw,46px);bottom:clamp(34px,6vh,72px);z-index:3;display:flex;flex-direction:column;gap:9px}
+  .kh-dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3);transition:.3s}
+  .kh-dots i.on{background:var(--accent);transform:scale(1.4)}
+  @media(max-width:760px){.kh-dots{display:none}}
+</style>
+</head>
+<body>
+
+<div id="sky"></div>
+<div id="embers" aria-hidden="true"></div>
+<div id="prog"></div>
+<div class="spine" id="spine" aria-hidden="true"><div class="spine__track"></div><div class="spine__fill" id="spineFill"></div></div>
+
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="#top"><img src="../assets/Logo_final.png" alt="Steam Show"><span class="nm">Steam Show</span></a>
+    <nav class="menu"><a href="#programs">Programs</a><a href="#fx">Effects</a><a href="#geo">Where</a><a href="#contact">Contact</a></nav>
+    <a class="nav-cta" href="#contact">Book the show</a>
+    <button class="nav-toggle" id="navBtn" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<main id="top">
+  <header class="kh">
+    <div class="kh-bg" id="khBg"></div>
+    <div class="kh-dots" id="khDots"></div>
+    <div class="kh-in">
+      <div class="kh-eyebrow"><span class="dot"></span> Live · Fire · Light</div>
+      <h1><span class="we">We bring</span><span class="rotator" id="rotator"></span></h1>
+      <div class="kh-foot">
+        <p>A touring spectacle of LED choreography, live fire and a fire-breathing mechanical dragon — engineered to light up festivals and arenas anywhere on earth.</p>
+        <div class="kh-cta">
+          <a class="hbtn solid" href="#contact">Book the show →</a>
+          <a class="hbtn ghost" href="#programs">See the programs</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="ticker" aria-hidden="true"><div class="tt">
+    <b>Pyrotechnics</b><b>Flame cannons</b><b>Flamethrowers</b><b>Fire cubes</b><b>Fire hearts</b><b>Paper show</b><b>Confetti</b><b>Stilt giants</b><b>LED couture</b><b>Dragon fire</b>
+    <b>Pyrotechnics</b><b>Flame cannons</b><b>Flamethrowers</b><b>Fire cubes</b><b>Fire hearts</b><b>Paper show</b><b>Confetti</b><b>Stilt giants</b><b>LED couture</b><b>Dragon fire</b>
+  </div></div>
+
+  <section id="programs" data-spine>
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="kicker">The repertoire</span>
+        <h2>Five programs, <span class="grad-text">one pulse</span>.</h2>
+        <p>From a fire-breathing dragon to walls of pure LED light — mix and match to score your event. Open any card for the full gallery.</p></div>
+      <div class="cards-glow" data-programs="glow"></div>
+    </div>
+  </section>
+
+  <section id="fx" data-spine>
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="kicker">Special effects</span><h2>Turn the moment <span class="grad-text">up to eleven</span>.</h2>
+        <p>Stackable effects to punctuate any cue — drops, reveals, finales.</p></div>
+      <div class="fx-grid">
+        <div class="fx reveal"><div class="fxn">Pyrotechnics</div><div class="fxd">Timed bursts & gerbs</div></div>
+        <div class="fx reveal"><div class="fxn">Flame cannons</div><div class="fxd">Tall vertical fireballs</div></div>
+        <div class="fx reveal"><div class="fxn">Flamethrowers</div><div class="fxd">Sweeping handheld jets</div></div>
+        <div class="fx reveal"><div class="fxn">Fire cubes</div><div class="fxd">Geometric flame props</div></div>
+        <div class="fx reveal"><div class="fxn">Paper show</div><div class="fxd">Tissue snowstorm drop</div></div>
+        <div class="fx reveal"><div class="fxn">Fire hearts</div><div class="fxd">Romantic burning frames</div></div>
+        <div class="fx reveal"><div class="fxn">Confetti</div><div class="fxd">Cannon & cryo blasts</div></div>
+        <div class="fx reveal" style="border-color:color-mix(in srgb,var(--accent) 40%,transparent)"><div class="fxn" style="color:var(--accent)">+ Custom</div><div class="fxd">Designed to your cue</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="geo" data-spine>
+    <div class="wrap geo-grid">
+      <div class="reveal from-left">
+        <span class="kicker">On tour</span>
+        <h2 style="font-size:clamp(30px,5vw,50px);line-height:1.04;margin-bottom:16px">From Europe's festivals<br><span class="grad-text">to the Gulf — and beyond</span></h2>
+        <p style="color:var(--muted);font-size:17px;margin:0 0 26px">A road-tested touring crew with full kit logistics. We bring the rig, the safety and the show to your venue.</p>
+        <div class="geo-list">
+          <span class="geo-pill">Europe festivals</span><span class="geo-pill">UAE</span><span class="geo-pill">Qatar</span>
+          <span class="geo-pill">Saudi Arabia</span><span class="geo-pill">Oman</span><span class="geo-pill">Turkey</span>
+          <span class="geo-pill">Jordan</span><span class="geo-pill world">Worldwide on request</span>
+        </div>
+      </div>
+      <div class="reveal from-right"><div class="globe">
+        <div class="core"><b>WORLD</b><small>WIDE</small></div>
+        <span class="ping" style="top:30%;left:40%"></span>
+        <span class="ping" style="top:55%;left:62%;animation-delay:.8s"></span>
+        <span class="ping" style="top:68%;left:38%;animation-delay:1.5s"></span>
+      </div></div>
+    </div>
+  </section>
+
+  <section id="contact" data-spine>
+    <div class="wrap"><div class="contact-card reveal"><div class="contact-in">
+      <span class="kicker" style="justify-content:center">Let's light it up</span>
+      <h2>Book the <span class="grad-text">Steam Show</span>.</h2>
+      <p>Tell us the venue, the date and the vibe. We'll design a fire-and-light run that fits your stage and your crowd.</p>
+      <div class="channels">
+        <a class="ch" href="#"><span class="lbl">Instagram</span><span class="val">@steamshow</span><span class="arrow2">Follow →</span></a>
+        <a class="ch" href="mailto:hello@steamshow.com"><span class="lbl">Email</span><span class="val">hello@steamshow</span><span class="arrow2">Write →</span></a>
+        <a class="ch" href="#"><span class="lbl">WhatsApp · Telegram</span><span class="val">Message us</span><span class="arrow2">Chat →</span></a>
+        <a class="ch" href="https://www.youtube.com/@SteamShowby" target="_blank" rel="noopener"><span class="lbl">YouTube</span><span class="val">@SteamShowby</span><span class="arrow2">Watch →</span></a>
+      </div>
+    </div></div></div>
+  </section>
+</main>
+
+<footer class="foot"><div class="wrap foot-in">
+  <div style="display:flex;align-items:center;gap:12px"><img src="../assets/Logo_final.png" alt="Steam Show"><span>Steam Show — Fire · LED · Dragons</span></div>
+  <div>© <span id="yr"></span> Steam Show — Pulse · Kinetic</div>
+</div></footer>
+
+<script src="media.js"></script>
+<script src="lib.js"></script>
+<script src="parts.js"></script>
+<script>
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var pools=SS.ORDER.map(function(id){return (SS.data(id).photos||[]).slice();}),pics=[];
+  for(var r=0;r<6;r++){pools.forEach(function(p){if(p[r])pics.push(p[r]);});}
+  if(!pics.length)pics=[SS.cover(SS.ORDER[0])];
+  var bg=document.getElementById('khBg'),dotsBox=document.getElementById('khDots'),max=Math.min(pics.length,8),slides=[];
+  for(var i=0;i<max;i++){var s=document.createElement('div');s.className='slide'+(i===0?' on':'');
+    s.style.backgroundImage='url("'+pics[i]+'")';bg.appendChild(s);slides.push(s);
+    var d=document.createElement('i');if(i===0)d.classList.add('on');dotsBox.appendChild(d);var im=new Image();im.src=pics[i];}
+  var dots=dotsBox.querySelectorAll('i'),cur=0;
+  function show(n){slides[cur].classList.remove('on');if(dots[cur])dots[cur].classList.remove('on');cur=n;
+    slides[cur].classList.add('on');if(dots[cur])dots[cur].classList.add('on');}
+  if(!reduce&&slides.length>1)setInterval(function(){show((cur+1)%slides.length);},3500);
+
+  var words=['Dragons.','Fire.','LED.','Giants.','the Light.'],rot=document.getElementById('rotator');
+  var spans=words.map(function(w,idx){var e=document.createElement('span');e.className='word'+(idx===0?' on':'');e.textContent=w;rot.appendChild(e);return e;});
+  rot.style.minWidth=Math.max.apply(null,words.map(function(w){return w.length;}))*0.6+'em';
+  var wi=0;
+  if(!reduce)setInterval(function(){spans[wi].classList.remove('on');spans[wi].classList.add('out');
+    var p=wi;wi=(wi+1)%spans.length;spans[wi].classList.remove('out');spans[wi].classList.add('on');
+    (function(pp){setTimeout(function(){spans[pp].classList.remove('out');},600);})(p);},2200);
+})();
+</script>
+</body>
+</html>

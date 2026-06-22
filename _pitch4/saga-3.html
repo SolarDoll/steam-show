@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steam Show — Saga · Ignition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="parts.css">
+<style>
+  :root{
+    --bg:#0B0810; --bg2:#1a0f0a; --ink:#EDE7DA; --muted:#9A8F86;
+    --line:rgba(200,162,75,.20); --sky-top:#28387a;
+    --accent:#E86C1E; --accent2:#E6C877; --accent3:#C8A24B;
+    --display:"Cormorant Garamond",serif; --body:"Manrope",system-ui,sans-serif;
+  }
+  /* HERO — НОВАЯ идея «Ember Ignition»: заголовок «прожигается» огнём на загрузке */
+  .ih{position:relative;min-height:100svh;display:grid;place-items:center;text-align:center;
+    padding:120px clamp(20px,5vw,40px) 80px;overflow:hidden;isolation:isolate}
+  .ih__bloom{position:absolute;left:50%;top:60%;transform:translate(-50%,-50%);z-index:0;pointer-events:none;
+    width:min(110vw,1000px);aspect-ratio:1;border-radius:50%;
+    background:radial-gradient(circle,rgba(255,120,40,.42),rgba(255,90,30,.12) 42%,transparent 64%);
+    filter:blur(34px);animation:bloom 7s ease-in-out infinite}
+  @keyframes bloom{0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}}
+  .ih__dragon{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);z-index:1;width:min(72vh,560px);
+    pointer-events:none;mix-blend-mode:screen;opacity:.9;
+    -webkit-mask-image:linear-gradient(180deg,#000 78%,transparent);mask-image:linear-gradient(180deg,#000 78%,transparent);
+    filter:drop-shadow(0 0 70px rgba(255,90,30,.5)) drop-shadow(0 0 28px rgba(255,179,71,.45));animation:ifloat 11s ease-in-out infinite}
+  @keyframes ifloat{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-50%,calc(-50% - 16px))}}
+  .ih__text{position:relative;z-index:3;max-width:20ch}
+  .ih .eyebrow{display:inline-block;font-family:var(--body);font-weight:600;font-size:12px;letter-spacing:.32em;
+    text-transform:uppercase;color:var(--accent2);margin-bottom:22px;opacity:0;animation:ifade 1s .2s ease forwards}
+  .ih h1{font-family:var(--display);font-weight:600;font-size:clamp(56px,12vw,150px);line-height:.9;letter-spacing:-.01em;color:#fff}
+  /* «прожигание» — огненный градиент въезжает по тексту */
+  .ih h1 .ignite{display:block;
+    background:linear-gradient(100deg,#fff 0%,var(--accent2) 30%,var(--accent) 55%,var(--accent3) 80%);
+    background-size:280% 100%;background-position:120% 0;
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:ignite 2.2s cubic-bezier(.16,1,.3,1) .35s forwards}
+  @keyframes ignite{to{background-position:0 0}}
+  .ih h1 .line{display:block;opacity:0;transform:translateY(28px);animation:ifadeUp 1.1s ease forwards}
+  .ih h1 .line:nth-child(1){animation-delay:.35s}
+  .ih h1 .line:nth-child(2){animation-delay:.55s}
+  @keyframes ifade{to{opacity:1}}
+  @keyframes ifadeUp{to{opacity:1;transform:none}}
+  .ih__lead{color:#e3d8cc;font-size:clamp(16px,2vw,20px);max-width:52ch;margin:28px auto 32px;opacity:0;animation:ifade 1.1s .9s ease forwards}
+  .ih__cta{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;opacity:0;animation:ifade 1.1s 1.1s ease forwards}
+  .hbtn{font-family:var(--body);font-weight:600;font-size:14px;letter-spacing:.03em;padding:15px 28px;border-radius:100px;
+    transition:.25s;display:inline-flex;align-items:center;gap:9px}
+  .hbtn.solid{background:linear-gradient(100deg,var(--accent),var(--accent2));color:#1a0902}
+  .hbtn.solid:hover{transform:translateY(-2px);box-shadow:0 14px 40px -10px var(--accent)}
+  .hbtn.ghost{border:1px solid rgba(255,255,255,.28);color:#fff;backdrop-filter:blur(4px)}
+  .hbtn.ghost:hover{border-color:var(--accent2);transform:translateY(-2px)}
+  .ih__hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:4;font-size:11px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;animation:ifade 1s 1.4s ease forwards}
+  .ih__hint .ln{width:1px;height:38px;background:linear-gradient(var(--accent2),transparent);animation:hintp 2.4s ease-in-out infinite}
+  @keyframes hintp{0%,100%{opacity:.4;transform:scaleY(.7)}50%{opacity:1;transform:scaleY(1)}}
+  @media(prefers-reduced-motion:reduce){
+    .ih h1 .ignite{background-position:0 0;animation:none}
+    .ih h1 .line,.ih .eyebrow,.ih__lead,.ih__cta,.ih__hint{opacity:1!important;transform:none!important;animation:none!important}
+  }
+</style>
+</head>
+<body>
+
+<div id="sky"></div>
+<div id="embers" aria-hidden="true"></div>
+<div id="prog"></div>
+<div class="spine" id="spine" aria-hidden="true"><div class="spine__track"></div><div class="spine__fill" id="spineFill"></div></div>
+
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="#top"><img src="../assets/Logo_final.png" alt="Steam Show"><span class="nm">Steam Show</span></a>
+    <nav class="menu"><a href="#programs">Programs</a><a href="#fx">Effects</a><a href="#geo">Where</a><a href="#contact">Contact</a></nav>
+    <a class="nav-cta" href="#contact">Book the show</a>
+    <button class="nav-toggle" id="navBtn" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO: Ember Ignition -->
+  <header class="ih">
+    <div class="ih__bloom" aria-hidden="true"></div>
+    <img class="ih__dragon" src="../assets/dragon_gold.png" alt="" aria-hidden="true">
+    <div class="ih__text">
+      <span class="eyebrow">Fire · LED · Dragons — worldwide</span>
+      <h1><span class="line">We don't perform shows.</span><span class="line ignite">We tell legends in fire.</span></h1>
+      <p class="ih__lead">A living saga of flame and light — large-scale spectacles engineered to be safe, scalable and unforgettable.</p>
+      <div class="ih__cta">
+        <a class="hbtn solid" href="#programs">Begin the saga</a>
+        <button class="hbtn ghost" onclick="SS.openReel()"><span>▶</span> Watch showreel</button>
+      </div>
+    </div>
+    <div class="ih__hint"><span class="ln"></span>Scroll to begin</div>
+  </header>
+
+  <div class="ticker" aria-hidden="true"><div class="tt">
+    <b>Pyrotechnics</b><b>Flame cannons</b><b>Flamethrowers</b><b>Fire cubes</b><b>Fire hearts</b><b>Paper show</b><b>Confetti</b><b>Stilt giants</b><b>LED couture</b><b>Dragon fire</b>
+    <b>Pyrotechnics</b><b>Flame cannons</b><b>Flamethrowers</b><b>Fire cubes</b><b>Fire hearts</b><b>Paper show</b><b>Confetti</b><b>Stilt giants</b><b>LED couture</b><b>Dragon fire</b>
+  </div></div>
+
+  <!-- ПРОГРАММЫ — кино-лента -->
+  <section id="programs" data-spine data-reel>
+    <div class="wrap">
+      <div class="reel-top" style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap">
+        <div class="sec-head reveal" style="margin-bottom:0"><span class="kicker">The five chapters · the reel</span>
+          <h2>Five acts,<br>one cut.</h2>
+          <p>Each frame is a show. Drag the strip, swipe on mobile, or use the arrows — then open any for the full gallery.</p></div>
+        <div class="reel-ctrl"><button class="arrow prev" aria-label="Previous">‹</button><button class="arrow next" aria-label="Next">›</button></div>
+      </div>
+      <div class="reel-frame reveal" style="margin-top:30px">
+        <div class="sprockets" aria-hidden="true"></div>
+        <div class="reel" data-programs="reel" tabindex="0" aria-label="Programs reel"></div>
+        <div class="sprockets bottom" aria-hidden="true"></div>
+      </div>
+      <div style="margin-top:18px;height:4px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden">
+        <div class="reel-prog" style="height:100%;width:20%;background:linear-gradient(90deg,var(--accent3),var(--accent2));border-radius:4px;transition:width .25s ease"></div></div>
+      <div class="reel-hint"><span class="dot"></span> Drag · swipe · arrows — frame <span class="reel-cur">1</span> of 5</div>
+    </div>
+  </section>
+
+  <section id="fx" data-spine>
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="kicker">The arsenal</span><h2>Stage-grade effects, on cue.</h2>
+        <p>Layer any program with licensed, crew-operated spectacle.</p></div>
+      <div class="fx-grid">
+        <div class="fx reveal"><div class="fxn">Pyrotechnics</div><div class="fxd">Stage & outdoor bursts</div></div>
+        <div class="fx reveal"><div class="fxn">Flame cannons</div><div class="fxd">Tall vertical fireballs</div></div>
+        <div class="fx reveal"><div class="fxn">Flamethrowers</div><div class="fxd">Hand & rig mounted</div></div>
+        <div class="fx reveal"><div class="fxn">Fire cubes</div><div class="fxd">Choreographed flame props</div></div>
+        <div class="fx reveal"><div class="fxn">Paper show</div><div class="fxd">Tissue snowstorm drop</div></div>
+        <div class="fx reveal"><div class="fxn">Fire hearts</div><div class="fxd">Burning finale frames</div></div>
+        <div class="fx reveal"><div class="fxn">Confetti</div><div class="fxd">Cannon & cryo blasts</div></div>
+        <div class="fx reveal" style="border-color:color-mix(in srgb,var(--accent) 40%,transparent)"><div class="fxn" style="color:var(--accent)">+ Custom</div><div class="fxd">Designed to your cue</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="geo" data-spine>
+    <div class="wrap geo-grid">
+      <div class="reveal from-left">
+        <span class="kicker">On tour</span>
+        <h2 style="font-family:var(--display);font-size:clamp(30px,5vw,52px);line-height:1.02;margin-bottom:16px">From Europe's festivals<br>to the Gulf — and beyond.</h2>
+        <p style="color:var(--muted);font-size:17px;margin:0 0 26px">A road-tested touring crew with full kit logistics. We bring the rig, the safety and the show to your venue.</p>
+        <div class="geo-list">
+          <span class="geo-pill">Europe festivals</span><span class="geo-pill">UAE</span><span class="geo-pill">Qatar</span>
+          <span class="geo-pill">Saudi Arabia</span><span class="geo-pill">Oman</span><span class="geo-pill">Turkey</span>
+          <span class="geo-pill">Jordan</span><span class="geo-pill world">Worldwide on request</span>
+        </div>
+      </div>
+      <div class="reveal from-right"><div class="globe">
+        <div class="core"><b>WORLD</b><small>WIDE</small></div>
+        <span class="ping" style="top:30%;left:40%"></span>
+        <span class="ping" style="top:55%;left:62%;animation-delay:.8s"></span>
+        <span class="ping" style="top:68%;left:38%;animation-delay:1.5s"></span>
+      </div></div>
+    </div>
+  </section>
+
+  <section id="contact" data-spine>
+    <div class="wrap"><div class="contact-card reveal"><div class="contact-in">
+      <span class="kicker" style="justify-content:center">Let's write your chapter</span>
+      <h2>Book the Steam Show.</h2>
+      <p>Tell us the venue, the date and the vibe. We'll design a fire-and-light run that fits your stage and your crowd.</p>
+      <div class="channels">
+        <a class="ch" href="#"><span class="lbl">Instagram</span><span class="val">@steamshow</span><span class="arrow2">Follow →</span></a>
+        <a class="ch" href="mailto:hello@steamshow.com"><span class="lbl">Email</span><span class="val">hello@steamshow</span><span class="arrow2">Write →</span></a>
+        <a class="ch" href="#"><span class="lbl">WhatsApp · Telegram</span><span class="val">Message us</span><span class="arrow2">Chat →</span></a>
+        <a class="ch" href="https://www.youtube.com/@SteamShowby" target="_blank" rel="noopener"><span class="lbl">YouTube</span><span class="val">@SteamShowby</span><span class="arrow2">Watch →</span></a>
+      </div>
+    </div></div></div>
+  </section>
+</main>
+
+<footer class="foot"><div class="wrap foot-in">
+  <div style="display:flex;align-items:center;gap:12px"><img src="../assets/Logo_final.png" alt="Steam Show"><span>Steam Show — fire, light & living legends</span></div>
+  <div>© <span id="yr"></span> Steam Show — Saga · Ignition</div>
+</div></footer>
+
+<script src="media.js"></script>
+<script src="lib.js"></script>
+<script src="parts.js"></script>
+</body>
+</html>

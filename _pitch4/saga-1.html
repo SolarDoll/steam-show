@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steam Show — Saga · Photo Wall</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="parts.css">
+<style>
+  :root{
+    --bg:#0B0810; --bg2:#1a0f0a; --ink:#EDE7DA; --muted:#9A8F86;
+    --line:rgba(200,162,75,.20); --sky-top:#28387a;
+    --accent:#E86C1E; --accent2:#E6C877; --accent3:#C8A24B;
+    --display:"Cormorant Garamond",serif; --body:"Manrope",system-ui,sans-serif;
+  }
+  /* HERO — фото-стена (из r4-wall), скин Saga */
+  .hw{position:relative;height:100svh;min-height:620px;overflow:hidden;display:flex;flex-direction:column;
+    justify-content:center;gap:clamp(8px,1.4vw,16px);padding:clamp(8px,1.4vw,16px) 0;background:var(--bg)}
+  .hw-row{display:flex;gap:clamp(8px,1.4vw,16px);width:max-content;flex-shrink:0;will-change:transform}
+  .hw-row.r1{animation:slideL 70s linear infinite}
+  .hw-row.r2{animation:slideR 88s linear infinite}
+  .hw-row.r3{animation:slideL 58s linear infinite}
+  @keyframes slideL{to{transform:translateX(-50%)}}
+  @keyframes slideR{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+  .hw-tile{flex:0 0 auto;width:clamp(160px,20vw,300px);height:clamp(120px,14vw,210px);
+    border-radius:12px;overflow:hidden;background:#000;border:1px solid rgba(255,255,255,.05)}
+  .hw-tile img{width:100%;height:100%;object-fit:cover}
+  .hw-scrim{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;text-align:center;padding:24px;
+    background:radial-gradient(120% 90% at 50% 50%,color-mix(in srgb,var(--bg) 30%,transparent),color-mix(in srgb,var(--bg) 82%,transparent) 58%,var(--bg)),
+      linear-gradient(180deg,color-mix(in srgb,var(--bg) 55%,transparent),transparent 22%,transparent 70%,var(--bg))}
+  .hw-eyebrow{font-size:clamp(11px,1.1vw,13px);letter-spacing:.4em;text-transform:uppercase;color:var(--accent2);
+    margin-bottom:20px;font-family:var(--body);font-weight:600}
+  .hw-title{font-family:var(--display);font-weight:600;font-size:clamp(64px,14vw,180px);line-height:.9;letter-spacing:.005em;
+    background:linear-gradient(180deg,#fff 0%,var(--accent2) 55%,var(--accent3) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 30px rgba(0,0,0,.5))}
+  .hw-tag{margin-top:18px;font-size:clamp(15px,1.7vw,20px);color:var(--accent2);font-weight:500;letter-spacing:.04em;max-width:30ch}
+  .hw-cta{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:30px}
+  .hbtn{font-family:var(--body);font-weight:600;font-size:14px;letter-spacing:.03em;padding:15px 28px;border-radius:100px;
+    transition:.25s;display:inline-flex;align-items:center;gap:9px}
+  .hbtn.solid{background:linear-gradient(100deg,var(--accent),var(--accent2));color:#1a0902}
+  .hbtn.solid:hover{transform:translateY(-2px);box-shadow:0 14px 40px -10px var(--accent)}
+  .hbtn.ghost{border:1px solid rgba(255,255,255,.28);color:#fff}
+  .hbtn.ghost:hover{border-color:var(--accent2);transform:translateY(-2px)}
+  .hw-hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:11;font-size:11px;
+    letter-spacing:.3em;text-transform:uppercase;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:8px}
+  .hw-hint .ln{width:1px;height:30px;background:linear-gradient(var(--accent2),transparent);animation:hbob 2.2s ease-in-out infinite}
+  @keyframes hbob{0%,100%{opacity:.4}50%{opacity:1}}
+  @media(max-width:860px){.hw-row.r3{display:none}.hw-tile{width:clamp(132px,40vw,200px);height:clamp(98px,30vw,150px)}}
+</style>
+</head>
+<body>
+
+<div id="sky"></div>
+<div id="embers" aria-hidden="true"></div>
+<div id="prog"></div>
+<div class="spine" id="spine" aria-hidden="true"><div class="spine__track"></div><div class="spine__fill" id="spineFill"></div></div>
+
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="#top"><img src="../assets/Logo_final.png" alt="Steam Show"><span class="nm">Steam Show</span></a>
+    <nav class="menu"><a href="#programs">Programs</a><a href="#fx">Effects</a><a href="#geo">Where</a><a href="#contact">Contact</a></nav>
+    <a class="nav-cta" href="#contact">Book the show</a>
+    <button class="nav-toggle" id="navBtn" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO: фото-стена -->
+  <header class="hw" id="wall" aria-label="Steam Show photo wall">
+    <div class="hw-scrim">
+      <div class="hw-eyebrow">Fire · LED · Dragons — worldwide</div>
+      <h1 class="hw-title">Steam&nbsp;Show</h1>
+      <p class="hw-tag">A living saga of flame, light and giants. Step into any frame.</p>
+      <div class="hw-cta">
+        <a class="hbtn solid" href="#programs">Explore the shows</a>
+        <button class="hbtn ghost" onclick="SS.openReel()"><span>▶</span> Watch showreel</button>
+      </div>
+    </div>
+    <div class="hw-hint"><span>Scroll</span><span class="ln"></span></div>
+  </header>
+
+  <!-- БЕГУЩАЯ СТРОКА ФИШЕК -->
+  <div class="ticker" aria-hidden="true"><div class="tt">
+    <b>Pyrotechnics</b><b>Flame cannons</b><b>Flamethrowers</b><b>Fire cubes</b><b>Fire hearts</b><b>Paper show</b><b>Confetti</b><b>Stilt giants</b><b>LED couture</b><b>Dragon fire</b>
+    <b>Pyrotechnics</b><b>Flame cannons</b><b>Flamethrowers</b><b>Fire cubes</b><b>Fire hearts</b><b>Paper show</b><b>Confetti</b><b>Stilt giants</b><b>LED couture</b><b>Dragon fire</b>
+  </div></div>
+
+  <!-- ПРОГРАММЫ — карточки-ряды -->
+  <section id="programs" data-spine>
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="kicker">The five chapters</span>
+        <h2>Five worlds,<br>one unbroken saga.</h2>
+        <p>Each program runs in its own colour. Open any to browse the full gallery — photos, videos and costume options.</p></div>
+      <div class="cards-rows" data-programs="rows"></div>
+    </div>
+  </section>
+
+  <!-- ЭФФЕКТЫ -->
+  <section id="fx" data-spine>
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="kicker">The arsenal</span>
+        <h2>Stage-grade effects, on cue.</h2>
+        <p>Layer any program with licensed, crew-operated spectacle.</p></div>
+      <div class="fx-grid">
+        <div class="fx reveal"><div class="fxn">Pyrotechnics</div><div class="fxd">Stage & outdoor bursts</div></div>
+        <div class="fx reveal"><div class="fxn">Flame cannons</div><div class="fxd">Tall vertical fireballs</div></div>
+        <div class="fx reveal"><div class="fxn">Flamethrowers</div><div class="fxd">Hand & rig mounted</div></div>
+        <div class="fx reveal"><div class="fxn">Fire cubes</div><div class="fxd">Choreographed flame props</div></div>
+        <div class="fx reveal"><div class="fxn">Paper show</div><div class="fxd">Tissue snowstorm drop</div></div>
+        <div class="fx reveal"><div class="fxn">Fire hearts</div><div class="fxd">Burning finale frames</div></div>
+        <div class="fx reveal"><div class="fxn">Confetti</div><div class="fxd">Cannon & cryo blasts</div></div>
+        <div class="fx reveal" style="border-color:color-mix(in srgb,var(--accent) 40%,transparent)"><div class="fxn" style="color:var(--accent)">+ Custom</div><div class="fxd">Designed to your cue</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ГЕО -->
+  <section id="geo" data-spine>
+    <div class="wrap geo-grid">
+      <div class="reveal from-left">
+        <span class="kicker">On tour</span>
+        <h2 style="font-family:var(--display);font-size:clamp(30px,5vw,52px);line-height:1.02;margin-bottom:16px">From Europe's festivals<br>to the Gulf — and beyond.</h2>
+        <p style="color:var(--muted);font-size:17px;margin:0 0 26px">A road-tested touring crew with full kit logistics. We bring the rig, the safety and the show to your venue.</p>
+        <div class="geo-list">
+          <span class="geo-pill">Europe festivals</span><span class="geo-pill">UAE</span><span class="geo-pill">Qatar</span>
+          <span class="geo-pill">Saudi Arabia</span><span class="geo-pill">Oman</span><span class="geo-pill">Turkey</span>
+          <span class="geo-pill">Jordan</span><span class="geo-pill world">Worldwide on request</span>
+        </div>
+      </div>
+      <div class="reveal from-right"><div class="globe">
+        <div class="core"><b>WORLD</b><small>WIDE</small></div>
+        <span class="ping" style="top:30%;left:40%"></span>
+        <span class="ping" style="top:55%;left:62%;animation-delay:.8s"></span>
+        <span class="ping" style="top:68%;left:38%;animation-delay:1.5s"></span>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- КОНТАКТЫ -->
+  <section id="contact" data-spine>
+    <div class="wrap"><div class="contact-card reveal"><div class="contact-in">
+      <span class="kicker" style="justify-content:center">Let's write your chapter</span>
+      <h2>Book the Steam Show.</h2>
+      <p>Tell us the venue, the date and the vibe. We'll design a fire-and-light run that fits your stage and your crowd.</p>
+      <div class="channels">
+        <a class="ch" href="#"><span class="lbl">Instagram</span><span class="val">@steamshow</span><span class="arrow2">Follow →</span></a>
+        <a class="ch" href="mailto:hello@steamshow.com"><span class="lbl">Email</span><span class="val">hello@steamshow</span><span class="arrow2">Write →</span></a>
+        <a class="ch" href="#"><span class="lbl">WhatsApp · Telegram</span><span class="val">Message us</span><span class="arrow2">Chat →</span></a>
+        <a class="ch" href="https://www.youtube.com/@SteamShowby" target="_blank" rel="noopener"><span class="lbl">YouTube</span><span class="val">@SteamShowby</span><span class="arrow2">Watch →</span></a>
+      </div>
+    </div></div></div>
+  </section>
+</main>
+
+<footer class="foot"><div class="wrap foot-in">
+  <div style="display:flex;align-items:center;gap:12px"><img src="../assets/Logo_final.png" alt="Steam Show"><span>Steam Show — fire, light & living legends</span></div>
+  <div>© <span id="yr"></span> Steam Show — Saga · Photo Wall</div>
+</div></footer>
+
+<script src="media.js"></script>
+<script src="lib.js"></script>
+<script src="parts.js"></script>
+<script>
+/* HERO фото-стена: набираем реальные фото из всех программ, строим 3 ряда */
+(function(){
+  var wall=document.getElementById('wall'),reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var mobile=matchMedia('(max-width:860px)').matches;
+  var pool=[];
+  SS.ORDER.forEach(function(id){(SS.data(id).photos||[]).forEach(function(src){pool.push({src:src,id:id,name:SS.SHOWS[id].name});});});
+  for(var i=pool.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=pool[i];pool[i]=pool[j];pool[j]=t;}
+  var nRows=mobile?2:3,cls=['r1','r2','r3'],perRow=Math.max(8,Math.ceil(pool.length/nRows)),frag=document.createDocumentFragment();
+  for(var r=0;r<nRows;r++){
+    var row=document.createElement('div');row.className='hw-row '+cls[r];
+    var html='';for(var k=0;k<perRow;k++){var t2=pool[(r*perRow+k)%pool.length];
+      html+='<button class="hw-tile" data-id="'+t2.id+'" aria-label="Open '+t2.name+'"><img loading="lazy" src="'+t2.src+'" alt="'+t2.name+'"></button>';}
+    row.innerHTML=html+html;frag.appendChild(row);
+  }
+  wall.insertBefore(frag,wall.firstChild);
+  wall.addEventListener('click',function(e){var t=e.target.closest('.hw-tile');if(t)SS.openProgram(t.getAttribute('data-id'));});
+  if(reduce)document.querySelectorAll('.hw-row').forEach(function(r){r.style.transform='translateX(0)';});
+})();
+</script>
+</body>
+</html>
