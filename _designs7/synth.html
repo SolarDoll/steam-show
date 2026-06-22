@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Steam Show — Fire, LED &amp; Dragons worldwide</title>
+<link rel="icon" href="../assets/Logo_final.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0b0712;--panel:#15101e;--panel2:#1c1528;--text:#f5eff7;--mid:#a89fb0;--dim:#736a7e;
+    --accent:#FF6A1F;--hot:#FF2E84;--cool:#25F4EE;--yellow:#FFD23E;--line:rgba(255,255,255,.11);
+    --grad:linear-gradient(90deg,var(--accent),var(--hot));
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:"Manrope",system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+    background-image:radial-gradient(60% 45% at 88% 4%,rgba(255,46,132,.14),transparent 60%),radial-gradient(50% 40% at 6% 30%,rgba(37,244,238,.08),transparent 60%);}
+  a{color:inherit;text-decoration:none} button{font:inherit;color:inherit;cursor:pointer;border:none;background:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:1320px;margin:0 auto;padding:0 clamp(20px,4vw,40px)}
+  .anton{font-family:"Anton",sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.01em}
+
+  /* spine (saga) */
+  .spine{position:fixed;left:max(16px,calc(50vw - 660px - 16px));top:0;bottom:0;width:2px;z-index:40;pointer-events:none}
+  .spine__track{position:absolute;inset:0;background:rgba(255,255,255,.08)}
+  .spine__fill{position:absolute;left:0;top:0;width:2px;height:0;background:var(--grad)}
+  .spine__node{position:absolute;left:50%;top:0;transform:translate(-50%,-50%);width:10px;height:10px;border-radius:50%;background:var(--yellow);box-shadow:0 0 16px 3px rgba(255,210,62,.8)}
+  @media(max-width:1380px){.spine{left:14px}} @media(max-width:760px){.spine{display:none}}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:15px clamp(20px,4vw,40px);
+    background:color-mix(in srgb,var(--bg) 55%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:.3s}
+  nav.sc{border-bottom-color:var(--line);background:color-mix(in srgb,var(--bg) 86%,transparent)}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;font-size:13px}
+  .brand img{width:25px}
+  .nav-l{display:flex;gap:26px;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+  .nav-l a:hover{color:var(--text)}
+  .nav-cta{font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:var(--grad);color:#160405;padding:11px 20px;border-radius:100px}
+
+  /* hero */
+  .hero{position:relative;display:grid;grid-template-columns:1.06fr .94fr;gap:36px;align-items:center;min-height:92svh;padding:50px 0 40px}
+  .embers{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+  .ember{position:absolute;bottom:-12px;width:4px;height:4px;border-radius:50%;background:var(--yellow);box-shadow:0 0 8px 1px rgba(255,210,62,.85);animation:rise linear infinite}
+  @keyframes rise{0%{transform:translateY(0);opacity:0}10%{opacity:1}90%{opacity:.8}100%{transform:translateY(-90vh) translateX(var(--dx,20px));opacity:0}}
+  .hero__txt{position:relative;z-index:2}
+  .eyebrow{display:inline-block;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--yellow);font-weight:800;margin-bottom:22px}
+  .hero h1{font-family:"Anton",sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(52px,8.5vw,124px);line-height:.86;letter-spacing:.005em}
+  .hero h1 .o{color:var(--accent)} .hero h1 .c{color:var(--cool)} .hero h1 .m{color:var(--hot)}
+  .hero__lead{color:#d8d0de;font-size:clamp(15px,1.7vw,18px);max-width:44ch;margin:24px 0 28px}
+  .ctas{display:flex;gap:13px;flex-wrap:wrap}
+  .solid{background:var(--grad);color:#160405;font-weight:800;padding:15px 28px;border-radius:100px;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;transition:transform .3s,box-shadow .3s;box-shadow:0 10px 34px -10px rgba(255,46,132,.6)}
+  .solid:hover{transform:translateY(-2px)}
+  .ghost{border:1px solid var(--line);padding:15px 26px;border-radius:100px;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;display:inline-flex;gap:9px;align-items:center}
+  .ghost:hover{border-color:var(--hot)} .pd{width:8px;height:8px;border-radius:50%;background:var(--cool)}
+  .hero__media{position:relative;z-index:2;aspect-ratio:4/5;border-radius:22px;overflow:hidden;border:1px solid var(--line);
+    box-shadow:0 0 0 1px rgba(255,46,132,.25),0 30px 80px -30px rgba(255,106,31,.55)}
+  .hero__media img{width:100%;height:100%;object-fit:cover}
+  .hero__media::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(11,7,18,.5),transparent 50%)}
+  .hero__chip{position:absolute;z-index:3;right:-18px;bottom:34px;width:38%;aspect-ratio:4/3;border-radius:14px;overflow:hidden;border:2px solid var(--bg);box-shadow:0 20px 50px -20px #000}
+  .hero__chip img{width:100%;height:100%;object-fit:cover}
+  @media(max-width:900px){.hero{grid-template-columns:1fr;min-height:auto;padding-top:24px}.hero__media{order:-1;aspect-ratio:16/11;max-height:52svh}.hero__chip{display:none}}
+
+  /* marquee fishki */
+  .mq{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--panel);overflow:hidden;padding:14px 0}
+  .mq__t{display:flex;gap:26px;width:max-content;animation:scroll 32s linear infinite}
+  .mq:hover .mq__t{animation-play-state:paused}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+  .mq__t span{font-family:"Anton",sans-serif;text-transform:uppercase;font-size:18px;letter-spacing:.02em;white-space:nowrap;color:#d8d0de}
+  .mq__t i{color:var(--hot);font-style:normal}
+
+  /* section heads */
+  section{padding:clamp(60px,9vw,110px) 0;position:relative;z-index:2}
+  .shead{margin-bottom:38px}
+  .shead .kick{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--hot);font-weight:800;margin-bottom:12px}
+  .shead h2{font-family:"Anton",sans-serif;text-transform:uppercase;font-size:clamp(34px,6vw,72px);line-height:.92}
+  .shead p{color:var(--mid);max-width:56ch;margin-top:12px;font-size:15.5px}
+
+  /* shows — компактные крупные строки с фото */
+  .shows{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+  .srow{display:grid;grid-template-columns:150px 44px 1fr auto;gap:22px;align-items:center;padding:16px 12px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .3s,padding .35s}
+  .srow:hover{background:linear-gradient(90deg,color-mix(in srgb,var(--hot) 10%,transparent),transparent);padding-left:22px}
+  .sthumb{width:150px;height:92px;border-radius:10px;overflow:hidden;background:#000}
+  .sthumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+  .srow:hover .sthumb img{transform:scale(1.08)}
+  .sidx{font-size:13px;font-weight:800;letter-spacing:.1em;color:var(--dim)}
+  .sname{font-family:"Anton",sans-serif;text-transform:uppercase;font-size:clamp(26px,4vw,48px);line-height:.95;transition:color .3s}
+  .srow:hover .sname{color:var(--accent)}
+  .smeta{text-align:right;display:flex;flex-direction:column;gap:4px;color:var(--mid);font-size:12.5px}
+  .smeta b{color:var(--text);font-weight:700}
+  .sarr{font-size:22px;color:var(--dim);transition:.3s} .srow:hover .sarr{color:var(--hot);transform:translateX(4px)}
+  @media(max-width:760px){.srow{grid-template-columns:96px 1fr;gap:14px}.sidx,.smeta,.sarr{display:none}.sthumb{width:96px;height:64px}}
+
+  /* worldwide — globe */
+  .world{border-top:1px solid var(--line)}
+  .world__in{display:grid;grid-template-columns:1fr .9fr;gap:50px;align-items:center}
+  .pills{display:flex;flex-wrap:wrap;gap:9px;margin:22px 0}
+  .pills span{border:1px solid var(--line);padding:9px 16px;border-radius:100px;font-size:13.5px;color:#d8d0de}
+  .pills .hot{background:var(--grad);color:#160405;border:none;font-weight:700}
+  .stats{display:flex;gap:34px;margin-top:6px}
+  .stat b{font-family:"Anton",sans-serif;font-size:clamp(34px,5vw,52px);color:var(--yellow);display:block;line-height:1}
+  .stat span{font-size:12.5px;color:var(--dim)}
+  .globe{position:relative;width:min(420px,80%);aspect-ratio:1;margin:0 auto;border-radius:50%;
+    background:radial-gradient(circle at 38% 32%,rgba(255,46,132,.25),transparent 60%);border:1px solid rgba(255,255,255,.12)}
+  .globe::before,.globe::after{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid rgba(255,255,255,.1)}
+  .globe::before{transform:rotateX(74deg)} .globe::after{transform:rotateY(74deg)}
+  .globe .r2{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(37,244,238,.16);transform:rotateX(74deg) rotateZ(40deg)}
+  .globe .core{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+  .globe .core b{font-family:"Anton",sans-serif;font-size:clamp(44px,9vw,76px);background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+  .globe .core small{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--mid);margin-top:8px}
+  @media(max-width:840px){.world__in{grid-template-columns:1fr;gap:36px}.globe{max-width:300px}}
+
+  /* contact */
+  .contact{border-top:1px solid var(--line)}
+  .ccard{border-radius:26px;padding:1px;background:var(--grad)}
+  .ccard__in{border-radius:25px;background:#0a0610;padding:clamp(34px,6vw,70px);text-align:center}
+  .ccard h2{font-family:"Anton",sans-serif;text-transform:uppercase;font-size:clamp(32px,6vw,66px);line-height:.95}
+  .ccard p{color:var(--mid);max-width:52ch;margin:14px auto 34px;font-size:16px}
+  .clinks{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+  .clink{display:flex;flex-direction:column;gap:3px;align-items:flex-start;text-align:left;border:1px solid var(--line);border-radius:14px;padding:16px 22px;min-width:200px;transition:.3s;background:var(--panel)}
+  .clink:hover{border-color:var(--hot);transform:translateY(-3px);box-shadow:0 16px 40px -20px rgba(255,46,132,.6)}
+  .clink .k{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--hot);font-weight:800}
+  .clink .v{font-size:16px;font-weight:600}
+  footer{border-top:1px solid var(--line);padding:30px 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:var(--dim);font-size:13px}
+</style>
+</head>
+<body>
+
+<div class="spine" aria-hidden="true"><div class="spine__track"></div><div class="spine__fill" id="spineFill"><div class="spine__node"></div></div></div>
+
+<nav id="nav">
+  <div class="brand"><img src="../assets/dragon-light.png" alt=""/> Steam Show</div>
+  <div class="nav-l"><a href="#shows">Shows</a><a href="#worldwide">Worldwide</a><a href="#contact">Contact</a></div>
+  <a href="#contact" class="nav-cta">Book the show</a>
+</nav>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="embers" id="embers"></div>
+    <div class="hero__txt">
+      <span class="eyebrow">Fire · LED · Dragons — worldwide</span>
+      <h1><span class="o">Loud.</span> <span class="c">Bright.</span><br><span class="m">Unforgettable.</span></h1>
+      <p class="hero__lead">Large-scale fire, light and stilt spectacles for festivals, weddings and private events — performed across Europe, the Gulf and beyond.</p>
+      <div class="ctas">
+        <a class="solid" href="#shows">Explore the shows</a>
+        <button class="ghost" onclick="SS.openReel()"><span class="pd"></span> Watch showreel</button>
+      </div>
+    </div>
+    <div class="hero__media" id="heroMedia">
+      <img id="heroImg" alt="" />
+      <div class="hero__chip"><img id="heroChip" alt="" /></div>
+    </div>
+  </header>
+</div>
+
+<div class="mq" aria-hidden="true"><div class="mq__t" id="mq"></div></div>
+
+<div class="wrap">
+  <section id="shows">
+    <div class="shead"><div class="kick">The catalogue</div><h2>Choose your spectacle</h2>
+      <p>Five flagship programmes — tap any to open its full gallery with costumes, photos and videos.</p></div>
+    <div class="shows" id="shows-list"></div>
+  </section>
+
+  <section id="worldwide" class="world">
+    <div class="world__in">
+      <div>
+        <div class="shead" style="margin-bottom:0"><div class="kick">On the road</div><h2>We perform<br>anywhere</h2>
+          <p>Regulars on the European festival circuit and on contract across the Gulf — open to events anywhere in the world.</p></div>
+        <div class="pills"><span>Europe</span><span>The Gulf</span><span>Middle East</span><span class="hot">+ 20 countries worldwide</span></div>
+        <div class="stats"><div class="stat"><b>10+</b><span>years on stage</span></div><div class="stat"><b>20+</b><span>countries</span></div><div class="stat"><b>∞</b><span>events to come</span></div></div>
+      </div>
+      <div class="globe"><div class="r2"></div><div class="core"><b>20+</b><small>countries</small></div></div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="ccard"><div class="ccard__in">
+      <h2>Let’s light up your event</h2>
+      <p>Tell us the date, the place and the vibe — we’ll send a tailored offer within a day.</p>
+      <div class="clinks">
+        <a class="clink" href="#"><span class="k">Instagram</span><span class="v">@steamshow ↗</span></a>
+        <a class="clink" href="mailto:hello@steamshow.com"><span class="k">Email</span><span class="v">hello@steamshow.com ↗</span></a>
+        <a class="clink" href="#"><span class="k">WhatsApp / Telegram</span><span class="v">Message us ↗</span></a>
+        <a class="clink" href="https://www.youtube.com/@SteamShowby" target="_blank"><span class="k">YouTube</span><span class="v">@SteamShowby ↗</span></a>
+      </div>
+    </div></div>
+  </section>
+</div>
+
+<footer class="wrap"><span>© <span id="year"></span> Steam Show</span><span>Fire · LED · Dragons — worldwide</span></footer>
+
+<script src="media.js"></script>
+<script src="lib.js"></script>
+<script>
+(function(){
+  document.getElementById('year').textContent=new Date().getFullYear();
+  var rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  // hero images
+  document.getElementById('heroImg').src=SS.cover('dragon');
+  document.getElementById('heroChip').src=SS.cover('led');
+
+  // embers
+  var eb=document.getElementById('embers');
+  if(eb&&!rm){var n=window.innerWidth<700?12:24;for(var i=0;i<n;i++){var e=document.createElement('span');e.className='ember';
+    e.style.left=Math.random()*100+'%';var s=2+Math.random()*4;e.style.width=e.style.height=s+'px';
+    e.style.animationDuration=(6+Math.random()*8)+'s';e.style.animationDelay=(-Math.random()*12)+'s';
+    e.style.setProperty('--dx',(Math.random()*120-60)+'px');e.style.opacity=.4+Math.random()*.6;eb.appendChild(e);}}
+
+  // marquee
+  var fx=['Flamethrowers','Fire cannons','Fire cubes','Pyrotechnics','Fire on stilts','Paper show','Fire hearts','Confetti'];
+  var one=fx.map(function(f){return '<span>'+f+'</span><i>✦</i>';}).join('');
+  document.getElementById('mq').innerHTML=one+one;
+
+  // shows list
+  document.getElementById('shows-list').innerHTML=SS.ORDER.map(function(id,i){var s=SS.SHOWS[id],c=SS.counts(id);
+    var m=[];if(c.p)m.push('<b>'+c.p+'</b> photos');if(c.v)m.push('<b>'+c.v+'</b> videos');if(c.c)m.push('<b>'+c.c+'</b> costumes');
+    return '<div class="srow" onclick="SS.openProgram(\''+id+'\')"><div class="sthumb"><img loading="lazy" src="'+SS.cover(id)+'" alt=""/></div>'
+      +'<div class="sidx">0'+(i+1)+'</div><div class="sname">'+s.name+'</div>'
+      +'<div class="smeta">'+m.map(function(x){return '<span>'+x+'</span>';}).join('')+'</div><div class="sarr">→</div></div>';
+  }).join('');
+
+  // spine fill + nav
+  var fill=document.getElementById('spineFill'),nav=document.getElementById('nav');
+  function onScroll(){var h=document.documentElement.scrollHeight-innerHeight;var p=h>0?scrollY/h:0;
+    fill.style.height=(p*100).toFixed(2)+'%';nav.classList.toggle('sc',scrollY>20);}
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
+</body>
+</html>
