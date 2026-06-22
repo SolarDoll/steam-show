@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Steam Show — 5 новых вариантов (раунд 2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{--bg:#0a0708;--panel:#151016;--line:rgba(231,194,122,.16);--line-soft:rgba(255,255,255,.07);
+    --ink:#f6f0e8;--mid:#a39890;--dim:#6c6259;--gold:#e7c27a;--accent:#FF5A1F;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Manrope",system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1280px;margin:0 auto;padding:clamp(2rem,5vw,4rem) clamp(1.2rem,4vw,3rem)}
+  header{border-bottom:1px solid var(--line-soft);background:linear-gradient(180deg,#1a0d08,transparent)}
+  .eyebrow{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:1rem}
+  h1{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:clamp(2.2rem,6vw,3.6rem);line-height:1.03}
+  .lead{color:var(--mid);max-width:70ch;margin-top:1.1rem}
+  .note{margin-top:1.4rem;padding:1rem 1.2rem;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--mid);font-size:.95rem;max-width:74ch}
+  .note b{color:var(--ink)}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.6rem;margin-top:2.4rem}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}}
+  .card{border:1px solid var(--line-soft);border-radius:16px;overflow:hidden;background:var(--panel);transition:transform .45s cubic-bezier(.22,1,.36,1),border-color .4s,box-shadow .45s;display:flex;flex-direction:column}
+  .card:hover{transform:translateY(-5px);border-color:var(--line);box-shadow:0 30px 60px -30px rgba(0,0,0,.8)}
+  .thumb{position:relative;overflow:hidden;background:#000;border-bottom:1px solid var(--line-soft)}
+  .thumb iframe{border:0;transform-origin:top left;pointer-events:none}
+  .thumb a.cover{position:absolute;inset:0;z-index:2;display:flex;align-items:flex-end;padding:1rem;background:linear-gradient(180deg,transparent 55%,rgba(8,8,10,.55));opacity:0;transition:opacity .35s}
+  .card:hover .thumb a.cover{opacity:1}
+  .thumb .open{font-size:.8rem;font-weight:700;letter-spacing:.04em;padding:.5rem .9rem;border-radius:100px;background:var(--ink);color:#0a0708}
+  .body{padding:1.3rem 1.4rem 1.5rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+  .num{font-size:.74rem;font-weight:800;letter-spacing:.14em;color:var(--gold)}
+  .name{font-family:"Cormorant Garamond",serif;font-size:1.6rem;line-height:1.05}
+  .desc{color:var(--mid);font-size:.93rem}
+  .rows{margin-top:.4rem;display:flex;flex-direction:column;gap:.3rem}
+  .row{font-size:.86rem;color:#cfc7be}.row b{color:var(--gold);font-weight:700;letter-spacing:.02em}
+  .tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:auto;padding-top:.6rem}
+  .tag{font-size:.68rem;font-weight:700;letter-spacing:.03em;color:var(--dim);border:1px solid var(--line-soft);padding:.22rem .6rem;border-radius:100px}
+  footer{border-top:1px solid var(--line-soft);color:var(--dim);font-size:.85rem;text-align:center;padding:2.5rem}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <p class="eyebrow">Steam Show · раунд 2 · 5 новых направлений</p>
+  <h1>5 новых вариантов — теперь с настоящим портфолио</h1>
+  <p class="lead">Главное отличие от прошлых 10: у всех есть глубина. Клик по любой программе открывает раздел с вкладками <b>Costumes / Photos / Videos</b> и лайтбоксом с листанием — можно посмотреть разные видео и выбрать конкретный костюм ходулиста/LED. Силуэт-дракон реально задействован (огонь внутри / контур / зажигается). Спецэффекты — теги (включено / по запросу), а не экран. Страны — компактной полосой, не на весь экран.</p>
+  <p class="note"><b>Как смотреть:</b> наведи на превью → «Открыть на весь экран». Внутри обязательно кликни по программе (например Stilts или LED) и пощёлкай вкладки — это и есть портфолио-глубина. Скажи, какой стиль ближе и что в нём докрутить.</p>
+</div></header>
+
+<div class="wrap">
+  <div class="grid">
+
+    <article class="card">
+      <div class="thumb"><iframe src="v1-fire-within.html" loading="lazy" title="Fire Within"></iframe><a class="cover" href="v1-fire-within.html" target="_blank"><span class="open">Открыть на весь экран ↗</span></a></div>
+      <div class="body">
+        <span class="num">V1</span><h2 class="name">Fire Within</h2>
+        <p class="desc">Кинематографичный премиум, тёмно-тёплый.</p>
+        <div class="rows">
+          <div class="row"><b>Hero:</b> силуэт дракона залит живым огнём + эмберы</div>
+          <div class="row"><b>Структура:</b> бенто-сетка обзора → раздел с галереей</div>
+          <div class="row"><b>Фишка:</b> «огонь внутри дракона», дорого и сдержанно</div>
+        </div>
+        <div class="tags"><span class="tag">премиум</span><span class="tag">огонь-дракон</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb"><iframe src="v2-spotlight.html" loading="lazy" title="Spotlight"></iframe><a class="cover" href="v2-spotlight.html" target="_blank"><span class="open">Открыть на весь экран ↗</span></a></div>
+      <div class="body">
+        <span class="num">V2</span><h2 class="name">Spotlight</h2>
+        <p class="desc">Яркий дофаминовый, но тёплый (не неон).</p>
+        <div class="rows">
+          <div class="row"><b>Hero:</b> разноцветный заголовок, дракон-контур → заливается огнём</div>
+          <div class="row"><b>Структура:</b> энергичная сетка, сочные ховеры</div>
+          <div class="row"><b>Фишка:</b> ярко и громко, фестивальная подача</div>
+        </div>
+        <div class="tags"><span class="tag">яркий</span><span class="tag">фестивали</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb"><iframe src="v3-saga.html" loading="lazy" title="Saga"></iframe><a class="cover" href="v3-saga.html" target="_blank"><span class="open">Открыть на весь экран ↗</span></a></div>
+      <div class="body">
+        <span class="num">V3</span><h2 class="name">Saga</h2>
+        <p class="desc">Скролл-история (то, что нравилось в прошлом раунде).</p>
+        <div class="rows">
+          <div class="row"><b>Hero:</b> крупный огненный дракон + эмберы, фон теплеет к низу</div>
+          <div class="row"><b>Структура:</b> нить-хребет ведёт по скроллу, секции выезжают</div>
+          <div class="row"><b>Фишка:</b> яркая финалочка с большим драконом и контактами</div>
+        </div>
+        <div class="tags"><span class="tag">сторителлинг</span><span class="tag">scroll-reveal</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb"><iframe src="v4-editorial-heat.html" loading="lazy" title="Editorial Heat"></iframe><a class="cover" href="v4-editorial-heat.html" target="_blank"><span class="open">Открыть на весь экран ↗</span></a></div>
+      <div class="body">
+        <span class="num">V4</span><h2 class="name">Editorial Heat</h2>
+        <p class="desc">Журнальная обложка — но теперь функциональная.</p>
+        <div class="rows">
+          <div class="row"><b>Hero:</b> «выпуск Nº 04», гигантский титул, дракон-графика</div>
+          <div class="row"><b>Структура:</b> программы как журнальные развороты с номерами</div>
+          <div class="row"><b>Фишка:</b> кремовые инверсные секции, мощная типографика</div>
+        </div>
+        <div class="tags"><span class="tag">типографика</span><span class="tag">magazine</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb"><iframe src="v5-blueprint.html" loading="lazy" title="Blueprint"></iframe><a class="cover" href="v5-blueprint.html" target="_blank"><span class="open">Открыть на весь экран ↗</span></a></div>
+      <div class="body">
+        <span class="num">V5</span><h2 class="name">Blueprint</h2>
+        <p class="desc">Чертёж / industrial-luxe — но с вау-моментом.</p>
+        <div class="rows">
+          <div class="row"><b>Hero:</b> дракон как латунный чертёж → ЗАЖИГАЕТСЯ живым огнём</div>
+          <div class="row"><b>Структура:</b> тонкая чертёжная сетка, технические подписи</div>
+          <div class="row"><b>Фишка:</b> переход «схема → огонь» по наведению/скроллу</div>
+        </div>
+        <div class="tags"><span class="tag">industrial-luxe</span><span class="tag">из лого</span></div>
+      </div>
+    </article>
+
+  </div>
+</div>
+
+<footer>Steam Show · раунд 2 · открой варианты, обязательно зайди внутрь программы и пощёлкай вкладки</footer>
+
+<script>
+  var BASE_W=1440,RATIO=0.62;
+  function fit(){document.querySelectorAll('.thumb').forEach(function(t){
+    var f=t.querySelector('iframe');var w=t.clientWidth;var s=w/BASE_W;
+    f.style.width=BASE_W+'px';f.style.height=Math.round(BASE_W*RATIO)+'px';f.style.transform='scale('+s+')';
+    t.style.height=Math.round(BASE_W*RATIO*s)+'px';});}
+  addEventListener('load',fit);addEventListener('resize',fit);fit();
+</script>
+</body>
+</html>

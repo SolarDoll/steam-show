@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Steam Show — Fire, LED &amp; Dragons worldwide</title>
+<meta name="description" content="Steam Show — large-scale fire, LED and stilt performances for events worldwide." />
+<link rel="icon" href="../assets/Logo_final.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="base.css" />
+<style>
+  :root{
+    --bg:#09060a; --bg2:#0d0a0f; --panel:#161019; --panel2:#1c1421;
+    --accent:#FF5A1F; --accent2:#FFB347; --gold:#E7C27A; --cool:#3DE0E6;
+    --line:#2a2230; --line2:#3a3040;
+    --display:var(--serif); --display-weight:600;
+    --cta-bg:var(--accent); --cta-fg:#1a0902;
+  }
+  /* ---- HERO ---- */
+  .hero{position:relative;min-height:100svh;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:30px;
+    padding:96px clamp(20px,4vw,30px) 60px;max-width:1320px;margin:0 auto;overflow:hidden;}
+  .hero__bg{position:absolute;inset:0;z-index:0;
+    background:radial-gradient(70% 60% at 78% 50%,rgba(255,90,31,.22),transparent 60%),
+               radial-gradient(50% 50% at 20% 100%,rgba(255,120,40,.16),transparent 60%),
+               linear-gradient(180deg,#09060a,#140a08 70%,#1f0d06);}
+  .hero__bg::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 78% 60%,rgba(255,120,40,.35),transparent 45%);filter:blur(30px);animation:breathe 7s ease-in-out infinite;}
+  @keyframes breathe{0%,100%{opacity:.6;transform:scale(1);}50%{opacity:1;transform:scale(1.06);}}
+  .embers{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none;}
+  .ember{position:absolute;bottom:-12px;width:4px;height:4px;border-radius:50%;background:var(--accent2);
+    box-shadow:0 0 8px 1px rgba(255,179,71,.85);animation:rise linear infinite;}
+  @keyframes rise{0%{transform:translateY(0);opacity:0;}10%{opacity:1;}90%{opacity:.8;}100%{transform:translateY(-92vh) translateX(var(--dx,20px));opacity:0;}}
+
+  .hero__text{position:relative;z-index:3;}
+  .eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:22px;}
+  .hero h1{font-family:var(--display);font-weight:600;font-size:clamp(48px,8vw,104px);line-height:.92;letter-spacing:-.02em;}
+  .hero h1 .ital{font-style:italic;color:var(--accent2);}
+  .hero__lead{color:#d8cfc6;font-size:clamp(16px,2vw,19px);max-width:46ch;margin:24px 0 30px;}
+  .cta-row{display:flex;gap:13px;flex-wrap:wrap;}
+  .solid{background:var(--accent);color:#1a0902;font-weight:700;padding:15px 28px;border-radius:100px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;transition:transform .35s,box-shadow .35s;box-shadow:0 8px 30px -8px rgba(255,90,31,.6);}
+  .solid:hover{transform:translateY(-2px);box-shadow:0 14px 40px -8px rgba(255,90,31,.85);}
+  .ghost{border:1px solid var(--line2);color:#fff;padding:15px 26px;border-radius:100px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;font-weight:700;display:inline-flex;align-items:center;gap:9px;transition:border-color .35s,transform .35s;}
+  .ghost:hover{border-color:var(--accent);transform:translateY(-2px);}
+  .ghost .pd{width:9px;height:9px;border-radius:50%;background:var(--accent2);box-shadow:0 0 0 4px rgba(255,179,71,.18);}
+
+  /* fire-filled dragon — the wow */
+  .hero__dragon{position:relative;z-index:2;justify-self:center;width:min(46vh,420px);}
+  .hero__dragon .dragon-fire{filter:drop-shadow(0 0 50px rgba(255,90,31,.5));}
+  .hero__hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:3;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);}
+
+  .strip{position:relative;z-index:2;margin-top:8px;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .strip .lbl{position:absolute;left:clamp(20px,4vw,30px);top:-9px;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);background:var(--bg);padding:0 10px;}
+  .marquee{display:flex;gap:16px;width:max-content;animation:scroll 40s linear infinite;}
+  .marquee:hover{animation-play-state:paused;}
+  @keyframes scroll{to{transform:translateX(-50%);}}
+  .m-tile{width:230px;cursor:pointer;flex:0 0 auto;}
+  .m-tile .ph{height:150px;}
+  .m-tile .mt-name{margin-top:10px;font-size:14px;font-weight:600;display:flex;justify-content:space-between;align-items:baseline;gap:8px;}
+  .m-tile .mt-name span{font-size:11px;color:var(--gold);letter-spacing:.04em;font-weight:400;}
+
+  @media(max-width:980px){
+    .hero{grid-template-columns:1fr;min-height:auto;padding-top:120px;text-align:center;}
+    .hero__lead{margin-left:auto;margin-right:auto;}.cta-row{justify-content:center;}
+    .hero__dragon{width:min(60vw,320px);margin-top:30px;order:-1;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="brand" onclick="goHome()"><img class="dmark" src="../assets/dragon-light.png" alt="" /> Steam Show</div>
+  <div class="nav-l"><a onclick="openDetail('dragon')">Dragon</a><a onclick="openDetail('fire')">Fire</a><a onclick="openDetail('ledfire')">LED Fire</a><a onclick="openDetail('led')">LED</a><a onclick="openDetail('stilts')">Stilts</a></div>
+  <a class="nav-cta" href="#contact">Book the show</a>
+</nav>
+
+<div class="overview-wrap" id="overview">
+
+  <header class="hero">
+    <div class="hero__bg"></div>
+    <div class="embers" id="embers"></div>
+    <div class="hero__text">
+      <span class="eyebrow">Fire · LED · Stilts — worldwide</span>
+      <h1>We are the <span class="ital">dragons.</span></h1>
+      <p class="hero__lead">Large-scale fire, light and stilt spectacles — engineered to be safe, scalable and unforgettable. From European festival stages to private events across the Gulf.</p>
+      <div class="cta-row">
+        <a class="solid" href="#shows" onclick="document.getElementById('shows').scrollIntoView({behavior:'smooth'});return false;">Explore the shows</a>
+        <button class="ghost" onclick="openLightbox('Steam Show — Showreel','reel',0,true)"><span class="pd"></span> Watch showreel</button>
+      </div>
+    </div>
+    <div class="hero__dragon">
+      <!-- огонь живёт внутри силуэта дракона (CSS mask); поверх позже можно положить реальное видео -->
+      <div class="dragon-fire"></div>
+    </div>
+  </header>
+
+  <section class="ov" id="shows"><div class="wrap">
+    <div class="ov-head"><h2>Browse <em>everything</em></h2><p id="ovcount"></p></div>
+    <p class="ov-sub">Every block opens a full gallery — multiple videos, photos and costume options to choose from. Pick exactly what you want for your event.</p>
+    <div class="ov-grid reveal" id="ovGrid"></div>
+
+    <div class="strip reveal" style="margin-top:40px"><span class="lbl">Everything we do →</span><div class="marquee" id="marquee"></div></div>
+
+    <div class="fx reveal">
+      <h3>Effects &amp; add-ons</h3>
+      <p>We layer effects into any programme. Some are part of almost every show; others we add on request.</p>
+      <div class="fx-group"><div class="lbl">Usually included</div>
+        <div class="fx-row hot"><span>Flamethrowers</span><span>Fire cannons</span><span>Fire cubes</span><span>Pyrotechnics</span></div></div>
+      <div class="fx-group"><div class="lbl">On request</div>
+        <div class="fx-row"><span>Paper show</span><span>Fire hearts</span><span>Confetti</span><span>Fire on stilts</span></div></div>
+    </div>
+
+    <div class="world reveal">
+      <h3>We travel <em>anywhere</em></h3>
+      <p>Regulars on the European festival circuit and on contract across the Gulf — open to events anywhere in the world.</p>
+      <div class="world-row">
+        <span>Germany</span><span>Poland</span><span>Netherlands</span><span>Switzerland</span><span>Slovakia</span>
+        <span>UAE</span><span>Qatar</span><span>Saudi Arabia</span><span>Oman</span><span>Jordan</span><span>Türkiye</span>
+        <span class="more">+ 20 countries worldwide</span>
+      </div>
+    </div>
+  </div></section>
+
+</div>
+
+<div class="detail" id="detail"><div class="wrap">
+  <button class="back" onclick="goHome()">← All shows</button>
+  <div class="d-head"><div><div class="type" id="dType"></div><h2 id="dTitle"></h2><p id="dDesc"></p></div><div class="d-stats" id="dStats"></div></div>
+  <div class="tabs" id="dTabs"></div><div class="gallery" id="dGallery"></div>
+  <div class="more-cta"><h3>Want this for your <em>event</em>?</h3><div class="btns"><a class="primary" href="#contact" onclick="goHome()">Request this show</a><a href="#contact" onclick="goHome()">See full reel</a></div></div>
+</div></div>
+
+<div class="lb" id="lb" onclick="if(event.target.id==='lb')closeLightbox()">
+  <button class="x" onclick="closeLightbox()">×</button><button class="nav-btn prev" onclick="lbStep(-1)">‹</button><button class="nav-btn next" onclick="lbStep(1)">›</button>
+  <div class="box"><div class="ph" id="lbPh"></div><div class="lb-cap"><span id="lbCap"></span><span id="lbIdx"></span></div></div>
+</div>
+
+<footer id="contact"><div class="wrap">
+  <h2>Let’s light up<br><em>your event.</em></h2>
+  <div class="contacts"><a href="#">Instagram ↗</a><a href="mailto:hello@steamshow.com">Email ↗</a><a href="#">WhatsApp ↗</a><a href="#">Telegram ↗</a><a href="#">YouTube ↗</a></div>
+  <div class="fn">© <span id="year"></span> Steam Show · V1 Fire Within</div>
+</div></footer>
+
+<script>
+  // эмберы в hero
+  (function(){
+    var box=document.getElementById('embers');
+    if(!box||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+    var n=window.innerWidth<700?14:26;
+    for(var i=0;i<n;i++){var e=document.createElement('span');e.className='ember';
+      e.style.left=Math.random()*100+'%';var s=2+Math.random()*4;e.style.width=e.style.height=s+'px';
+      e.style.animationDuration=(6+Math.random()*8)+'s';e.style.animationDelay=(-Math.random()*12)+'s';
+      e.style.setProperty('--dx',(Math.random()*120-60)+'px');e.style.opacity=.4+Math.random()*.6;box.appendChild(e);}
+  })();
+</script>
+<script src="engine.js"></script>
+</body>
+</html>

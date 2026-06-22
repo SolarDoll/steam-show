@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Steam Show — Fire, LED &amp; Dragons worldwide</title>
+<meta name="description" content="Steam Show — large-scale fire, LED and stilt performances for events worldwide." />
+<link rel="icon" href="../assets/Logo_final.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="base.css" />
+<style>
+  /* ============================================================
+     V5 — BLUEPRINT / INDUSTRIAL-LUXE
+     Тёмная база + тонкие латунные чертёжные линии. Без шестерёнок
+     и ржавчины. Контраст: антиква (заголовки) + техничный гротеск.
+     Вау-момент: дракон-чертёж, который ЗАЖИГАЕТСЯ живым огнём.
+     ============================================================ */
+  :root{
+    --bg:#0C0B0A; --bg2:#100E0C; --panel:#13110E; --panel2:#181510;
+    --text:#F3EEE3; --muted:#9C958A; --faint:#6a655c;
+    /* латунь как основной "акцент" движка — линии, ховеры, стрелки */
+    --accent:#C8A24B; --accent2:#E7C27A; --gold:#E7C27A; --cool:#8FB8C0;
+    --brass:#C8A24B; --brass-lo:#8a6f33; --brass-hi:#E7C27A;
+    --line:#2a2418; --line2:#3d3320;
+    --radius:4px; --tile-radius:4px;
+    /* шрифты темы */
+    --serif:"Cormorant Garamond",Georgia,serif;
+    --sans:"Space Grotesk",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+    --display:var(--serif); --display-weight:600; --tile-fontweight:600;
+    --upper:.18em;
+    --cta-bg:var(--brass); --cta-fg:#0C0B0A;
+  }
+
+  /* очень слабая чертёжная сетка на всём документе */
+  body{
+    background-color:var(--bg);
+    background-image:
+      repeating-linear-gradient(0deg, rgba(200,162,75,.035) 0 1px, transparent 1px 96px),
+      repeating-linear-gradient(90deg, rgba(200,162,75,.035) 0 1px, transparent 1px 96px),
+      repeating-linear-gradient(0deg, rgba(200,162,75,.018) 0 1px, transparent 1px 24px),
+      repeating-linear-gradient(90deg, rgba(200,162,75,.018) 0 1px, transparent 1px 24px);
+    background-attachment:fixed;
+  }
+  ::selection{background:var(--brass);color:#0C0B0A;}
+
+  /* ----- моноширинные технические метки ----- */
+  .mono{font-family:var(--sans);font-feature-settings:"tnum" 1;letter-spacing:.16em;text-transform:uppercase;font-size:10.5px;color:var(--brass);}
+
+  /* nav — чертёжный заголовок листа */
+  nav.scrolled{background:color-mix(in srgb,var(--bg) 92%,transparent);}
+  .brand{letter-spacing:.32em;}
+  .nav-l a::after{background:var(--brass);}
+  .nav-cta{border-radius:2px;letter-spacing:.16em;}
+  .nav-cta:hover{background:var(--brass-hi);color:#0C0B0A;}
+
+  /* =========================================================
+     HERO — лист технического чертежа
+     ========================================================= */
+  .hero{position:relative;min-height:100svh;display:grid;grid-template-columns:1.02fr .98fr;align-items:center;gap:40px;
+    padding:104px clamp(20px,4vw,30px) 60px;max-width:1320px;margin:0 auto;overflow:hidden;}
+
+  /* фон-чертёж: виньетка + слабое латунное свечение справа */
+  .hero__bg{position:absolute;inset:0;z-index:0;
+    background:
+      radial-gradient(60% 55% at 76% 48%, rgba(200,162,75,.10), transparent 62%),
+      radial-gradient(80% 70% at 50% 120%, rgba(200,162,75,.05), transparent 60%),
+      linear-gradient(180deg,#0C0B0A,#100E0C 70%,#0C0B0A);}
+  /* рамка чертёжного листа с угловыми засечками */
+  .sheet-frame{position:absolute;inset:clamp(16px,3vw,34px);z-index:1;border:1px solid rgba(200,162,75,.22);pointer-events:none;}
+  .sheet-frame::before,.sheet-frame::after{content:"";position:absolute;width:14px;height:14px;border:1px solid rgba(200,162,75,.5);}
+  .sheet-frame::before{top:-1px;left:-1px;border-right:none;border-bottom:none;}
+  .sheet-frame::after{bottom:-1px;right:-1px;border-left:none;border-top:none;}
+  /* угловой штамп-картуш как на чертеже */
+  .sheet-stamp{position:absolute;right:clamp(16px,3vw,34px);bottom:clamp(16px,3vw,34px);z-index:2;
+    border:1px solid rgba(200,162,75,.3);padding:8px 12px;display:grid;grid-template-columns:auto auto;gap:2px 18px;
+    background:rgba(12,11,10,.5);backdrop-filter:blur(3px);}
+  .sheet-stamp span{font-family:var(--sans);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);}
+  .sheet-stamp b{font-family:var(--sans);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);font-weight:600;text-align:right;}
+
+  .hero__text{position:relative;z-index:3;}
+  .eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--brass);margin-bottom:26px;}
+  .eyebrow::before{content:"";width:34px;height:1px;background:linear-gradient(90deg,transparent,var(--brass));}
+  .hero h1{font-family:var(--display);font-weight:600;font-size:clamp(48px,8.2vw,108px);line-height:.9;letter-spacing:-.015em;}
+  .hero h1 .ital{font-style:italic;color:var(--brass-hi);}
+  .hero__lead{color:#cfc8bb;font-size:clamp(16px,2vw,19px);max-width:46ch;margin:26px 0 32px;line-height:1.6;}
+  .cta-row{display:flex;gap:13px;flex-wrap:wrap;align-items:center;}
+  .solid{background:linear-gradient(180deg,var(--brass-hi),var(--brass));color:#0C0B0A;font-weight:700;padding:15px 28px;border-radius:2px;
+    font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;transition:transform .35s,box-shadow .35s;
+    box-shadow:0 8px 30px -10px rgba(200,162,75,.55);}
+  .solid:hover{transform:translateY(-2px);box-shadow:0 14px 40px -10px rgba(200,162,75,.8);}
+  .ghost{border:1px solid var(--line2);color:#fff;padding:14px 24px;border-radius:2px;font-family:var(--sans);font-size:12px;letter-spacing:.14em;
+    text-transform:uppercase;font-weight:600;display:inline-flex;align-items:center;gap:10px;transition:border-color .35s,transform .35s,color .35s;}
+  .ghost:hover{border-color:var(--brass);color:var(--brass-hi);transform:translateY(-2px);}
+  .ghost .pd{width:8px;height:8px;border-radius:50%;background:var(--brass-hi);box-shadow:0 0 0 4px rgba(231,194,122,.16);}
+
+  /* ---- ДРАКОН: чертёж, который зажигается ---- */
+  .hero__dragon{position:relative;z-index:2;justify-self:center;width:min(50vh,440px);aspect-ratio:1239/1583;cursor:pointer;}
+
+  /* осевые / размерные чертёжные линии вокруг дракона */
+  .dragon-rig{position:absolute;inset:-6% -10%;z-index:1;pointer-events:none;}
+  .dragon-rig .axis{position:absolute;background:rgba(200,162,75,.28);}
+  .dragon-rig .axis.v{left:50%;top:0;bottom:0;width:1px;transform:translateX(-50%);
+    background:repeating-linear-gradient(180deg,rgba(200,162,75,.4) 0 7px,transparent 7px 14px);}
+  .dragon-rig .axis.h{top:50%;left:0;right:0;height:1px;transform:translateY(-50%);
+    background:repeating-linear-gradient(90deg,rgba(200,162,75,.4) 0 7px,transparent 7px 14px);}
+  /* угловые «прицельные» уголки */
+  .dragon-rig .tick{position:absolute;width:18px;height:18px;border:1px solid rgba(200,162,75,.55);}
+  .dragon-rig .tick.tl{top:0;left:0;border-right:none;border-bottom:none;}
+  .dragon-rig .tick.tr{top:0;right:0;border-left:none;border-bottom:none;}
+  .dragon-rig .tick.bl{bottom:0;left:0;border-right:none;border-top:none;}
+  .dragon-rig .tick.br{bottom:0;right:0;border-left:none;border-top:none;}
+  /* размерная подпись */
+  .dragon-rig .dim{position:absolute;font-family:var(--sans);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(231,194,122,.7);}
+  .dragon-rig .dim.top{top:-4px;left:50%;transform:translate(-50%,-100%);}
+  .dragon-rig .dim.right{top:50%;right:-6px;transform:translate(100%,-50%) rotate(90deg);transform-origin:right center;}
+
+  /* слой 1 — контур-чертёж (латунь через filter) */
+  .dragon-blueprint{position:absolute;inset:0;z-index:2;
+    background:var(--bp-src) center/contain no-repeat;
+    /* перекраска чёрного контура PNG в латунь */
+    filter:brightness(0) invert(72%) sepia(38%) saturate(620%) hue-rotate(2deg) brightness(95%) contrast(92%)
+           drop-shadow(0 0 14px rgba(200,162,75,.28));
+    opacity:.92;transition:opacity .9s ease;}
+  .hero__dragon{--bp-src:url(../assets/dragon-outline.png);}
+
+  /* слой 2 — живой огонь (из base.css .dragon-fire), скрыт пока чертёж не "зажжён" */
+  .hero__dragon .dragon-fire{position:absolute;inset:0;z-index:3;
+    filter:drop-shadow(0 0 55px rgba(255,90,31,.5));
+    opacity:0;transition:opacity .9s ease;}
+
+  /* тонкое латунное гало под драконом */
+  .hero__dragon::after{content:"";position:absolute;inset:8% 6%;z-index:0;border-radius:50%;
+    background:radial-gradient(closest-side,rgba(200,162,75,.18),transparent 72%);
+    transition:background .9s ease;}
+
+  /* СОСТОЯНИЕ "ЗАЖЖЁН": по ховеру ИЛИ по классу .lit (скролл/JS) — crossfade чертёж → огонь */
+  .hero__dragon:hover .dragon-blueprint,
+  .hero__dragon.lit .dragon-blueprint{opacity:.14;}
+  .hero__dragon:hover .dragon-fire,
+  .hero__dragon.lit .dragon-fire{opacity:1;}
+  .hero__dragon:hover::after,
+  .hero__dragon.lit::after{background:radial-gradient(closest-side,rgba(255,90,31,.4),transparent 70%);}
+
+  .hero__hint{position:absolute;bottom:-30px;left:50%;transform:translateX(-50%);z-index:4;
+    font-family:var(--sans);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);white-space:nowrap;transition:opacity .5s;}
+  .hero__dragon:hover .hero__hint,.hero__dragon.lit .hero__hint{opacity:0;}
+
+  /* =========================================================
+     marquee-полоса — лента образцов как реестр чертежей
+     ========================================================= */
+  .strip{position:relative;z-index:2;margin-top:8px;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .strip .lbl{position:absolute;left:clamp(20px,4vw,30px);top:-9px;font-family:var(--sans);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);background:var(--bg);padding:0 10px;}
+  .marquee{display:flex;gap:18px;width:max-content;animation:scroll 44s linear infinite;}
+  .marquee:hover{animation-play-state:paused;}
+  @keyframes scroll{to{transform:translateX(-50%);}}
+  .m-tile{width:230px;cursor:pointer;flex:0 0 auto;}
+  .m-tile .ph{height:150px;border-radius:2px;border:1px solid var(--line);}
+  .m-tile .mt-name{margin-top:11px;font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.02em;display:flex;justify-content:space-between;align-items:baseline;gap:8px;}
+  .m-tile .mt-name span{font-size:10px;color:var(--brass);letter-spacing:.1em;text-transform:uppercase;font-weight:500;}
+
+  /* =========================================================
+     Латунные технические детали поверх каркаса base.css
+     ========================================================= */
+  /* тонкие латунные рамки на плитках обзора */
+  .tile{border-color:var(--line);background:var(--panel);}
+  .tile::before{content:"";position:absolute;inset:7px;z-index:2;border:1px solid rgba(200,162,75,.16);pointer-events:none;transition:border-color .3s;}
+  .tile:hover{border-color:var(--line2);box-shadow:0 24px 50px -26px rgba(200,162,75,.5);}
+  .tile:hover::before{border-color:rgba(200,162,75,.45);}
+  .tile .type{color:var(--brass);font-family:var(--sans);letter-spacing:.16em;}
+  .tile .arrow{border-radius:2px;}
+  .tile:hover .arrow{background:var(--brass);border-color:var(--brass);color:#0C0B0A;}
+
+  .ov-head h2 em{color:var(--brass-hi);}
+  #ovcount{font-family:var(--sans);letter-spacing:.06em;color:var(--brass);font-size:11.5px;text-transform:uppercase;}
+
+  /* effects / world — технические реестры */
+  .fx h3,.world h3{letter-spacing:-.01em;}
+  .fx .lbl{font-family:var(--sans);}
+  .fx-row span,.world-row span{border-radius:2px;font-family:var(--sans);font-size:12px;letter-spacing:.04em;}
+  .fx-row span:hover{border-color:var(--brass);color:var(--brass-hi);background:rgba(200,162,75,.08);}
+  .fx-row.hot span{border-color:rgba(200,162,75,.4);color:var(--brass-hi);}
+  .world h3 em,.ov-head h2 em{color:var(--brass-hi);}
+  .world-row .more{color:var(--brass);}
+
+  /* detail / lightbox — латунные акценты */
+  .d-head .type{color:var(--brass);font-family:var(--sans);}
+  .d-head h2 em,.more-cta h3 em,footer h2 em{color:var(--brass-hi);}
+  .d-stats{border-radius:2px;}
+  .tabs button{border-radius:2px;font-family:var(--sans);letter-spacing:.04em;}
+  .tabs button.on{background:var(--brass);color:#0C0B0A;border-color:var(--brass);}
+  .gallery .g .ph{border-radius:2px;}
+  .more-cta a{border-radius:2px;font-family:var(--sans);}
+  .more-cta a.primary{background:var(--brass);color:#0C0B0A;border-color:var(--brass);}
+  .lb .ph{border-radius:4px;}
+
+  .contacts a:hover{color:var(--brass-hi);}
+  footer::before{background:radial-gradient(closest-side,rgba(200,162,75,.16),transparent);}
+
+  @media(max-width:980px){
+    .hero{grid-template-columns:1fr;min-height:auto;padding-top:120px;text-align:center;}
+    .hero__lead{margin-left:auto;margin-right:auto;}.cta-row{justify-content:center;}
+    .hero__dragon{width:min(64vw,330px);margin-top:34px;margin-bottom:36px;order:-1;}
+    .sheet-stamp{display:none;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .marquee{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="brand" onclick="goHome()"><img class="dmark" src="../assets/dragon-light.png" alt="" /> Steam Show</div>
+  <div class="nav-l"><a onclick="openDetail('dragon')">Dragon</a><a onclick="openDetail('fire')">Fire</a><a onclick="openDetail('ledfire')">LED Fire</a><a onclick="openDetail('led')">LED</a><a onclick="openDetail('stilts')">Stilts</a></div>
+  <a class="nav-cta" href="#contact">Book the show</a>
+</nav>
+
+<div class="overview-wrap" id="overview">
+
+  <header class="hero">
+    <div class="hero__bg"></div>
+    <div class="sheet-frame"></div>
+    <div class="sheet-stamp">
+      <span>Project</span><b>Steam Show</b>
+      <span>Sheet</span><b>01 / Hero</b>
+      <span>Scale</span><b>1 : Spectacle</b>
+    </div>
+
+    <div class="hero__text">
+      <span class="eyebrow">Fire · LED · Stilts — worldwide</span>
+      <h1>We are the <span class="ital">dragons.</span></h1>
+      <p class="hero__lead">Large-scale fire, light and stilt spectacles — engineered to be safe, scalable and unforgettable. From European festival stages to private events across the Gulf.</p>
+      <div class="cta-row">
+        <a class="solid" href="#shows" onclick="document.getElementById('shows').scrollIntoView({behavior:'smooth'});return false;">Explore the shows</a>
+        <button class="ghost" onclick="openLightbox('Steam Show — Showreel','reel',0,true)"><span class="pd"></span> Watch showreel</button>
+      </div>
+    </div>
+
+    <!-- ВАУ-МОМЕНТ: дракон-чертёж, который зажигается живым огнём.
+         Слой 1: dragon-outline.png перекрашен в латунь (filter) — технический чертёж.
+         Слой 2: .dragon-fire из base.css (CSS-маска) — живой огонь, crossfade поверх.
+         Зажигается по hover ИЛИ по классу .lit (скролл).
+         VIDEO SLOT: реальное видео огня можно положить как <video class="dragon-fire"> вместо div,
+         либо абсолютным слоем z-index:3 поверх .dragon-blueprint с той же маской. -->
+    <div class="hero__dragon" id="heroDragon">
+      <div class="dragon-rig">
+        <span class="axis v"></span><span class="axis h"></span>
+        <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+        <span class="dim top">FIG. 01 — DRACO IGNIS</span>
+        <span class="dim right">H. 1583 UNITS</span>
+      </div>
+      <div class="dragon-blueprint"></div>
+      <div class="dragon-fire"></div>
+      <span class="hero__hint">Hover to ignite ↑</span>
+    </div>
+  </header>
+
+  <section class="ov" id="shows"><div class="wrap">
+    <div class="ov-head"><h2>Browse <em>everything</em></h2><p id="ovcount"></p></div>
+    <p class="ov-sub">Every block opens a full gallery — multiple videos, photos and costume options to choose from. Pick exactly what you want for your event.</p>
+    <div class="ov-grid reveal" id="ovGrid"></div>
+
+    <div class="strip reveal" style="margin-top:40px"><span class="lbl">Everything we do →</span><div class="marquee" id="marquee"></div></div>
+
+    <div class="fx reveal">
+      <h3>Effects &amp; add-ons</h3>
+      <p>We layer effects into any programme. Some are part of almost every show; others we add on request.</p>
+      <div class="fx-group"><div class="lbl">Usually included</div>
+        <div class="fx-row hot"><span>Flamethrowers</span><span>Fire cannons</span><span>Fire cubes</span><span>Pyrotechnics</span></div></div>
+      <div class="fx-group"><div class="lbl">On request</div>
+        <div class="fx-row"><span>Paper show</span><span>Fire hearts</span><span>Confetti</span><span>Fire on stilts</span></div></div>
+    </div>
+
+    <div class="world reveal">
+      <h3>We travel <em>anywhere</em></h3>
+      <p>Regulars on the European festival circuit and on contract across the Gulf — open to events anywhere in the world.</p>
+      <div class="world-row">
+        <span>Germany</span><span>Poland</span><span>Netherlands</span><span>Switzerland</span><span>Slovakia</span>
+        <span>UAE</span><span>Qatar</span><span>Saudi Arabia</span><span>Oman</span><span>Jordan</span><span>Türkiye</span>
+        <span class="more">+ 20 countries worldwide</span>
+      </div>
+    </div>
+  </div></section>
+
+</div>
+
+<div class="detail" id="detail"><div class="wrap">
+  <button class="back" onclick="goHome()">← All shows</button>
+  <div class="d-head"><div><div class="type" id="dType"></div><h2 id="dTitle"></h2><p id="dDesc"></p></div><div class="d-stats" id="dStats"></div></div>
+  <div class="tabs" id="dTabs"></div><div class="gallery" id="dGallery"></div>
+  <div class="more-cta"><h3>Want this for your <em>event</em>?</h3><div class="btns"><a class="primary" href="#contact" onclick="goHome()">Request this show</a><a href="#contact" onclick="goHome()">See full reel</a></div></div>
+</div></div>
+
+<div class="lb" id="lb" onclick="if(event.target.id==='lb')closeLightbox()">
+  <button class="x" onclick="closeLightbox()">×</button><button class="nav-btn prev" onclick="lbStep(-1)">‹</button><button class="nav-btn next" onclick="lbStep(1)">›</button>
+  <div class="box"><div class="ph" id="lbPh"></div><div class="lb-cap"><span id="lbCap"></span><span id="lbIdx"></span></div></div>
+</div>
+
+<footer id="contact"><div class="wrap">
+  <h2>Let’s light up<br><em>your event.</em></h2>
+  <div class="contacts"><a href="#">Instagram ↗</a><a href="mailto:hello@steamshow.com">Email ↗</a><a href="#">WhatsApp ↗</a><a href="#">Telegram ↗</a><a href="#">YouTube ↗</a></div>
+  <div class="fn">© <span id="year"></span> Steam Show · V5 Blueprint</div>
+</div></footer>
+
+<script>
+  // ВАУ-момент: дракон-чертёж зажигается по скроллу (в дополнение к hover).
+  (function(){
+    var d=document.getElementById('heroDragon');
+    if(!d)return;
+    if(matchMedia('(prefers-reduced-motion:reduce)').matches){d.classList.add('lit');return;}
+    if(!('IntersectionObserver'in window)){d.classList.add('lit');return;}
+    // как только дракон попадает в центр вьюпорта — зажигаем; уходит — гасим (можно снова "оживить" скроллом).
+    var io=new IntersectionObserver(function(ents){
+      ents.forEach(function(en){ d.classList.toggle('lit', en.isIntersecting); });
+    },{threshold:.55});
+    io.observe(d);
+  })();
+</script>
+<script src="engine.js"></script>
+</body>
+</html>

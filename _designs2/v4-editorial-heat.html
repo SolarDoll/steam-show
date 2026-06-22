@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Steam Show — Issue Nº 04 · Fire, LED &amp; Dragons</title>
+<meta name="description" content="Steam Show — large-scale fire, LED and stilt performances for events worldwide. An editorial issue." />
+<link rel="icon" href="../assets/Logo_final.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="base.css" />
+<style>
+  :root{
+    /* EDITORIAL HEAT — высокий контраст: глубокий чёрный + тёплый крем + огонь */
+    --bg:#0B0A08; --bg2:#0F0D0A; --panel:#15120D; --panel2:#1C1812;
+    --cream:#F2EEE6; --ink:#0B0A08;
+    --text:#F2EEE6; --muted:#9C958A; --faint:#6a6358;
+    --accent:#FF4D12; --accent2:#FF7A3C; --gold:#E7C27A; --cool:#3DE0E6;
+    --line:#28241d; --line2:#3a352b;
+    --display:"Anton",Impact,sans-serif;
+    --grotesk:"Archivo",system-ui,sans-serif;
+    --serif:"Cormorant Garamond",Georgia,serif;
+    --sans:"Inter",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+    --display-weight:400; --tile-fontweight:400; --upper:.08em;
+    --cta-bg:var(--accent); --cta-fg:#160600;
+    --tile-radius:0px; --radius:0px;
+  }
+  body{background:var(--bg);font-family:var(--sans);letter-spacing:.005em;}
+
+  /* ====== журнальная типографика поверх движка ======
+     движок печатает .ov-head h2 / .tile h3 / .d-head h2 — задаём им display-шрифт */
+  .ov-head h2,.world h3,.more-cta h3,footer h2{font-family:var(--display)!important;font-weight:400!important;text-transform:uppercase;letter-spacing:.005em;line-height:.92;}
+  .ov-head h2 em,.world h3 em,.more-cta h3 em,footer h2 em{font-family:var(--serif);font-style:italic;text-transform:none;font-weight:500;letter-spacing:0;}
+  .d-head h2{font-family:var(--display)!important;font-weight:400!important;text-transform:uppercase;line-height:.9;letter-spacing:.005em;}
+  .d-head h2 em{font-family:var(--serif);font-style:italic;text-transform:none;color:var(--accent);font-weight:500;}
+  .fx h3{font-family:var(--display)!important;font-weight:400!important;text-transform:uppercase;letter-spacing:.01em;font-size:30px;}
+
+  /* nav как журнальная шапка-кольнтитул */
+  nav{padding-top:16px;padding-bottom:16px;}
+  .brand{font-family:var(--grotesk);font-weight:900;letter-spacing:.24em;}
+  .nav-l{font-family:var(--grotesk);font-weight:600;}
+  .nav-cta{font-family:var(--grotesk);font-weight:800;border-radius:0;}
+
+  /* ============================================================
+     HERO — журнальная ОБЛОЖКА. Гигантский титул, выпуск Nº 04,
+     силуэт дракона как редакторская графика поверх типографики.
+     ============================================================ */
+  .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+    padding:120px clamp(20px,4vw,40px) 70px;max-width:1400px;margin:0 auto;overflow:hidden;}
+  .hero__bg{position:absolute;inset:0;z-index:0;
+    background:radial-gradient(80% 70% at 70% 40%,rgba(255,77,18,.16),transparent 62%),
+               radial-gradient(60% 60% at 12% 96%,rgba(255,122,60,.12),transparent 60%),
+               linear-gradient(180deg,#0B0A08,#120b08 64%,#1a0d07);}
+  .hero__bg::after{content:"";position:absolute;inset:0;
+    background:radial-gradient(closest-side at 70% 46%,rgba(255,77,18,.34),transparent 60%);
+    filter:blur(40px);animation:breathe 8s ease-in-out infinite;}
+  @keyframes breathe{0%,100%{opacity:.55;transform:scale(1);}50%{opacity:1;transform:scale(1.07);}}
+
+  /* верхний колонтитул обложки: выпуск / дата / выходные данные */
+  .cover-top{position:relative;z-index:4;display:flex;justify-content:space-between;align-items:flex-start;
+    gap:20px;font-family:var(--grotesk);text-transform:uppercase;letter-spacing:.16em;font-size:11px;color:var(--muted);
+    border-bottom:1px solid var(--line2);padding-bottom:14px;margin-bottom:auto;flex-wrap:wrap;}
+  .cover-top b{color:var(--cream);font-weight:800;}
+  .cover-top .issue{color:var(--accent);font-weight:800;letter-spacing:.2em;}
+
+  /* силуэт дракона — крупная редакторская графика, заходит за текст */
+  .hero__dragon{position:absolute;z-index:2;right:clamp(-40px,-1vw,0px);top:50%;transform:translateY(-46%);
+    width:min(58vh,640px);pointer-events:none;}
+  .hero__dragon .dragon-fire{filter:drop-shadow(0 0 60px rgba(255,77,18,.45));opacity:.96;}
+  /* лёгкий контур поверх — редакторский штрих */
+  .hero__outline{position:absolute;z-index:1;right:clamp(-60px,-2vw,-10px);top:50%;transform:translateY(-44%) rotate(-2deg);
+    width:min(62vh,690px);pointer-events:none;opacity:.10;mix-blend-mode:screen;}
+
+  /* гигантский заголовок обложки */
+  .cover-mast{position:relative;z-index:3;margin-top:auto;}
+  .cover-kicker{font-family:var(--grotesk);font-weight:800;text-transform:uppercase;letter-spacing:.3em;
+    font-size:clamp(11px,1.2vw,13px);color:var(--gold);margin-bottom:18px;}
+  .cover-mast h1{font-family:var(--display);font-weight:400;text-transform:uppercase;
+    font-size:clamp(64px,16.5vw,260px);line-height:.82;letter-spacing:.005em;color:var(--cream);
+    text-shadow:0 4px 60px rgba(0,0,0,.5);}
+  .cover-mast h1 .ital{font-family:var(--serif);font-style:italic;font-weight:500;text-transform:none;
+    color:var(--accent2);letter-spacing:0;
+    background:linear-gradient(96deg,#FF2E00,#FF7A3C 45%,#FFB23E 70%,#FF4D12);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  .cover-sub{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap;margin-top:26px;max-width:62ch;}
+  .cover-sub .rule{flex:0 0 auto;width:64px;height:3px;background:var(--accent);margin-top:11px;}
+  .cover-sub p{font-family:var(--sans);color:#d6cdc1;font-size:clamp(15px,1.5vw,18px);line-height:1.5;max-width:46ch;}
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px;position:relative;z-index:3;}
+  .solid{background:var(--accent);color:#160600;font-family:var(--grotesk);font-weight:800;padding:16px 30px;
+    border-radius:0;font-size:12px;letter-spacing:.12em;text-transform:uppercase;transition:transform .3s,box-shadow .3s;
+    box-shadow:0 10px 34px -10px rgba(255,77,18,.6);}
+  .solid:hover{transform:translateY(-2px);box-shadow:0 16px 44px -10px rgba(255,77,18,.85);}
+  .ghost{border:1px solid var(--line2);color:var(--cream);font-family:var(--grotesk);font-weight:800;padding:16px 28px;
+    border-radius:0;font-size:12px;letter-spacing:.12em;text-transform:uppercase;display:inline-flex;align-items:center;
+    gap:10px;transition:border-color .3s,transform .3s,background .3s;}
+  .ghost:hover{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent);transform:translateY(-2px);}
+  .ghost .pd{width:9px;height:9px;border-radius:50%;background:var(--accent2);box-shadow:0 0 0 4px rgba(255,122,60,.2);}
+  /* video slot: позже сюда можно положить реальное showreel-видео под .hero__dragon (autoplay muted loop) */
+
+  /* ====== OVERVIEW как разворот журнала ====== */
+  .ov{padding:96px 0 30px;}
+  .ov-head{align-items:flex-end;border-bottom:2px solid var(--line2);padding-bottom:18px;}
+  .ov-head::before{content:"The Catalogue";position:absolute;}
+  .ov-section-tag{display:flex;align-items:center;gap:14px;font-family:var(--grotesk);font-weight:800;
+    text-transform:uppercase;letter-spacing:.26em;font-size:11px;color:var(--accent);margin-bottom:20px;}
+  .ov-section-tag::before{content:"";width:34px;height:2px;background:var(--accent);}
+  .ov-head h2{font-size:clamp(40px,7vw,92px);}
+  .ov-head p{font-family:var(--grotesk);font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:12px;color:var(--muted);}
+  .ov-sub{font-family:var(--serif);font-style:italic;font-size:clamp(18px,2.2vw,24px);color:#cfc6ba;max-width:54ch;
+    margin:22px 0 40px;line-height:1.35;}
+
+  /* плитки-развороты с крупными номерами 01–05 (стилизация через CSS, разметку даёт движок) */
+  .ov-grid{counter-reset:tile;gap:0;border-top:1px solid var(--line);}
+  .tile{border:none;border-bottom:1px solid var(--line);border-radius:0;background:transparent;min-height:300px;
+    counter-increment:tile;}
+  .tile::before{content:counter(tile,decimal-leading-zero);position:absolute;z-index:4;top:18px;left:20px;
+    font-family:var(--display);font-weight:400;font-size:clamp(40px,5vw,68px);line-height:.8;color:var(--cream);
+    mix-blend-mode:difference;pointer-events:none;}
+  .tile .ph{border-radius:0;filter:saturate(1.05);}
+  .tile .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,10,8,.05),rgba(11,10,8,.72));z-index:1;}
+  .tile .info{padding:30px;background:linear-gradient(0deg,rgba(11,10,8,.94) 14%,transparent 70%);}
+  .tile .type{font-family:var(--grotesk);font-weight:700;letter-spacing:.2em;color:var(--gold);font-size:10.5px;}
+  .tile h3{font-family:var(--display)!important;font-weight:400!important;text-transform:uppercase;
+    font-size:clamp(28px,3vw,44px);line-height:.92;margin-top:10px;letter-spacing:.01em;}
+  .tile .meta{font-family:var(--grotesk);font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:10.5px;color:#cabfb2;}
+  .tile .arrow{border-radius:0;border-color:rgba(242,238,230,.35);width:46px;height:46px;}
+  .tile:hover{transform:none;box-shadow:none;}
+  .tile:hover .ph .glow{transform:scale(1.05);}
+  .tile:hover .arrow{background:var(--accent);border-color:var(--accent);color:#160600;transform:rotate(-45deg);}
+  /* журнальный ритм раскладки */
+  .tile.flagship{grid-column:span 4;grid-row:span 2;min-height:620px;border-right:1px solid var(--line);}
+  .tile.flagship h3{font-size:clamp(44px,5.6vw,84px);}
+  .tile.flagship::before{font-size:clamp(60px,8vw,120px);}
+  .tile.std2{grid-column:span 2;border-right:1px solid var(--line);}
+  .tile.wide{grid-column:span 3;border-right:1px solid var(--line);}
+
+  /* marquee-полоса как «индекс выпуска» */
+  .strip{border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);padding:22px 0;}
+  .strip .lbl{font-family:var(--grotesk);font-weight:800;letter-spacing:.2em;background:var(--bg);}
+  .m-tile .ph{height:160px;border-radius:0;}
+  .m-tile .mt-name{font-family:var(--grotesk);font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:12.5px;}
+  .m-tile .mt-name span{font-family:var(--sans);font-weight:500;text-transform:none;letter-spacing:.02em;}
+
+  /* ============================================================
+     ИНВЕРСИЯ: .fx + .world на КРЕМОВОМ фоне — журнальный ритм
+     (светлая секция среди тёмного сайта). Сдвиг во всю ширину.
+     ============================================================ */
+  .cream-block{position:relative;background:var(--cream);color:var(--ink);
+    margin-top:80px;
+    /* растягиваем на всю ширину вьюпорта изнутри .wrap */
+    width:100vw;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;
+    padding:74px 0 64px;}
+  .cream-block .cream-inner{max-width:1400px;margin:0 auto;padding:0 clamp(20px,4vw,40px);}
+
+  .fx{margin-top:0;border-top:none;padding-top:0;}
+  .cream-block .fx h3{color:var(--ink);font-size:clamp(30px,4vw,52px);}
+  .cream-block .fx p{font-family:var(--serif);font-style:italic;font-size:19px;color:#3a352b;margin:10px 0 24px;}
+  .cream-block .fx-group .lbl{font-family:var(--grotesk);font-weight:800;color:#8a7f5f;letter-spacing:.22em;}
+  .cream-block .fx-row span{border:1px solid #cfc7b6;color:#2a261d;background:rgba(255,255,255,.4);border-radius:0;
+    font-family:var(--grotesk);font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:11.5px;}
+  .cream-block .fx-row span:hover{border-color:var(--accent);color:var(--accent);background:rgba(255,77,18,.07);}
+  .cream-block .fx-row.hot span{border-color:var(--accent);color:var(--accent);background:rgba(255,77,18,.06);}
+
+  .world{border-top:1px solid #d6cdba;margin-top:50px;padding-top:46px;}
+  .cream-block .world h3{color:var(--ink);}
+  .cream-block .world h3 em{color:var(--accent);}
+  .cream-block .world p{font-family:var(--serif);font-style:italic;font-size:19px;color:#3a352b;}
+  .cream-block .world-row span{color:#2a261d;border:1px solid #cfc7b6;background:rgba(255,255,255,.4);border-radius:0;
+    font-family:var(--grotesk);font-weight:600;text-transform:uppercase;letter-spacing:.05em;font-size:11.5px;}
+  .cream-block .world-row .more{border:none;color:var(--accent);background:none;font-weight:800;}
+  /* большой номер-маркер в углу кремовой секции */
+  .cream-block .cream-no{position:absolute;top:24px;right:clamp(20px,4vw,40px);font-family:var(--display);
+    font-size:clamp(60px,9vw,150px);line-height:.8;color:rgba(11,10,8,.06);pointer-events:none;}
+
+  /* ====== DETAIL — журнальный материал ====== */
+  .detail{padding-top:34px;}
+  .back{font-family:var(--grotesk);font-weight:700;letter-spacing:.14em;}
+  .d-head{border-bottom:2px solid var(--line2);}
+  .d-head .type{font-family:var(--grotesk);font-weight:800;letter-spacing:.24em;font-size:11px;}
+  .d-head h2{font-size:clamp(48px,8vw,108px);}
+  .d-head p{font-family:var(--serif);font-style:italic;font-size:clamp(17px,2vw,21px);color:#d6cdc1;line-height:1.4;}
+  .d-stats{border-radius:0;}
+  .d-stats div{font-family:var(--grotesk);}
+  .d-stats div span:first-child{font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:11px;}
+  .tabs button{border-radius:0;font-family:var(--grotesk);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:11px;}
+  .tabs button.on{background:var(--accent);color:#160600;border-color:var(--accent);}
+  .gallery .g .ph,.lb .ph{border-radius:0;}
+  .more-cta{border-top:2px solid var(--line2);}
+  .more-cta h3{font-size:clamp(34px,5vw,62px);}
+  .more-cta a{border-radius:0;font-family:var(--grotesk);font-weight:700;}
+  .more-cta a.primary{background:var(--accent);color:#160600;border-color:var(--accent);}
+  .lb .x,.lb .nav-btn{font-family:var(--grotesk);}
+  .lb .lb-cap{font-family:var(--grotesk);text-transform:uppercase;letter-spacing:.08em;font-size:12px;}
+
+  /* ====== FOOTER — задняя обложка ====== */
+  footer h2{font-size:clamp(40px,8vw,104px);}
+  .contacts a{font-family:var(--grotesk);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:13px;}
+  .fn{font-family:var(--grotesk);letter-spacing:.14em;text-transform:uppercase;}
+
+  /* ====== embers (как в v1) ====== */
+  .embers{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none;}
+  .ember{position:absolute;bottom:-12px;width:4px;height:4px;border-radius:50%;background:var(--accent2);
+    box-shadow:0 0 8px 1px rgba(255,122,60,.85);animation:rise linear infinite;}
+  @keyframes rise{0%{transform:translateY(0);opacity:0;}10%{opacity:1;}90%{opacity:.8;}100%{transform:translateY(-92vh) translateX(var(--dx,20px));opacity:0;}}
+
+  /* ====== адаптив ====== */
+  @media(max-width:980px){
+    .hero{padding-top:104px;min-height:auto;}
+    .hero__dragon{position:relative;right:auto;top:auto;transform:none;width:min(72vw,360px);
+      margin:24px auto 8px;opacity:.92;}
+    .hero__outline{display:none;}
+    .cover-mast{margin-top:30px;}
+    .cover-mast h1{font-size:clamp(58px,18vw,120px);}
+    .cover-top{font-size:10px;}
+    .tile.flagship,.tile.std2,.tile.wide{grid-column:span 2;grid-row:auto;min-height:280px;border-right:none;}
+    .tile.flagship{min-height:340px;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .hero__bg::after{animation:none;}
+    .cover-mast h1 .ital{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="brand" onclick="goHome()"><img class="dmark" src="../assets/dragon-light.png" alt="" /> Steam Show</div>
+  <div class="nav-l"><a onclick="openDetail('dragon')">Dragon</a><a onclick="openDetail('fire')">Fire</a><a onclick="openDetail('ledfire')">LED Fire</a><a onclick="openDetail('led')">LED</a><a onclick="openDetail('stilts')">Stilts</a></div>
+  <a class="nav-cta" href="#contact">Book the show</a>
+</nav>
+
+<div class="overview-wrap" id="overview">
+
+  <header class="hero">
+    <div class="hero__bg"></div>
+    <div class="embers" id="embers"></div>
+
+    <!-- верхний колонтитул обложки -->
+    <div class="cover-top">
+      <span class="issue">Issue Nº 04</span>
+      <span>The Heat Edition · <b>Summer 2026</b></span>
+      <span>Fire · LED · Stilts — <b>worldwide</b></span>
+      <span>steamshow.com</span>
+    </div>
+
+    <!-- силуэт дракона как редакторская графика поверх типографики -->
+    <img class="hero__outline" src="../assets/dragon-outline.png" alt="" />
+    <div class="hero__dragon">
+      <!-- огонь живёт внутри силуэта дракона (CSS mask); video slot: позже сюда кладётся реальное showreel-видео -->
+      <div class="dragon-fire"></div>
+    </div>
+
+    <!-- гигантский титул обложки -->
+    <div class="cover-mast">
+      <div class="cover-kicker">The Live Spectacle Catalogue</div>
+      <h1>We<br>are the<br><span class="ital">dragons.</span></h1>
+      <div class="cover-sub">
+        <span class="rule"></span>
+        <p>Large-scale fire, light and stilt spectacles — engineered to be safe, scalable and unforgettable. From European festival stages to private events across the Gulf.</p>
+      </div>
+      <div class="cta-row">
+        <a class="solid" href="#shows" onclick="document.getElementById('shows').scrollIntoView({behavior:'smooth'});return false;">Open the catalogue</a>
+        <button class="ghost" onclick="openLightbox('Steam Show — Showreel','reel',0,true)"><span class="pd"></span> Watch showreel</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="ov" id="shows"><div class="wrap">
+    <div class="ov-section-tag">The Catalogue</div>
+    <div class="ov-head"><h2>Browse <em>everything</em></h2><p id="ovcount"></p></div>
+    <p class="ov-sub">Every block opens a full gallery — multiple videos, photos and costume options to choose from. Pick exactly what you want for your event.</p>
+    <div class="ov-grid reveal" id="ovGrid"></div>
+
+    <div class="strip reveal" style="margin-top:40px"><span class="lbl">The Index →</span><div class="marquee" id="marquee"></div></div>
+
+    <!-- ИНВЕРСИЯ: эффекты + worldwide на кремовом фоне (журнальный ритм) -->
+    <div class="cream-block reveal">
+      <span class="cream-no">Nº</span>
+      <div class="cream-inner">
+        <div class="fx">
+          <h3>Effects &amp; add-ons</h3>
+          <p>We layer effects into any programme. Some are part of almost every show; others we add on request.</p>
+          <div class="fx-group"><div class="lbl">Usually included</div>
+            <div class="fx-row hot"><span>Flamethrowers</span><span>Fire cannons</span><span>Fire cubes</span><span>Pyrotechnics</span></div></div>
+          <div class="fx-group"><div class="lbl">On request</div>
+            <div class="fx-row"><span>Paper show</span><span>Fire hearts</span><span>Confetti</span><span>Fire on stilts</span></div></div>
+        </div>
+
+        <div class="world">
+          <h3>We travel <em>anywhere</em></h3>
+          <p>Regulars on the European festival circuit and on contract across the Gulf — open to events anywhere in the world.</p>
+          <div class="world-row">
+            <span>Germany</span><span>Poland</span><span>Netherlands</span><span>Switzerland</span><span>Slovakia</span>
+            <span>UAE</span><span>Qatar</span><span>Saudi Arabia</span><span>Oman</span><span>Jordan</span><span>Türkiye</span>
+            <span class="more">+ 20 countries worldwide</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></section>
+
+</div>
+
+<div class="detail" id="detail"><div class="wrap">
+  <button class="back" onclick="goHome()">← All shows</button>
+  <div class="d-head"><div><div class="type" id="dType"></div><h2 id="dTitle"></h2><p id="dDesc"></p></div><div class="d-stats" id="dStats"></div></div>
+  <div class="tabs" id="dTabs"></div><div class="gallery" id="dGallery"></div>
+  <div class="more-cta"><h3>Want this for your <em>event</em>?</h3><div class="btns"><a class="primary" href="#contact" onclick="goHome()">Request this show</a><a href="#contact" onclick="goHome()">See full reel</a></div></div>
+</div></div>
+
+<div class="lb" id="lb" onclick="if(event.target.id==='lb')closeLightbox()">
+  <button class="x" onclick="closeLightbox()">×</button><button class="nav-btn prev" onclick="lbStep(-1)">‹</button><button class="nav-btn next" onclick="lbStep(1)">›</button>
+  <div class="box"><div class="ph" id="lbPh"></div><div class="lb-cap"><span id="lbCap"></span><span id="lbIdx"></span></div></div>
+</div>
+
+<footer id="contact"><div class="wrap">
+  <h2>Let’s light up<br><em>your event.</em></h2>
+  <div class="contacts"><a href="#">Instagram ↗</a><a href="mailto:hello@steamshow.com">Email ↗</a><a href="#">WhatsApp ↗</a><a href="#">Telegram ↗</a><a href="#">YouTube ↗</a></div>
+  <div class="fn">© <span id="year"></span> Steam Show · Issue Nº 04 — Editorial Heat</div>
+</div></footer>
+
+<script>
+  // эмберы в hero (как в v1)
+  (function(){
+    var box=document.getElementById('embers');
+    if(!box||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+    var n=window.innerWidth<700?14:26;
+    for(var i=0;i<n;i++){var e=document.createElement('span');e.className='ember';
+      e.style.left=Math.random()*100+'%';var s=2+Math.random()*4;e.style.width=e.style.height=s+'px';
+      e.style.animationDuration=(6+Math.random()*8)+'s';e.style.animationDelay=(-Math.random()*12)+'s';
+      e.style.setProperty('--dx',(Math.random()*120-60)+'px');e.style.opacity=.4+Math.random()*.6;box.appendChild(e);}
+  })();
+</script>
+<script src="engine.js"></script>
+</body>
+</html>

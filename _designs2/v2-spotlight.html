@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Steam Show — Fire, LED &amp; Dragons worldwide</title>
+<meta name="description" content="Steam Show — large-scale fire, LED and stilt performances for events worldwide." />
+<link rel="icon" href="../assets/Logo_final.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="base.css" />
+<style>
+  /* ============================================================
+     ТЕМА «SPOTLIGHT» — дофаминовый фестивальный огонь.
+     Баклажаново-чёрная база, тёплые сочные акценты,
+     крупные жирные UPPERCASE заголовки на Manrope 800.
+     ============================================================ */
+  :root{
+    --bg:#150018; --bg2:#1c0a22; --panel:#22102a; --panel2:#2b1535;
+    --text:#FBEFF6; --muted:#C7A7C9; --faint:#8a6e90;
+    --accent:#FF6A1F;            /* оранж */
+    --accent2:#FFD23E;           /* золото-жёлтый */
+    --pink:#FF2E6E;              /* коралл/розовый */
+    --gold:#FFD23E; --cool:#FF2E6E;
+    --line:#3a1f45; --line2:#532a60;
+    --radius:20px; --tile-radius:20px;
+    /* заголовки — жирный санс uppercase, без серифа */
+    --display:var(--sans);
+    --display-weight:800; --tile-fontweight:800; --upper:.04em;
+    --cta-bg:var(--accent); --cta-fg:#1a0008;
+  }
+  /* крупные заголовки оболочки: uppercase + tight tracking */
+  .ov-head h2,.world h3,.fx h3,.d-head h2,.more-cta h3,footer h2{
+    text-transform:uppercase;letter-spacing:-.01em;}
+  .ov-head h2 em,.world h3 em,.d-head h2 em,.more-cta h3 em,footer h2 em{
+    font-style:normal;color:var(--pink);}
+  /* акценты на интерактиве оболочки */
+  .tile:hover{box-shadow:0 26px 60px -22px color-mix(in srgb,var(--pink) 60%,transparent),
+                         0 0 0 1px color-mix(in srgb,var(--accent) 50%,transparent);}
+  .tile .type{color:var(--accent2);}
+  .nav-cta:hover{background:var(--pink);color:#fff;}
+  .fx-row span:hover{border-color:var(--pink);color:var(--accent2);
+    background:color-mix(in srgb,var(--pink) 12%,transparent);}
+  .world-row .more{color:var(--accent2);}
+  .more-cta a.primary{background:var(--accent);color:#1a0008;box-shadow:0 10px 34px -10px color-mix(in srgb,var(--accent) 80%,transparent);}
+  footer::before{background:radial-gradient(closest-side,color-mix(in srgb,var(--pink) 26%,transparent),transparent);}
+
+  /* ---------------- HERO «SPOTLIGHT» ---------------- */
+  .hero{position:relative;min-height:100svh;display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:34px;
+    padding:96px clamp(20px,4vw,30px) 60px;max-width:1320px;margin:0 auto;overflow:hidden;}
+
+  /* фон — баклажан с тёплыми «прожекторами» */
+  .hero__bg{position:absolute;inset:0;z-index:0;
+    background:
+      radial-gradient(60% 55% at 80% 42%,rgba(255,106,31,.30),transparent 62%),
+      radial-gradient(46% 48% at 16% 18%,rgba(255,46,110,.26),transparent 60%),
+      radial-gradient(50% 50% at 50% 108%,rgba(255,210,62,.16),transparent 60%),
+      linear-gradient(180deg,#150018,#1c0a22 60%,#2a0c1a);}
+  /* конусы «прожекторов» сверху — фестивальный свет */
+  .hero__beams{position:absolute;inset:0;z-index:1;pointer-events:none;mix-blend-mode:screen;opacity:.55;
+    background:
+      conic-gradient(from 200deg at 22% -8%, transparent 0 8deg, rgba(255,210,62,.22) 12deg, transparent 18deg),
+      conic-gradient(from 160deg at 78% -8%, transparent 0 8deg, rgba(255,46,110,.20) 12deg, transparent 18deg);
+    animation:sweep 9s ease-in-out infinite alternate;}
+  @keyframes sweep{from{transform:translateX(-2%) rotate(-1deg);}to{transform:translateX(2%) rotate(1deg);}}
+  .hero__bg::after{content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 78% 52%,rgba(255,106,31,.4),transparent 46%);
+    filter:blur(34px);animation:breathe 7s ease-in-out infinite;}
+  @keyframes breathe{0%,100%{opacity:.55;transform:scale(1);}50%{opacity:1;transform:scale(1.07);}}
+
+  /* искры */
+  .embers{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none;}
+  .ember{position:absolute;bottom:-12px;width:4px;height:4px;border-radius:50%;background:var(--accent2);
+    box-shadow:0 0 9px 1px rgba(255,210,62,.9);animation:rise linear infinite;}
+  @keyframes rise{0%{transform:translateY(0);opacity:0;}10%{opacity:1;}90%{opacity:.85;}100%{transform:translateY(-92vh) translateX(var(--dx,20px));opacity:0;}}
+
+  .hero__text{position:relative;z-index:3;}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:800;letter-spacing:.26em;
+    text-transform:uppercase;color:#1a0008;margin-bottom:24px;
+    background:linear-gradient(90deg,var(--accent2),var(--accent));padding:7px 15px;border-radius:100px;
+    box-shadow:0 6px 22px -8px rgba(255,106,31,.8);}
+
+  /* крупный разноцветный заголовок — слова разными акцентами */
+  .hero h1{font-family:var(--sans);font-weight:800;font-size:clamp(50px,8.6vw,116px);line-height:.9;
+    letter-spacing:-.035em;text-transform:uppercase;}
+  .hero h1 .l1{color:var(--text);}
+  .hero h1 .l2{color:var(--accent);}
+  .hero h1 .l3{background:linear-gradient(92deg,var(--pink),var(--accent) 55%,var(--accent2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 0 40px rgba(255,46,110,.25);}
+  .hero__lead{color:#E7CFE0;font-size:clamp(16px,2vw,19px);max-width:46ch;margin:26px 0 32px;}
+
+  .cta-row{display:flex;gap:13px;flex-wrap:wrap;}
+  .solid{background:linear-gradient(92deg,var(--accent),var(--pink));color:#fff;font-weight:800;
+    padding:16px 30px;border-radius:100px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;
+    transition:transform .35s,box-shadow .35s;box-shadow:0 10px 34px -8px rgba(255,46,110,.7);}
+  .solid:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 16px 46px -8px rgba(255,46,110,.95);}
+  .ghost{border:1.5px solid var(--line2);color:#fff;padding:16px 26px;border-radius:100px;font-size:13px;
+    letter-spacing:.06em;text-transform:uppercase;font-weight:800;display:inline-flex;align-items:center;gap:9px;
+    transition:border-color .35s,transform .35s,box-shadow .35s;}
+  .ghost:hover{border-color:var(--accent2);transform:translateY(-2px);box-shadow:0 0 0 4px rgba(255,210,62,.12);}
+  .ghost .pd{width:10px;height:10px;border-radius:50%;background:var(--accent2);box-shadow:0 0 0 4px rgba(255,210,62,.22);}
+
+  /* ---- ДРАКОН: контур → заливается огнём (crossfade на hover) ---- */
+  .hero__dragon{position:relative;z-index:2;justify-self:center;width:min(48vh,440px);
+    aspect-ratio:1239/1583;cursor:pointer;}
+  /* общий glow-подсвет за драконом */
+  .hero__dragon::before{content:"";position:absolute;inset:-12% -8%;z-index:0;
+    background:radial-gradient(closest-side,rgba(255,106,31,.45),rgba(255,46,110,.18),transparent 72%);
+    filter:blur(26px);animation:breathe 7s ease-in-out infinite;}
+  /* контур (по умолчанию видно), перекрашен в тёплый акцент */
+  .hero__dragon .d-outline{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:contain;
+    /* контур → тёплый оранж/золото */
+    filter:brightness(0) saturate(100%) invert(63%) sepia(72%) saturate(2400%) hue-rotate(348deg) brightness(102%) contrast(101%)
+           drop-shadow(0 0 26px rgba(255,106,31,.55));
+    opacity:1;transition:opacity .55s ease;}
+  /* залитый огнём силуэт (из base.css .dragon-fire) — появляется на hover */
+  .hero__dragon .dragon-fire{position:absolute;inset:0;z-index:2;
+    filter:drop-shadow(0 0 55px rgba(255,106,31,.6)) saturate(1.15);
+    opacity:0;transition:opacity .55s ease;}
+  .hero__dragon:hover .d-outline,.hero__dragon.lit .d-outline{opacity:0;}
+  .hero__dragon:hover .dragon-fire,.hero__dragon.lit .dragon-fire{opacity:1;}
+  /*  VIDEO SLOT: позже сюда можно положить реальное видео огня поверх силуэта —
+      <video class="d-video" muted loop playsinline> с тем же mask, что у .dragon-fire,
+      и кросс-фейдить так же по .lit / :hover.  */
+  .hero__hint{position:absolute;bottom:-30px;left:50%;transform:translateX(-50%);z-index:3;
+    font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);white-space:nowrap;}
+
+  /* ---- marquee-полоса в hero (тот же #marquee, что движок наполняет) ---- */
+  .strip{position:relative;z-index:2;margin-top:8px;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .strip .lbl{position:absolute;left:clamp(20px,4vw,30px);top:-9px;font-size:10.5px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent2);background:var(--bg);padding:0 10px;}
+  .marquee{display:flex;gap:16px;width:max-content;animation:scroll 40s linear infinite;}
+  .marquee:hover{animation-play-state:paused;}
+  @keyframes scroll{to{transform:translateX(-50%);}}
+  .m-tile{width:230px;cursor:pointer;flex:0 0 auto;}
+  .m-tile .ph{height:150px;}
+  .m-tile .mt-name{margin-top:10px;font-size:14px;font-weight:700;display:flex;justify-content:space-between;align-items:baseline;gap:8px;}
+  .m-tile .mt-name span{font-size:11px;color:var(--accent2);letter-spacing:.04em;font-weight:500;}
+
+  @media(max-width:980px){
+    .hero{grid-template-columns:1fr;min-height:auto;padding-top:120px;text-align:center;}
+    .hero__lead{margin-left:auto;margin-right:auto;}.cta-row{justify-content:center;}
+    .hero__dragon{width:min(64vw,330px);margin-top:30px;margin-bottom:34px;order:-1;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .hero__beams{animation:none;}.hero__bg::after{animation:none;}.hero__dragon::before{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="brand" onclick="goHome()"><img class="dmark" src="../assets/dragon-light.png" alt="" /> Steam Show</div>
+  <div class="nav-l"><a onclick="openDetail('dragon')">Dragon</a><a onclick="openDetail('fire')">Fire</a><a onclick="openDetail('ledfire')">LED Fire</a><a onclick="openDetail('led')">LED</a><a onclick="openDetail('stilts')">Stilts</a></div>
+  <a class="nav-cta" href="#contact">Book the show</a>
+</nav>
+
+<div class="overview-wrap" id="overview">
+
+  <header class="hero">
+    <div class="hero__bg"></div>
+    <div class="hero__beams"></div>
+    <div class="embers" id="embers"></div>
+    <div class="hero__text">
+      <span class="eyebrow">Fire · LED · Stilts — worldwide</span>
+      <h1><span class="l1">Light it</span> <span class="l2">up.</span><br><span class="l3">Bring the dragon.</span></h1>
+      <p class="hero__lead">Big, loud, dopamine-bright spectacle — engineered around real fire. From European festival main stages to private events across the Gulf, we turn a venue into an event people film.</p>
+      <div class="cta-row">
+        <a class="solid" href="#shows" onclick="document.getElementById('shows').scrollIntoView({behavior:'smooth'});return false;">Explore the shows</a>
+        <button class="ghost" onclick="openLightbox('Steam Show — Showreel','reel',0,true)"><span class="pd"></span> Watch showreel</button>
+      </div>
+    </div>
+    <div class="hero__dragon" id="heroDragon" tabindex="0" aria-label="Dragon — hover to ignite">
+      <!-- контур по умолчанию; на :hover/.lit кросс-фейдит в огненный силуэт.
+           VIDEO SLOT: реальное видео огня кладётся поверх позже (см. .d-video в <style>). -->
+      <img class="d-outline" src="../assets/dragon-outline.png" alt="" />
+      <div class="dragon-fire"></div>
+      <span class="hero__hint">Hover to ignite</span>
+    </div>
+  </header>
+
+  <section class="ov" id="shows"><div class="wrap">
+    <div class="ov-head"><h2>Browse <em>everything</em></h2><p id="ovcount"></p></div>
+    <p class="ov-sub">Every block opens a full gallery — multiple videos, photos and costume options to choose from. Pick exactly what you want for your event.</p>
+    <div class="ov-grid reveal" id="ovGrid"></div>
+
+    <div class="strip reveal" style="margin-top:40px"><span class="lbl">Everything we do →</span><div class="marquee" id="marquee"></div></div>
+
+    <div class="fx reveal">
+      <h3>Effects &amp; add-ons</h3>
+      <p>We layer effects into any programme. Some are part of almost every show; others we add on request.</p>
+      <div class="fx-group"><div class="lbl">Usually included</div>
+        <div class="fx-row hot"><span>Flamethrowers</span><span>Fire cannons</span><span>Fire cubes</span><span>Pyrotechnics</span></div></div>
+      <div class="fx-group"><div class="lbl">On request</div>
+        <div class="fx-row"><span>Paper show</span><span>Fire hearts</span><span>Confetti</span><span>Fire on stilts</span></div></div>
+    </div>
+
+    <div class="world reveal">
+      <h3>We travel <em>anywhere</em></h3>
+      <p>Regulars on the European festival circuit and on contract across the Gulf — open to events anywhere in the world.</p>
+      <div class="world-row">
+        <span>Germany</span><span>Poland</span><span>Netherlands</span><span>Switzerland</span><span>Slovakia</span>
+        <span>UAE</span><span>Qatar</span><span>Saudi Arabia</span><span>Oman</span><span>Jordan</span><span>Türkiye</span>
+        <span class="more">+ 20 countries worldwide</span>
+      </div>
+    </div>
+  </div></section>
+
+</div>
+
+<div class="detail" id="detail"><div class="wrap">
+  <button class="back" onclick="goHome()">← All shows</button>
+  <div class="d-head"><div><div class="type" id="dType"></div><h2 id="dTitle"></h2><p id="dDesc"></p></div><div class="d-stats" id="dStats"></div></div>
+  <div class="tabs" id="dTabs"></div><div class="gallery" id="dGallery"></div>
+  <div class="more-cta"><h3>Want this for your <em>event</em>?</h3><div class="btns"><a class="primary" href="#contact" onclick="goHome()">Request this show</a><a href="#contact" onclick="goHome()">See full reel</a></div></div>
+</div></div>
+
+<div class="lb" id="lb" onclick="if(event.target.id==='lb')closeLightbox()">
+  <button class="x" onclick="closeLightbox()">×</button><button class="nav-btn prev" onclick="lbStep(-1)">‹</button><button class="nav-btn next" onclick="lbStep(1)">›</button>
+  <div class="box"><div class="ph" id="lbPh"></div><div class="lb-cap"><span id="lbCap"></span><span id="lbIdx"></span></div></div>
+</div>
+
+<footer id="contact"><div class="wrap">
+  <h2>Let’s light up<br><em>your event.</em></h2>
+  <div class="contacts"><a href="#">Instagram ↗</a><a href="mailto:hello@steamshow.com">Email ↗</a><a href="#">WhatsApp ↗</a><a href="#">Telegram ↗</a><a href="#">YouTube ↗</a></div>
+  <div class="fn">© <span id="year"></span> Steam Show · V2 Spotlight</div>
+</div></footer>
+
+<script>
+  // искры в hero
+  (function(){
+    var box=document.getElementById('embers');
+    if(!box||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+    var n=window.innerWidth<700?14:28;
+    for(var i=0;i<n;i++){var e=document.createElement('span');e.className='ember';
+      e.style.left=Math.random()*100+'%';var s=2+Math.random()*4;e.style.width=e.style.height=s+'px';
+      e.style.animationDuration=(6+Math.random()*8)+'s';e.style.animationDelay=(-Math.random()*12)+'s';
+      e.style.setProperty('--dx',(Math.random()*120-60)+'px');e.style.opacity=.4+Math.random()*.6;
+      // чередуем золото/коралл для дофаминовой искры
+      if(i%3===0){e.style.background='var(--pink)';e.style.boxShadow='0 0 9px 1px rgba(255,46,110,.9)';}
+      box.appendChild(e);}
+  })();
+  // дракон: поджигаем по скроллу (для тач-устройств, где нет hover), кросс-фейд через .lit
+  (function(){
+    var d=document.getElementById('heroDragon');if(!d)return;
+    if('IntersectionObserver'in window){
+      var io=new IntersectionObserver(function(es){es.forEach(function(en){
+        if(en.isIntersecting){d.classList.add('lit');} });},{threshold:.5});
+      io.observe(d);
+    }
+    // клик/тап — тоггл, чтобы можно было посмотреть и контур
+    d.addEventListener('click',function(){d.classList.toggle('lit');});
+  })();
+</script>
+<script src="engine.js"></script>
+</body>
+</html>
