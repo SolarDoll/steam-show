@@ -38,36 +38,28 @@
   .hbtn.solid:hover{transform:translateY(-2px);box-shadow:0 0 46px rgba(255,80,30,.65)}
   .hbtn.ghost{border-color:var(--line);color:#fff;background:rgba(255,255,255,.03)}
   .hbtn.ghost:hover{border-color:var(--accent2);color:var(--accent2)}
-  /* ГЕО — кино-видоискатель */
-  .vf{position:relative;aspect-ratio:4/3;border-radius:6px;overflow:hidden;border:1px solid var(--line);
-    background:linear-gradient(160deg,#13100e,#0a0a0b),
-      repeating-linear-gradient(0deg,transparent 0 26px,rgba(255,255,255,.022) 26px 27px),
-      repeating-linear-gradient(90deg,transparent 0 26px,rgba(255,255,255,.022) 26px 27px)}
-  .vf .br{position:absolute;width:26px;height:26px;border:2px solid var(--accent2)}
-  .vf .br.tl{top:14px;left:14px;border-right:0;border-bottom:0}
-  .vf .br.tr{top:14px;right:14px;border-left:0;border-bottom:0}
-  .vf .br.bl{bottom:14px;left:14px;border-right:0;border-top:0}
-  .vf .br.brr{bottom:14px;right:14px;border-left:0;border-top:0}
-  .vf .cross{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:42px;height:42px}
-  .vf .cross::before,.vf .cross::after{content:"";position:absolute;background:color-mix(in srgb,var(--accent) 70%,transparent)}
-  .vf .cross::before{left:50%;top:0;bottom:0;width:1px;transform:translateX(-50%)}
-  .vf .cross::after{top:50%;left:0;right:0;height:1px;transform:translateY(-50%)}
-  .vf .scan{position:absolute;left:0;right:0;height:2px;opacity:.5;animation:vfScan 4s linear infinite;
-    background:linear-gradient(90deg,transparent,var(--accent),transparent)}
-  @keyframes vfScan{0%{top:6%}100%{top:94%}}
-  .vf .rec{position:absolute;top:17px;right:48px;display:flex;align-items:center;gap:7px;
-    font:700 10px/1 var(--body);letter-spacing:.18em;text-transform:uppercase;color:var(--ink)}
-  .vf .rec i{width:8px;height:8px;border-radius:50%;background:var(--accent3);box-shadow:0 0 10px var(--accent3);animation:vfBlink 1.4s steps(1) infinite}
-  @keyframes vfBlink{0%,50%{opacity:1}51%,100%{opacity:.2}}
-  .vf .coord{position:absolute;left:46px;top:18px;font:600 10.5px/1.6 var(--body);letter-spacing:.1em;color:var(--muted)}
-  .vf .mark{position:absolute;width:10px;height:10px;border:1.5px solid var(--accent2);border-radius:50%;z-index:2}
-  .vf .mark::after{content:attr(data-l);position:absolute;left:15px;top:-3px;font:700 9.5px/1 var(--body);letter-spacing:.12em;
-    text-transform:uppercase;color:var(--ink);white-space:nowrap}
-  .vf .mark b{position:absolute;inset:-6px;border:1px solid var(--accent2);border-radius:50%;animation:vfPing 2.4s ease-out infinite}
-  @keyframes vfPing{0%{transform:scale(.6);opacity:.6}100%{transform:scale(2.4);opacity:0}}
-  .vf .label{position:absolute;left:0;right:0;bottom:16px;text-align:center;z-index:3;font-family:var(--display);
-    text-transform:uppercase;font-size:clamp(22px,3.6vw,34px);color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.7)}
-  @media(prefers-reduced-motion:reduce){.vf .scan,.vf .rec i,.vf .mark b{animation:none}}
+  /* ГЕО — каркасный вращающийся глобус */
+  .wire{position:relative;aspect-ratio:1;perspective:760px}
+  .wire .ball{position:absolute;inset:8%;border-radius:50%;border:1.5px solid color-mix(in srgb,var(--accent2) 45%,transparent);
+    background:radial-gradient(circle at 42% 36%,color-mix(in srgb,var(--accent) 12%,transparent),transparent 62%);
+    box-shadow:0 0 60px color-mix(in srgb,var(--accent3) 16%,transparent),inset 0 0 50px color-mix(in srgb,var(--accent) 8%,transparent)}
+  .wire .lat{position:absolute;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent2) 16%,transparent)}
+  .wire .lat.e{left:8%;right:8%;top:48.4%;bottom:48.4%}
+  .wire .lat.t{left:20%;right:20%;top:26%;bottom:60%}
+  .wire .lat.b{left:20%;right:20%;top:60%;bottom:26%}
+  .wire .grid{position:absolute;inset:8%;transform-style:preserve-3d;animation:wireY 20s linear infinite}
+  @keyframes wireY{to{transform:rotateY(360deg)}}
+  .wire .lon{position:absolute;inset:0;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent2) 24%,transparent)}
+  .wire .lon:nth-child(1){transform:rotateY(0deg)}.wire .lon:nth-child(2){transform:rotateY(30deg)}
+  .wire .lon:nth-child(3){transform:rotateY(60deg)}.wire .lon:nth-child(4){transform:rotateY(90deg)}
+  .wire .lon:nth-child(5){transform:rotateY(120deg)}.wire .lon:nth-child(6){transform:rotateY(150deg)}
+  .wire .ping{position:absolute;z-index:3;width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .wire .ping::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1px solid var(--accent);animation:wirePing 2.4s ease-out infinite}
+  @keyframes wirePing{0%{transform:scale(.6);opacity:.9}100%{transform:scale(2.6);opacity:0}}
+  .wire .core{position:absolute;left:0;right:0;bottom:12%;text-align:center;z-index:4}
+  .wire .core b{font-family:var(--display);text-transform:uppercase;font-size:clamp(22px,3.6vw,34px);color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.72)}
+  .wire .core small{display:block;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent2);margin-top:6px}
+  @media(prefers-reduced-motion:reduce){.wire .grid{animation:none}}
 </style>
 </head>
 <body>
@@ -130,16 +122,14 @@
           <span class="geo-pill">Jordan</span><span class="geo-pill world">+ 20 countries on request</span>
         </div>
       </div>
-      <div class="reveal from-right"><div class="vf">
-        <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br brr"></span>
-        <div class="coord">LAT 25.20°N<br>LON 55.27°E</div>
-        <div class="rec"><i></i> Rec</div>
-        <span class="scan"></span>
-        <span class="cross"></span>
-        <span class="mark" data-l="Europe" style="top:30%;left:22%"><b></b></span>
-        <span class="mark" data-l="The Gulf" style="top:58%;left:60%"><b></b></span>
-        <span class="mark" data-l="MENA" style="top:40%;left:80%"><b></b></span>
-        <div class="label">Worldwide</div>
+      <div class="reveal from-right"><div class="wire">
+        <span class="ball"></span>
+        <span class="lat e"></span><span class="lat t"></span><span class="lat b"></span>
+        <span class="grid"><span class="lon"></span><span class="lon"></span><span class="lon"></span><span class="lon"></span><span class="lon"></span><span class="lon"></span></span>
+        <span class="ping" style="top:38%;left:42%"></span>
+        <span class="ping" style="top:52%;left:60%"></span>
+        <span class="ping" style="top:62%;left:40%"></span>
+        <div class="core"><b>WORLDWIDE</b><small>Europe · Gulf · +20</small></div>
       </div></div>
     </div>
     <div class="wrap"><div class="stats reveal">

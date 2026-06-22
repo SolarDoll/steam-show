@@ -50,23 +50,31 @@
   .hbtn.ghost{border-color:var(--line);color:#fff;background:rgba(246,235,221,.05)}
   .hbtn.ghost:hover{border-color:var(--accent2);color:var(--accent2)}
   @media(prefers-reduced-motion:reduce){.mh__row .t{animation:none!important}}
-  /* ГЕО — сонар (сигнал расходится по миру) */
-  .sonar{position:relative;aspect-ratio:1;border-radius:50%;overflow:hidden;border:1px solid var(--line);
-    background:radial-gradient(circle,color-mix(in srgb,var(--accent) 16%,transparent),transparent 62%),var(--bg2);
-    box-shadow:inset 0 0 80px color-mix(in srgb,var(--accent) 12%,transparent),0 0 60px color-mix(in srgb,var(--accent) 14%,transparent)}
-  .sonar .wave{position:absolute;left:50%;top:50%;width:16px;height:16px;border-radius:50%;border:1.5px solid var(--accent);
-    transform:translate(-50%,-50%) scale(0);opacity:0;animation:sonarW 4s ease-out infinite}
-  .sonar .wave:nth-child(2){animation-delay:1s}.sonar .wave:nth-child(3){animation-delay:2s}.sonar .wave:nth-child(4){animation-delay:3s}
-  @keyframes sonarW{0%{transform:translate(-50%,-50%) scale(0);opacity:.85}100%{transform:translate(-50%,-50%) scale(42);opacity:0}}
-  .sonar .hub{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:14px;height:14px;border-radius:50%;z-index:2;
-    background:var(--accent2);box-shadow:0 0 18px 4px color-mix(in srgb,var(--accent2) 80%,transparent)}
-  .sonar .ping{position:absolute;z-index:2;width:9px;height:9px;border-radius:50%;background:var(--accent3);box-shadow:0 0 12px var(--accent3)}
-  .sonar .ping::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1px solid var(--accent3);animation:sonarP 2.4s ease-out infinite}
-  @keyframes sonarP{0%{transform:scale(.6);opacity:.9}100%{transform:scale(2.6);opacity:0}}
-  .sonar .core{position:absolute;left:0;right:0;bottom:16%;text-align:center;z-index:3}
-  .sonar .core b{font-family:var(--display);text-transform:uppercase;font-size:clamp(22px,3.6vw,34px);color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.75)}
-  .sonar .core small{display:block;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent2);margin-top:6px}
-  @media(prefers-reduced-motion:reduce){.sonar .wave,.sonar .ping::after{animation:none}}
+  /* ГЕО — светящаяся сфера-глобус */
+  .sphere{position:relative;aspect-ratio:1;border-radius:50%;overflow:hidden;
+    background:
+      radial-gradient(circle at 36% 30%,color-mix(in srgb,var(--accent2) 42%,transparent),transparent 44%),
+      radial-gradient(circle at 64% 74%,color-mix(in srgb,var(--accent3) 30%,transparent),transparent 56%),
+      radial-gradient(circle at 50% 50%,#21130b,#0b0707 82%);
+    box-shadow:inset -22px -30px 60px rgba(0,0,0,.72),inset 16px 16px 50px color-mix(in srgb,var(--accent) 18%,transparent),
+      0 0 70px color-mix(in srgb,var(--accent) 22%,transparent)}
+  .sphere::before{content:"";position:absolute;inset:-30%;border-radius:50%;mix-blend-mode:screen;
+    background:conic-gradient(from 0deg,transparent,color-mix(in srgb,var(--accent2) 24%,transparent) 18%,transparent 42%);
+    animation:sphSpin 14s linear infinite}
+  @keyframes sphSpin{to{transform:rotate(360deg)}}
+  .sphere .mer{position:absolute;inset:5%;border-radius:50%;border:1px solid color-mix(in srgb,var(--ink) 12%,transparent)}
+  .sphere .mer.a{transform:scaleX(.42)}.sphere .mer.b{transform:scaleX(.74)}
+  .sphere .par{position:absolute;left:5%;right:5%;border-radius:50%;border:1px solid color-mix(in srgb,var(--ink) 9%,transparent)}
+  .sphere .par.p1{top:30%;bottom:46%}.sphere .par.p2{top:46%;bottom:30%}
+  .sphere .atmo{position:absolute;inset:-5%;border-radius:50%;pointer-events:none;
+    border:1px solid color-mix(in srgb,var(--accent) 28%,transparent);box-shadow:0 0 36px color-mix(in srgb,var(--accent) 20%,transparent)}
+  .sphere .ping{position:absolute;z-index:3;width:9px;height:9px;border-radius:50%;background:var(--accent2);box-shadow:0 0 12px var(--accent2)}
+  .sphere .ping::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1px solid var(--accent2);animation:sphPing 2.4s ease-out infinite}
+  @keyframes sphPing{0%{transform:scale(.6);opacity:.9}100%{transform:scale(2.6);opacity:0}}
+  .sphere .core{position:absolute;left:0;right:0;bottom:15%;text-align:center;z-index:4}
+  .sphere .core b{font-family:var(--display);text-transform:uppercase;font-size:clamp(22px,3.6vw,34px);color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.8)}
+  .sphere .core small{display:block;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent2);margin-top:6px}
+  @media(prefers-reduced-motion:reduce){.sphere::before,.sphere .ping::after{animation:none}}
 </style>
 </head>
 <body>
@@ -132,13 +140,14 @@
           <span class="geo-pill">Jordan</span><span class="geo-pill world">+ 20 countries on request</span>
         </div>
       </div>
-      <div class="reveal from-right"><div class="sonar">
-        <span class="wave"></span><span class="wave"></span><span class="wave"></span><span class="wave"></span>
-        <span class="hub"></span>
-        <span class="ping" style="top:26%;left:64%"></span>
-        <span class="ping" style="top:62%;left:30%"></span>
-        <span class="ping" style="top:42%;left:80%"></span>
-        <div class="core"><b>WORLDWIDE</b><small>Signal: anywhere</small></div>
+      <div class="reveal from-right"><div class="sphere">
+        <span class="atmo"></span>
+        <span class="mer a"></span><span class="mer b"></span><span class="mer"></span>
+        <span class="par p1"></span><span class="par p2"></span>
+        <span class="ping" style="top:34%;left:40%"></span>
+        <span class="ping" style="top:54%;left:62%"></span>
+        <span class="ping" style="top:64%;left:38%"></span>
+        <div class="core"><b>WORLDWIDE</b><small>Europe · Gulf · +20</small></div>
       </div></div>
     </div>
     <div class="wrap"><div class="stats reveal">

@@ -68,11 +68,14 @@
   .fa .halo{fill:none;stroke:var(--accent2);stroke-width:1.2;animation:faHalo 2.6s ease-out infinite}
   @keyframes faHalo{0%{r:4;opacity:.6}100%{r:17;opacity:0}}
   @keyframes faFly{to{stroke-dashoffset:-325}}
-  .fa-core{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none}
-  .fa-core b{font-family:var(--display);font-weight:700;font-size:clamp(20px,3.4vw,30px);
-    background:linear-gradient(100deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;
-    text-shadow:0 2px 18px rgba(0,0,0,.6)}
-  .fa-core small{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+  .fa .spike{fill:var(--accent);filter:drop-shadow(0 0 4px var(--accent))}
+  .fa .horn{stroke:var(--accent2);stroke-width:2;stroke-linecap:round;fill:none}
+  .fa .head{fill:var(--accent2);filter:drop-shadow(0 0 8px var(--accent2))}
+  .fa .eye{fill:var(--bg2)}
+  .fa-core{position:absolute;left:18px;bottom:16px;text-align:left;pointer-events:none}
+  .fa-core b{display:block;font-family:var(--display);font-weight:700;font-size:clamp(18px,2.6vw,26px);
+    background:linear-gradient(100deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .fa-core small{display:block;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:6px}
   @media(prefers-reduced-motion:reduce){.fa .fly,.fa .halo{animation:none}}
 </style>
 </head>
@@ -137,29 +140,29 @@
         </div>
       </div>
       <div class="reveal from-right"><div class="fa">
-        <svg viewBox="0 0 300 300" aria-hidden="true">
+        <svg viewBox="0 0 320 220" aria-hidden="true">
+          <!-- хвост -->
+          <path class="base" d="M30,160 L14,150 M30,160 L14,170"/>
+          <!-- тело-маршрут дракона -->
+          <path class="base" d="M30,160 C60,110 92,206 132,150 C168,100 202,196 240,132 C262,96 282,104 300,68"/>
+          <path class="fly" style="animation:faFly 5s linear infinite"
+                d="M30,160 C60,110 92,206 132,150 C168,100 202,196 240,132 C262,96 282,104 300,68"/>
+          <!-- гребни -->
+          <path class="spike" d="M70,128 L80,103 L90,130 Z"/>
+          <path class="spike" d="M148,120 L158,95 L168,122 Z"/>
+          <path class="spike" d="M244,100 L254,75 L264,102 Z"/>
+          <!-- голова + рог + глаз -->
+          <path class="horn" d="M300,62 L309,44"/>
+          <path class="head" d="M292,76 L319,55 L305,70 L320,73 L300,82 Z"/>
+          <circle class="eye" cx="305" cy="70" r="2.4"/>
+          <!-- города на маршруте -->
           <g>
-            <path class="base" d="M60,90 Q150,20 245,95"/><path class="base" d="M60,90 Q30,150 95,200"/>
-            <path class="base" d="M150,55 Q250,110 210,205"/><path class="base" d="M245,95 Q250,190 150,250"/>
-            <path class="base" d="M95,200 Q150,170 210,205"/>
-          </g>
-          <g>
-            <path class="fly" style="animation:faFly 3.2s linear infinite" d="M60,90 Q150,20 245,95"/>
-            <path class="fly" style="animation:faFly 4s linear infinite .6s" d="M60,90 Q30,150 95,200"/>
-            <path class="fly" style="animation:faFly 3.6s linear infinite .3s" d="M150,55 Q250,110 210,205"/>
-            <path class="fly" style="animation:faFly 4.4s linear infinite .9s" d="M245,95 Q250,190 150,250"/>
-            <path class="fly" style="animation:faFly 3s linear infinite 1.2s" d="M95,200 Q150,170 210,205"/>
-          </g>
-          <g>
-            <circle class="halo" cx="60" cy="90"/><circle class="city" cx="60" cy="90" r="4"/>
-            <circle class="halo" cx="150" cy="55" style="animation-delay:.5s"/><circle class="city" cx="150" cy="55" r="4"/>
-            <circle class="halo" cx="245" cy="95" style="animation-delay:1s"/><circle class="city" cx="245" cy="95" r="4"/>
-            <circle class="halo" cx="95" cy="200" style="animation-delay:1.4s"/><circle class="city" cx="95" cy="200" r="4"/>
-            <circle class="halo" cx="210" cy="205" style="animation-delay:.8s"/><circle class="city" cx="210" cy="205" r="4"/>
-            <circle class="halo" cx="150" cy="250" style="animation-delay:1.8s"/><circle class="city" cx="150" cy="250" r="4"/>
+            <circle class="halo" cx="60" cy="150"/><circle class="city" cx="60" cy="150" r="4"/>
+            <circle class="halo" cx="132" cy="150" style="animation-delay:.7s"/><circle class="city" cx="132" cy="150" r="4"/>
+            <circle class="halo" cx="240" cy="132" style="animation-delay:1.3s"/><circle class="city" cx="240" cy="132" r="4"/>
           </g>
         </svg>
-        <div class="fa-core"><b>WORLDWIDE</b><small>20+ countries</small></div>
+        <div class="fa-core"><b>WORLDWIDE</b><small>our route · 20+ countries</small></div>
       </div></div>
     </div>
     <div class="wrap"><div class="stats reveal">
