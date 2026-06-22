@@ -1,0 +1,9 @@
+/* Локальный Anton (self-host) — чтобы дисплейный шрифт грузился всегда,
+   не завися от Google Fonts / онлайна / file://. */
+@font-face{
+  font-family:'Anton';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url(../assets/fonts/anton-latin.woff2) format('woff2'), local('Anton');
+}
