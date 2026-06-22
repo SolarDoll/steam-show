@@ -88,11 +88,13 @@
     box-shadow:0 0 36px color-mix(in srgb,var(--accent) 55%,transparent)}
   .holo .ball{position:absolute;left:50%;top:6%;transform:translateX(-50%);width:64%;aspect-ratio:1;border-radius:50%;z-index:1;
     overflow:hidden;perspective:600px;border:1px solid color-mix(in srgb,var(--accent) 55%,transparent);
-    background:radial-gradient(circle at 38% 32%,color-mix(in srgb,var(--accent) 26%,transparent),transparent 62%),
-      radial-gradient(color-mix(in srgb,var(--accent) 44%,transparent) 1px,transparent 1.5px);
-    background-size:auto,10px 10px;
+    background:radial-gradient(circle at 38% 32%,color-mix(in srgb,var(--accent) 22%,transparent),transparent 60%),
+      radial-gradient(circle at 50% 50%,color-mix(in srgb,var(--accent) 9%,transparent),transparent 72%);
     box-shadow:0 0 44px color-mix(in srgb,var(--accent) 45%,transparent),inset 0 0 44px color-mix(in srgb,var(--accent) 22%,transparent);
     animation:holoFlick 5s ease-in-out infinite}
+  .holo .cont{position:absolute;inset:0;z-index:1;width:100%;height:100%}
+  .holo .cont path{fill:color-mix(in srgb,var(--accent) 22%,transparent);stroke:color-mix(in srgb,var(--accent) 78%,transparent);stroke-width:.8;
+    filter:drop-shadow(0 0 4px color-mix(in srgb,var(--accent) 60%,transparent))}
   .holo .ball::after{content:"";position:absolute;inset:0;pointer-events:none;
     background:repeating-linear-gradient(0deg,rgba(255,255,255,.06) 0 1px,transparent 1px 4px)}
   .holo .grid{position:absolute;inset:0;transform-style:preserve-3d;animation:holoSpin 18s linear infinite}
@@ -176,9 +178,18 @@
         <span class="cone"></span>
         <div class="ball">
           <div class="grid"><span class="lon"></span><span class="lon"></span><span class="lon"></span><span class="lon"></span><span class="lon"></span></div>
-          <span class="ping" style="top:40%;left:46%"></span>
-          <span class="ping" style="top:54%;left:60%;animation-delay:.9s"></span>
-          <span class="ping" style="top:60%;left:38%;animation-delay:1.6s"></span>
+          <svg class="cont" viewBox="0 0 200 200" aria-hidden="true">
+            <path d="M30,45 Q50,35 58,55 Q60,75 42,80 Q26,72 30,45 Z"/>
+            <path d="M58,108 Q70,106 68,134 Q62,158 52,148 Q50,126 58,108 Z"/>
+            <path d="M100,48 Q114,46 112,60 Q104,66 98,58 Q96,50 100,48 Z"/>
+            <path d="M104,72 Q126,70 128,98 Q124,126 108,124 Q96,104 104,72 Z"/>
+            <path d="M130,48 Q172,40 176,72 Q170,92 144,86 Q124,72 130,48 Z"/>
+            <path d="M156,128 Q176,124 178,140 Q170,150 156,146 Q150,136 156,128 Z"/>
+          </svg>
+          <span class="ping" style="top:30%;left:53%"></span>
+          <span class="ping" style="top:46%;left:61%;animation-delay:.8s"></span>
+          <span class="ping" style="top:33%;left:74%;animation-delay:1.5s"></span>
+          <span class="ping" style="top:56%;left:55%;animation-delay:2.2s"></span>
         </div>
         <span class="base"></span>
         <div class="holo-core"><b>WORLDWIDE</b><small>live network</small></div>

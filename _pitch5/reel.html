@@ -78,22 +78,19 @@
   .wire .core b{font-family:var(--display);text-transform:uppercase;font-size:clamp(22px,3.6vw,34px);color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.72)}
   .wire .core small{display:block;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent2);margin-top:6px}
   @media(prefers-reduced-motion:reduce){.wire .grid{animation:none}}
-  /* блоки в стиле a-kinetic, но шрифты как в kinetic (Space Grotesk) */
+  /* блоки как в a-kinetic: Anton + контур + капс-значения */
   .nav-cta{background:var(--accent);box-shadow:0 0 22px -4px var(--accent)}
-  .sec-head h2{font-family:"Space Grotesk",sans-serif;font-weight:700;letter-spacing:-.02em}
-  .sec-head h2 em{font-style:normal;background:linear-gradient(120deg,var(--accent2),var(--accent3));
-    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .sec-head h2 em{font-style:normal;color:transparent;-webkit-text-stroke:1.6px var(--accent2)}
   .contact-in{text-align:center}
-  .contact-in .num{display:block;font-family:"Space Grotesk",sans-serif;font-size:.74rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
-  .contact-in h2{font-family:"Space Grotesk",sans-serif;font-weight:700;letter-spacing:-.01em}
+  .contact-in .num{display:block;font-family:var(--body);font-size:.74rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
   .contact-in h2 em{font-style:normal;background:linear-gradient(92deg,var(--accent2),var(--accent3));-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
   .channels{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:clamp(34px,5vh,52px)}
   .ch{border:1px solid var(--line);border-radius:14px;padding:26px 20px;display:flex;flex-direction:column;gap:8px;text-align:left;transition:.35s;--c:var(--accent)}
   .ch:nth-child(1){--c:var(--accent)}.ch:nth-child(2){--c:var(--accent2)}.ch:nth-child(3){--c:var(--cool)}.ch:nth-child(4){--c:var(--mag)}
   .ch:hover{border-color:var(--c);transform:translateY(-4px);box-shadow:0 18px 50px -22px var(--c)}
-  .ch .t{font-family:"Space Grotesk",sans-serif;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
-  .ch .v{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:1.18rem;letter-spacing:-.01em}
-  .ch .arrow{margin-top:auto;font-family:"Space Grotesk",sans-serif;color:var(--c);font-size:.82rem;font-weight:700}
+  .ch .t{font-family:var(--body);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .ch .v{font-family:var(--display);font-size:1.5rem;letter-spacing:.01em;text-transform:uppercase;line-height:1}
+  .ch .arrow{margin-top:auto;font-family:var(--body);color:var(--c);font-size:.82rem;font-weight:700}
   @media(max-width:820px){.channels{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:480px){.channels{grid-template-columns:1fr}}
 </style>
