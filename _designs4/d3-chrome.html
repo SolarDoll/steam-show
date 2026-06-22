@@ -1,0 +1,332 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Steam Show — Chrome</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@300;400;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --bg:#0a0b10;
+    --panel:#12141d;
+    --text:#eef1f7;
+    --muted:rgba(238,241,247,.62);
+    --line:rgba(180,200,255,.14);
+    --accent:#8ad6d6;          /* иридесцентная бирюза — для overlay lib.js */
+    --violet:#c8a0ff;
+    --pink:#ff9ad6;
+    --silver:#dfe6f2;
+    --chrome:linear-gradient(120deg,#8ad6d6 0%,#bfe0ff 22%,#c8a0ff 48%,#ff9ad6 70%,#dfe6f2 100%);
+    --glass:rgba(22,26,38,.42);
+    --r:20px;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--text);
+    font-family:"Sora",system-ui,sans-serif;font-weight:300;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.5;
+  }
+  body::before{ /* холодная атмосферная подложка */
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(60vw 60vw at 78% -10%, rgba(200,160,255,.12), transparent 60%),
+      radial-gradient(50vw 50vw at 8% 8%, rgba(138,214,214,.10), transparent 60%);
+  }
+  h1,h2,h3{font-family:"Space Grotesk",sans-serif;font-weight:600;letter-spacing:-.02em;margin:0}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  ::selection{background:rgba(200,160,255,.35)}
+
+  .chrome-text{
+    background:var(--chrome);background-size:220% 220%;
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;color:transparent;
+    animation:shimmer 9s ease-in-out infinite;
+  }
+  @keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+  .wrap{max-width:1240px;margin:0 auto;padding:0 clamp(18px,4vw,40px);position:relative;z-index:1}
+
+  /* ---------- header ---------- */
+  header{position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    background:rgba(10,11,16,.55);border-bottom:1px solid var(--line);}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;align-items:center;gap:12px;font-family:"Space Grotesk";font-weight:600;letter-spacing:.02em}
+  .brand img{height:30px;width:auto;filter:drop-shadow(0 0 12px rgba(138,214,214,.35))}
+  .nav-links{display:flex;gap:30px;font-family:"Space Grotesk";font-size:14px}
+  .nav-links a{color:var(--muted);transition:color .25s}
+  .nav-links a:hover{color:var(--text)}
+  .nav-cta{font-family:"Space Grotesk";font-size:13px;letter-spacing:.04em;
+    padding:10px 18px;border-radius:100px;border:1px solid var(--line);
+    background:rgba(255,255,255,.03);transition:.25s}
+  .nav-cta:hover{border-color:rgba(200,160,255,.5);box-shadow:0 0 22px rgba(200,160,255,.22)}
+  @media(max-width:780px){.nav-links{display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;min-height:92vh;display:flex;align-items:center;padding:90px 0 40px;overflow:hidden}
+  .blob{position:absolute;z-index:0;border-radius:50%;filter:blur(70px);opacity:.7;
+    background:conic-gradient(from 0deg, #8ad6d6,#bfe0ff,#c8a0ff,#ff9ad6,#dfe6f2,#8ad6d6);
+    animation:spin 26s linear infinite, breathe 12s ease-in-out infinite;}
+  .blob.a{width:62vw;height:62vw;max-width:760px;max-height:760px;top:-12%;right:-10%}
+  .blob.b{width:40vw;height:40vw;max-width:480px;max-height:480px;bottom:-18%;left:-8%;
+    opacity:.45;animation-duration:34s,16s}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+
+  .dragon{position:absolute;z-index:1;right:-4%;top:50%;transform:translateY(-50%);
+    width:min(58vw,720px);aspect-ratio:1/1;pointer-events:none;opacity:.92;
+    -webkit-mask:url(../assets/dragon-mask.png) center/contain no-repeat;
+            mask:url(../assets/dragon-mask.png) center/contain no-repeat;
+    background:var(--chrome);background-size:200% 200%;
+    animation:shimmer 11s ease-in-out infinite;
+    filter:drop-shadow(0 0 40px rgba(138,214,214,.25));}
+  @media(max-width:880px){.dragon{opacity:.18;width:120vw;right:-30%}}
+
+  .hero-inner{position:relative;z-index:2;max-width:760px}
+  .eyebrow{font-family:"Space Grotesk";font-size:13px;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--muted);display:flex;align-items:center;gap:14px;margin-bottom:26px}
+  .eyebrow::before{content:"";width:46px;height:1px;background:var(--chrome)}
+  .hero h1{font-size:clamp(46px,9vw,116px);line-height:.92;font-weight:700;letter-spacing:-.035em}
+  .hero h1 .ln{display:block}
+  .hero p.lede{font-size:clamp(16px,2vw,20px);color:var(--muted);max-width:50ch;margin:30px 0 38px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .btn{font-family:"Space Grotesk";font-size:15px;letter-spacing:.01em;cursor:pointer;border:none;
+    padding:15px 26px;border-radius:100px;display:inline-flex;align-items:center;gap:10px;transition:.28s}
+  .btn-primary{color:#0a0b10;background:var(--chrome);background-size:200% 200%;font-weight:600;
+    animation:shimmer 9s ease-in-out infinite;
+    box-shadow:0 8px 30px rgba(138,214,214,.28),0 2px 0 rgba(255,255,255,.4) inset}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 44px rgba(200,160,255,.4)}
+  .btn-ghost{color:var(--text);background:rgba(255,255,255,.04);border:1px solid var(--line)}
+  .btn-ghost:hover{border-color:rgba(200,160,255,.5);background:rgba(255,255,255,.07)}
+  .btn-ghost .play{width:22px;height:22px;border-radius:50%;border:1.5px solid currentColor;
+    display:grid;place-items:center}
+  .btn-ghost .play::before{content:"";border-left:7px solid currentColor;border-top:4px solid transparent;border-bottom:4px solid transparent;margin-left:2px}
+
+  /* ---------- section heads ---------- */
+  section{position:relative;padding:clamp(64px,9vw,120px) 0}
+  .shead{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:46px;flex-wrap:wrap}
+  .shead .lbl{font-family:"Space Grotesk";font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+  .shead h2{font-size:clamp(30px,5vw,54px);line-height:1;margin-top:14px}
+  .shead .note{color:var(--muted);font-size:15px;max-width:34ch}
+
+  /* ---------- programs grid ---------- */
+  .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
+  .card{position:relative;border-radius:var(--r);overflow:hidden;cursor:pointer;
+    border:1px solid var(--line);min-height:340px;display:flex;flex-direction:column;justify-content:flex-end;
+    background:#000;isolation:isolate;transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s}
+  .card .ph{position:absolute;inset:0;z-index:0}
+  .card .ph img{width:100%;height:100%;object-fit:cover;
+    transform:scale(1.04);filter:saturate(.92) brightness(.82);transition:filter .5s,transform .6s}
+  /* матовое стекло поверх фото — на hover проясняется */
+  .card .frost{position:absolute;inset:0;z-index:1;
+    backdrop-filter:blur(13px) saturate(1.1);-webkit-backdrop-filter:blur(13px) saturate(1.1);
+    background:linear-gradient(180deg,rgba(10,11,16,.18) 0%,rgba(10,11,16,.62) 100%);
+    transition:backdrop-filter .55s,opacity .55s}
+  .card:hover .frost{backdrop-filter:blur(0) saturate(1.15);-webkit-backdrop-filter:blur(0) saturate(1.15);
+    background:linear-gradient(180deg,rgba(10,11,16,0) 30%,rgba(10,11,16,.72) 100%)}
+  .card:hover .ph img{filter:saturate(1.05) brightness(.95);transform:scale(1.08)}
+  .card:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 0 1px rgba(200,160,255,.35)}
+  .card .body{position:relative;z-index:2;padding:22px}
+  .card .num{font-family:"Space Grotesk";font-size:12px;letter-spacing:.16em;color:var(--accent);opacity:.9}
+  .card h3{font-size:clamp(21px,2.4vw,28px);margin:8px 0 6px;line-height:1.02}
+  .card .typ{font-family:"Space Grotesk";font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);display:inline-flex;gap:8px;align-items:center}
+  .card .meta{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;opacity:0;transform:translateY(8px);
+    transition:.45s}
+  .card:hover .meta{opacity:1;transform:none}
+  .chip{font-family:"Space Grotesk";font-size:11px;letter-spacing:.06em;padding:5px 11px;border-radius:100px;
+    border:1px solid var(--line);background:rgba(255,255,255,.06);backdrop-filter:blur(6px)}
+  .card .go{position:absolute;top:18px;right:18px;z-index:2;width:38px;height:38px;border-radius:50%;
+    border:1px solid var(--line);display:grid;place-items:center;background:rgba(255,255,255,.05);
+    backdrop-filter:blur(8px);font-size:16px;transition:.3s;opacity:.7}
+  .card:hover .go{opacity:1;background:var(--chrome);color:#0a0b10;border-color:transparent}
+  /* раскладка: dragon широкий, остальные */
+  .card.feat{grid-column:span 4}
+  .card:not(.feat){grid-column:span 2}
+  @media(max-width:980px){.grid{grid-template-columns:repeat(4,1fr)}.card.feat{grid-column:span 4}.card:not(.feat){grid-column:span 2}}
+  @media(max-width:620px){.grid{grid-template-columns:1fr}.card,.card.feat{grid-column:span 1;min-height:300px}}
+
+  /* ---------- effects ---------- */
+  .fx{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .fx-col{border:1px solid var(--line);border-radius:var(--r);padding:30px;
+    background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+  .fx-col .ttl{font-family:"Space Grotesk";font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:20px}
+  .fx-col.req .ttl{color:var(--violet)}
+  .tags{display:flex;flex-wrap:wrap;gap:10px}
+  .tag{font-family:"Space Grotesk";font-size:14px;padding:9px 16px;border-radius:100px;
+    border:1px solid var(--line);background:rgba(255,255,255,.04);transition:.25s}
+  .tag:hover{border-color:rgba(200,160,255,.45);background:rgba(255,255,255,.08)}
+  @media(max-width:720px){.fx{grid-template-columns:1fr}}
+
+  /* ---------- worldwide ---------- */
+  .world{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:46px 0;display:flex;align-items:center;gap:clamp(20px,5vw,70px);flex-wrap:wrap;justify-content:center}
+  .world .place{font-family:"Space Grotesk";font-size:clamp(18px,2.6vw,30px);font-weight:500}
+  .world .dot{width:6px;height:6px;border-radius:50%;background:var(--chrome)}
+  .world .count{color:var(--accent)}
+
+  /* ---------- footer ---------- */
+  footer{padding:clamp(60px,8vw,100px) 0 50px;position:relative}
+  .foot-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;align-items:flex-end}
+  .foot-top h2{font-size:clamp(32px,6vw,68px);line-height:.95;max-width:14ch}
+  .contacts{display:flex;flex-direction:column;gap:4px;min-width:240px}
+  .contacts a{display:flex;align-items:center;justify-content:space-between;gap:30px;padding:15px 0;
+    border-bottom:1px solid var(--line);font-family:"Space Grotesk";font-size:16px;transition:.25s}
+  .contacts a:hover{padding-left:8px;color:var(--accent)}
+  .contacts a .k{color:var(--muted);font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+  .foot-bot{margin-top:60px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+    color:var(--muted);font-size:13px;font-family:"Space Grotesk"}
+  .foot-bot img{height:24px;opacity:.8}
+
+  @media(prefers-reduced-motion:reduce){
+    .blob,.dragon,.chrome-text,.btn-primary{animation:none!important}
+    *{transition:none!important}
+    html{scroll-behavior:auto}
+  }
+  a:focus-visible,button:focus-visible,.card:focus-visible{outline:2px solid var(--violet);outline-offset:3px;border-radius:8px}
+</style>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand"><img src="../assets/Logo_final.png" alt="Steam Show" /><span>STEAM&nbsp;SHOW</span></div>
+    <nav class="nav-links">
+      <a href="#shows">Shows</a>
+      <a href="#effects">Effects</a>
+      <a href="#reach">Worldwide</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="nav-cta" href="#contact">Book the show</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="blob a"></div>
+  <div class="blob b"></div>
+  <div class="dragon" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow">Fire · LED · Giants</div>
+    <h1>
+      <span class="ln">Light that</span>
+      <span class="ln chrome-text">breathes fire.</span>
+    </h1>
+    <p class="lede">A liquid-chrome spectacle for galas, festivals and grand openings — five signature programs, scaled to your stage and run anywhere in the world.</p>
+    <div class="hero-cta">
+      <button class="btn btn-primary" onclick="document.getElementById('shows').scrollIntoView()">Explore the shows</button>
+      <button class="btn btn-ghost" id="reelBtn"><span class="play"></span> Watch showreel</button>
+    </div>
+  </div>
+</section>
+
+<section id="shows">
+  <div class="wrap">
+    <div class="shead">
+      <div>
+        <div class="lbl">The repertoire</div>
+        <h2 class="chrome-text">Five ways to own the night</h2>
+      </div>
+      <p class="note">Every program is a self-contained world. Open one to see costumes, photos and live footage.</p>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section id="effects">
+  <div class="wrap">
+    <div class="shead">
+      <div>
+        <div class="lbl">Special effects</div>
+        <h2>Pyro &amp; spectacle</h2>
+      </div>
+      <p class="note">What ships with the act, and what we build on request for your venue.</p>
+    </div>
+    <div class="fx">
+      <div class="fx-col">
+        <div class="ttl">Usually included</div>
+        <div class="tags">
+          <span class="tag">Flamethrowers</span>
+          <span class="tag">Fire cubes</span>
+          <span class="tag">Fire fans &amp; poi</span>
+          <span class="tag">LED costumes</span>
+          <span class="tag">Sparkle fountains</span>
+        </div>
+      </div>
+      <div class="fx-col req">
+        <div class="ttl">On request</div>
+        <div class="tags">
+          <span class="tag">Cold pyro stage</span>
+          <span class="tag">CO₂ jets</span>
+          <span class="tag">Heavy fog &amp; haze</span>
+          <span class="tag">Confetti / streamers</span>
+          <span class="tag">Custom dragon build</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reach">
+  <div class="wrap">
+    <div class="world">
+      <span class="place">Europe</span><span class="dot"></span>
+      <span class="place">The Gulf</span><span class="dot"></span>
+      <span class="place">Middle East</span><span class="dot"></span>
+      <span class="place"><span class="count">20+</span> countries</span>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-top">
+      <h2 class="chrome-text">Let's set your night on fire.</h2>
+      <div class="contacts">
+        <a href="https://instagram.com/steamshow" target="_blank" rel="noopener"><span>Instagram</span><span class="k">@steamshow</span></a>
+        <a href="mailto:hello@steamshow.by"><span>Email</span><span class="k">hello@steamshow.by</span></a>
+        <a href="https://wa.me/375000000000" target="_blank" rel="noopener"><span>WhatsApp</span><span class="k">Message</span></a>
+        <a href="https://t.me/steamshow" target="_blank" rel="noopener"><span>Telegram</span><span class="k">@steamshow</span></a>
+        <a href="https://www.youtube.com/@SteamShowby" target="_blank" rel="noopener"><span>YouTube</span><span class="k">@SteamShowby</span></a>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 Steam Show — fire, light &amp; giants worldwide.</span>
+      <span>Designed in chrome.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="media.js"></script>
+<script src="lib.js"></script>
+<script>
+(function(){
+  var grid=document.getElementById('grid');
+  var html=SS.ORDER.map(function(id,i){
+    var s=SS.SHOWS[id], c=SS.counts(id), cover=SS.cover(id);
+    var feat=(id==='dragon');
+    var meta='<span class="chip">'+c.p+' photos</span><span class="chip">'+c.v+' videos</span>'
+      + (c.c?'<span class="chip">'+c.c+' costumes</span>':'');
+    return '<article class="card'+(feat?' feat':'')+'" tabindex="0" role="button" aria-label="Open '+s.name+'" data-id="'+id+'">'
+      +   '<div class="ph"><img loading="lazy" src="'+cover+'" alt="'+s.name+'" /></div>'
+      +   '<div class="frost"></div>'
+      +   '<div class="go">↗</div>'
+      +   '<div class="body">'
+      +     '<div class="num">'+('0'+(i+1))+'</div>'
+      +     '<h3>'+s.name+'</h3>'
+      +     '<span class="typ">'+s.type+'</span>'
+      +     '<div class="meta">'+meta+'</div>'
+      +   '</div>'
+      + '</article>';
+  }).join('');
+  grid.innerHTML=html;
+
+  function open(el){ var id=el.getAttribute('data-id'); if(id) SS.openProgram(id); }
+  grid.addEventListener('click',function(e){ var c=e.target.closest('.card'); if(c) open(c); });
+  grid.addEventListener('keydown',function(e){
+    if(e.key==='Enter'||e.key===' '){ var c=e.target.closest('.card'); if(c){ e.preventDefault(); open(c);} }
+  });
+  document.getElementById('reelBtn').addEventListener('click',function(){ SS.openReel(); });
+})();
+</script>
