@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steam Show — Лаборатория карточек</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="parts.css">
+<link rel="stylesheet" href="cards.css">
+<style>
+  :root{
+    --bg:#08080C; --bg2:#10101A; --ink:#EAEAF5; --muted:#9A9AB8;
+    --line:rgba(255,255,255,.1);
+    --accent:#2AD4FF; --accent2:#FF2AD4; --accent3:#B6FF2A;
+    --display:"Space Grotesk","Inter",sans-serif; --body:"Inter",system-ui,sans-serif;
+  }
+  body{padding:0 0 80px}
+  .lab-top{padding:56px 0 10px;border-bottom:1px solid var(--line);margin-bottom:10px}
+  .lab-top h1{font-family:var(--display);font-weight:700;font-size:clamp(28px,5vw,46px);letter-spacing:-.02em}
+  .lab-top p{color:var(--muted);margin-top:10px;max-width:70ch;font-size:15px}
+  .lab-top .back{display:inline-block;margin-bottom:18px;color:var(--accent);font:600 13px/1 var(--display);letter-spacing:.04em}
+  section.lab{padding:46px 0}
+</style>
+</head>
+<body>
+
+<div class="wrap lab-top">
+  <a class="back" href="index.html">← все варианты</a>
+  <h1>Лаборатория карточек</h1>
+  <p>5 раскладок программ на одних реальных данных. Везде: крупные фото, название и теги читаемы, всё помещается без горизонтального скролла. Клик по карточке открывает галерею. Тип «движения» подписан у каждой.</p>
+</div>
+
+<section class="lab"><div class="wrap">
+  <div class="lab-label"><span class="n">01</span><h3>Постер-сетка 5×</h3><span class="d">движение: видео по наведению (демо на hero.mp4)</span></div>
+  <div data-cards="poster" data-media="video"></div>
+</div></section>
+
+<section class="lab"><div class="wrap">
+  <div class="lab-label"><span class="n">02</span><h3>Бенто-мозаика</h3><span class="d">движение: фото-цикл (постоянный кросс-фейд)</span></div>
+  <div data-cards="bento" data-media="cycle"></div>
+</div></section>
+
+<section class="lab"><div class="wrap">
+  <div class="lab-label"><span class="n">03</span><h3>Аккордеон-панели</h3><span class="d">движение: нет (статичное фото) · наведение разворачивает</span></div>
+  <div data-cards="accordion" data-media="static"></div>
+</div></section>
+
+<section class="lab"><div class="wrap">
+  <div class="lab-label"><span class="n">04</span><h3>Showcase — кадр + список</h3><span class="d">движение: фото-цикл в крупном кадре · наведение по списку меняет кадр</span></div>
+  <div data-cards="showcase" data-media="cycle"></div>
+</div></section>
+
+<section class="lab"><div class="wrap">
+  <div class="lab-label"><span class="n">05</span><h3>Tilt-ряд постеров</h3><span class="d">движение: фото-цикл · смещение и наклон, наведение выравнивает</span></div>
+  <div data-cards="tilt" data-media="cycle"></div>
+</div></section>
+
+<script src="media.js"></script>
+<script src="lib.js"></script>
+<script src="cards.js"></script>
+</body>
+</html>

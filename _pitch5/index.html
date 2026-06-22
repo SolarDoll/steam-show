@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steam Show — _pitch5 · второй заход</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#08080C;--bg2:#0F0F18;--ink:#EAEAF5;--muted:#9A9AB8;--line:rgba(255,255,255,.1);
+    --portal:#2AD4FF;--marquee:#FF6A1F;--kinetic:#FF2AD4;--lab:#B6FF2A}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Inter",system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 28px}
+  header.top{padding:74px 0 26px}
+  header.top .eyebrow{font:600 12px/1 "Space Grotesk";letter-spacing:.3em;text-transform:uppercase;color:var(--portal)}
+  header.top h1{font-family:"Space Grotesk";font-weight:700;font-size:clamp(30px,6vw,56px);margin:14px 0 12px;letter-spacing:-.02em}
+  header.top p{color:var(--muted);max-width:66ch;font-size:15.5px}
+  .feat{margin:24px 0 0;padding:18px 22px;border:1px solid var(--line);border-radius:14px;background:var(--bg2);font-size:14px;color:var(--muted)}
+  .feat b{color:var(--ink)}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;padding:30px 0 60px}
+  .card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--bg2);
+    transition:transform .25s,border-color .25s,box-shadow .25s}
+  .card:hover{transform:translateY(-5px);border-color:var(--ac);box-shadow:0 20px 50px -24px var(--ac)}
+  .card .vis{height:120px;display:flex;align-items:flex-end;padding:16px;
+    background:radial-gradient(120% 120% at 70% 10%,color-mix(in srgb,var(--ac) 55%,transparent),transparent 60%),linear-gradient(160deg,#16161f,#0c0c14)}
+  .card .vis .tag{font:600 11px/1 "Space Grotesk";letter-spacing:.14em;text-transform:uppercase;color:var(--ac);
+    padding:6px 10px;border:1px solid color-mix(in srgb,var(--ac) 45%,transparent);border-radius:99px;background:rgba(0,0,0,.3)}
+  .card .body{padding:20px;flex:1;display:flex;flex-direction:column}
+  .card .nm{font-family:"Space Grotesk";font-weight:600;font-size:19px}
+  .card .meta{font-size:12.5px;color:var(--muted);margin-top:6px}
+  .card .desc{font-size:13.5px;color:var(--muted);margin-top:12px;flex:1}
+  .card .open{margin-top:16px;font:600 13px/1 "Space Grotesk";color:var(--ac)}
+  footer{padding:50px 0;text-align:center;color:var(--muted);font-size:13px}
+  @media(max-width:720px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Steam Show · pitch5 · второй заход</div>
+    <h1>3 сайта + лаборатория карточек</h1>
+    <p>Доработка по фидбэку: секции спецэффектов больше нет — все эффекты ушли в бегущую строку; блок про гео называется «Performed worldwide»; нигде нет горизонтального скролла; у каждого варианта своя раскладка карточек и свой тип «движения».</p>
+    <div class="feat"><b>Карточки:</b> все 5 программ помещаются на один экран, крупные фото, читаемые названия и теги (напр. Fire Show · Fantasy / Post-apoc / Rock). Сравнить все раскладки можно в <b>лаборатории карточек</b>.</div>
+  </header>
+
+  <div class="grid">
+    <a class="card" style="--ac:var(--portal)" href="portal.html">
+      <div class="vis"><span class="tag">Bento · фото-цикл</span></div>
+      <div class="body"><div class="nm">1 · Portal</div>
+        <div class="meta">Неон · херо-портал (glitch + неон-кольца)</div>
+        <div class="desc">Карточки бенто-мозаикой (1 крупная Dragon + 4), фото в них постоянно мягко перелистываются. Контакты + Performed worldwide.</div>
+        <span class="open">Открыть →</span></div></a>
+
+    <a class="card" style="--ac:var(--marquee)" href="marquee.html">
+      <div class="vis"><span class="tag">Poster · видео</span></div>
+      <div class="body"><div class="nm">2 · Marquee</div>
+        <div class="meta">Тёплый · херо «летящие слова» + фото под ними</div>
+        <div class="desc">Карточки постер-сеткой 5×, по наведению играет ВИДЕО (демо на hero.mp4). Огненное свечение снизу, canvas-эмберы.</div>
+        <span class="open">Открыть →</span></div></a>
+
+    <a class="card" style="--ac:var(--kinetic)" href="kinetic.html">
+      <div class="vis"><span class="tag">Accordion · фото</span></div>
+      <div class="body"><div class="nm">3 · Kinetic</div>
+        <div class="meta">Неон · херо-ротатор «We bring → …»</div>
+        <div class="desc">Карточки аккордеоном: наведение разворачивает панель с описанием и тегами. Статичное крупное фото.</div>
+        <span class="open">Открыть →</span></div></a>
+
+    <a class="card" style="--ac:var(--lab)" href="cards-lab.html">
+      <div class="vis"><span class="tag">Все 5 раскладок</span></div>
+      <div class="body"><div class="nm">★ Лаборатория карточек</div>
+        <div class="meta">poster · bento · accordion · showcase · tilt</div>
+        <div class="desc">Все придуманные раскладки карточек подряд на одних данных + разные типы движения. Выбираешь — потом скомпонуем.</div>
+        <span class="open">Открыть →</span></div></a>
+  </div>
+
+  <footer>Steam Show · _pitch5 — vanilla HTML/CSS/JS, реальные фото из assets/web. © <span id="yr"></span></footer>
+</div>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>
