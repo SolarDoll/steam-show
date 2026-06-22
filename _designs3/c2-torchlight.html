@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Steam Show — Torchlight</title>
+<link rel="icon" href="../assets/Logo_final.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="base.css" />
+<style>
+  :root{
+    --bg:#060405;--bg2:#0a0708;--panel:#141016;--panel2:#1a141c;
+    --accent:#FF5A1F;--accent2:#FFB347;--gold:#E7C27A;
+    --line:#221b26;--line2:#332a38;--cta-bg:var(--accent);--cta-fg:#1a0902;
+  }
+  .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+    padding:90px clamp(20px,4vw,30px) 60px;overflow:hidden;cursor:crosshair;}
+  /* скрытая сцена — её «находишь» факелом */
+  .scene{position:absolute;inset:0;z-index:1;display:grid;place-items:center;}
+  .scene__dragon{width:min(78vh,640px);aspect-ratio:1239/1583;position:relative;}
+  .scene__fire{position:absolute;inset:0;
+    -webkit-mask:url(../assets/dragon-mask.png) center/contain no-repeat;mask:url(../assets/dragon-mask.png) center/contain no-repeat;
+    background:radial-gradient(50% 40% at 50% 88%,#FFE9A8,transparent 60%),radial-gradient(60% 55% at 45% 66%,#FF7A1A,transparent 64%),linear-gradient(0deg,#FFB347,#FF5A1F 45%,#6a1604);
+    background-size:150% 150%;animation:burn 9s ease-in-out infinite;}
+  @keyframes burn{0%,100%{background-position:50% 100%;}50%{background-position:50% 10%;}}
+  .scene__amb{position:absolute;inset:-20%;background:radial-gradient(closest-side,rgba(255,90,31,.3),transparent);filter:blur(50px);}
+  /* факел: вуаль с дыркой у курсора */
+  .veil{position:absolute;inset:0;z-index:2;background:var(--bg);
+    -webkit-mask:radial-gradient(circle var(--r,200px) at var(--mx,50%) var(--my,52%),transparent 0,transparent 46%,#000 78%);
+            mask:radial-gradient(circle var(--r,200px) at var(--mx,50%) var(--my,52%),transparent 0,transparent 46%,#000 78%);
+    transition:-webkit-mask-position .05s linear;}
+  .torch{position:absolute;z-index:3;width:340px;height:340px;left:var(--mx,50%);top:var(--my,52%);transform:translate(-50%,-50%);pointer-events:none;
+    background:radial-gradient(closest-side,rgba(255,150,60,.22),transparent 70%);mix-blend-mode:screen;transition:left .05s,top .05s;}
+
+  .hero__text{position:relative;z-index:4;max-width:760px;pointer-events:none;}
+  .hero__text .pe{pointer-events:auto;}
+  .eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:22px;}
+  .hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(44px,8vw,104px);line-height:.92;letter-spacing:-.02em;text-shadow:0 4px 40px rgba(0,0,0,.7);}
+  .hero h1 .ital{font-style:italic;color:var(--accent2);}
+  .hero__lead{color:#cfc7be;font-size:clamp(15px,1.7vw,18px);max-width:44ch;margin:22px 0 28px;text-shadow:0 2px 20px rgba(0,0,0,.8);}
+  .cta-row{display:flex;gap:13px;flex-wrap:wrap;}
+  .solid{background:var(--accent);color:#1a0902;font-weight:700;padding:15px 28px;border-radius:100px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;}
+  .solid:hover{transform:translateY(-2px);}
+  .ghost{border:1px solid var(--line2);color:#fff;padding:15px 26px;border-radius:100px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;font-weight:700;display:inline-flex;gap:9px;align-items:center;}
+  .ghost .pd{width:9px;height:9px;border-radius:50%;background:var(--accent2);box-shadow:0 0 0 4px rgba(255,179,71,.18);}
+  .hint{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:4;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);pointer-events:none;}
+  @media(max-width:980px){.hero{cursor:default;}.hero h1{font-size:clamp(40px,11vw,70px);}}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="brand" onclick="goHome()"><img class="dmark" src="../assets/dragon-light.png" alt="" /> Steam Show</div>
+  <div class="nav-l"><a onclick="openDetail('dragon')">Dragon</a><a onclick="openDetail('fire')">Fire</a><a onclick="openDetail('ledfire')">LED Fire</a><a onclick="openDetail('led')">LED</a><a onclick="openDetail('stilts')">Stilts</a></div>
+  <a class="nav-cta" href="#contact">Book the show</a>
+</nav>
+
+<div class="overview-wrap" id="overview">
+
+  <header class="hero" id="hero">
+    <div class="scene"><div class="scene__amb"></div><div class="scene__dragon"><div class="scene__fire"></div></div></div>
+    <div class="veil" id="veil"></div>
+    <div class="torch" id="torch"></div>
+    <div class="hero__text">
+      <span class="eyebrow">Fire · LED · Stilts — worldwide</span>
+      <h1>Out of the <span class="ital">dark.</span></h1>
+      <p class="hero__lead">Move the light. We bring fire, glow and giants to events worldwide — and there’s a dragon hiding in here.</p>
+      <div class="cta-row pe">
+        <a class="solid" href="#shows" onclick="document.getElementById('shows').scrollIntoView({behavior:'smooth'});return false;">Explore the shows</a>
+        <button class="ghost" onclick="openLightbox('Steam Show — Showreel','reel',0,true)"><span class="pd"></span> Watch showreel</button>
+      </div>
+    </div>
+    <div class="hint">move your cursor — find the dragon</div>
+  </header>
+
+  <section class="ov" id="shows"><div class="wrap">
+    <div class="ov-head"><h2>Browse <em>everything</em></h2><p id="ovcount"></p></div>
+    <p class="ov-sub">Every block opens a full gallery — multiple videos, photos and costume options to choose from.</p>
+    <div class="ov-grid reveal" id="ovGrid"></div>
+    <div class="fx reveal">
+      <h3>Effects &amp; add-ons</h3>
+      <p>We layer effects into any programme — some on almost every show, others on request.</p>
+      <div class="fx-group"><div class="lbl">Usually included</div><div class="fx-row hot"><span>Flamethrowers</span><span>Fire cannons</span><span>Fire cubes</span><span>Pyrotechnics</span></div></div>
+      <div class="fx-group"><div class="lbl">On request</div><div class="fx-row"><span>Paper show</span><span>Fire hearts</span><span>Confetti</span><span>Fire on stilts</span></div></div>
+    </div>
+    <div class="world reveal">
+      <h3>We travel <em>anywhere</em></h3>
+      <p>Regulars on the European festival circuit and on contract across the Gulf — open to events anywhere in the world.</p>
+      <div class="world-row"><span>Europe</span><span>The Gulf</span><span>Middle East</span><span class="more">+ 20 countries worldwide</span></div>
+    </div>
+  </div></section>
+
+</div>
+
+<div class="detail" id="detail"><div class="wrap">
+  <button class="back" onclick="goHome()">← All shows</button>
+  <div class="d-head"><div><div class="type" id="dType"></div><h2 id="dTitle"></h2><p id="dDesc"></p></div><div class="d-stats" id="dStats"></div></div>
+  <div class="tabs" id="dTabs"></div><div class="gallery" id="dGallery"></div>
+  <div class="more-cta"><h3>Want this for your <em>event</em>?</h3><div class="btns"><a class="primary" href="#contact" onclick="goHome()">Request this show</a><a href="#contact" onclick="goHome()">See full reel</a></div></div>
+</div></div>
+
+<div class="lb" id="lb" onclick="if(event.target.id==='lb')closeLightbox()">
+  <button class="x" onclick="closeLightbox()">×</button><button class="nav-btn prev" onclick="lbStep(-1)">‹</button><button class="nav-btn next" onclick="lbStep(1)">›</button>
+  <div class="box"><div class="ph" id="lbPh"></div><div class="lb-cap"><span id="lbCap"></span><span id="lbIdx"></span></div></div>
+</div>
+
+<footer id="contact"><div class="wrap">
+  <h2>Let’s light up<br><em>your event.</em></h2>
+  <div class="contacts"><a href="#">Instagram ↗</a><a href="mailto:hello@steamshow.com">Email ↗</a><a href="#">WhatsApp ↗</a><a href="#">Telegram ↗</a><a href="#">YouTube ↗</a></div>
+  <div class="fn">© <span id="year"></span> Steam Show · Concept Torchlight</div>
+</div></footer>
+
+<script>
+  (function(){
+    var hero=document.getElementById('hero'),veil=document.getElementById('veil'),torch=document.getElementById('torch');
+    if(!hero)return;
+    var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+    if(reduce){veil.style.display='none';return;}
+    function move(x,y){var r=hero.getBoundingClientRect();var px=((x-r.left)/r.width*100).toFixed(1)+'%';var py=((y-r.top)/r.height*100).toFixed(1)+'%';
+      veil.style.setProperty('--mx',px);veil.style.setProperty('--my',py);torch.style.setProperty('--mx',px);torch.style.setProperty('--my',py);}
+    hero.addEventListener('mousemove',function(e){move(e.clientX,e.clientY);});
+    hero.addEventListener('touchmove',function(e){var t=e.touches[0];move(t.clientX,t.clientY);},{passive:true});
+    // лёгкое автодвижение факела пока пользователь не трогал (намёк)
+    var t=0,auto=true;hero.addEventListener('mousemove',function(){auto=false;},{once:true});
+    (function loop(){if(auto){t+=0.012;var r=hero.getBoundingClientRect();move(r.left+r.width*(0.5+Math.sin(t)*0.22),r.top+r.height*(0.5+Math.cos(t*1.3)*0.16));}requestAnimationFrame(loop);})();
+  })();
+</script>
+<script src="engine.js"></script>
+</body>
+</html>

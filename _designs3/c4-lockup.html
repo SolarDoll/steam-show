@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Steam Show — Lockup</title>
+<link rel="icon" href="../assets/Logo_final.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="base.css" />
+<style>
+  :root{
+    --bg:#0a0708;--bg2:#0e0a0c;--panel:#141016;--panel2:#1a141c;
+    --accent:#FF5A1F;--accent2:#FFB347;--gold:#E7C27A;
+    --line:#241d28;--line2:#352c3a;--cta-bg:var(--accent);--cta-fg:#1a0902;
+  }
+  .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+    padding:100px clamp(20px,4vw,30px) 60px;overflow:hidden;}
+  .hero__bg{position:absolute;inset:0;z-index:0;background:radial-gradient(60% 50% at 50% 64%,rgba(255,90,31,.14),transparent 62%),linear-gradient(180deg,#0a0708,#140a08);}
+  .smoke{position:absolute;inset:0;z-index:0;opacity:.5;pointer-events:none;
+    background:radial-gradient(40% 30% at 30% 40%,rgba(180,150,130,.06),transparent 60%),radial-gradient(40% 30% at 70% 55%,rgba(180,150,130,.05),transparent 60%);
+    filter:blur(6px);animation:drift 18s ease-in-out infinite alternate;}
+  @keyframes drift{to{transform:translateX(40px) translateY(-20px);}}
+  .eyebrow{position:relative;z-index:3;font-size:12px;font-weight:700;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);margin-bottom:30px;}
+
+  /* ===== LOCKUP: дракон = буква S ===== */
+  .lockup{position:relative;z-index:3;display:inline-grid;grid-template-columns:auto auto;align-items:center;justify-content:center;
+    column-gap:clamp(8px,1.4vw,20px);row-gap:0;line-height:.8;}
+  .dS{width:clamp(78px,12vw,168px);aspect-ratio:1239/1583;grid-row:span 2;align-self:center;position:relative;}
+  .dS .fill{position:absolute;inset:0;-webkit-mask:url(../assets/dragon-mask.png) center/contain no-repeat;mask:url(../assets/dragon-mask.png) center/contain no-repeat;
+    background:radial-gradient(50% 40% at 50% 90%,#FFE9A8,transparent 60%),linear-gradient(0deg,#FFD27A,#FF5A1F 45%,#7a1604);background-size:140% 160%;animation:burn 8s ease-in-out infinite;}
+  .dS .rim{position:absolute;inset:0;-webkit-mask:url(../assets/dragon-outline.png) center/contain no-repeat;mask:url(../assets/dragon-outline.png) center/contain no-repeat;background:#FFE9A8;opacity:.8;mix-blend-mode:screen;}
+  @keyframes burn{0%,100%{background-position:50% 100%;}50%{background-position:50% 12%;}}
+  .word{font-family:"Anton",sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.01em;
+    font-size:clamp(56px,15vw,200px);line-height:.78;}
+  .word.t{align-self:end;}
+  .word.b{grid-column:1/-1;align-self:start;letter-spacing:.16em;font-size:clamp(40px,11vw,150px);}
+  .flame2{background:linear-gradient(96deg,#FF2E00,#FF6A1F 24%,#FFB23E 44%,#FFE6A8 54%,#FFB23E 64%,#FF6A1F 86%);
+    background-size:260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:flow 7s linear infinite;}
+  @keyframes flow{to{background-position:260% 0;}}
+
+  .hero__lead{position:relative;z-index:3;color:#cfc7be;font-size:clamp(15px,1.7vw,18px);max-width:48ch;margin:34px auto 28px;}
+  .cta-row{position:relative;z-index:3;display:flex;gap:13px;flex-wrap:wrap;justify-content:center;}
+  .solid{background:var(--accent);color:#1a0902;font-weight:700;padding:15px 28px;border-radius:100px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;box-shadow:0 10px 34px -10px rgba(255,90,31,.7);}
+  .solid:hover{transform:translateY(-2px);}
+  .ghost{border:1px solid var(--line2);color:#fff;padding:15px 26px;border-radius:100px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;font-weight:700;display:inline-flex;gap:9px;align-items:center;}
+  .ghost .pd{width:9px;height:9px;border-radius:50%;background:var(--accent2);box-shadow:0 0 0 4px rgba(255,179,71,.18);}
+
+  @media(max-width:600px){.word.t{font-size:clamp(48px,17vw,90px);}.dS{width:64px;}}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="brand" onclick="goHome()"><img class="dmark" src="../assets/dragon-light.png" alt="" /> Steam Show</div>
+  <div class="nav-l"><a onclick="openDetail('dragon')">Dragon</a><a onclick="openDetail('fire')">Fire</a><a onclick="openDetail('ledfire')">LED Fire</a><a onclick="openDetail('led')">LED</a><a onclick="openDetail('stilts')">Stilts</a></div>
+  <a class="nav-cta" href="#contact">Book the show</a>
+</nav>
+
+<div class="overview-wrap" id="overview">
+
+  <header class="hero">
+    <div class="hero__bg"></div><div class="smoke"></div>
+    <span class="eyebrow">Fire · LED · Stilts — worldwide</span>
+    <div class="lockup" aria-label="Steam Show">
+      <div class="dS"><div class="fill"></div><div class="rim"></div></div>
+      <span class="word t flame2">TEAM</span>
+      <span class="word b flame2">SHOW</span>
+    </div>
+    <p class="hero__lead">The dragon is our S. Large-scale fire, light and stilt spectacles for festivals and private events worldwide.</p>
+    <div class="cta-row">
+      <a class="solid" href="#shows" onclick="document.getElementById('shows').scrollIntoView({behavior:'smooth'});return false;">Explore the shows</a>
+      <button class="ghost" onclick="openLightbox('Steam Show — Showreel','reel',0,true)"><span class="pd"></span> Watch showreel</button>
+    </div>
+  </header>
+
+  <section class="ov" id="shows"><div class="wrap">
+    <div class="ov-head"><h2>Browse <em>everything</em></h2><p id="ovcount"></p></div>
+    <p class="ov-sub">Every block opens a full gallery — multiple videos, photos and costume options to choose from.</p>
+    <div class="ov-grid reveal" id="ovGrid"></div>
+    <div class="fx reveal">
+      <h3>Effects &amp; add-ons</h3>
+      <p>We layer effects into any programme — some on almost every show, others on request.</p>
+      <div class="fx-group"><div class="lbl">Usually included</div><div class="fx-row hot"><span>Flamethrowers</span><span>Fire cannons</span><span>Fire cubes</span><span>Pyrotechnics</span></div></div>
+      <div class="fx-group"><div class="lbl">On request</div><div class="fx-row"><span>Paper show</span><span>Fire hearts</span><span>Confetti</span><span>Fire on stilts</span></div></div>
+    </div>
+    <div class="world reveal">
+      <h3>We travel <em>anywhere</em></h3>
+      <p>Regulars on the European festival circuit and on contract across the Gulf — open to events anywhere in the world.</p>
+      <div class="world-row"><span>Europe</span><span>The Gulf</span><span>Middle East</span><span class="more">+ 20 countries worldwide</span></div>
+    </div>
+  </div></section>
+
+</div>
+
+<div class="detail" id="detail"><div class="wrap">
+  <button class="back" onclick="goHome()">← All shows</button>
+  <div class="d-head"><div><div class="type" id="dType"></div><h2 id="dTitle"></h2><p id="dDesc"></p></div><div class="d-stats" id="dStats"></div></div>
+  <div class="tabs" id="dTabs"></div><div class="gallery" id="dGallery"></div>
+  <div class="more-cta"><h3>Want this for your <em>event</em>?</h3><div class="btns"><a class="primary" href="#contact" onclick="goHome()">Request this show</a><a href="#contact" onclick="goHome()">See full reel</a></div></div>
+</div></div>
+
+<div class="lb" id="lb" onclick="if(event.target.id==='lb')closeLightbox()">
+  <button class="x" onclick="closeLightbox()">×</button><button class="nav-btn prev" onclick="lbStep(-1)">‹</button><button class="nav-btn next" onclick="lbStep(1)">›</button>
+  <div class="box"><div class="ph" id="lbPh"></div><div class="lb-cap"><span id="lbCap"></span><span id="lbIdx"></span></div></div>
+</div>
+
+<footer id="contact"><div class="wrap">
+  <h2>Let’s light up<br><em>your event.</em></h2>
+  <div class="contacts"><a href="#">Instagram ↗</a><a href="mailto:hello@steamshow.com">Email ↗</a><a href="#">WhatsApp ↗</a><a href="#">Telegram ↗</a><a href="#">YouTube ↗</a></div>
+  <div class="fn">© <span id="year"></span> Steam Show · Concept Lockup</div>
+</div></footer>
+
+<script src="engine.js"></script>
+</body>
+</html>

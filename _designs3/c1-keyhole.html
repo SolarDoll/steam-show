@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Steam Show — Keyhole</title>
+<link rel="icon" href="../assets/Logo_final.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="base.css" />
+<style>
+  :root{
+    --bg:#070506;--bg2:#0b0809;--panel:#141016;--panel2:#1a141c;
+    --accent:#FF5A1F;--accent2:#FFB347;--gold:#E7C27A;
+    --line:#241d28;--line2:#352c3a;--cta-bg:var(--accent);--cta-fg:#1a0902;
+  }
+  .hero{position:relative;min-height:100svh;display:grid;grid-template-columns:1fr 1fr;align-items:center;
+    gap:20px;max-width:1320px;margin:0 auto;padding:90px clamp(20px,4vw,30px) 40px;overflow:hidden;}
+  .hero__text{position:relative;z-index:3;}
+  .eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:22px;}
+  .hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(46px,7.5vw,96px);line-height:.92;letter-spacing:-.02em;}
+  .hero h1 .ital{font-style:italic;color:var(--accent2);}
+  .hero__lead{color:#cfc7be;font-size:clamp(15px,1.7vw,18px);max-width:42ch;margin:22px 0 28px;}
+  .cta-row{display:flex;gap:13px;flex-wrap:wrap;}
+  .solid{background:var(--accent);color:#1a0902;font-weight:700;padding:15px 28px;border-radius:100px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;transition:transform .35s,box-shadow .35s;box-shadow:0 10px 34px -10px rgba(255,90,31,.7);}
+  .solid:hover{transform:translateY(-2px);}
+  .ghost{border:1px solid var(--line2);color:#fff;padding:15px 26px;border-radius:100px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;font-weight:700;display:inline-flex;gap:9px;align-items:center;}
+  .ghost:hover{border-color:var(--accent);}
+  .ghost .pd{width:9px;height:9px;border-radius:50%;background:var(--accent2);box-shadow:0 0 0 4px rgba(255,179,71,.18);}
+
+  /* ===== THE KEYHOLE: дракон — окно в живой огонь ===== */
+  .portal{position:relative;z-index:2;justify-self:center;width:min(52vh,460px);aspect-ratio:1239/1583;
+    -webkit-mask:url(../assets/dragon-mask.png) center/contain no-repeat;mask:url(../assets/dragon-mask.png) center/contain no-repeat;}
+  .portal__media{position:absolute;inset:-12%;
+    /* стенд-ин под реальное видео: положи сюда <video> и убери фон */
+    background:
+      radial-gradient(40% 30% at 50% 86%,#FFE9A8,transparent 60%),
+      radial-gradient(55% 45% at 38% 72%,#FF9A2E,transparent 62%),
+      radial-gradient(60% 55% at 64% 60%,#FF4D12,transparent 66%),
+      radial-gradient(70% 60% at 50% 40%,#9c2406,transparent 70%),
+      linear-gradient(0deg,#FFB347,#FF5A1F 38%,#5a1303 80%,#1a0703);
+    background-size:160% 160%;animation:burn 8s ease-in-out infinite;
+    transition:transform .25s ease-out;will-change:transform;}
+  @keyframes burn{0%,100%{background-position:50% 100%;}50%{background-position:46% 22%;}}
+  .portal__rim{position:absolute;inset:0;z-index:2;pointer-events:none;
+    -webkit-mask:url(../assets/dragon-outline.png) center/contain no-repeat;mask:url(../assets/dragon-outline.png) center/contain no-repeat;
+    background:linear-gradient(180deg,#FFE9A8,#FF7A1A);opacity:.9;mix-blend-mode:screen;}
+  .portal__glow{position:absolute;inset:-30% -20%;z-index:0;pointer-events:none;
+    background:radial-gradient(closest-side,rgba(255,90,31,.45),transparent);filter:blur(40px);animation:breathe 7s ease-in-out infinite;}
+  @keyframes breathe{0%,100%{opacity:.55;transform:scale(1);}50%{opacity:.95;transform:scale(1.07);}}
+  .portal__hint{position:absolute;bottom:-30px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);}
+
+  @media(max-width:980px){
+    .hero{grid-template-columns:1fr;text-align:center;padding-top:120px;}
+    .hero__lead{margin-left:auto;margin-right:auto;}.cta-row{justify-content:center;}
+    .portal{order:-1;width:min(66vw,340px);margin-bottom:30px;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="brand" onclick="goHome()"><img class="dmark" src="../assets/dragon-light.png" alt="" /> Steam Show</div>
+  <div class="nav-l"><a onclick="openDetail('dragon')">Dragon</a><a onclick="openDetail('fire')">Fire</a><a onclick="openDetail('ledfire')">LED Fire</a><a onclick="openDetail('led')">LED</a><a onclick="openDetail('stilts')">Stilts</a></div>
+  <a class="nav-cta" href="#contact">Book the show</a>
+</nav>
+
+<div class="overview-wrap" id="overview">
+
+  <header class="hero" id="hero">
+    <div class="hero__text">
+      <span class="eyebrow">Fire · LED · Stilts — worldwide</span>
+      <h1>Look <span class="ital">inside</span><br>the fire.</h1>
+      <p class="hero__lead">Large-scale fire, light and stilt spectacles for festivals and private events worldwide. Move your cursor — the show lives inside the dragon.</p>
+      <div class="cta-row">
+        <a class="solid" href="#shows" onclick="document.getElementById('shows').scrollIntoView({behavior:'smooth'});return false;">Explore the shows</a>
+        <button class="ghost" onclick="openLightbox('Steam Show — Showreel','reel',0,true)"><span class="pd"></span> Watch showreel</button>
+      </div>
+    </div>
+    <div class="portal" id="portal">
+      <div class="portal__glow"></div>
+      <div class="portal__media" id="portalMedia"></div>
+      <div class="portal__rim"></div>
+      <div class="portal__hint">the dragon is a window</div>
+    </div>
+  </header>
+
+  <section class="ov" id="shows"><div class="wrap">
+    <div class="ov-head"><h2>Browse <em>everything</em></h2><p id="ovcount"></p></div>
+    <p class="ov-sub">Every block opens a full gallery — multiple videos, photos and costume options to choose from.</p>
+    <div class="ov-grid reveal" id="ovGrid"></div>
+    <div class="fx reveal">
+      <h3>Effects &amp; add-ons</h3>
+      <p>We layer effects into any programme — some on almost every show, others on request.</p>
+      <div class="fx-group"><div class="lbl">Usually included</div><div class="fx-row hot"><span>Flamethrowers</span><span>Fire cannons</span><span>Fire cubes</span><span>Pyrotechnics</span></div></div>
+      <div class="fx-group"><div class="lbl">On request</div><div class="fx-row"><span>Paper show</span><span>Fire hearts</span><span>Confetti</span><span>Fire on stilts</span></div></div>
+    </div>
+    <div class="world reveal">
+      <h3>We travel <em>anywhere</em></h3>
+      <p>Regulars on the European festival circuit and on contract across the Gulf — open to events anywhere in the world.</p>
+      <div class="world-row"><span>Europe</span><span>The Gulf</span><span>Middle East</span><span class="more">+ 20 countries worldwide</span></div>
+    </div>
+  </div></section>
+
+</div>
+
+<div class="detail" id="detail"><div class="wrap">
+  <button class="back" onclick="goHome()">← All shows</button>
+  <div class="d-head"><div><div class="type" id="dType"></div><h2 id="dTitle"></h2><p id="dDesc"></p></div><div class="d-stats" id="dStats"></div></div>
+  <div class="tabs" id="dTabs"></div><div class="gallery" id="dGallery"></div>
+  <div class="more-cta"><h3>Want this for your <em>event</em>?</h3><div class="btns"><a class="primary" href="#contact" onclick="goHome()">Request this show</a><a href="#contact" onclick="goHome()">See full reel</a></div></div>
+</div></div>
+
+<div class="lb" id="lb" onclick="if(event.target.id==='lb')closeLightbox()">
+  <button class="x" onclick="closeLightbox()">×</button><button class="nav-btn prev" onclick="lbStep(-1)">‹</button><button class="nav-btn next" onclick="lbStep(1)">›</button>
+  <div class="box"><div class="ph" id="lbPh"></div><div class="lb-cap"><span id="lbCap"></span><span id="lbIdx"></span></div></div>
+</div>
+
+<footer id="contact"><div class="wrap">
+  <h2>Let’s light up<br><em>your event.</em></h2>
+  <div class="contacts"><a href="#">Instagram ↗</a><a href="mailto:hello@steamshow.com">Email ↗</a><a href="#">WhatsApp ↗</a><a href="#">Telegram ↗</a><a href="#">YouTube ↗</a></div>
+  <div class="fn">© <span id="year"></span> Steam Show · Concept Keyhole</div>
+</div></footer>
+
+<script>
+  // parallax: кадр внутри дракона смещается за курсором — будто смотришь в окно
+  (function(){
+    var hero=document.getElementById('hero'),media=document.getElementById('portalMedia');
+    if(!hero||!media||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+    hero.addEventListener('mousemove',function(e){
+      var r=hero.getBoundingClientRect();
+      var x=(e.clientX-r.left)/r.width-0.5, y=(e.clientY-r.top)/r.height-0.5;
+      media.style.transform='translate('+(x*-26)+'px,'+(y*-26)+'px) scale(1.12)';
+    });
+    hero.addEventListener('mouseleave',function(){media.style.transform='translate(0,0) scale(1)';});
+  })();
+</script>
+<script src="engine.js"></script>
+</body>
+</html>
