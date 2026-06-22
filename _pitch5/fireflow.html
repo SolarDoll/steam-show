@@ -10,6 +10,8 @@
   --accent-2:#FFC53D;
   --red:#FF3D2E;
   --magenta:#FF2E9A;
+  --cool:#25F4EE;
+  --grad:linear-gradient(100deg,var(--accent),var(--magenta));
   --line:#2a1c24;
   --muted:rgba(246,235,221,.62);
   --display:"Anton",Impact,"Arial Narrow Bold",sans-serif;
@@ -87,63 +89,59 @@ button{font-family:inherit;}
 }
 .eyebrow::before{content:"";width:34px;height:1px;background:linear-gradient(90deg,var(--accent),transparent);}
 
-/* ---------- HERO (левосторонняя композиция, с нуля) ---------- */
-.hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;overflow:hidden;}
-.hero video,.hero .poster{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;
-}
-.hero .scrim{
-  position:absolute;inset:0;z-index:1;
-  background:
-    linear-gradient(180deg, rgba(12,7,16,.55) 0%, rgba(12,7,16,.08) 26%, rgba(12,7,16,.5) 64%, rgba(12,7,16,.97) 100%),
-    radial-gradient(95% 95% at 10% 100%, rgba(255,61,46,.28), transparent 60%),
-    linear-gradient(90deg, rgba(12,7,16,.72) 0%, rgba(12,7,16,.22) 44%, transparent 72%);
-}
-.hero .inner{position:relative;z-index:2;width:100%;padding-bottom:clamp(40px,7vh,82px);
-  display:flex;flex-direction:column;align-items:flex-start;text-align:left;}
-.brandrow{display:inline-flex;align-items:center;gap:12px;margin-bottom:clamp(20px,3.4vh,32px);
-  padding:8px 16px 8px 8px;border:1px solid var(--line);border-radius:100px;background:rgba(246,235,221,.05);backdrop-filter:blur(6px);}
-.brandrow .mark{
-  width:28px;height:28px;border-radius:8px;flex:0 0 auto;
-  background:
-    conic-gradient(from 200deg,var(--red),var(--accent),var(--accent-2),var(--magenta),var(--red));
-  -webkit-mask:url(../assets/silhuete_dragon_1.png) center/82% no-repeat;
-          mask:url(../assets/silhuete_dragon_1.png) center/82% no-repeat;
-  box-shadow:0 0 22px rgba(255,106,31,.4);
-}
-.brandrow b{font-family:var(--util);font-weight:600;letter-spacing:.28em;font-size:12.5px;text-transform:uppercase;}
-h1.title{
-  font-family:var(--display);font-weight:400;
-  font-size:clamp(66px,13.5vw,212px);line-height:.82;letter-spacing:.005em;
-  margin:0;text-transform:uppercase;
-}
-h1.title .l2{
-  background:linear-gradient(92deg,var(--accent-2) 0%,var(--accent) 42%,var(--red) 74%,var(--magenta) 100%);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.hero .sub{
-  margin:clamp(20px,3vh,30px) 0 0;max-width:46ch;font-size:clamp(15px,1.6vw,20px);
-  color:var(--text);opacity:.92;line-height:1.55;
-}
-.btns{display:flex;gap:14px;flex-wrap:wrap;margin-top:clamp(24px,3.4vh,34px);justify-content:flex-start;}
-.hero-meta{display:flex;gap:14px;flex-wrap:wrap;align-items:center;width:min(100%,760px);
-  margin-top:clamp(28px,4.6vh,52px);padding-top:22px;border-top:1px solid var(--line);
-  font-family:var(--util);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
-.hero-meta i{color:var(--accent);font-style:normal;}
-.hero-meta .hl{color:var(--accent-2);font-weight:600;}
-.btn{
-  display:inline-flex;align-items:center;gap:10px;cursor:pointer;border:none;
-  padding:16px 30px;border-radius:100px;font-family:var(--util);font-weight:600;
-  font-size:14px;letter-spacing:.04em;
-}
-.btn.primary{color:#1a0a04;background:linear-gradient(100deg,var(--accent-2),var(--accent));box-shadow:0 10px 34px rgba(255,106,31,.4);}
-.btn.primary:hover{filter:brightness(1.08);}
-.btn.ghost{color:var(--text);background:rgba(246,235,221,.06);border:1px solid var(--line);}
-.btn.ghost:hover{border-color:var(--accent);color:var(--accent-2);}
-.btn .dot{width:9px;height:9px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red);}
-.scrollcue{position:absolute;right:clamp(20px,5vw,70px);bottom:34px;z-index:2;
-  font-family:var(--util);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);
-  writing-mode:vertical-rl;}
+/* ---------- TOP NAV ---------- */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;
+  padding:15px clamp(20px,4vw,46px);background:color-mix(in srgb,var(--bg) 45%,transparent);backdrop-filter:blur(14px);
+  border-bottom:1px solid transparent;transition:.3s;}
+.topnav.sc{border-bottom-color:var(--line);background:color-mix(in srgb,var(--bg) 86%,transparent);}
+.topnav .brand{display:flex;align-items:center;gap:11px;font-family:var(--util);font-weight:800;letter-spacing:.22em;text-transform:uppercase;font-size:13px;color:var(--text);}
+.topnav .brand .mk{width:30px;height:30px;flex:0 0 auto;
+  background:conic-gradient(from 200deg,var(--red),var(--accent),var(--accent-2),var(--magenta),var(--red));
+  -webkit-mask:url(../assets/silhuete_dragon_1.png) center/contain no-repeat;mask:url(../assets/silhuete_dragon_1.png) center/contain no-repeat;
+  filter:drop-shadow(0 0 12px rgba(255,106,31,.5));}
+.nav-l{display:flex;gap:26px;font-family:var(--util);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+.nav-l a:hover{color:var(--text);}
+.nav-cta{font-family:var(--util);font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--grad);color:#160405;padding:11px 20px;border-radius:100px;}
+@media(max-width:760px){.nav-l{display:none}}
+
+/* ---------- HERO (как hybrid2) ---------- */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;}
+.hero video,.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+.hero .scrim{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(90deg,rgba(12,7,16,.92),rgba(12,7,16,.55) 45%,transparent 80%),
+    linear-gradient(0deg,rgba(12,7,16,.92),transparent 45%),
+    radial-gradient(90% 80% at 12% 100%,rgba(255,61,46,.22),transparent 60%);}
+.hero .inner{position:relative;z-index:3;width:100%;max-width:1320px;margin:0 auto;
+  padding:96px clamp(20px,4vw,46px) 60px;text-align:left;}
+.eyebrow{display:inline-block;font-family:var(--util);font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent-2);font-weight:800;margin-bottom:22px;}
+h1.title{font-family:var(--display);font-weight:400;text-transform:uppercase;
+  font-size:clamp(56px,10.5vw,158px);line-height:.84;letter-spacing:.005em;margin:0;max-width:14ch;}
+h1.title .o{color:var(--accent);} h1.title .c{color:var(--cool);} h1.title .m{color:var(--magenta);}
+.hero .sub{color:#e7dccf;font-size:clamp(15px,1.7vw,19px);max-width:46ch;margin:24px 0 30px;line-height:1.55;}
+.ctas{display:flex;gap:13px;flex-wrap:wrap;}
+.solid{cursor:pointer;border:none;background:var(--grad);color:#160405;font-family:var(--util);font-weight:800;
+  padding:16px 30px;border-radius:100px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;
+  box-shadow:0 12px 40px -12px rgba(255,46,132,.7);transition:transform .3s,filter .3s;}
+.solid:hover{transform:translateY(-2px);filter:brightness(1.06);}
+.ghost{cursor:pointer;border:1px solid rgba(255,255,255,.4);background:none;color:var(--text);
+  font-family:var(--util);font-weight:700;padding:16px 28px;border-radius:100px;font-size:13px;letter-spacing:.06em;
+  text-transform:uppercase;display:inline-flex;gap:9px;align-items:center;transition:.3s;}
+.ghost:hover{border-color:var(--magenta);color:var(--accent-2);}
+.ghost .pd{width:8px;height:8px;border-radius:50%;background:var(--cool);}
+.scrollhint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:3;
+  font-family:var(--util);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#cfc7d6;}
+
+/* ---------- элегантный светлячок (как в scroll-saga, но тоньше) ---------- */
+.firefly{position:absolute;z-index:2;width:7px;height:7px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,#fff,var(--accent-2) 38%,rgba(255,179,71,0) 72%);
+  filter:drop-shadow(0 0 8px rgba(255,210,62,.9));opacity:0;animation:fly1 22s ease-in-out infinite;}
+.firefly.f2{width:5px;height:5px;animation:fly2 28s ease-in-out infinite 5s;}
+@keyframes fly1{0%{opacity:0;transform:translate(10vw,68vh) scale(.7)}12%{opacity:1}30%{transform:translate(36vw,30vh) scale(1.1)}
+  50%{transform:translate(54vw,56vh) scale(.9)}70%{transform:translate(30vw,40vh) scale(1.05)}88%{opacity:1}100%{opacity:0;transform:translate(48vw,22vh) scale(.7)}}
+@keyframes fly2{0%{opacity:0;transform:translate(62vw,26vh) scale(.6)}14%{opacity:.9}40%{transform:translate(42vw,62vh) scale(1)}
+  64%{transform:translate(66vw,44vh) scale(1.1)}86%{opacity:.9}100%{opacity:0;transform:translate(50vw,70vh) scale(.6)}}
+@media(prefers-reduced-motion:reduce){.firefly{display:none}}
 
 /* ---------- MARQUEE ---------- */
 .marquee{
@@ -173,11 +171,12 @@ h1.title .l2{
   display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,64px);align-items:center;
   padding:clamp(30px,5vh,56px) 0;border-top:1px solid var(--line);position:relative;
 }
-.row .media{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:16/11;background:#0a0509;cursor:pointer;}
-.row .media img{width:100%;height:100%;object-fit:cover;
-  clip-path:inset(0 100% 0 0);transition:clip-path 1.05s cubic-bezier(.7,0,.2,1),transform 6s ease;
-  transform:scale(1.08);}
-.row.in .media img{clip-path:inset(0 0 0 0);transform:scale(1);}
+.row .media{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:16/11;background:#0a0509;cursor:pointer;
+  opacity:0;transform:translateX(-52px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1);}
+.row.alt .media{transform:translateX(52px);}
+.row.in .media{opacity:1;transform:none;}
+.row .media img{width:100%;height:100%;object-fit:cover;transform:scale(1.04);transition:transform .9s cubic-bezier(.2,.7,.2,1);}
+.row.in .media img{transform:scale(1);}
 .row .media::after{content:"";position:absolute;inset:0;border:1px solid rgba(246,235,221,.10);border-radius:18px;pointer-events:none;
   box-shadow:inset 0 0 90px rgba(0,0,0,.5);}
 .row .media .num{
@@ -194,13 +193,9 @@ h1.title .l2{
 .row .media .openbar .go{color:var(--ac);display:inline-flex;align-items:center;gap:8px;}
 .row .media:hover img{transform:scale(1.04);}
 
-.row .copy>*{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1);}
-.row.in .copy>*{opacity:1;transform:none;}
-.row.in .copy>*:nth-child(1){transition-delay:.10s;}
-.row.in .copy>*:nth-child(2){transition-delay:.20s;}
-.row.in .copy>*:nth-child(3){transition-delay:.30s;}
-.row.in .copy>*:nth-child(4){transition-delay:.40s;}
-.row.in .copy>*:nth-child(5){transition-delay:.50s;}
+.row .copy{opacity:0;transform:translateX(52px);transition:opacity .8s .06s cubic-bezier(.2,.7,.2,1),transform .9s .06s cubic-bezier(.2,.7,.2,1);}
+.row.alt .copy{transform:translateX(-52px);}
+.row.in .copy{opacity:1;transform:none;}
 .row .copy .kind{font-family:var(--util);font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--ac);margin:0 0 12px;}
 .row .copy h3{
   font-family:var(--expanded);font-weight:900;font-stretch:expanded;
@@ -280,8 +275,8 @@ footer .row2{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
 
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important;}
-  .row .media img{clip-path:inset(0 0 0 0)!important;transform:none!important;}
-  .row .copy>*{opacity:1!important;transform:none!important;}
+  .row .media,.row.alt .media,.row .copy,.row.alt .copy{opacity:1!important;transform:none!important;}
+  .row .media img{transform:none!important;}
 }
 </style>
 
@@ -290,27 +285,32 @@ footer .row2{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
 
 <div class="spine"><div class="fill" id="spineFill"></div><div class="node" id="spineNode"></div><span class="cap">Steam Show</span></div>
 
+<nav class="topnav" id="topnav">
+  <a class="brand" href="#top"><span class="mk"></span> Steam Show</a>
+  <div class="nav-l"><a href="#shows">Shows</a><a href="#worldwide">Worldwide</a><a href="#contact">Contact</a></div>
+  <a class="nav-cta" href="#contact">Book the show</a>
+</nav>
+
 <div class="shell">
 
   <!-- HERO -->
-  <header class="hero">
+  <header class="hero" id="top">
     <video autoplay muted loop playsinline poster="../assets/web/hero/hero-poster.jpg">
       <source src="../assets/web/hero/hero.mp4" type="video/mp4" />
     </video>
     <div class="scrim"></div>
-    <div class="inner wrap">
-      <div class="brandrow"><span class="mark"></span><b>Fire · LED · Dragons — worldwide</b></div>
-      <h1 class="title">Steam<br /><span class="l2">Show</span></h1>
-      <p class="sub">We set the night <span style="color:var(--accent-2)">on fire</span> with dragons, <span style="color:var(--accent)">light</span> &amp; <span style="color:var(--magenta)">flamethrowers</span>.</p>
-      <div class="btns">
-        <button class="btn primary" onclick="document.getElementById('contact').scrollIntoView()"><span class="dot"></span>Book the show</button>
-        <button class="btn ghost" onclick="SS.openReel()">Watch the reel</button>
-      </div>
-      <div class="hero-meta">
-        <span>Live fire</span><i>·</i><span>LED couture</span><i>·</i><span>Stilt giants</span><i>·</i><span class="hl">Worldwide</span>
+    <span class="firefly" aria-hidden="true"></span>
+    <span class="firefly f2" aria-hidden="true"></span>
+    <div class="inner">
+      <span class="eyebrow">Fire · LED · Dragons — worldwide</span>
+      <h1 class="title"><span class="o">Loud.</span> <span class="c">Bright.</span> <span class="m">Unforgettable.</span></h1>
+      <p class="sub">Large-scale fire, light and stilt spectacles for festivals, weddings and private events — across Europe, the Gulf and beyond.</p>
+      <div class="ctas">
+        <a class="solid" href="#shows">Explore the shows</a>
+        <button class="ghost" onclick="SS.openReel()"><span class="pd"></span> Watch showreel</button>
       </div>
     </div>
-    <span class="scrollcue">Scroll to ignite</span>
+    <div class="scrollhint">scroll ↓</div>
   </header>
 
   <!-- MARQUEE -->
@@ -320,8 +320,8 @@ footer .row2{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
   <section class="shows wrap" id="shows">
     <div class="head">
       <div>
-        <div class="eyebrow">Our Shows</div>
-        <h2>The repertoire</h2>
+        <div class="eyebrow">Five worlds of show</div>
+        <h2>Our Shows</h2>
       </div>
       <p>Each program is its own world — pick one, or stack them into a full arc across the night. Tap any show to open the gallery.</p>
     </div>
@@ -329,7 +329,7 @@ footer .row2{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
   </section>
 
   <!-- WORLDWIDE -->
-  <section class="world wrap">
+  <section class="world wrap" id="worldwide">
     <div class="eyebrow">Wherever the stage is</div>
     <div class="big">We perform <em>anywhere.</em></div>
     <div class="countries">
@@ -461,13 +461,15 @@ footer .row2{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
   /* ---- scroll spine + fire glow ---- */
   var fill = document.getElementById('spineFill'),
       node = document.getElementById('spineNode'),
-      glow = document.getElementById('fireglow');
+      glow = document.getElementById('fireglow'),
+      topnav = document.getElementById('topnav');
   function onScroll(){
     var h = document.documentElement.scrollHeight - window.innerHeight;
     var p = h>0 ? window.scrollY/h : 0;
     fill.style.height = (p*100)+'%';
     node.style.top = (p*100)+'%';
     glow.style.opacity = Math.min(1, Math.max(0, (p-0.12)/0.7));
+    if(topnav) topnav.classList.toggle('sc', window.scrollY>20);
   }
   onScroll();
   window.addEventListener('scroll', onScroll, {passive:true});

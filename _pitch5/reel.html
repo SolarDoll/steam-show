@@ -13,9 +13,23 @@
   :root{
     --bg:#0A0A0B; --bg2:#121013; --ink:#F4EFE4; --muted:#8A857A;
     --line:rgba(200,162,75,.22); --sky-top:#2a1505;
-    --accent:#FF7A18; --accent2:#FFC24B; --accent3:#FF3B1F;
+    --accent:#FF7A18; --accent2:#FFC24B; --accent3:#FF3B1F; --cool:#3DE0E6; --mag:#FF2BD6;
     --display:"Anton",Impact,sans-serif; --body:"Inter",system-ui,sans-serif;
   }
+  /* блок статистики — крупно и внушительно (по мотивам a-kinetic) */
+  #world .stats{grid-template-columns:repeat(4,1fr);gap:0;border:none;background:none;border-radius:0;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:clamp(40px,6vh,72px)}
+  #world .stats .s{background:none;border-right:1px solid var(--line);padding:clamp(24px,3vw,40px) clamp(16px,2.4vw,30px)}
+  #world .stats .s:last-child{border-right:none}
+  #world .stats .s b{font-family:var(--display);font-size:clamp(46px,6vw,88px);line-height:.86;letter-spacing:-.01em;
+    background:none;-webkit-text-fill-color:initial}
+  #world .stats .s:nth-child(1) b{color:var(--accent)}
+  #world .stats .s:nth-child(2) b{color:var(--accent2)}
+  #world .stats .s:nth-child(3) b{color:var(--accent3)}
+  #world .stats .s:nth-child(4) b{color:var(--cool)}
+  #world .stats .s span{font-family:var(--body);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:12px}
+  @media(max-width:760px){#world .stats{grid-template-columns:repeat(2,1fr)}
+    #world .stats .s:nth-child(2){border-right:none}#world .stats .s:nth-child(1),#world .stats .s:nth-child(2){border-bottom:1px solid var(--line)}}
   .fire-text{background:linear-gradient(180deg,var(--accent2),var(--accent) 55%,var(--accent3));
     -webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 24px rgba(255,90,30,.35))}
   .film-strip{position:relative;height:24px;z-index:3;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);
@@ -53,9 +67,13 @@
   .wire .lon:nth-child(1){transform:rotateY(0deg)}.wire .lon:nth-child(2){transform:rotateY(30deg)}
   .wire .lon:nth-child(3){transform:rotateY(60deg)}.wire .lon:nth-child(4){transform:rotateY(90deg)}
   .wire .lon:nth-child(5){transform:rotateY(120deg)}.wire .lon:nth-child(6){transform:rotateY(150deg)}
-  .wire .ping{position:absolute;z-index:3;width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
-  .wire .ping::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1px solid var(--accent);animation:wirePing 2.4s ease-out infinite}
+  .wire .ping{position:absolute;z-index:3;width:8px;height:8px;border-radius:50%;color:var(--accent2);
+    background:currentColor;box-shadow:0 0 12px currentColor;opacity:0;animation:wireBlink 6s ease-in-out infinite}
+  .wire .ping:nth-child(odd){color:var(--accent)}
+  .wire .ping:nth-child(3n){color:var(--cool)}
+  .wire .ping::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1px solid currentColor;animation:wirePing 2.4s ease-out infinite}
   @keyframes wirePing{0%{transform:scale(.6);opacity:.9}100%{transform:scale(2.6);opacity:0}}
+  @keyframes wireBlink{0%,100%{opacity:0;transform:scale(.4)}10%{opacity:1;transform:scale(1)}44%{opacity:1}58%{opacity:0;transform:scale(.4)}}
   .wire .core{position:absolute;left:0;right:0;bottom:12%;text-align:center;z-index:4}
   .wire .core b{font-family:var(--display);text-transform:uppercase;font-size:clamp(22px,3.6vw,34px);color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.72)}
   .wire .core small{display:block;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent2);margin-top:6px}
@@ -126,9 +144,14 @@
         <span class="ball"></span>
         <span class="lat e"></span><span class="lat t"></span><span class="lat b"></span>
         <span class="grid"><span class="lon"></span><span class="lon"></span><span class="lon"></span><span class="lon"></span><span class="lon"></span><span class="lon"></span></span>
-        <span class="ping" style="top:38%;left:42%"></span>
-        <span class="ping" style="top:52%;left:60%"></span>
-        <span class="ping" style="top:62%;left:40%"></span>
+        <span class="ping" style="top:34%;left:40%;animation-delay:0s"></span>
+        <span class="ping" style="top:30%;left:58%;animation-delay:.9s"></span>
+        <span class="ping" style="top:46%;left:66%;animation-delay:2.1s"></span>
+        <span class="ping" style="top:58%;left:54%;animation-delay:1.4s"></span>
+        <span class="ping" style="top:62%;left:38%;animation-delay:3.2s"></span>
+        <span class="ping" style="top:48%;left:33%;animation-delay:2.6s"></span>
+        <span class="ping" style="top:40%;left:50%;animation-delay:4.1s"></span>
+        <span class="ping" style="top:54%;left:46%;animation-delay:1.9s"></span>
         <div class="core"><b>WORLDWIDE</b><small>Europe · Gulf · +20</small></div>
       </div></div>
     </div>
