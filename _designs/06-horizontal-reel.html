@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steam Show — Horizontal Reel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0A0B;
+    --bg2:#101012;
+    --gold:#C8A24B;
+    --gold-bright:#E7C677;
+    --fire1:#FF7A18;
+    --fire2:#FF3B1F;
+    --fire3:#FFC24B;
+    --ink:#F4EFE4;
+    --muted:#8A857A;
+    --line:rgba(200,162,75,.22);
+    --film-h:26px;
+    --maxw:1280px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Inter",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    line-height:1.55;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .display{font-family:"Anton",sans-serif;font-weight:400;letter-spacing:.5px;line-height:.92;text-transform:uppercase}
+  .bebas{font-family:"Bebas Neue",sans-serif;letter-spacing:1.5px}
+
+  /* ---------- film perforation decor ---------- */
+  .film-strip{
+    position:relative;
+    height:var(--film-h);
+    background:
+      repeating-linear-gradient(90deg,
+        transparent 0 18px,
+        rgba(0,0,0,.55) 18px 28px,
+        transparent 28px 46px);
+    background-color:#000;
+    border-top:1px solid rgba(255,255,255,.06);
+    border-bottom:1px solid rgba(255,255,255,.06);
+  }
+  .film-strip::before,.film-strip::after{
+    content:"";position:absolute;left:0;right:0;height:8px;
+    background:repeating-linear-gradient(90deg,
+      transparent 0 14px,
+      #1a1a1c 14px 26px,
+      transparent 26px 40px);
+  }
+  .film-strip::before{top:3px}
+  .film-strip::after{bottom:3px}
+
+  /* ---------- ember backdrop ---------- */
+  .embers{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+  .ember{position:absolute;bottom:-20px;width:4px;height:4px;border-radius:50%;
+    background:radial-gradient(circle,var(--fire3),var(--fire2));
+    filter:blur(.4px);opacity:0;animation:rise linear infinite}
+  @keyframes rise{
+    0%{transform:translateY(0) translateX(0);opacity:0}
+    12%{opacity:.9}
+    100%{transform:translateY(-105vh) translateX(40px);opacity:0}
+  }
+
+  /* ---------- topbar ---------- */
+  header.bar{position:fixed;top:0;left:0;right:0;z-index:40;
+    backdrop-filter:blur(10px);background:linear-gradient(180deg,rgba(10,10,11,.92),rgba(10,10,11,.35));
+    border-bottom:1px solid var(--line)}
+  .bar-in{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand img{height:38px;width:auto;filter:drop-shadow(0 0 14px rgba(200,162,75,.4))}
+  .brand .nm{font-family:"Bebas Neue",sans-serif;font-size:24px;letter-spacing:3px;color:var(--gold-bright)}
+  nav.menu{display:flex;gap:30px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  nav.menu a{transition:color .25s}
+  nav.menu a:hover{color:var(--gold-bright)}
+  .cta{font-family:"Bebas Neue",sans-serif;letter-spacing:2px;font-size:16px;
+    padding:9px 20px;border:1px solid var(--gold);color:var(--gold-bright);border-radius:2px;
+    transition:.25s;white-space:nowrap}
+  .cta:hover{background:var(--gold);color:#0A0A0B;box-shadow:0 0 26px rgba(200,162,75,.45)}
+  @media(max-width:880px){nav.menu{display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;
+    padding:120px 0 60px;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;z-index:-1;
+    background:
+      radial-gradient(120% 80% at 80% 20%,rgba(255,90,30,.20),transparent 55%),
+      radial-gradient(90% 70% at 10% 90%,rgba(200,162,75,.16),transparent 60%),
+      linear-gradient(180deg,#0A0A0B,#121013 60%,#0A0A0B)}
+  .hero-bg::after{content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 50% 120%,rgba(255,59,31,.25),transparent 50%)}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--gold);
+    font-size:12.5px;letter-spacing:.32em;text-transform:uppercase;margin-bottom:22px}
+  .eyebrow::before{content:"";width:34px;height:1px;background:var(--gold)}
+  .hero h1{font-size:clamp(56px,11vw,148px);color:var(--ink)}
+  .hero h1 .fire{
+    background:linear-gradient(180deg,var(--fire3),var(--fire1) 55%,var(--fire2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 0 24px rgba(255,90,30,.35))}
+  .tag{margin-top:24px;font-size:clamp(16px,2.2vw,22px);color:var(--gold-bright);
+    font-family:"Bebas Neue",sans-serif;letter-spacing:3px}
+  .lead{margin-top:18px;max-width:440px;color:var(--muted);font-size:16px}
+  .hero-actions{margin-top:34px;display:flex;gap:16px;flex-wrap:wrap}
+  .btn-fire{font-family:"Bebas Neue",sans-serif;letter-spacing:2px;font-size:18px;
+    padding:14px 28px;border-radius:2px;border:none;cursor:pointer;
+    background:linear-gradient(135deg,var(--fire1),var(--fire2));color:#fff;
+    box-shadow:0 0 30px rgba(255,80,30,.4);transition:.25s}
+  .btn-fire:hover{transform:translateY(-2px);box-shadow:0 0 44px rgba(255,80,30,.65)}
+  .btn-ghost{font-family:"Bebas Neue",sans-serif;letter-spacing:2px;font-size:18px;
+    padding:14px 28px;border-radius:2px;border:1px solid var(--line);color:var(--ink);transition:.25s}
+  .btn-ghost:hover{border-color:var(--gold);color:var(--gold-bright)}
+
+  .dragon-wrap{position:relative;display:flex;justify-content:center;align-items:center}
+  .dragon-wrap img{width:118%;max-width:none;mix-blend-mode:screen;
+    filter:drop-shadow(0 0 40px rgba(200,162,75,.35)) drop-shadow(0 0 80px rgba(255,90,30,.25));
+    animation:breathe 7s ease-in-out infinite}
+  .dragon-glow{position:absolute;width:70%;height:70%;border-radius:50%;
+    background:radial-gradient(circle,rgba(255,90,30,.35),transparent 65%);filter:blur(30px);
+    animation:pulse 4s ease-in-out infinite}
+  @keyframes breathe{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-14px) scale(1.02)}}
+  @keyframes pulse{0%,100%{opacity:.5;transform:scale(.95)}50%{opacity:.9;transform:scale(1.08)}}
+  @media(max-width:880px){
+    .hero-grid{grid-template-columns:1fr}
+    .dragon-wrap{order:-1;margin-bottom:6px}
+    .dragon-wrap img{width:75%}
+    .lead{max-width:none}
+  }
+
+  /* ---------- section heads ---------- */
+  .sec{position:relative;z-index:1;padding:90px 0}
+  .sec-head{margin-bottom:14px}
+  .kicker{color:var(--gold);font-size:12.5px;letter-spacing:.3em;text-transform:uppercase;
+    display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .kicker::before{content:"";width:40px;height:1px;background:var(--gold)}
+  .sec h2{font-size:clamp(34px,6vw,72px);color:var(--ink)}
+  .sec .sub{color:var(--muted);max-width:560px;margin-top:14px;font-size:16px}
+
+  /* ---------- HORIZONTAL REEL ---------- */
+  #reel{background:linear-gradient(180deg,#0A0A0B,#0c0b0d)}
+  .reel-top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .reel-ctrl{display:flex;align-items:center;gap:14px}
+  .arrow{width:52px;height:52px;border-radius:50%;border:1px solid var(--gold);
+    background:rgba(200,162,75,.06);color:var(--gold-bright);font-size:22px;cursor:pointer;
+    display:grid;place-items:center;transition:.25s}
+  .arrow:hover{background:var(--gold);color:#0A0A0B;box-shadow:0 0 24px rgba(200,162,75,.5)}
+  .arrow:disabled{opacity:.3;cursor:default;box-shadow:none;background:rgba(200,162,75,.06);color:var(--gold-bright)}
+
+  .reel-frame{position:relative;margin-top:34px}
+  .sprockets{height:18px;background:#000;
+    background-image:repeating-linear-gradient(90deg,transparent 0 22px,#16161a 22px 38px,transparent 38px 60px);
+    border-radius:3px 3px 0 0}
+  .sprockets.bottom{border-radius:0 0 3px 3px;margin-top:0}
+
+  .reel{
+    display:flex;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;
+    background:#070708;border-left:1px solid rgba(255,255,255,.05);border-right:1px solid rgba(255,255,255,.05);
+    cursor:grab;scrollbar-width:none;-ms-overflow-style:none;
+    -webkit-overflow-scrolling:touch;
+  }
+  .reel::-webkit-scrollbar{display:none}
+  .reel.dragging{cursor:grabbing}
+
+  .frame{
+    scroll-snap-align:center;flex:0 0 clamp(300px,72vw,560px);
+    position:relative;border-right:2px solid #000;
+    min-height:460px;display:flex;flex-direction:column;justify-content:flex-end;
+    padding:34px 30px;color:#fff;overflow:hidden;user-select:none;
+  }
+  .frame .num{position:absolute;top:22px;left:30px;font-family:"Bebas Neue",sans-serif;
+    font-size:15px;letter-spacing:3px;color:rgba(255,255,255,.6)}
+  .frame .badge{position:absolute;top:22px;right:30px;font-size:10px;letter-spacing:.2em;
+    text-transform:uppercase;padding:5px 10px;border:1px solid rgba(255,255,255,.5);border-radius:2px}
+  .frame .badge.sig{background:var(--gold);color:#0A0A0B;border-color:var(--gold);font-weight:700}
+  .frame::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(0,0,0,.05) 0%,rgba(0,0,0,.15) 40%,rgba(0,0,0,.82) 100%)}
+  .frame > *{position:relative;z-index:2}
+  .frame h3{font-family:"Anton",sans-serif;text-transform:uppercase;font-size:clamp(30px,4vw,46px);
+    line-height:.95;letter-spacing:.5px}
+  .frame p{margin-top:12px;font-size:14.5px;color:rgba(244,239,228,.86);max-width:90%}
+  .frame .meta{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px}
+  .frame .meta span{font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+    padding:5px 11px;border-radius:30px;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.25);
+    backdrop-filter:blur(2px)}
+  /* gradient placeholders per program */
+  .g1{background:radial-gradient(120% 90% at 70% 20%,#FF7A18,transparent 55%),linear-gradient(160deg,#5a1207,#1a0703 70%,#0A0A0B)}
+  .g2{background:radial-gradient(120% 90% at 30% 20%,#C8A24B,transparent 55%),linear-gradient(160deg,#3a2a08,#160f02 70%,#0A0A0B)}
+  .g3{background:radial-gradient(120% 90% at 70% 25%,#7A2BFF,transparent 55%),linear-gradient(160deg,#2a1140,#3a0b1c 65%,#0A0A0B)}
+  .g4{background:radial-gradient(120% 90% at 40% 20%,#16C7FF,transparent 55%),linear-gradient(160deg,#08283a,#0a1230 70%,#0A0A0B)}
+  .g5{background:radial-gradient(120% 90% at 60% 25%,#FF3B7B,transparent 55%),linear-gradient(160deg,#3a0820,#220a30 70%,#0A0A0B)}
+
+  .progress-track{margin-top:22px;height:4px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden}
+  .progress-bar{height:100%;width:20%;background:linear-gradient(90deg,var(--fire2),var(--fire3));
+    border-radius:4px;transition:width .25s ease}
+  .reel-hint{margin-top:14px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
+    display:flex;align-items:center;gap:10px}
+  .reel-hint .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
+
+  /* ---------- effects ---------- */
+  .fx-grid{margin-top:40px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .fx{border:1px solid var(--line);border-radius:4px;padding:26px 20px;background:linear-gradient(180deg,rgba(200,162,75,.04),transparent);
+    transition:.25s;position:relative;overflow:hidden}
+  .fx:hover{border-color:var(--gold);transform:translateY(-4px);background:linear-gradient(180deg,rgba(255,90,30,.1),transparent)}
+  .fx .ic{font-size:26px;margin-bottom:12px}
+  .fx h4{font-family:"Bebas Neue",sans-serif;letter-spacing:1.5px;font-size:20px;color:var(--gold-bright)}
+  .fx p{font-size:13px;color:var(--muted);margin-top:6px}
+  @media(max-width:980px){.fx-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.fx-grid{grid-template-columns:1fr}}
+
+  /* ---------- geography ---------- */
+  #geo{background:linear-gradient(180deg,#0c0b0d,#0A0A0B)}
+  .geo-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;margin-top:30px}
+  .geo-list{display:flex;flex-wrap:wrap;gap:12px}
+  .geo-list .pill{font-family:"Bebas Neue",sans-serif;letter-spacing:1.5px;font-size:19px;
+    padding:10px 20px;border:1px solid var(--line);border-radius:40px;color:var(--ink);transition:.25s}
+  .geo-list .pill:hover{border-color:var(--fire1);color:var(--fire3);box-shadow:0 0 22px rgba(255,90,30,.25)}
+  .geo-list .pill.req{border-style:dashed;color:var(--gold-bright)}
+  .geo-card{position:relative;min-height:340px;border-radius:6px;overflow:hidden;
+    background:radial-gradient(100% 80% at 70% 20%,rgba(255,90,30,.3),transparent 55%),
+      linear-gradient(160deg,#241405,#0c0b0d);border:1px solid var(--line);display:flex;align-items:flex-end;padding:30px}
+  .geo-card .big{font-family:"Anton",sans-serif;text-transform:uppercase;font-size:clamp(40px,7vw,84px);
+    line-height:.88;color:var(--ink)}
+  .geo-card .big em{font-style:normal;color:var(--gold-bright)}
+  @media(max-width:880px){.geo-grid{grid-template-columns:1fr}}
+
+  /* ---------- contacts ---------- */
+  #contact{background:radial-gradient(80% 120% at 50% 0%,rgba(255,90,30,.16),transparent 60%),#0A0A0B}
+  .contact-mid{text-align:center;max-width:760px;margin:0 auto}
+  .contact-mid h2{font-size:clamp(40px,8vw,96px)}
+  .contact-mid h2 .fire{background:linear-gradient(180deg,var(--fire3),var(--fire2));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .channels{margin-top:40px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .ch{border:1px solid var(--line);border-radius:4px;padding:26px 18px;transition:.25s;display:block}
+  .ch:hover{border-color:var(--gold);background:rgba(200,162,75,.06);transform:translateY(-4px)}
+  .ch .lbl{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .ch .val{font-family:"Bebas Neue",sans-serif;letter-spacing:1px;font-size:21px;color:var(--gold-bright);margin-top:8px}
+  @media(max-width:760px){.channels{grid-template-columns:repeat(2,1fr)}}
+
+  footer{border-top:1px solid var(--line);padding:34px 0;position:relative;z-index:1}
+  .foot-in{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:13px}
+  .foot-in .display{font-size:22px;color:var(--gold-bright)}
+
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  }
+</style>
+</head>
+<body>
+
+<div class="embers" id="embers" aria-hidden="true"></div>
+
+<header class="bar">
+  <div class="wrap bar-in">
+    <a class="brand" href="#top">
+      <img src="../assets/Logo_final.png" alt="Steam Show logo">
+      <span class="nm">STEAM SHOW</span>
+    </a>
+    <nav class="menu">
+      <a href="#reel">Programs</a>
+      <a href="#effects">Effects</a>
+      <a href="#geo">Worldwide</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="cta" href="#contact">Book the Reel</a>
+  </div>
+</header>
+
+<div class="film-strip" aria-hidden="true"></div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Live Fire · LED · Spectacle</span>
+      <h1 class="display">Roll the<br><span class="fire">Fire</span> Reel</h1>
+      <div class="tag">Fire · LED · Dragons — worldwide</div>
+      <p class="lead">Steam Show turns stages, deserts and festival nights into cinematic spectacle —
+        a living mechanical dragon that breathes real flame, pyro choreography and luminous LED worlds.
+        Scroll the reel below, frame by frame.</p>
+      <div class="hero-actions">
+        <a class="btn-fire" href="#reel">▶ Play the Reel</a>
+        <a class="btn-ghost" href="#contact">Get a quote</a>
+      </div>
+    </div>
+    <div class="dragon-wrap">
+      <div class="dragon-glow" aria-hidden="true"></div>
+      <img src="../assets/dragon_gold.png" alt="Mechanical fire-breathing dragon">
+    </div>
+  </div>
+</section>
+
+<div class="film-strip" aria-hidden="true"></div>
+
+<!-- ============ HORIZONTAL REEL ============ -->
+<section class="sec" id="reel">
+  <div class="wrap">
+    <div class="reel-top">
+      <div class="sec-head">
+        <div class="kicker">The Reel · 5 programs</div>
+        <h2 class="display">Five Acts,<br>One Cut</h2>
+        <p class="sub">Each frame is a show. Drag the strip, swipe on mobile, or use the arrows —
+          it snaps like a film moving through the gate.</p>
+      </div>
+      <div class="reel-ctrl">
+        <button class="arrow" id="prev" aria-label="Previous frame">‹</button>
+        <button class="arrow" id="next" aria-label="Next frame">›</button>
+      </div>
+    </div>
+
+    <div class="reel-frame">
+      <div class="sprockets" aria-hidden="true"></div>
+      <div class="reel" id="reel-track" tabindex="0" aria-label="Programs film reel">
+
+        <article class="frame g1">
+          <span class="num">01 / 05</span>
+          <span class="badge sig">Signature</span>
+          <h3>Dragon<br>Fire Show</h3>
+          <p>A living mechanical dragon prowls the stage, rears up and breathes real fire over the crowd. Our flagship headline act.</p>
+          <div class="meta"><span>Mechanical Dragon</span><span>Live Flame</span><span>Headliner</span></div>
+        </article>
+
+        <article class="frame g2">
+          <span class="num">02 / 05</span>
+          <span class="badge">Fire</span>
+          <h3>Classic<br>Fire Show</h3>
+          <p>Fantasy, post-apocalyptic and rock storylines with flame cubes, fire fans and fire-breathing — raw heat, choreographed.</p>
+          <div class="meta"><span>Flame Cubes</span><span>Fire Fans</span><span>Fire-Breathing</span></div>
+        </article>
+
+        <article class="frame g3">
+          <span class="num">03 / 05</span>
+          <span class="badge">Fire + LED</span>
+          <h3>LED<br>Fire Show</h3>
+          <p>Fire artistry performed in glowing LED costumes — two worlds collide in one luminous, blazing routine.</p>
+          <div class="meta"><span>LED Suits</span><span>Live Fire</span><span>Hybrid</span></div>
+        </article>
+
+        <article class="frame g4">
+          <span class="num">04 / 05</span>
+          <span class="badge">Pure Light</span>
+          <h3>LED<br>Show</h3>
+          <p>Pure light, no flame. A deep wardrobe of programmable LED costumes built for indoor halls and galas.</p>
+          <div class="meta"><span>Many Costumes</span><span>Indoor-Safe</span><span>Galas</span></div>
+        </article>
+
+        <article class="frame g5">
+          <span class="num">05 / 05</span>
+          <span class="badge">Roaming</span>
+          <h3>Stilt<br>Walkers</h3>
+          <p>Towering characters in dozens of costumes — roaming animation through the crowd or a full staged performance.</p>
+          <div class="meta"><span>Dozens of Looks</span><span>Roaming</span><span>Full Show</span></div>
+        </article>
+
+      </div>
+      <div class="sprockets bottom" aria-hidden="true"></div>
+    </div>
+
+    <div class="progress-track" aria-hidden="true"><div class="progress-bar" id="prog"></div></div>
+    <div class="reel-hint"><span class="dot"></span> Drag · Swipe · Arrows — frame <span id="cur">1</span> of 5</div>
+  </div>
+</section>
+
+<div class="film-strip" aria-hidden="true"></div>
+
+<!-- ============ EFFECTS ============ -->
+<section class="sec" id="effects">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">Special Effects</div>
+      <h2 class="display">The Heat Department</h2>
+      <p class="sub">Modular spectacle layers we mount on top of any program to scale the wow.</p>
+    </div>
+    <div class="fx-grid">
+      <div class="fx"><div class="ic">🎆</div><h4>Pyrotechnics</h4><p>Stage pyro and timed bursts.</p></div>
+      <div class="fx"><div class="ic">🔥</div><h4>Flame Cannons</h4><p>Vertical columns of fire on cue.</p></div>
+      <div class="fx"><div class="ic">🐉</div><h4>Flamethrowers</h4><p>Hand-held streams of live flame.</p></div>
+      <div class="fx"><div class="ic">🧊</div><h4>Fire Cubes</h4><p>Glowing cube props in motion.</p></div>
+      <div class="fx"><div class="ic">📜</div><h4>Paper Show</h4><p>Cascading paper finale storms.</p></div>
+      <div class="fx"><div class="ic">❤️‍🔥</div><h4>Fire Hearts</h4><p>Burning hearts for the big moment.</p></div>
+      <div class="fx"><div class="ic">🎊</div><h4>Confetti</h4><p>Color blasts for the climax.</p></div>
+      <div class="fx"><div class="ic">✨</div><h4>Custom Mix</h4><p>Combine any of the above.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="film-strip" aria-hidden="true"></div>
+
+<!-- ============ GEOGRAPHY ============ -->
+<section class="sec" id="geo">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">On Tour</div>
+      <h2 class="display">We Travel<br>With the Fire</h2>
+    </div>
+    <div class="geo-grid">
+      <div class="geo-list">
+        <span class="pill">Europe Festivals</span>
+        <span class="pill">UAE</span>
+        <span class="pill">Qatar</span>
+        <span class="pill">Saudi Arabia</span>
+        <span class="pill">Oman</span>
+        <span class="pill">Turkey</span>
+        <span class="pill">Jordan</span>
+        <span class="pill req">Worldwide on request</span>
+      </div>
+      <div class="geo-card">
+        <div class="big">From festival<br>stages to the<br><em>desert sky.</em></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="film-strip" aria-hidden="true"></div>
+
+<!-- ============ CONTACT ============ -->
+<section class="sec" id="contact">
+  <div class="wrap contact-mid">
+    <div class="kicker" style="justify-content:center">Let's Roll</div>
+    <h2 class="display">Book the <span class="fire">Fire</span></h2>
+    <p class="sub" style="margin:18px auto 0">Tell us the date, the venue and the vibe — we'll cut the perfect reel for your night.</p>
+    <div class="channels">
+      <a class="ch" href="mailto:hello@steamshow.example"><div class="lbl">Email</div><div class="val">hello@steamshow</div></a>
+      <a class="ch" href="#"><div class="lbl">Instagram</div><div class="val">@steam.show</div></a>
+      <a class="ch" href="#"><div class="lbl">WhatsApp / Telegram</div><div class="val">+000 000 0000</div></a>
+      <a class="ch" href="#"><div class="lbl">YouTube</div><div class="val">/steamshow</div></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <span class="display">STEAM SHOW</span>
+    <span>Fire · LED · Dragons — worldwide</span>
+    <span>© 2026 Steam Show. All rights reserved.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- embers ---- */
+  if(!reduce){
+    var box = document.getElementById('embers');
+    for(var i=0;i<26;i++){
+      var e=document.createElement('span');
+      e.className='ember';
+      e.style.left=(Math.random()*100)+'%';
+      var s=2+Math.random()*4;
+      e.style.width=e.style.height=s+'px';
+      e.style.animationDuration=(6+Math.random()*8)+'s';
+      e.style.animationDelay=(Math.random()*8)+'s';
+      e.style.opacity=String(.4+Math.random()*.5);
+      box.appendChild(e);
+    }
+  }
+
+  /* ---- reel logic ---- */
+  var track=document.getElementById('reel-track');
+  var frames=track.querySelectorAll('.frame');
+  var prev=document.getElementById('prev');
+  var next=document.getElementById('next');
+  var prog=document.getElementById('prog');
+  var cur=document.getElementById('cur');
+  var n=frames.length;
+
+  function step(){return frames[0].offsetWidth + 2;} // frame width + border
+
+  function update(){
+    var max=track.scrollWidth - track.clientWidth;
+    var ratio = max>0 ? track.scrollLeft/max : 0;
+    var idx = Math.round(track.scrollLeft/step());
+    if(idx<0)idx=0; if(idx>n-1)idx=n-1;
+    cur.textContent=(idx+1);
+    var pct = n>1 ? ((idx)/(n-1))*100 : 0;
+    // bar reflects position; min 20% so it's visible
+    prog.style.width = (20 + ratio*80) + '%';
+    prev.disabled = track.scrollLeft<=2;
+    next.disabled = track.scrollLeft>=max-2;
+  }
+
+  function scrollByFrame(dir){
+    track.scrollBy({left:dir*step(),behavior: reduce?'auto':'smooth'});
+  }
+  next.addEventListener('click',function(){scrollByFrame(1)});
+  prev.addEventListener('click',function(){scrollByFrame(-1)});
+  track.addEventListener('scroll',function(){window.requestAnimationFrame(update)});
+
+  /* keyboard */
+  track.addEventListener('keydown',function(ev){
+    if(ev.key==='ArrowRight'){ev.preventDefault();scrollByFrame(1)}
+    if(ev.key==='ArrowLeft'){ev.preventDefault();scrollByFrame(-1)}
+  });
+
+  /* drag to scroll (desktop) */
+  var isDown=false, startX=0, startScroll=0, moved=false;
+  track.addEventListener('mousedown',function(e){
+    isDown=true;moved=false;track.classList.add('dragging');
+    startX=e.pageX;startScroll=track.scrollLeft;
+  });
+  window.addEventListener('mousemove',function(e){
+    if(!isDown)return;
+    var dx=e.pageX-startX;
+    if(Math.abs(dx)>4)moved=true;
+    track.scrollLeft=startScroll-dx;
+  });
+  window.addEventListener('mouseup',function(){
+    if(!isDown)return;
+    isDown=false;track.classList.remove('dragging');
+  });
+  /* prevent ghost-click after drag */
+  track.addEventListener('click',function(e){ if(moved){e.preventDefault();} },true);
+
+  window.addEventListener('resize',update);
+  update();
+})();
+</script>
+</body>
+</html>

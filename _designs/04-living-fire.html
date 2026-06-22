@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Steam Show — Living Fire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#08080A;
+    --bg-2:#0d0c10;
+    --fire-1:#FF5E1A;
+    --fire-2:#FF8A2B;
+    --fire-3:#FFB347;
+    --gold:#E7B65A;
+    --gold-soft:#F3D79B;
+    --ink:#F4F1EC;
+    --ink-dim:#9a958e;
+    --line:rgba(231,182,90,.16);
+    --maxw:1240px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Inter",system-ui,sans-serif;
+    font-weight:300;
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.disp{font-family:"Space Grotesk",sans-serif;line-height:1.02;letter-spacing:-.02em;font-weight:600}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .eyebrow{
+    font-family:"Space Grotesk",sans-serif;
+    font-size:12px;letter-spacing:.34em;text-transform:uppercase;
+    color:var(--gold);font-weight:500;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 28px;
+    transition:background .4s ease, backdrop-filter .4s ease, padding .4s ease;
+  }
+  nav.scrolled{
+    background:rgba(8,8,10,.72);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+    padding:12px 28px;
+  }
+  .nav-logo{display:flex;align-items:center;gap:12px}
+  .nav-logo img{height:38px;width:auto;filter:drop-shadow(0 0 14px rgba(255,94,26,.35))}
+  .nav-logo b{font-family:"Space Grotesk";font-weight:600;font-size:16px;letter-spacing:.02em}
+  .nav-links{display:flex;gap:30px;align-items:center}
+  .nav-links a{font-size:13px;letter-spacing:.06em;color:var(--ink-dim);transition:color .25s}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-cta{
+    border:1px solid var(--gold);color:var(--gold-soft);
+    padding:9px 18px;border-radius:40px;font-size:12.5px;letter-spacing:.08em;
+    transition:all .3s;
+  }
+  .nav-cta:hover{background:var(--gold);color:#1a1206;box-shadow:0 0 24px rgba(231,182,90,.45)}
+  @media(max-width:860px){.nav-links a:not(.nav-cta){display:none}}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;height:100svh;min-height:640px;overflow:hidden;display:flex;align-items:center}
+  #fireCanvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:1}
+  .hero-vignette{
+    position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:
+      radial-gradient(120% 80% at 50% 118%, rgba(255,94,26,.20), transparent 60%),
+      radial-gradient(100% 100% at 50% 0%, rgba(8,8,10,.55), transparent 55%),
+      linear-gradient(to bottom, rgba(8,8,10,.45) 0%, transparent 22%, transparent 60%, rgba(8,8,10,.92) 100%);
+  }
+  .hero-content{position:relative;z-index:3;width:100%}
+  .hero-content .wrap{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .hero h1{
+    font-size:clamp(48px,11.5vw,148px);font-weight:700;letter-spacing:-.035em;
+    margin:18px 0 0;
+    text-shadow:0 0 60px rgba(255,94,26,.35);
+  }
+  .hero h1 .flame{
+    background:linear-gradient(180deg,var(--gold-soft),var(--fire-3) 45%,var(--fire-1));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero-tag{
+    margin-top:22px;font-size:clamp(15px,2.1vw,21px);color:var(--ink);font-weight:300;
+    letter-spacing:.02em;
+  }
+  .hero-tag b{color:var(--gold-soft);font-weight:500}
+  .hero-actions{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:38px}
+  .btn{
+    font-family:"Space Grotesk";font-weight:500;font-size:14.5px;letter-spacing:.04em;
+    padding:15px 30px;border-radius:46px;cursor:pointer;transition:all .3s;border:1px solid transparent;
+  }
+  .btn-fire{
+    color:#1a0e04;
+    background:linear-gradient(135deg,var(--fire-3),var(--fire-1));
+    box-shadow:0 10px 40px rgba(255,94,26,.4);
+  }
+  .btn-fire:hover{transform:translateY(-2px);box-shadow:0 16px 54px rgba(255,94,26,.6)}
+  .btn-ghost{border-color:var(--line);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--gold);color:var(--gold-soft)}
+  .scroll-hint{
+    position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:3;
+    font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-dim);
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+  }
+  .scroll-hint span{width:1px;height:34px;background:linear-gradient(var(--gold),transparent);animation:drop 2.2s infinite}
+  @keyframes drop{0%{opacity:0;transform:scaleY(.2)}40%{opacity:1}100%{opacity:0;transform:translateY(14px) scaleY(.6)}}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{position:relative;z-index:4;background:var(--bg)}
+  .sec{padding:128px 0}
+  .sec-head{max-width:760px;margin-bottom:64px}
+  .sec-head h2{font-size:clamp(32px,5.2vw,62px);margin-top:14px}
+  .sec-head p{margin-top:18px;color:var(--ink-dim);font-size:17px;max-width:560px}
+
+  /* reveal on scroll */
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- PROGRAMS ---------- */
+  .prog-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:22px}
+  .prog{
+    position:relative;border:1px solid var(--line);border-radius:18px;overflow:hidden;
+    min-height:300px;display:flex;flex-direction:column;justify-content:flex-end;
+    padding:30px;transition:transform .5s cubic-bezier(.16,1,.3,1),border-color .5s;
+    isolation:isolate;
+  }
+  .prog::before{content:"";position:absolute;inset:0;z-index:-2;transition:transform .8s ease;transform:scale(1.02)}
+  .prog::after{content:"";position:absolute;inset:0;z-index:-1;
+    background:linear-gradient(180deg,transparent 25%,rgba(8,8,10,.35) 55%,rgba(8,8,10,.92) 100%)}
+  .prog:hover{transform:translateY(-6px);border-color:rgba(231,182,90,.5)}
+  .prog:hover::before{transform:scale(1.1)}
+  .prog .tag{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+  .prog h3{font-size:27px;font-weight:600}
+  .prog p{margin-top:10px;color:#cfc9c0;font-size:14.5px;max-width:42ch;font-weight:300}
+  .prog .num{position:absolute;top:24px;right:26px;font-family:"Space Grotesk";font-size:13px;color:var(--ink-dim)}
+  .badge-sig{
+    position:absolute;top:22px;left:26px;z-index:1;
+    font-family:"Space Grotesk";font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
+    color:#1a0e04;background:linear-gradient(135deg,var(--gold-soft),var(--gold));
+    padding:5px 11px;border-radius:30px;font-weight:600;
+  }
+  /* gradient placeholders */
+  .g-dragon::before{background:radial-gradient(130% 120% at 70% 10%,#FF7A2B,#B11E14 45%,#2a0a08 100%)}
+  .g-classic::before{background:radial-gradient(120% 120% at 20% 15%,#FF8A2B,#7a1f0c 55%,#160604 100%)}
+  .g-ledfire::before{background:radial-gradient(120% 120% at 80% 20%,#FF5E1A,#5a1a8a 55%,#0c0820 100%)}
+  .g-led::before{background:radial-gradient(120% 120% at 30% 20%,#3FD0FF,#5b2bd6 50%,#0a0820 100%)}
+  .g-stilt::before{background:radial-gradient(120% 120% at 70% 25%,#FFB347,#C0392B 50%,#1a0a0c 100%)}
+  /* layout spans */
+  .prog.sig{grid-column:span 7;min-height:420px}
+  .prog.s5{grid-column:span 5;min-height:420px}
+  .prog.s4{grid-column:span 4}
+  @media(max-width:900px){
+    .prog,.prog.sig,.prog.s5,.prog.s4{grid-column:span 12;min-height:280px}
+  }
+
+  /* dragon feature row */
+  .dragon-feat{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;margin-bottom:96px}
+  .dragon-art{position:relative;border-radius:20px;min-height:380px;overflow:hidden;
+    background:radial-gradient(120% 120% at 60% 30%,#FF7A2B,#8c1810 50%,#0c0504 100%);
+    border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+  .dragon-art img{width:88%;max-width:560px;mix-blend-mode:screen;filter:drop-shadow(0 0 40px rgba(255,140,40,.4));
+    animation:breathe 6s ease-in-out infinite}
+  @keyframes breathe{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-10px) scale(1.015)}}
+  .dragon-art .embers{position:absolute;inset:0;
+    background:radial-gradient(2px 2px at 20% 80%,#FFB347,transparent),radial-gradient(2px 2px at 70% 60%,#FF8A2B,transparent),radial-gradient(1.5px 1.5px at 40% 40%,#FFD79B,transparent);opacity:.6}
+  .dragon-feat .txt h2{font-size:clamp(30px,4.6vw,52px)}
+  .dragon-feat .txt p{margin-top:18px;color:var(--ink-dim);font-size:16.5px}
+  @media(max-width:880px){.dragon-feat{grid-template-columns:1fr;gap:28px}.dragon-art{min-height:300px}}
+
+  /* ---------- EFFECTS marquee ---------- */
+  .fx{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:70px 0;overflow:hidden}
+  .fx .lead{display:flex;align-items:baseline;gap:18px;margin-bottom:34px;flex-wrap:wrap}
+  .fx h2{font-size:clamp(26px,4vw,44px)}
+  .fx-row{display:flex;gap:14px;flex-wrap:wrap}
+  .chip{
+    border:1px solid var(--line);border-radius:40px;padding:13px 22px;font-size:14.5px;
+    color:#e6ddcf;letter-spacing:.02em;transition:all .35s;cursor:default;
+    display:flex;align-items:center;gap:9px;
+  }
+  .chip i{width:7px;height:7px;border-radius:50%;background:linear-gradient(var(--fire-3),var(--fire-1));box-shadow:0 0 10px var(--fire-1)}
+  .chip:hover{border-color:var(--gold);color:#fff;background:rgba(255,94,26,.08);transform:translateY(-2px)}
+
+  /* ---------- GEOGRAPHY ---------- */
+  .geo{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+  .geo-list{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+  .geo-list a{
+    border:1px solid var(--line);border-radius:12px;padding:14px 18px;font-family:"Space Grotesk";
+    font-size:16px;color:var(--ink);transition:all .35s;flex:1 1 auto;min-width:140px;text-align:center;
+  }
+  .geo-list a:hover{border-color:var(--gold);background:rgba(231,182,90,.07);color:var(--gold-soft)}
+  .geo .stat{font-family:"Space Grotesk";font-weight:700;font-size:clamp(56px,9vw,108px);
+    background:linear-gradient(180deg,var(--gold-soft),var(--fire-1));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:.9}
+  .geo .stat-sub{color:var(--ink-dim);font-size:15px;margin-top:6px}
+  .geo-visual{display:grid;gap:20px}
+  .geo-row{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media(max-width:880px){.geo{grid-template-columns:1fr;gap:36px}}
+
+  /* ---------- CONTACT ---------- */
+  .contact{position:relative;overflow:hidden;padding:140px 0}
+  .contact::before{content:"";position:absolute;inset:0;z-index:0;
+    background:radial-gradient(80% 120% at 50% 130%,rgba(255,94,26,.30),transparent 60%)}
+  .contact .wrap{position:relative;z-index:1;text-align:center}
+  .contact h2{font-size:clamp(38px,8vw,104px);font-weight:700}
+  .contact h2 .flame{background:linear-gradient(180deg,var(--gold-soft),var(--fire-1));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .contact p{margin:22px auto 0;color:var(--ink-dim);max-width:520px;font-size:17px}
+  .contact-links{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:44px}
+  .contact-links a{
+    border:1px solid var(--line);border-radius:46px;padding:15px 26px;font-size:14.5px;letter-spacing:.04em;
+    transition:all .3s;color:#e6ddcf;
+  }
+  .contact-links a:hover{border-color:var(--gold);background:rgba(231,182,90,.08);color:#fff;transform:translateY(-2px)}
+
+  footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:var(--ink-dim);font-size:13px;letter-spacing:.04em}
+  footer b{color:var(--ink);font-family:"Space Grotesk";font-weight:500}
+
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;scroll-behavior:auto!important}
+    .reveal{opacity:1;transform:none;transition:none}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a class="nav-logo" href="#top">
+    <img src="../assets/Logo_final.png" alt="Steam Show logo" />
+    <b>STEAM SHOW</b>
+  </a>
+  <div class="nav-links">
+    <a href="#programs">Programs</a>
+    <a href="#effects">Effects</a>
+    <a href="#geo">Touring</a>
+    <a class="nav-cta" href="#contact">Book the fire</a>
+  </div>
+</nav>
+
+<!-- ======= HERO ======= -->
+<header class="hero" id="top">
+  <canvas id="fireCanvas"></canvas>
+  <div class="hero-vignette"></div>
+  <div class="hero-content">
+    <div class="wrap">
+      <div class="eyebrow">Fire · LED · Dragons — worldwide</div>
+      <h1>We don't perform.<br><span class="flame">We set the night on fire.</span></h1>
+      <p class="hero-tag">A touring show crew turning festivals, galas and arenas into <b>living flame</b>.</p>
+      <div class="hero-actions">
+        <a class="btn btn-fire" href="#contact">Book a show</a>
+        <a class="btn btn-ghost" href="#programs">See the programs</a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll<span></span></div>
+</header>
+
+<!-- ======= PROGRAMS ======= -->
+<section class="sec" id="programs">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Five signature programs</div>
+      <h2>From a fire-breathing dragon to a sea of light.</h2>
+      <p>Modular acts that scale from a roaming festival walk to a full arena production — every one tuned to your stage, story and budget.</p>
+    </div>
+
+    <!-- dragon feature -->
+    <div class="dragon-feat reveal">
+      <div class="dragon-art">
+        <div class="embers"></div>
+        <img src="../assets/dragon_gold.png" alt="Mechanical fire-breathing dragon" />
+      </div>
+      <div class="txt">
+        <div class="eyebrow">Signature</div>
+        <h2>Dragon Fire Show</h2>
+        <p>A living, mechanical dragon prowls the crowd, rears up and breathes real fire on cue — articulated wings, glowing eyes, theatrical timing. The centerpiece that people film, post and never forget.</p>
+        <a class="btn btn-fire" href="#contact" style="margin-top:26px;display:inline-block">Make it the headline</a>
+      </div>
+    </div>
+
+    <div class="prog-grid">
+      <article class="prog s5 g-classic reveal">
+        <span class="num">02</span>
+        <div class="tag">Fantasy · Post-apoc · Rock</div>
+        <h3>Classic Fire Show</h3>
+        <p>Flame cubes, fire fans, fire-breathing and choreographed pyro — styled to a world: dark fantasy, post-apocalyptic, or full rock energy.</p>
+      </article>
+      <article class="prog s7 g-ledfire reveal" style="grid-column:span 7">
+        <span class="num">03</span>
+        <div class="tag">Fire × Light</div>
+        <h3>LED Fire Show</h3>
+        <p>Performers wrapped in programmable LED costumes spinning real fire — pixel-mapped light and live flame moving as one.</p>
+      </article>
+      <article class="prog s7 g-led reveal" style="grid-column:span 7">
+        <span class="num">04</span>
+        <div class="tag">Pure light · Indoor</div>
+        <h3>LED Show</h3>
+        <p>No flame, all spectacle. Dozens of glowing costumes built for ballrooms, theatres and indoor arenas where fire can't go.</p>
+      </article>
+      <article class="prog s5 g-stilt reveal" style="grid-column:span 5">
+        <span class="num">05</span>
+        <div class="tag">Roaming · Stage</div>
+        <h3>Stilt Walkers</h3>
+        <p>Towering characters in dozens of costumes — roaming the crowd as ambience or anchoring a full choreographed set.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======= EFFECTS ======= -->
+<section class="fx" id="effects">
+  <div class="wrap">
+    <div class="lead reveal">
+      <div class="eyebrow">Special effects arsenal</div>
+      <h2>The toys we bring to set you alight.</h2>
+    </div>
+    <div class="fx-row reveal">
+      <span class="chip"><i></i>Pyrotechnics</span>
+      <span class="chip"><i></i>Flame cannons</span>
+      <span class="chip"><i></i>Flamethrowers</span>
+      <span class="chip"><i></i>Fire cubes</span>
+      <span class="chip"><i></i>Paper show</span>
+      <span class="chip"><i></i>Fire hearts</span>
+      <span class="chip"><i></i>Confetti blast</span>
+    </div>
+  </div>
+</section>
+
+<!-- ======= GEOGRAPHY ======= -->
+<section class="sec" id="geo">
+  <div class="wrap geo">
+    <div class="reveal">
+      <div class="eyebrow">On tour</div>
+      <div class="stat">∞</div>
+      <div class="stat-sub">Worldwide on request — we travel with our own rig and crew.</div>
+      <h2 style="font-size:clamp(28px,4.4vw,46px);margin-top:30px">Trusted across Europe & the Gulf.</h2>
+    </div>
+    <div class="geo-visual reveal">
+      <div class="geo-list">
+        <a href="#contact">Europe festivals</a>
+        <a href="#contact">UAE</a>
+        <a href="#contact">Qatar</a>
+        <a href="#contact">Saudi Arabia</a>
+        <a href="#contact">Oman</a>
+        <a href="#contact">Turkey</a>
+        <a href="#contact">Jordan</a>
+        <a href="#contact">Worldwide on request</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= CONTACT ======= -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="eyebrow reveal">Let's talk dates</div>
+    <h2 class="reveal">Bring the <span class="flame">fire</span> to your stage.</h2>
+    <p class="reveal">Tell us the venue, the date and the vibe — we'll design a show that fits. Indoor or open-air, intimate or arena-scale.</p>
+    <div class="contact-links reveal">
+      <a href="mailto:hello@steamshow.example">Email</a>
+      <a href="#">Instagram</a>
+      <a href="#">WhatsApp · Telegram</a>
+      <a href="#">YouTube</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <b>STEAM SHOW</b> — Fire · LED · Dragons — worldwide · © 2026
+  </div>
+</footer>
+
+<script>
+(() => {
+  "use strict";
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---- nav scroll state ---- */
+  const nav = document.getElementById("nav");
+  const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 40);
+  onScroll();
+  window.addEventListener("scroll", onScroll, {passive:true});
+
+  /* ---- reveal on scroll ---- */
+  const revs = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window && !reduce) {
+    const io = new IntersectionObserver((es) => {
+      es.forEach(e => { if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} });
+    }, {threshold:.16});
+    revs.forEach(r => io.observe(r));
+  } else {
+    revs.forEach(r => r.classList.add("in"));
+  }
+
+  /* ===================== LIVING FIRE CANVAS ===================== */
+  const canvas = document.getElementById("fireCanvas");
+  const ctx = canvas.getContext("2d", {alpha:true});
+  let W=0, H=0, DPR=1;
+  let particles = [];
+  let MAX = 220;
+  const mouse = {x:-9999, y:-9999, active:false};
+  let autoT = 0;               // for mobile auto-motion
+  const touch = ("ontouchstart" in window) || navigator.maxTouchPoints > 0;
+
+  function sizeCanvas(){
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = canvas.clientWidth;
+    H = canvas.clientHeight;
+    canvas.width  = Math.floor(W * DPR);
+    canvas.height = Math.floor(H * DPR);
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    // particle budget scales with area, capped
+    MAX = Math.round(Math.min(260, Math.max(70, (W*H)/7000)));
+  }
+
+  function rand(a,b){return a + Math.random()*(b-a);}
+
+  function spawn(){
+    return {
+      x: rand(0, W),
+      y: H + rand(0, 40),
+      vx: rand(-0.25, 0.25),
+      vy: rand(-1.5, -3.4),
+      life: 0,
+      ttl: rand(70, 170),
+      r: rand(1.2, 4.2),
+      hue: rand(16, 42),          // orange→gold
+      heat: rand(0.6, 1)
+    };
+  }
+
+  function reset(p){
+    p.x = rand(0, W);
+    p.y = H + rand(0, 30);
+    p.vx = rand(-0.25, 0.25);
+    p.vy = rand(-1.5, -3.4);
+    p.life = 0;
+    p.ttl = rand(70, 170);
+    p.r = rand(1.2, 4.2);
+    p.hue = rand(16, 42);
+    p.heat = rand(0.6, 1);
+  }
+
+  function init(){
+    particles = [];
+    for (let i=0;i<MAX;i++){ const p = spawn(); p.life = rand(0,p.ttl); particles.push(p); }
+  }
+
+  function frame(){
+    // attractor: cursor on desktop, drifting auto-point on touch / idle
+    let ax, ay, pull;
+    if (touch || !mouse.active){
+      autoT += 0.012;
+      ax = W*0.5 + Math.sin(autoT)*W*0.28 + Math.sin(autoT*0.7)*W*0.08;
+      ay = H*0.55 + Math.cos(autoT*1.3)*H*0.12;
+      pull = 0.85;
+    } else {
+      ax = mouse.x; ay = mouse.y; pull = 1.0;
+    }
+
+    // trailing fade (gives glow/persistence)
+    ctx.globalCompositeOperation = "source-over";
+    ctx.fillStyle = "rgba(8,8,10,0.22)";
+    ctx.fillRect(0,0,W,H);
+
+    ctx.globalCompositeOperation = "lighter";
+
+    for (let i=0;i<particles.length;i++){
+      const p = particles[i];
+
+      // attraction toward fire focus — sparks "reach" for cursor
+      const dx = ax - p.x, dy = ay - p.y;
+      const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+      if (dist < 260){
+        const f = (1 - dist/260) * 0.16 * pull;
+        p.vx += (dx/dist) * f;
+        p.vy += (dy/dist) * f * 0.6;
+        p.heat = Math.min(1.4, p.heat + 0.012);  // flare up near focus
+      }
+
+      // buoyancy + sway + drag
+      p.vy -= 0.012;
+      p.vx += Math.sin((p.life + p.x)*0.03)*0.02;
+      p.vx *= 0.99; p.vy *= 0.992;
+      p.x += p.vx; p.y += p.vy;
+      p.life++;
+
+      const t = p.life / p.ttl;
+      if (t >= 1 || p.y < -30 || p.x < -40 || p.x > W+40){ reset(p); continue; }
+
+      const fade = (1 - t);
+      const alpha = fade * 0.9 * p.heat;
+      const light = 50 + p.heat*18;             // hotter → brighter / whiter
+      const rad = p.r * (0.5 + fade*1.1);
+
+      const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, rad*4);
+      g.addColorStop(0, `hsla(${p.hue+10}, 100%, ${Math.min(90,light+22)}%, ${alpha})`);
+      g.addColorStop(0.4, `hsla(${p.hue}, 100%, ${light}%, ${alpha*0.55})`);
+      g.addColorStop(1, `hsla(${p.hue-6}, 100%, 45%, 0)`);
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, rad*4, 0, Math.PI*2);
+      ctx.fill();
+    }
+    rafId = requestAnimationFrame(frame);
+  }
+
+  /* static single frame for reduced-motion */
+  function staticFrame(){
+    ctx.globalCompositeOperation = "source-over";
+    ctx.fillStyle = "#08080A";
+    ctx.fillRect(0,0,W,H);
+    ctx.globalCompositeOperation = "lighter";
+    for (let i=0;i<MAX;i++){
+      const x = rand(0,W);
+      const y = rand(H*0.25, H*1.02);
+      const fade = 1 - (y / (H*1.02));
+      const r = rand(1.4,3.6) * (0.6 + (1-fade));
+      const hue = rand(16,42);
+      const g = ctx.createRadialGradient(x,y,0,x,y,r*4);
+      g.addColorStop(0,`hsla(${hue+12},100%,82%,${0.5*fade+0.15})`);
+      g.addColorStop(0.4,`hsla(${hue},100%,55%,${0.3*fade})`);
+      g.addColorStop(1,`hsla(${hue-6},100%,45%,0)`);
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(x,y,r*4,0,Math.PI*2); ctx.fill();
+    }
+  }
+
+  let rafId = null;
+  function start(){
+    sizeCanvas();
+    if (reduce){ staticFrame(); return; }
+    init();
+    cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(frame);
+  }
+
+  // pointer
+  const rectOf = () => canvas.getBoundingClientRect();
+  window.addEventListener("mousemove", (e) => {
+    const r = rectOf();
+    if (e.clientY <= r.bottom){
+      mouse.x = e.clientX - r.left;
+      mouse.y = e.clientY - r.top;
+      mouse.active = true;
+    }
+  }, {passive:true});
+  window.addEventListener("mouseout", () => { mouse.active = false; });
+
+  // resize (debounced)
+  let rt=null;
+  window.addEventListener("resize", () => {
+    clearTimeout(rt);
+    rt = setTimeout(() => { start(); }, 180);
+  });
+
+  // pause when hero off-screen (perf)
+  if ("IntersectionObserver" in window && !reduce){
+    const hero = document.getElementById("top");
+    const heroIO = new IntersectionObserver((es) => {
+      es.forEach(e => {
+        if (e.isIntersecting){ if(!rafId) rafId = requestAnimationFrame(frame); }
+        else { cancelAnimationFrame(rafId); rafId = null; }
+      });
+    }, {threshold:0});
+    heroIO.observe(hero);
+  }
+
+  start();
+})();
+</script>
+</body>
+</html>

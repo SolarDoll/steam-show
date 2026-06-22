@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Steam Show — 10 направлений дизайна</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0a0a0b; --panel:#141417; --line:rgba(200,162,75,.16);
+    --line-soft:rgba(255,255,255,.07); --ink:#f4f1ea; --mid:#b3ada1; --dim:#75726b;
+    --gold:#c8a24b; --gold-l:#e6c878; --fire:#ff5e1a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Manrope",system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1280px;margin:0 auto;padding:clamp(2rem,5vw,4.5rem) clamp(1.2rem,4vw,3rem)}
+
+  header{border-bottom:1px solid var(--line-soft);background:linear-gradient(180deg,#160a06,transparent)}
+  .eyebrow{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:1rem}
+  h1{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:clamp(2.2rem,6vw,4rem);line-height:1.02;letter-spacing:-.01em}
+  .lead{color:var(--mid);max-width:64ch;margin-top:1.2rem;font-size:1.05rem}
+  .note{margin-top:1.6rem;padding:1rem 1.2rem;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--mid);font-size:.95rem;max-width:70ch}
+  .note b{color:var(--ink)}
+
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.6rem;margin-top:2.5rem}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}}
+
+  .card{border:1px solid var(--line-soft);border-radius:16px;overflow:hidden;background:var(--panel);transition:transform .45s cubic-bezier(.22,1,.36,1),border-color .4s,box-shadow .45s;display:flex;flex-direction:column}
+  .card:hover{transform:translateY(-5px);border-color:var(--line);box-shadow:0 30px 60px -30px rgba(0,0,0,.8)}
+
+  .thumb{position:relative;overflow:hidden;background:#000;border-bottom:1px solid var(--line-soft)}
+  .thumb iframe{border:0;transform-origin:top left;pointer-events:none}
+  .thumb a.cover{position:absolute;inset:0;z-index:2;display:flex;align-items:flex-end;padding:1rem;background:linear-gradient(180deg,transparent 55%,rgba(8,8,10,.55));opacity:0;transition:opacity .35s}
+  .card:hover .thumb a.cover{opacity:1}
+  .thumb .open{font-size:.8rem;font-weight:700;letter-spacing:.04em;padding:.5rem .9rem;border-radius:100px;background:var(--ink);color:#0a0a0b}
+
+  .body{padding:1.3rem 1.4rem 1.5rem;display:flex;flex-direction:column;gap:.6rem;flex:1}
+  .num{font-size:.74rem;font-weight:800;letter-spacing:.14em;color:var(--gold)}
+  .name{font-family:"Cormorant Garamond",serif;font-size:1.6rem;line-height:1.05}
+  .desc{color:var(--mid);font-size:.95rem}
+  .tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:auto;padding-top:.5rem}
+  .tag{font-size:.68rem;font-weight:700;letter-spacing:.03em;color:var(--dim);border:1px solid var(--line-soft);padding:.22rem .6rem;border-radius:100px}
+  .tag.hot{color:var(--gold-l);border-color:var(--line)}
+
+  footer{border-top:1px solid var(--line-soft);color:var(--dim);font-size:.85rem;text-align:center;padding:2.5rem}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <p class="eyebrow">Steam Show · выбор направления</p>
+    <h1>10 вариантов дизайна сайта</h1>
+    <p class="lead">Каждый блок — живой макет в своём стиле и со своей структурой (контент пока на заглушках-плейсхолдерах). Наведи — появится кнопка «Открыть»; кликай, чтобы посмотреть макет на весь экран. Отметь номера, которые зашли — соберём из них финал.</p>
+    <p class="note"><b>Силуэт дракона</b> (новый ассет, S-образный) станет сквозным мотивом — монолиния/штамп — в том варианте, который выберешь. Сейчас в макетах используется золотой дракон-картинка как временный акцент.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="grid" id="grid">
+
+    <article class="card">
+      <div class="thumb"><iframe src="01-ember.html" loading="lazy" title="Ember"></iframe><a class="cover" href="01-ember.html" target="_blank"><span class="open">Открыть на весь экран ↗</span></a></div>
+      <div class="body">
+        <span class="num">01</span><h2 class="name">Ember — уголь и жар</h2>
+        <p class="desc">Кинематографичный премиум: почти чёрный фон, живой огонь, латунное золото. Самый «в тренде» и безопасный путь под фаер.</p>
+        <div class="tags"><span class="tag hot">Рекомендую</span><span class="tag">тёмный кино</span><span class="tag">вертикальный скролл</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb"><iframe src="02-obsidian-luxe.html" loading="lazy" title="Obsidian Luxe"></iframe><a class="cover" href="02-obsidian-luxe.html" target="_blank"><span class="open">Открыть на весь экран ↗</span></a></div>
+      <div class="body">
+        <span class="num">02</span><h2 class="name">Obsidian Luxe — чёрное золото</h2>
+        <p class="desc">Минимализм уровня luxury watch / fashion house. Много воздуха, огонь дозированно. Под премиум-контракты (ОАЭ, Катар).</p>
+        <div class="tags"><span class="tag hot">Рекомендую</span><span class="tag">минимализм</span><span class="tag">premium</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb"><iframe src="03-nightfall-stage.html" loading="lazy" title="Nightfall Stage"></iframe><a class="cover" href="03-nightfall-stage.html" target="_blank"><span class="open">Открыть на весь экран ↗</span></a></div>
+      <div class="body">
+        <span class="num">03</span><h2 class="name">Nightfall Stage — сцена в ночи</h2>
+        <p class="desc">Сине-фиолетовый ночной задник + тёплый «прожектор» на контенте. Атмосфера живого шоу под открытым небом.</p>
+        <div class="tags"><span class="tag">ночь + огонь</span><span class="tag">glow</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb"><iframe src="04-living-fire.html" loading="lazy" title="Living Fire"></iframe><a class="cover" href="04-living-fire.html" target="_blank"><span class="open">Открыть на весь экран ↗</span></a></div>
+      <div class="body">
+        <span class="num">04</span><h2 class="name">Living Fire — живой огонь</h2>
+        <p class="desc">Award-уровень: интерактивный огненный canvas-эффект, реагирует на курсор. Максимальный «вау».</p>
+        <div class="tags"><span class="tag">canvas</span><span class="tag">интерактив</span><span class="tag">awwwards</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb"><iframe src="05-scroll-saga.html" loading="lazy" title="Scroll Saga"></iframe><a class="cover" href="05-scroll-saga.html" target="_blank"><span class="open">Открыть на весь экран ↗</span></a></div>
+      <div class="body">
+        <span class="num">05</span><h2 class="name">Scroll Saga — скролл-история</h2>
+        <p class="desc">Линия-дракон прорисовывается по скроллу и ведёт глаз; фон перетекает от ночи к огню. Каждое шоу — глава.</p>
+        <div class="tags"><span class="tag">сторителлинг</span><span class="tag">дракон-мотив</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb"><iframe src="06-horizontal-reel.html" loading="lazy" title="Horizontal Reel"></iframe><a class="cover" href="06-horizontal-reel.html" target="_blank"><span class="open">Открыть на весь экран ↗</span></a></div>
+      <div class="body">
+        <span class="num">06</span><h2 class="name">Horizontal Reel — кинолента</h2>
+        <p class="desc">Программы листаются горизонтально как кадры шоурила. Сильно отличается от обычных сайтов.</p>
+        <div class="tags"><span class="tag">горизонтальный скролл</span><span class="tag">кино</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb"><iframe src="07-editorial-heat.html" loading="lazy" title="Editorial Heat"></iframe><a class="cover" href="07-editorial-heat.html" target="_blank"><span class="open">Открыть на весь экран ↗</span></a></div>
+      <div class="body">
+        <span class="num">07</span><h2 class="name">Editorial Heat — журнал</h2>
+        <p class="desc">Смелая постерная типографика, асимметрия, журнальные развороты. Максимум вкуса в вёрстке.</p>
+        <div class="tags"><span class="tag">типографика</span><span class="tag">magazine</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb"><iframe src="08-neon-pulse.html" loading="lazy" title="Neon Pulse"></iframe><a class="cover" href="08-neon-pulse.html" target="_blank"><span class="open">Открыть на весь экран ↗</span></a></div>
+      <div class="body">
+        <span class="num">08</span><h2 class="name">Neon Pulse — LED-неон</h2>
+        <p class="desc">Сочные неоновые градиенты, дышащее свечение. Молодёжно и энергично — отталкивается от LED-шоу.</p>
+        <div class="tags"><span class="tag">неон</span><span class="tag">LED</span><span class="tag">фестивали</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb"><iframe src="09-brass-future.html" loading="lazy" title="Brass Future"></iframe><a class="cover" href="09-brass-future.html" target="_blank"><span class="open">Открыть на весь экран ↗</span></a></div>
+      <div class="body">
+        <span class="num">09</span><h2 class="name">Brass Future — латунь, минимал</h2>
+        <p class="desc">Переосмысленный стимпанк без шестерёнок и ржавчины: тонкие латунные линии, industrial-luxe. ДНК лого, но дорого.</p>
+        <div class="tags"><span class="tag">industrial-luxe</span><span class="tag">из лого</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb"><iframe src="10-portfolio-grid.html" loading="lazy" title="Portfolio Grid"></iframe><a class="cover" href="10-portfolio-grid.html" target="_blank"><span class="open">Открыть на весь экран ↗</span></a></div>
+      <div class="body">
+        <span class="num">10</span><h2 class="name">Portfolio Grid — витрина</h2>
+        <p class="desc">Чистый каталог: рабочие фильтры (Dragon/Fire/LED/Stilts) + видео-лайтбокс. Заточен под «скинуть заказчику, чтобы выбрал».</p>
+        <div class="tags"><span class="tag hot">под портфолио</span><span class="tag">фильтры</span></div>
+      </div>
+    </article>
+
+  </div>
+</div>
+
+<footer>Steam Show · 10 направлений · открой понравившиеся и скажи номера — соберём финал</footer>
+
+<script>
+  // Масштабируем каждый iframe-превью под ширину карточки
+  var BASE_W = 1440, RATIO = 0.62; // высота превью = 62% от ширины базы * scale
+  function fit(){
+    document.querySelectorAll('.thumb').forEach(function(t){
+      var iframe = t.querySelector('iframe');
+      var w = t.clientWidth;
+      var scale = w / BASE_W;
+      iframe.style.width = BASE_W + 'px';
+      iframe.style.height = Math.round(BASE_W * RATIO) + 'px';
+      iframe.style.transform = 'scale(' + scale + ')';
+      t.style.height = Math.round(BASE_W * RATIO * scale) + 'px';
+    });
+  }
+  window.addEventListener('load', fit);
+  window.addEventListener('resize', fit);
+  fit();
+</script>
+</body>
+</html>

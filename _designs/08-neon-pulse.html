@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Steam Show — Neon Pulse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Orbitron:wght@600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#07070C;
+    --bg-2:#0C0C18;
+    --cyan:#2AD4FF;
+    --magenta:#FF2AD4;
+    --lime:#B6FF2A;
+    --fire:#FF7A1A;
+    --ink:#EAEAF5;
+    --muted:#9A9AB8;
+    --line:rgba(255,255,255,.08);
+    --maxw:1180px;
+    --grad-neon:linear-gradient(100deg,var(--cyan),var(--magenta) 55%,var(--lime));
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Inter",system-ui,sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ambient animated neon field */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:-20vmax;
+    z-index:0;
+    pointer-events:none;
+    background:
+      radial-gradient(40vmax 40vmax at 15% 10%, rgba(42,212,255,.14), transparent 60%),
+      radial-gradient(38vmax 38vmax at 85% 20%, rgba(255,42,212,.14), transparent 60%),
+      radial-gradient(36vmax 36vmax at 50% 100%, rgba(182,255,42,.10), transparent 60%);
+    animation:drift 22s ease-in-out infinite alternate;
+  }
+  @keyframes drift{
+    0%{transform:translate3d(0,0,0) scale(1)}
+    100%{transform:translate3d(2%,-3%,0) scale(1.08)}
+  }
+
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;position:relative;z-index:2}
+
+  h1,h2,h3,.brand{font-family:"Space Grotesk","Inter",sans-serif;font-weight:700;letter-spacing:-.01em;margin:0}
+  .techno{font-family:"Orbitron",sans-serif;letter-spacing:.04em}
+
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:9px;
+    font:600 12px/1 "Space Grotesk",sans-serif;
+    letter-spacing:.28em;text-transform:uppercase;color:var(--cyan);
+    padding:8px 14px;border:1px solid rgba(42,212,255,.35);border-radius:99px;
+    background:rgba(42,212,255,.05);
+  }
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);animation:pulse 1.8s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.4;transform:scale(.8)}50%{opacity:1;transform:scale(1.25)}}
+
+  .grad-text{
+    background:var(--grad-neon);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    background-size:200% 100%;animation:hue 8s linear infinite;
+  }
+  @keyframes hue{to{background-position:200% 0}}
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(14px);
+    background:rgba(7,7,12,.62);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand-lock{display:flex;align-items:center;gap:12px}
+  .brand-lock img{height:38px;width:auto;filter:drop-shadow(0 0 14px rgba(42,212,255,.5))}
+  .brand-lock .brand{font-size:19px}
+  .brand-lock .brand span{color:var(--magenta)}
+  .nav-links{display:flex;gap:30px;align-items:center}
+  .nav-links a{font-size:14px;color:var(--muted);transition:color .25s}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-cta{
+    font:600 13px/1 "Space Grotesk",sans-serif;
+    padding:11px 20px;border-radius:99px;color:#07070C;
+    background:var(--grad-neon);background-size:200% 100%;
+    box-shadow:0 0 22px rgba(255,42,212,.35);animation:hue 8s linear infinite;
+  }
+  .nav-toggle{display:none;background:none;border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:8px 12px;font-size:18px}
+  @media(max-width:860px){
+    .nav-links{display:none}
+    .nav-toggle{display:block}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;padding:72px 0 90px;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+  .hero h1{font-size:clamp(44px,8.5vw,92px);line-height:.96;margin:22px 0 18px}
+  .hero h1 .line2{display:block}
+  .hero p.lead{font-size:clamp(16px,2.4vw,20px);color:var(--muted);max-width:520px;margin:0 0 30px}
+  .tagline{
+    display:inline-block;margin-top:8px;font-family:"Space Grotesk";font-weight:600;
+    font-size:clamp(15px,2.4vw,19px);color:var(--lime);letter-spacing:.02em;
+    text-shadow:0 0 18px rgba(182,255,42,.5);
+  }
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px}
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;
+    font:600 15px/1 "Space Grotesk",sans-serif;
+    padding:15px 26px;border-radius:99px;transition:transform .2s,box-shadow .25s;
+  }
+  .btn-primary{color:#07070C;background:var(--grad-neon);background-size:200% 100%;box-shadow:0 0 28px rgba(42,212,255,.4);animation:hue 8s linear infinite}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 44px rgba(255,42,212,.6)}
+  .btn-ghost{color:var(--ink);border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.02)}
+  .btn-ghost:hover{border-color:var(--cyan);box-shadow:0 0 22px rgba(42,212,255,.3);transform:translateY(-2px)}
+
+  /* dragon stage */
+  .dragon-stage{position:relative;display:flex;align-items:center;justify-content:center;min-height:440px}
+  .neon-ring{
+    position:absolute;width:78%;aspect-ratio:1;border-radius:50%;
+    background:
+      radial-gradient(circle, transparent 56%, rgba(255,42,212,.18) 62%, transparent 70%);
+    filter:blur(2px);
+    animation:breathe 5s ease-in-out infinite;
+  }
+  .neon-ring.r2{width:96%;background:radial-gradient(circle, transparent 60%, rgba(42,212,255,.16) 66%, transparent 74%);animation-delay:-2.5s}
+  @keyframes breathe{0%,100%{transform:scale(.96);opacity:.7}50%{transform:scale(1.06);opacity:1}}
+  .dragon-img{
+    position:relative;z-index:2;width:88%;max-width:520px;
+    mix-blend-mode:screen;
+    filter:drop-shadow(0 0 28px rgba(42,212,255,.55)) drop-shadow(0 0 52px rgba(255,42,212,.35));
+    animation:hover-float 7s ease-in-out infinite;
+  }
+  @keyframes hover-float{0%,100%{transform:translateY(0) rotate(-.5deg)}50%{transform:translateY(-16px) rotate(.5deg)}}
+
+  .scan{
+    position:absolute;left:0;right:0;height:2px;z-index:3;
+    background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+    opacity:.6;animation:scan 6s linear infinite;
+  }
+  @keyframes scan{0%{top:8%}100%{top:92%}}
+
+  .stat-row{display:flex;gap:30px;flex-wrap:wrap;margin-top:46px;padding-top:30px;border-top:1px solid var(--line)}
+  .stat .n{font-family:"Orbitron";font-size:30px;font-weight:800;line-height:1}
+  .stat .n.c{color:var(--cyan)}.stat .n.m{color:var(--magenta)}.stat .n.l{color:var(--lime)}
+  .stat .t{font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;margin-top:6px}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{position:relative;z-index:2;padding:88px 0}
+  .sec-head{max-width:680px;margin:0 0 48px}
+  .sec-head h2{font-size:clamp(30px,5vw,50px);line-height:1.04;margin:14px 0 12px}
+  .sec-head p{color:var(--muted);font-size:17px;margin:0}
+
+  /* ---------- PROGRAMS ---------- */
+  .prog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .card{
+    position:relative;border-radius:20px;padding:1px;overflow:hidden;
+    background:linear-gradient(160deg,var(--line),transparent 60%);
+    transition:transform .3s;
+  }
+  .card-in{
+    position:relative;height:100%;border-radius:19px;padding:26px;
+    background:linear-gradient(180deg,#0E0E1B,#0A0A12);
+    display:flex;flex-direction:column;
+  }
+  /* glow border on hover */
+  .card::after{
+    content:"";position:absolute;inset:0;border-radius:20px;padding:1px;
+    background:var(--card-glow,var(--grad-neon));background-size:200% 200%;
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;
+    opacity:0;transition:opacity .35s;animation:hue 8s linear infinite;
+  }
+  .card:hover{transform:translateY(-7px)}
+  .card:hover::after{opacity:1}
+  .card:hover .card-art{filter:saturate(1.3) brightness(1.12);transform:scale(1.04)}
+  .card:hover .pname{text-shadow:0 0 22px var(--glow-c,var(--cyan))}
+
+  .card-art{
+    height:158px;border-radius:13px;margin-bottom:20px;position:relative;overflow:hidden;
+    transition:filter .35s,transform .5s;background:var(--art);
+  }
+  .card-art::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 20%,rgba(255,255,255,.18),transparent 50%)}
+  .card-art .glyph{position:absolute;right:14px;bottom:10px;font-family:"Orbitron";font-weight:800;font-size:54px;color:rgba(255,255,255,.16);line-height:1}
+
+  .badge{
+    align-self:flex-start;font:600 10.5px/1 "Space Grotesk";letter-spacing:.18em;text-transform:uppercase;
+    padding:6px 11px;border-radius:99px;margin-bottom:14px;
+  }
+  .badge.sig{color:var(--fire);border:1px solid rgba(255,122,26,.5);background:rgba(255,122,26,.08)}
+  .badge.led{color:var(--cyan);border:1px solid rgba(42,212,255,.5);background:rgba(42,212,255,.08)}
+  .badge.cls{color:var(--muted);border:1px solid var(--line)}
+  .pname{font-family:"Space Grotesk";font-weight:700;font-size:22px;margin:0 0 8px;transition:text-shadow .3s}
+  .pdesc{color:var(--muted);font-size:14.5px;margin:0;flex:1}
+  .ptag{margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+  /* highlight LED cards */
+  .card.is-led .card-in{background:linear-gradient(180deg,#0F1422,#0A0C14)}
+  .card.is-led::after{opacity:.45}
+
+  @media(max-width:920px){.prog-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.prog-grid{grid-template-columns:1fr}}
+
+  /* ---------- FX MARQUEE / GRID ---------- */
+  .fx-wrap{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:30px 0;overflow:hidden;background:rgba(255,255,255,.015)}
+  .marquee{display:flex;gap:0;white-space:nowrap;animation:marq 26s linear infinite}
+  .marquee:hover{animation-play-state:paused}
+  .marquee span{font-family:"Space Grotesk";font-weight:600;font-size:clamp(20px,4vw,34px);padding:0 30px;color:var(--ink);opacity:.85}
+  .marquee span i{font-style:normal;color:var(--fire);padding:0 30px}
+  @keyframes marq{to{transform:translateX(-50%)}}
+
+  .fx-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:46px}
+  .fx{
+    border:1px solid var(--line);border-radius:14px;padding:20px 18px;
+    background:linear-gradient(180deg,rgba(255,255,255,.03),transparent);
+    transition:border-color .3s,box-shadow .3s,transform .3s;
+  }
+  .fx:hover{transform:translateY(-4px);border-color:rgba(255,122,26,.5);box-shadow:0 0 26px rgba(255,122,26,.22)}
+  .fx .fxn{font-family:"Space Grotesk";font-weight:600;font-size:16px}
+  .fx .fxd{font-size:12.5px;color:var(--muted);margin-top:5px}
+  @media(max-width:820px){.fx-grid{grid-template-columns:repeat(2,1fr)}}
+
+  /* ---------- GEOGRAPHY ---------- */
+  .geo-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .geo-list{display:flex;flex-wrap:wrap;gap:12px}
+  .geo-pill{
+    font-family:"Space Grotesk";font-weight:500;font-size:15px;
+    padding:11px 18px;border-radius:99px;border:1px solid var(--line);
+    background:rgba(255,255,255,.02);transition:.3s;
+  }
+  .geo-pill:hover{border-color:var(--lime);color:var(--lime);box-shadow:0 0 20px rgba(182,255,42,.25)}
+  .geo-pill.world{background:var(--grad-neon);background-size:200% 100%;color:#07070C;border:none;animation:hue 8s linear infinite}
+  .globe{
+    aspect-ratio:1;border-radius:50%;position:relative;
+    background:
+      radial-gradient(circle at 35% 30%, rgba(42,212,255,.4), transparent 55%),
+      radial-gradient(circle at 70% 70%, rgba(255,42,212,.35), transparent 55%),
+      #0A0A14;
+    border:1px solid var(--line);overflow:hidden;
+    box-shadow:inset 0 0 60px rgba(42,212,255,.2),0 0 50px rgba(255,42,212,.18);
+  }
+  .globe::before,.globe::after{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid rgba(255,255,255,.07)}
+  .globe::before{transform:rotateX(72deg)}
+  .globe::after{transform:rotateY(72deg)}
+  .globe .core{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;
+    font-family:"Orbitron";text-align:center;
+  }
+  .globe .core b{font-size:clamp(30px,7vw,52px);font-weight:800;color:var(--lime);text-shadow:0 0 24px rgba(182,255,42,.5)}
+  .globe .core small{font-size:12px;letter-spacing:.3em;color:var(--muted);margin-top:6px}
+  .ping{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan)}
+  .ping::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:1px solid var(--cyan);animation:ping 2.4s ease-out infinite}
+  @keyframes ping{0%{transform:scale(.6);opacity:.9}100%{transform:scale(2.6);opacity:0}}
+  @media(max-width:780px){.geo-grid{grid-template-columns:1fr;gap:36px}.globe{max-width:340px;margin:0 auto}}
+
+  /* ---------- CONTACT ---------- */
+  .contact{padding-bottom:40px}
+  .contact-card{
+    border-radius:26px;padding:1px;background:var(--grad-neon);background-size:200% 100%;animation:hue 8s linear infinite;
+    box-shadow:0 0 60px rgba(255,42,212,.25);
+  }
+  .contact-in{border-radius:25px;background:#08080F;padding:clamp(34px,6vw,68px);text-align:center}
+  .contact-in h2{font-size:clamp(30px,6vw,56px);line-height:1.02;margin-bottom:16px}
+  .contact-in p{color:var(--muted);max-width:560px;margin:0 auto 34px;font-size:17px}
+  .channels{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+  .chan{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:14px 24px;border-radius:99px;border:1px solid var(--line);
+    font:600 15px/1 "Space Grotesk";background:rgba(255,255,255,.02);transition:.3s;
+  }
+  .chan:hover{transform:translateY(-3px);border-color:var(--cyan);box-shadow:0 0 24px rgba(42,212,255,.35)}
+  .chan .ic{font-size:18px}
+
+  /* ---------- FOOTER ---------- */
+  footer{border-top:1px solid var(--line);padding:40px 0;position:relative;z-index:2}
+  .foot-in{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:13.5px}
+  .foot-in img{height:30px;filter:drop-shadow(0 0 10px rgba(42,212,255,.4))}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:860px){
+    .hero-grid{grid-template-columns:1fr;gap:10px}
+    .dragon-stage{order:-1;min-height:320px}
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand-lock" href="#top">
+      <img src="../assets/Logo_final.png" alt="Steam Show logo" />
+      <span class="brand">Steam<span> Show</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#programs">Programs</a>
+      <a href="#fx">Effects</a>
+      <a href="#geo">Where</a>
+      <a href="#contact" class="nav-cta">Book the show</a>
+    </nav>
+    <button class="nav-toggle" id="navBtn" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="reveal">
+        <span class="eyebrow"><span class="dot"></span> Live · Fire · Light</span>
+        <h1>Where fire<span class="line2 grad-text techno">meets the light</span></h1>
+        <p class="lead">Steam Show is a touring spectacle of LED choreography, live fire and a fire-breathing mechanical dragon — engineered to light up festivals and arenas anywhere on earth.</p>
+        <span class="tagline">Fire · LED · Dragons — worldwide</span>
+        <div class="hero-cta" style="margin-top:26px">
+          <a href="#contact" class="btn btn-primary">Book the show →</a>
+          <a href="#programs" class="btn btn-ghost">See the programs</a>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><div class="n c">5</div><div class="t">Signature programs</div></div>
+          <div class="stat"><div class="n m">12+</div><div class="t">Countries toured</div></div>
+          <div class="stat"><div class="n l">1</div><div class="t">Living dragon</div></div>
+        </div>
+      </div>
+
+      <div class="dragon-stage reveal">
+        <div class="neon-ring"></div>
+        <div class="neon-ring r2"></div>
+        <div class="scan"></div>
+        <img class="dragon-img" src="../assets/dragon_gold.png" alt="Steam Show neon dragon" />
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS -->
+  <section id="programs">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow"><span class="dot"></span> The repertoire</span>
+        <h2>Five programs, <span class="grad-text">one pulse</span></h2>
+        <p>From a fire-breathing dragon to walls of pure LED light — mix and match to score your event.</p>
+      </div>
+
+      <div class="prog-grid">
+        <!-- Dragon Fire (signature) -->
+        <article class="card reveal" style="--card-glow:linear-gradient(160deg,var(--fire),var(--magenta));--glow-c:var(--fire)">
+          <div class="card-in">
+            <div class="card-art" style="--art:linear-gradient(150deg,#FF7A1A,#FF2AD4 70%,#2AD4FF)"><span class="glyph">01</span></div>
+            <span class="badge sig">★ Signature</span>
+            <h3 class="pname">Dragon Fire Show</h3>
+            <p class="pdesc">Our living, breathing mechanical dragon prowls the crowd, unfurls its wings and exhales real flame. The headline act no one forgets.</p>
+            <div class="ptag">Mechanical dragon · live fire</div>
+          </div>
+        </article>
+
+        <!-- Classic Fire -->
+        <article class="card reveal" style="--card-glow:linear-gradient(160deg,var(--fire),var(--magenta));--glow-c:var(--fire)">
+          <div class="card-in">
+            <div class="card-art" style="--art:linear-gradient(150deg,#FF4D2A,#7A0F2A 80%)"><span class="glyph">02</span></div>
+            <span class="badge cls">Classic</span>
+            <h3 class="pname">Classic Fire Show</h3>
+            <p class="pdesc">Fantasy, post-apocalyptic and rock storylines built on flame cubes, fire fans and fire-breathing. Raw heat, cinematic staging.</p>
+            <div class="ptag">Flame cubes · fans · breathing</div>
+          </div>
+        </article>
+
+        <!-- LED Fire (LED-accent) -->
+        <article class="card is-led reveal" style="--card-glow:var(--grad-neon);--glow-c:var(--magenta)">
+          <div class="card-in">
+            <div class="card-art" style="--art:linear-gradient(150deg,#2AD4FF,#FF2AD4 60%,#FF7A1A)"><span class="glyph">03</span></div>
+            <span class="badge led">◆ LED</span>
+            <h3 class="pname">LED Fire Show</h3>
+            <p class="pdesc">The best of both worlds — performers wired into glowing LED suits while spinning and breathing live fire. Light and flame in one frame.</p>
+            <div class="ptag">LED suits · live fire</div>
+          </div>
+        </article>
+
+        <!-- LED Show (LED-accent) -->
+        <article class="card is-led reveal" style="--card-glow:var(--grad-neon);--glow-c:var(--cyan)">
+          <div class="card-in">
+            <div class="card-art" style="--art:linear-gradient(150deg,#2AD4FF,#B6FF2A 90%)"><span class="glyph">04</span></div>
+            <span class="badge led">◆ LED</span>
+            <h3 class="pname">LED Show</h3>
+            <p class="pdesc">Pure programmable light — dozens of costumes choreographed into kinetic patterns. Built for indoor arenas and galas where fire stays outside.</p>
+            <div class="ptag">Pure light · indoor-ready</div>
+          </div>
+        </article>
+
+        <!-- Stilt Walkers -->
+        <article class="card reveal" style="--card-glow:linear-gradient(160deg,var(--lime),var(--cyan));--glow-c:var(--lime)">
+          <div class="card-in">
+            <div class="card-art" style="--art:linear-gradient(150deg,#B6FF2A,#2AD4FF 85%)"><span class="glyph">05</span></div>
+            <span class="badge cls">Roaming</span>
+            <h3 class="pname">Stilt Walkers</h3>
+            <p class="pdesc">Towering characters in an ever-growing wardrobe — from playful roaming animation to a full choreographed stilt spectacle.</p>
+            <div class="ptag">Roaming · full show</div>
+          </div>
+        </article>
+
+        <!-- CTA tile -->
+        <article class="card reveal" style="--card-glow:var(--grad-neon)">
+          <div class="card-in" style="justify-content:center;align-items:flex-start;gap:14px">
+            <h3 class="pname grad-text" style="font-size:26px">Build your set</h3>
+            <p class="pdesc">Stack programs into one seamless run — fire opener, LED peak, dragon finale.</p>
+            <a href="#contact" class="btn btn-ghost" style="padding:12px 20px;font-size:14px">Talk to us →</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FX -->
+  <section id="fx" style="padding-top:30px">
+    <div class="fx-wrap reveal">
+      <div class="marquee" aria-hidden="true">
+        <span>Pyrotechnics <i>·</i> Flame cannons <i>·</i> Flamethrowers <i>·</i> Fire cubes <i>·</i> Paper show <i>·</i> Fire hearts <i>·</i> Confetti <i>·</i></span>
+        <span>Pyrotechnics <i>·</i> Flame cannons <i>·</i> Flamethrowers <i>·</i> Fire cubes <i>·</i> Paper show <i>·</i> Fire hearts <i>·</i> Confetti <i>·</i></span>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="sec-head reveal" style="margin-top:56px">
+        <span class="eyebrow"><span class="dot"></span> Special effects</span>
+        <h2>Turn the moment <span class="grad-text">up to eleven</span></h2>
+        <p>Stackable effects to punctuate any cue — drops, reveals, finales.</p>
+      </div>
+      <div class="fx-grid">
+        <div class="fx reveal"><div class="fxn">Pyrotechnics</div><div class="fxd">Timed bursts &amp; gerbs</div></div>
+        <div class="fx reveal"><div class="fxn">Flame cannons</div><div class="fxd">Tall vertical fireballs</div></div>
+        <div class="fx reveal"><div class="fxn">Flamethrowers</div><div class="fxd">Sweeping handheld jets</div></div>
+        <div class="fx reveal"><div class="fxn">Fire cubes</div><div class="fxd">Geometric flame props</div></div>
+        <div class="fx reveal"><div class="fxn">Paper show</div><div class="fxd">Tissue snowstorm drop</div></div>
+        <div class="fx reveal"><div class="fxn">Fire hearts</div><div class="fxd">Romantic burning frames</div></div>
+        <div class="fx reveal"><div class="fxn">Confetti</div><div class="fxd">Cannon &amp; cryo blasts</div></div>
+        <div class="fx reveal" style="border-color:rgba(255,122,26,.4)"><div class="fxn" style="color:var(--fire)">+ Custom</div><div class="fxd">Designed to your cue</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GEOGRAPHY -->
+  <section id="geo">
+    <div class="wrap geo-grid">
+      <div class="reveal">
+        <span class="eyebrow"><span class="dot"></span> On tour</span>
+        <h2 style="font-size:clamp(30px,5vw,50px);margin:14px 0 16px">From Europe's festivals<br><span class="grad-text">to the Gulf — and beyond</span></h2>
+        <p style="color:var(--muted);font-size:17px;margin:0 0 26px">A road-tested touring crew with full kit logistics. We bring the rig, the safety and the show to your venue.</p>
+        <div class="geo-list">
+          <span class="geo-pill">Europe festivals</span>
+          <span class="geo-pill">UAE</span>
+          <span class="geo-pill">Qatar</span>
+          <span class="geo-pill">Saudi Arabia</span>
+          <span class="geo-pill">Oman</span>
+          <span class="geo-pill">Turkey</span>
+          <span class="geo-pill">Jordan</span>
+          <span class="geo-pill world">Worldwide on request</span>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="globe">
+          <div class="core"><b>WORLD</b><small>WIDE</small></div>
+          <span class="ping" style="top:30%;left:40%"></span>
+          <span class="ping" style="top:55%;left:62%;animation-delay:.8s"></span>
+          <span class="ping" style="top:68%;left:38%;animation-delay:1.5s"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <div class="contact-card reveal">
+        <div class="contact-in">
+          <span class="eyebrow"><span class="dot"></span> Let's light it up</span>
+          <h2 style="margin-top:18px">Book the <span class="grad-text">Steam Show</span></h2>
+          <p>Tell us the venue, the date and the vibe. We'll design a fire-and-light run that fits your stage and your crowd.</p>
+          <div class="channels">
+            <a class="chan" href="mailto:hello@steamshow.example"><span class="ic">✉</span> Email</a>
+            <a class="chan" href="#"><span class="ic">◎</span> Instagram</a>
+            <a class="chan" href="#"><span class="ic">⟢</span> WhatsApp · Telegram</a>
+            <a class="chan" href="#"><span class="ic">▶</span> YouTube</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <div style="display:flex;align-items:center;gap:12px">
+      <img src="../assets/Logo_final.png" alt="Steam Show" />
+      <span>Steam Show — Fire · LED · Dragons</span>
+    </div>
+    <div>© 2026 Steam Show. Worldwide on request.</div>
+  </div>
+</footer>
+
+<script>
+  // mobile nav: smooth-scroll fallback (links already anchor)
+  document.getElementById('navBtn').addEventListener('click',function(){
+    document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+  });
+
+  // scroll reveal
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = document.querySelectorAll('.reveal');
+  if(reduce || !('IntersectionObserver' in window)){
+    items.forEach(function(el){el.classList.add('in')});
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    },{threshold:.12});
+    items.forEach(function(el,i){ el.style.transitionDelay=(Math.min(i,6)*60)+'ms'; io.observe(el); });
+  }
+</script>
+</body>
+</html>

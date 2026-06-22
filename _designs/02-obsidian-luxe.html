@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steam Show — Obsidian Luxe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0A0A0B;
+    --ink:#0e0e10;
+    --paper:#F2EEE6;
+    --gold:#C8A24B;
+    --gold-soft:#d9bd78;
+    --muted:rgba(242,238,230,.52);
+    --line:rgba(242,238,230,.14);
+    --ember:#E8722B;
+    --maxw:1240px;
+    --gut:clamp(22px,5vw,80px);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--black);
+    color:var(--paper);
+    font-family:"Inter",system-ui,sans-serif;
+    font-weight:300;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--gold);color:var(--black)}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gut)}
+  .serif{font-family:"Playfair Display",Georgia,serif;font-weight:400}
+  .gold{color:var(--gold)}
+  .eyebrow{
+    font-size:11px;letter-spacing:.42em;text-transform:uppercase;
+    font-weight:400;color:var(--gold);
+  }
+  .muted{color:var(--muted)}
+
+  /* fade-in */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity 1.1s cubic-bezier(.2,.7,.2,1),transform 1.1s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    transition:background .5s ease,border-color .5s ease;
+    border-bottom:1px solid transparent;
+  }
+  header.solid{background:rgba(10,10,11,.72);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:84px}
+  .brand{display:flex;align-items:center;gap:14px}
+  .brand img{height:36px;width:auto;opacity:.95}
+  .brand .nm{font-family:"Playfair Display",serif;font-size:19px;letter-spacing:.16em;text-transform:uppercase}
+  .navlinks{display:flex;gap:42px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .navlinks a{position:relative;transition:color .35s}
+  .navlinks a::after{content:"";position:absolute;left:0;bottom:-7px;height:1px;width:0;background:var(--gold);transition:width .4s}
+  .navlinks a:hover{color:var(--paper)}
+  .navlinks a:hover::after{width:100%}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:0;padding:6px}
+  .burger span{width:24px;height:1.4px;background:var(--paper);display:block}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;padding-top:84px;overflow:hidden}
+  .hero-aura{
+    position:absolute;right:-6%;top:50%;transform:translateY(-50%);
+    width:min(62vw,760px);aspect-ratio:1/1;pointer-events:none;
+    background:radial-gradient(circle at 60% 45%,rgba(200,162,75,.20),rgba(232,114,43,.08) 38%,transparent 66%);
+    filter:blur(6px);
+  }
+  .hero-dragon{
+    position:absolute;right:-4%;top:50%;transform:translateY(-50%);
+    width:min(58vw,720px);pointer-events:none;
+    mix-blend-mode:screen;opacity:.92;
+    -webkit-mask-image:radial-gradient(circle at 55% 50%,#000 60%,transparent 80%);
+    mask-image:radial-gradient(circle at 55% 50%,#000 60%,transparent 80%);
+  }
+  .hero-inner{position:relative;z-index:2;max-width:760px}
+  .hero .eyebrow{display:flex;align-items:center;gap:18px;margin-bottom:34px}
+  .hero .eyebrow .spark{
+    width:8px;height:8px;border-radius:50%;
+    background:radial-gradient(circle,var(--gold) 0%,var(--ember) 80%);
+    box-shadow:0 0 14px 3px rgba(232,114,43,.55);
+    animation:flick 3.2s ease-in-out infinite;
+  }
+  @keyframes flick{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.25)}}
+  .hero h1{
+    font-family:"Playfair Display",serif;font-weight:400;
+    font-size:clamp(48px,9vw,128px);line-height:.98;letter-spacing:-.01em;
+  }
+  .hero h1 em{font-style:italic;color:var(--gold)}
+  .hero .lead{
+    margin-top:36px;max-width:440px;font-size:clamp(15px,1.4vw,18px);
+    color:rgba(242,238,230,.74);font-weight:300;
+  }
+  .hero .tag{margin-top:30px;font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+  .hero .cta-row{margin-top:46px;display:flex;gap:30px;align-items:center;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:12px;
+    padding:16px 30px;border:1px solid var(--gold);color:var(--paper);
+    font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+    transition:background .4s,color .4s;
+  }
+  .btn:hover{background:var(--gold);color:var(--black)}
+  .btn-ghost{padding:16px 4px;border:0;border-bottom:1px solid var(--line);color:var(--muted);transition:color .4s,border-color .4s}
+  .btn-ghost:hover{color:var(--paper);border-color:var(--gold)}
+  .scrollcue{position:absolute;bottom:34px;left:var(--gut);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:14px}
+  .scrollcue .ln{width:48px;height:1px;background:var(--line);position:relative;overflow:hidden}
+  .scrollcue .ln::after{content:"";position:absolute;inset:0;background:var(--gold);transform:translateX(-100%);animation:sweep 3s ease-in-out infinite}
+  @keyframes sweep{0%{transform:translateX(-100%)}55%,100%{transform:translateX(100%)}}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{position:relative;padding:clamp(90px,13vw,180px) 0}
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:clamp(50px,7vw,90px)}
+  .sec-head h2{font-family:"Playfair Display",serif;font-weight:400;font-size:clamp(32px,5vw,64px);line-height:1.04;letter-spacing:-.01em;max-width:680px}
+  .sec-head h2 em{font-style:italic;color:var(--gold)}
+  .sec-no{font-size:12px;letter-spacing:.3em;color:var(--gold);white-space:nowrap}
+
+  /* ---------- INTRO STRIP ---------- */
+  .intro{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .intro .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,90px);align-items:center}
+  .intro p.big{font-family:"Playfair Display",serif;font-weight:400;font-size:clamp(22px,2.6vw,34px);line-height:1.34}
+  .intro p.big em{font-style:italic;color:var(--gold)}
+  .intro .col-r{color:rgba(242,238,230,.7);font-size:16px}
+  .intro .col-r p+p{margin-top:18px}
+
+  /* ---------- PROGRAMS (asymmetric list) ---------- */
+  .prog{counter-reset:p}
+  .prog-row{
+    display:grid;grid-template-columns:64px 1fr 360px;gap:clamp(20px,4vw,60px);
+    align-items:center;padding:clamp(34px,4.5vw,58px) 0;
+    border-top:1px solid var(--line);position:relative;
+  }
+  .prog-row:last-child{border-bottom:1px solid var(--line)}
+  .prog-row .idx{font-size:13px;letter-spacing:.2em;color:var(--gold);counter-increment:p}
+  .prog-row .idx::before{content:counter(p,decimal-leading-zero)}
+  .prog-row .ttl{display:flex;flex-direction:column;gap:12px}
+  .prog-row .ttl h3{font-family:"Playfair Display",serif;font-weight:400;font-size:clamp(28px,4.6vw,56px);line-height:1.02;letter-spacing:-.01em;transition:color .4s,transform .5s}
+  .prog-row .ttl h3 .sig{font-size:.34em;vertical-align:middle;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-left:14px}
+  .prog-row .ttl p{color:var(--muted);font-size:15px;max-width:560px}
+  .prog-row .media{
+    height:200px;border-radius:2px;position:relative;overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .prog-row:hover h3{color:var(--gold);transform:translateX(10px)}
+  /* alternate alignment for asymmetry */
+  .prog-row:nth-child(even){grid-template-columns:360px 1fr 64px}
+  .prog-row:nth-child(even) .media{order:0}
+  .prog-row:nth-child(even) .ttl{order:1}
+  .prog-row:nth-child(even) .idx{order:2;text-align:right}
+  .prog-row:nth-child(even):hover h3{transform:translateX(-10px)}
+  .ph{position:absolute;inset:0}
+  .ph::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(242,238,230,.06),transparent 60%)}
+  .ph1{background:linear-gradient(135deg,#2a1206,#7a3410 45%,#C8A24B 130%)}
+  .ph2{background:linear-gradient(135deg,#1a1a1e,#4a2516 60%,#b56a2a 140%)}
+  .ph3{background:linear-gradient(135deg,#0f1626,#2a3d6b 55%,#C8A24B 150%)}
+  .ph4{background:linear-gradient(135deg,#101012,#243a4d 55%,#7fd4e0 150%)}
+  .ph5{background:linear-gradient(135deg,#161018,#3a2150 60%,#C8A24B 150%)}
+
+  /* ---------- EFFECTS ---------- */
+  .fx{border-top:1px solid var(--line)}
+  .fx-grid{display:flex;flex-wrap:wrap;gap:14px}
+  .chip{
+    border:1px solid var(--line);border-radius:40px;padding:13px 26px;
+    font-size:13px;letter-spacing:.06em;color:rgba(242,238,230,.82);
+    transition:border-color .4s,color .4s,background .4s;
+  }
+  .chip:hover{border-color:var(--gold);color:var(--gold)}
+  .chip .d{color:var(--ember);margin-right:8px}
+
+  /* ---------- GEOGRAPHY ---------- */
+  .geo{border-top:1px solid var(--line)}
+  .geo .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(30px,6vw,90px)}
+  .geo-list{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  .geo-list span{
+    font-family:"Playfair Display",serif;font-size:clamp(20px,2.2vw,30px);
+    padding:18px 0;border-bottom:1px solid var(--line);color:rgba(242,238,230,.86);
+  }
+  .geo-note{align-self:center;color:rgba(242,238,230,.66);font-size:16px}
+  .geo-note .serif{font-size:clamp(22px,2.4vw,30px);display:block;margin-bottom:18px;color:var(--paper)}
+  .geo-note em{font-style:italic;color:var(--gold)}
+
+  /* ---------- CONTACT ---------- */
+  .contact{border-top:1px solid var(--line);text-align:center;overflow:hidden;position:relative}
+  .contact .aura{
+    position:absolute;left:50%;top:8%;transform:translateX(-50%);
+    width:min(70vw,600px);aspect-ratio:1;pointer-events:none;
+    background:radial-gradient(circle,rgba(200,162,75,.14),transparent 64%);filter:blur(8px);
+  }
+  .contact h2{font-family:"Playfair Display",serif;font-weight:400;font-size:clamp(40px,8vw,104px);line-height:1;position:relative}
+  .contact h2 em{font-style:italic;color:var(--gold)}
+  .contact .sub{margin:30px auto 0;max-width:420px;color:rgba(242,238,230,.7);position:relative}
+  .contact .channels{margin-top:64px;display:flex;justify-content:center;gap:clamp(26px,5vw,70px);flex-wrap:wrap;position:relative}
+  .contact .channels a{display:flex;flex-direction:column;gap:8px;font-size:14px;letter-spacing:.04em;transition:transform .4s}
+  .contact .channels a small{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+  .contact .channels a span{color:rgba(242,238,230,.85);border-bottom:1px solid var(--line);padding-bottom:4px;transition:border-color .4s,color .4s}
+  .contact .channels a:hover{transform:translateY(-4px)}
+  .contact .channels a:hover span{color:var(--paper);border-color:var(--gold)}
+
+  footer{border-top:1px solid var(--line);padding:40px 0}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .foot .brand .nm{font-size:15px;letter-spacing:.18em}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:900px){
+    .navlinks{display:none}
+    .burger{display:flex}
+    .hero-dragon,.hero-aura{opacity:.5}
+    .intro .wrap,.geo .wrap{grid-template-columns:1fr}
+    .prog-row,.prog-row:nth-child(even){grid-template-columns:48px 1fr;gap:18px}
+    .prog-row .media{grid-column:1/-1;height:160px;margin-top:8px}
+    .prog-row:nth-child(even) .idx{order:0;text-align:left}
+    .prog-row:nth-child(even) .ttl{order:1}
+    .prog-row:nth-child(even) .media{order:2}
+    .geo-list{grid-template-columns:1fr}
+  }
+  @media(max-width:560px){
+    .geo-list{grid-template-columns:1fr 1fr}
+    .hero .cta-row{gap:18px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;scroll-behavior:auto!important}
+    .reveal{opacity:1;transform:none;transition:none}
+  }
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a href="#top" class="brand">
+      <img src="../assets/Logo_final.png" alt="Steam Show logo">
+      <span class="nm">Steam Show</span>
+    </a>
+    <nav class="navlinks">
+      <a href="#programs">Programs</a>
+      <a href="#effects">Effects</a>
+      <a href="#world">Worldwide</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-aura"></div>
+    <img class="hero-dragon" src="../assets/dragon_gold.png" alt="">
+    <div class="wrap">
+      <div class="hero-inner reveal">
+        <div class="eyebrow"><span class="spark"></span> Fire · LED · Dragons — worldwide</div>
+        <h1>Where fire<br>becomes <em>fine&nbsp;art.</em></h1>
+        <p class="lead">A signature show company crafting cinematic fire, light and creature performances for the world's most discerning stages.</p>
+        <div class="cta-row">
+          <a href="#programs" class="btn">View the programs</a>
+          <a href="#contact" class="btn-ghost">Enquire for your event →</a>
+        </div>
+      </div>
+    </div>
+    <div class="scrollcue"><span class="ln"></span> Scroll</div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="intro" id="intro">
+    <div class="wrap">
+      <p class="big reveal">We build performances the way ateliers build couture — <em>by hand, for the moment, unrepeatable.</em></p>
+      <div class="col-r reveal">
+        <p>From a living mechanical dragon that breathes real flame to LED ensembles tuned for the gala hall, every Steam Show act is composed, choreographed and engineered in-house.</p>
+        <p>The result is restraint with impact: a single ember, placed precisely, that an audience remembers long after the lights return.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS -->
+  <section id="programs">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2>Five programs,<br>one <em>signature.</em></h2>
+        <span class="sec-no">01 — Repertoire</span>
+      </div>
+
+      <div class="prog">
+        <article class="prog-row reveal">
+          <div class="idx"></div>
+          <div class="ttl">
+            <h3>Dragon Fire Show <span class="sig">Signature</span></h3>
+            <p>A living, mechanical dragon that moves, breathes and exhales real fire — our defining act and the centrepiece of any grand opening.</p>
+          </div>
+          <div class="media"><span class="ph ph1"></span></div>
+        </article>
+
+        <article class="prog-row reveal">
+          <div class="idx"></div>
+          <div class="ttl">
+            <h3>Classic Fire Show</h3>
+            <p>Fantasy, post-apocalyptic and rock-driven worlds — flame cubes, fire fans and fire-breathing in fully staged choreography.</p>
+          </div>
+          <div class="media"><span class="ph ph2"></span></div>
+        </article>
+
+        <article class="prog-row reveal">
+          <div class="idx"></div>
+          <div class="ttl">
+            <h3>LED Fire Show</h3>
+            <p>Fire performance woven into glowing LED costumes — heat and light moving as one luminous body across the stage.</p>
+          </div>
+          <div class="media"><span class="ph ph3"></span></div>
+        </article>
+
+        <article class="prog-row reveal">
+          <div class="idx"></div>
+          <div class="ttl">
+            <h3>LED Show</h3>
+            <p>Pure light, no flame — a rich wardrobe of programmable costumes designed for indoor halls and luminous gala moments.</p>
+          </div>
+          <div class="media"><span class="ph ph4"></span></div>
+        </article>
+
+        <article class="prog-row reveal">
+          <div class="idx"></div>
+          <div class="ttl">
+            <h3>Stilt Walkers</h3>
+            <p>Towering characters in an extensive costume collection — available as roaming animation or as a full staged spectacle.</p>
+          </div>
+          <div class="media"><span class="ph ph5"></span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- EFFECTS -->
+  <section class="fx" id="effects">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2>Special effects,<br><em>measured</em> by the moment.</h2>
+        <span class="sec-no">02 — Effects</span>
+      </div>
+      <div class="fx-grid reveal">
+        <span class="chip"><span class="d">·</span>Pyrotechnics</span>
+        <span class="chip"><span class="d">·</span>Flame cannons</span>
+        <span class="chip"><span class="d">·</span>Flamethrowers</span>
+        <span class="chip"><span class="d">·</span>Fire cubes</span>
+        <span class="chip"><span class="d">·</span>Paper show</span>
+        <span class="chip"><span class="d">·</span>Fire hearts</span>
+        <span class="chip"><span class="d">·</span>Confetti</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- GEOGRAPHY -->
+  <section class="geo" id="world">
+    <div class="wrap">
+      <div class="sec-head reveal" style="margin-bottom:clamp(40px,5vw,70px)">
+        <h2>Staged across<br>the <em>world.</em></h2>
+        <span class="sec-no">03 — Worldwide</span>
+      </div>
+      <div class="wrap" style="padding:0">
+        <div class="geo">
+          <div class="wrap" style="padding:0;display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(30px,6vw,90px)">
+            <div class="geo-list reveal">
+              <span>Europe</span>
+              <span>UAE</span>
+              <span>Qatar</span>
+              <span>Saudi Arabia</span>
+              <span>Oman</span>
+              <span>Turkey</span>
+              <span>Jordan</span>
+              <span class="gold">Worldwide</span>
+            </div>
+            <div class="geo-note reveal">
+              <span class="serif">From European festival main-stages to Gulf state celebrations.</span>
+              <p>Wherever the occasion calls for it, Steam Show travels with its full creative and technical crew — <em>worldwide, on request.</em></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="aura"></div>
+    <div class="wrap">
+      <div class="reveal">
+        <span class="eyebrow">04 — Enquiries</span>
+        <h2>Let's light<br>the <em>moment.</em></h2>
+        <p class="sub">Tell us about your stage, your date and your audience — we'll compose the rest.</p>
+      </div>
+      <div class="channels reveal">
+        <a href="mailto:hello@steamshow.show"><small>Email</small><span>hello@steamshow.show</span></a>
+        <a href="#"><small>Instagram</small><span>@steam.show</span></a>
+        <a href="#"><small>WhatsApp / Telegram</small><span>+00 000 000 00</span></a>
+        <a href="#"><small>YouTube</small><span>Steam Show</span></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a href="#top" class="brand"><span class="nm serif">Steam Show</span></a>
+    <span>Fire · LED · Dragons — worldwide</span>
+    <span>© 2026 — All rights reserved</span>
+  </div>
+</footer>
+
+<script>
+  // header solid on scroll
+  var hdr=document.getElementById('hdr');
+  function onScroll(){ if(window.scrollY>40) hdr.classList.add('solid'); else hdr.classList.remove('solid'); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  // reveal on view
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){ document.querySelectorAll('.reveal').forEach(function(e){e.classList.add('in')}); }
+  else{
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+    },{threshold:.16});
+    document.querySelectorAll('.reveal').forEach(function(e){io.observe(e)});
+  }
+</script>
+</body>
+</html>

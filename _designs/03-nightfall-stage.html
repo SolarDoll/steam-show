@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steam Show — Nightfall Stage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night-0:#0B0E1A;
+    --night-1:#11142A;
+    --night-2:#1A1030;
+    --violet:#2A1A55;
+    --ink:#EAEDFF;
+    --muted:#9AA0C4;
+    --fire:#FF7A1F;
+    --fire-soft:#FF9A4D;
+    --gold:#E7C063;
+    --cool:#5C8BFF;
+    --cool-soft:#8FB4FF;
+    --line:rgba(140,150,210,0.14);
+    --tile:rgba(20,24,52,0.55);
+    --r:18px;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Inter",system-ui,sans-serif;
+    color:var(--ink);
+    background:var(--night-0);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.brand{font-family:"Sora",system-ui,sans-serif;letter-spacing:-0.02em;margin:0}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .eyebrow{
+    font-family:"Sora";font-size:12px;font-weight:700;letter-spacing:0.28em;
+    text-transform:uppercase;color:var(--cool-soft);
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed;inset:0 0 auto 0;z-index:50;
+    backdrop-filter:blur(12px);
+    background:linear-gradient(180deg,rgba(11,14,26,0.85),rgba(11,14,26,0));
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .nav-logo{display:flex;align-items:center;gap:12px}
+  .nav-logo img{height:34px;width:auto;filter:drop-shadow(0 0 10px rgba(92,139,255,0.5))}
+  .nav-logo .brand{font-size:18px;font-weight:800}
+  .nav-links{display:flex;gap:30px;align-items:center}
+  .nav-links a{font-size:14px;color:var(--muted);transition:color .2s}
+  .nav-links a:hover{color:var(--ink)}
+  .btn{
+    font-family:"Sora";font-weight:700;font-size:14px;
+    padding:11px 22px;border-radius:999px;cursor:pointer;border:none;
+    display:inline-flex;align-items:center;gap:8px;transition:transform .2s,box-shadow .2s;
+  }
+  .btn-fire{
+    color:#1a0c00;
+    background:linear-gradient(135deg,var(--fire-soft),var(--fire));
+    box-shadow:0 8px 30px rgba(255,122,31,0.45),inset 0 1px 0 rgba(255,255,255,0.35);
+  }
+  .btn-fire:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,122,31,0.6)}
+  .btn-ghost{
+    color:var(--ink);background:rgba(255,255,255,0.04);
+    border:1px solid var(--line);
+  }
+  .btn-ghost:hover{border-color:var(--cool);background:rgba(92,139,255,0.1)}
+  @media(max-width:820px){.nav-links{display:none}}
+
+  /* ---------- STAGE BACKDROP ---------- */
+  .stage{position:relative;isolation:isolate}
+  #stars{position:absolute;inset:0;width:100%;height:100%;z-index:-2;display:block}
+  .stage-bg{
+    position:absolute;inset:0;z-index:-3;
+    background:
+      radial-gradient(120% 80% at 50% -10%, rgba(42,26,85,0.9), transparent 60%),
+      linear-gradient(180deg,#0B0E1A 0%, #140F2A 45%, #1A1030 100%);
+  }
+  .mist{
+    position:absolute;left:50%;bottom:-15%;transform:translateX(-50%);
+    width:120%;height:60%;z-index:-2;pointer-events:none;
+    background:radial-gradient(50% 50% at 50% 50%, rgba(92,139,255,0.16), transparent 70%);
+    filter:blur(20px);
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;padding:160px 0 90px;text-align:center}
+  .spotlight{
+    position:absolute;left:50%;top:0;transform:translateX(-50%);
+    width:760px;max-width:120%;height:680px;z-index:-1;pointer-events:none;
+    background:radial-gradient(50% 45% at 50% 35%, rgba(255,122,31,0.28), rgba(255,122,31,0.06) 45%, transparent 70%);
+    filter:blur(8px);
+  }
+  .hero .dragon{
+    position:absolute;right:-40px;top:60px;width:min(560px,46vw);z-index:-1;
+    mix-blend-mode:screen;opacity:0.92;pointer-events:none;
+    filter:drop-shadow(0 0 60px rgba(231,192,99,0.35));
+    animation:float 9s ease-in-out infinite;
+  }
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-22px)}}
+  .hero-logo{height:96px;width:auto;margin-bottom:26px;filter:drop-shadow(0 0 26px rgba(255,122,31,0.45))}
+  .hero h1{
+    font-size:clamp(40px,7.5vw,86px);font-weight:800;line-height:0.98;
+    margin:0 auto 18px;max-width:14ch;
+  }
+  .hero h1 .glow{
+    background:linear-gradient(120deg,var(--fire-soft),var(--gold) 60%,var(--fire));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .tagline{
+    font-family:"Sora";font-weight:600;font-size:clamp(15px,2.4vw,20px);
+    color:var(--cool-soft);letter-spacing:0.04em;margin-bottom:34px;
+  }
+  .tagline b{color:var(--fire-soft)}
+  .hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .scroll-hint{margin-top:64px;color:var(--muted);font-size:12px;letter-spacing:0.2em;text-transform:uppercase}
+  .scroll-hint span{display:block;width:1px;height:38px;margin:14px auto 0;
+    background:linear-gradient(var(--cool),transparent);animation:beam 2.2s ease-in-out infinite}
+  @keyframes beam{0%,100%{opacity:.3;transform:scaleY(.5)}50%{opacity:1;transform:scaleY(1)}}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{position:relative;padding:96px 0}
+  .sec-head{max-width:680px;margin:0 0 48px}
+  .sec-head.center{margin-left:auto;margin-right:auto;text-align:center}
+  .sec-head h2{font-size:clamp(28px,4.5vw,48px);font-weight:700;margin:14px 0 12px}
+  .sec-head p{color:var(--muted);font-size:17px;line-height:1.6;margin:0}
+
+  /* ---------- PROGRAM TILES ---------- */
+  .tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+  .tile{
+    position:relative;grid-column:span 2;overflow:hidden;
+    border-radius:var(--r);border:1px solid var(--line);
+    background:var(--tile);padding:26px;min-height:300px;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease;
+  }
+  .tile.signature{grid-column:span 3;min-height:340px}
+  .tile.wide{grid-column:span 3}
+  .tile .ph{position:absolute;inset:0;z-index:0;opacity:.9;transition:transform .6s ease}
+  .tile:hover .ph{transform:scale(1.06)}
+  .tile::after{ /* cool glow edge */
+    content:"";position:absolute;inset:0;border-radius:var(--r);z-index:1;
+    box-shadow:inset 0 0 0 1px rgba(92,139,255,0.0),inset 0 -90px 80px -40px rgba(11,14,26,0.95);
+    transition:box-shadow .35s ease;
+  }
+  .tile:hover{transform:translateY(-6px);border-color:rgba(92,139,255,0.5);
+    box-shadow:0 24px 60px -20px rgba(92,139,255,0.35)}
+  .tile:hover::after{box-shadow:inset 0 0 0 1px rgba(92,139,255,0.45),inset 0 -90px 80px -40px rgba(11,14,26,0.95)}
+  .tile .body{position:relative;z-index:2}
+  .tile .kicker{font-family:"Sora";font-size:11px;font-weight:700;letter-spacing:0.22em;
+    text-transform:uppercase;color:var(--cool-soft);margin-bottom:8px;display:inline-block}
+  .tile.signature .kicker{color:var(--gold)}
+  .tile h3{font-size:23px;font-weight:700;margin-bottom:8px}
+  .tile.signature h3{font-size:30px}
+  .tile p{margin:0;color:#C7CCEC;font-size:14px;line-height:1.55}
+  .badge{position:absolute;top:18px;left:18px;z-index:3;
+    font-family:"Sora";font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+    padding:6px 12px;border-radius:999px;color:#1a0c00;
+    background:linear-gradient(135deg,var(--gold),var(--fire-soft));
+    box-shadow:0 6px 20px rgba(231,192,99,0.4)}
+  /* gradient placeholders per program */
+  .g-dragon{background:radial-gradient(70% 90% at 80% 20%,rgba(255,122,31,0.55),transparent 55%),linear-gradient(135deg,#2A1030,#0B0E1A 70%)}
+  .g-classic{background:radial-gradient(80% 80% at 20% 30%,rgba(255,90,40,0.5),transparent 60%),linear-gradient(135deg,#1A0F22,#0B0E1A)}
+  .g-ledfire{background:radial-gradient(80% 80% at 70% 30%,rgba(92,139,255,0.45),transparent 60%),radial-gradient(60% 60% at 20% 80%,rgba(255,122,31,0.35),transparent 60%),linear-gradient(135deg,#101633,#0B0E1A)}
+  .g-led{background:radial-gradient(80% 80% at 50% 30%,rgba(120,90,255,0.5),transparent 60%),linear-gradient(135deg,#161048,#0B0E1A)}
+  .g-stilt{background:radial-gradient(80% 90% at 30% 20%,rgba(140,110,255,0.45),transparent 60%),linear-gradient(135deg,#1A1030,#0B0E1A)}
+  @media(max-width:900px){
+    .tiles{grid-template-columns:repeat(2,1fr)}
+    .tile,.tile.signature,.tile.wide{grid-column:span 2;min-height:240px}
+  }
+
+  /* ---------- EFFECTS ---------- */
+  .fx{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+  .fx-card{
+    border:1px solid var(--line);border-radius:14px;padding:22px 18px;
+    background:linear-gradient(180deg,rgba(26,16,48,0.6),rgba(11,14,26,0.4));
+    transition:border-color .3s,transform .3s,box-shadow .3s;
+  }
+  .fx-card:hover{border-color:rgba(255,122,31,0.5);transform:translateY(-4px);
+    box-shadow:0 16px 40px -18px rgba(255,122,31,0.5)}
+  .fx-dot{width:30px;height:30px;border-radius:9px;margin-bottom:14px;
+    background:linear-gradient(135deg,var(--fire-soft),var(--fire));
+    box-shadow:0 0 18px rgba(255,122,31,0.6)}
+  .fx-card:nth-child(2n) .fx-dot{background:linear-gradient(135deg,var(--cool-soft),var(--cool));box-shadow:0 0 18px rgba(92,139,255,0.6)}
+  .fx-card h4{font-family:"Sora";font-size:15px;font-weight:700;margin:0 0 4px}
+  .fx-card span{color:var(--muted);font-size:13px}
+
+  /* ---------- GEOGRAPHY ---------- */
+  .geo{position:relative;border-radius:24px;overflow:hidden;
+    border:1px solid var(--line);
+    background:radial-gradient(90% 120% at 70% 0%,rgba(92,139,255,0.18),transparent 55%),linear-gradient(135deg,#11142A,#0B0E1A);
+    padding:48px}
+  .geo-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+  .geo .stat{font-family:"Sora";font-weight:800;font-size:clamp(40px,6vw,64px);
+    background:linear-gradient(120deg,var(--cool-soft),var(--fire-soft));
+    -webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+  .geo .stat small{display:block;font-family:"Inter";-webkit-text-fill-color:var(--muted);
+    color:var(--muted);font-size:14px;font-weight:500;margin-top:8px}
+  .regions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+  .pill{font-family:"Sora";font-size:13px;font-weight:600;padding:9px 16px;border-radius:999px;
+    border:1px solid var(--line);color:#C7CCEC;background:rgba(255,255,255,0.03);transition:.25s}
+  .pill:hover{border-color:var(--fire);color:#fff;box-shadow:0 0 18px rgba(255,122,31,0.35)}
+  .pill.req{background:linear-gradient(135deg,rgba(255,122,31,0.18),rgba(231,192,99,0.12));border-color:rgba(231,192,99,0.4);color:var(--gold)}
+  @media(max-width:820px){.geo-grid{grid-template-columns:1fr;gap:28px}.geo{padding:32px}}
+
+  /* ---------- CONTACT ---------- */
+  .contact{text-align:center;position:relative}
+  .contact .spotlight{height:540px}
+  .contact h2{font-size:clamp(32px,5vw,56px);font-weight:800;margin-bottom:16px}
+  .contact h2 .glow{background:linear-gradient(120deg,var(--fire-soft),var(--gold));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .contact p{color:var(--muted);font-size:18px;max-width:560px;margin:0 auto 36px}
+  .channels{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .ch{display:flex;align-items:center;gap:10px;padding:14px 22px;border-radius:14px;
+    border:1px solid var(--line);background:rgba(255,255,255,0.03);
+    font-family:"Sora";font-weight:600;font-size:14px;transition:.25s}
+  .ch:hover{transform:translateY(-3px);border-color:var(--cool);
+    box-shadow:0 14px 36px -16px rgba(92,139,255,0.5)}
+  .ch .ic{width:9px;height:9px;border-radius:50%;background:var(--fire);box-shadow:0 0 10px var(--fire)}
+  .ch:nth-child(2n) .ic{background:var(--cool);box-shadow:0 0 10px var(--cool)}
+
+  /* ---------- FOOTER ---------- */
+  footer{border-top:1px solid var(--line);padding:40px 0;margin-top:40px}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+  .foot img{height:28px;filter:drop-shadow(0 0 8px rgba(92,139,255,0.5))}
+  .foot small{color:var(--muted);font-size:13px}
+
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;scroll-behavior:auto!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="nav-logo">
+      <img src="../assets/Logo_final.png" alt="Steam Show">
+      <span class="brand">Steam Show</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#programs">Programs</a>
+      <a href="#effects">Effects</a>
+      <a href="#geography">Where we play</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="btn btn-fire">Book the show</a>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<div class="stage">
+  <div class="stage-bg"></div>
+  <canvas id="stars"></canvas>
+  <div class="mist"></div>
+
+  <section class="hero">
+    <div class="spotlight"></div>
+    <img class="dragon" src="../assets/dragon_gold.png" alt="">
+    <div class="wrap">
+      <img class="hero-logo" src="../assets/Logo_final.png" alt="Steam Show">
+      <h1>Set the night <span class="glow">on fire</span></h1>
+      <p class="tagline"><b>Fire</b> · <b>LED</b> · <b>Dragons</b> — worldwide</p>
+      <div class="hero-cta">
+        <a href="#programs" class="btn btn-fire">Explore the programs</a>
+        <a href="#contact" class="btn btn-ghost">Get a quote</a>
+      </div>
+      <div class="scroll-hint">Step into the stage<span></span></div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= PROGRAMS ================= -->
+<section id="programs">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Five signature programs</span>
+      <h2>Shows built around real fire and light</h2>
+      <p>From a living, fire-breathing dragon to rooms washed in pure LED — each act is staged to land in the dark and read from the back row.</p>
+    </div>
+
+    <div class="tiles">
+      <article class="tile signature">
+        <div class="ph g-dragon"></div>
+        <div class="badge">Signature</div>
+        <div class="body">
+          <span class="kicker">Dragon Fire Show</span>
+          <h3>A living dragon that breathes fire</h3>
+          <p>Our mechanical beast moves, roars and exhales real flame — the centerpiece moment your crowd films and never forgets.</p>
+        </div>
+      </article>
+
+      <article class="tile">
+        <div class="ph g-classic"></div>
+        <div class="body">
+          <span class="kicker">Classic Fire Show</span>
+          <h3>Classic Fire Show</h3>
+          <p>Fantasy, post-apocalyptic or pure rock. Flame cubes, fire fans and fire-breathing in a high-energy set.</p>
+        </div>
+      </article>
+
+      <article class="tile">
+        <div class="ph g-ledfire"></div>
+        <div class="body">
+          <span class="kicker">LED + Fire</span>
+          <h3>LED Fire Show</h3>
+          <p>Fire performance fused with glowing LED costumes — heat and color firing together on one stage.</p>
+        </div>
+      </article>
+
+      <article class="tile wide">
+        <div class="ph g-led"></div>
+        <div class="body">
+          <span class="kicker">Indoor ready</span>
+          <h3>LED Show</h3>
+          <p>Pure light, no flame. A deep wardrobe of luminous costumes designed for halls, galas and indoor venues.</p>
+        </div>
+      </article>
+
+      <article class="tile wide">
+        <div class="ph g-stilt"></div>
+        <div class="body">
+          <span class="kicker">Roaming or staged</span>
+          <h3>Stilt Walkers</h3>
+          <p>Towering characters with countless costumes — roaming your venue as walkabout entertainment or anchoring a full show.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EFFECTS ================= -->
+<section id="effects">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow">Special effects</span>
+      <h2>The arsenal behind the spectacle</h2>
+      <p>Layered into any program to scale the moment — from a single accent to a full finale.</p>
+    </div>
+    <div class="fx">
+      <div class="fx-card"><div class="fx-dot"></div><h4>Pyrotechnics</h4><span>Timed bursts &amp; sparks</span></div>
+      <div class="fx-card"><div class="fx-dot"></div><h4>Flame Cannons</h4><span>Vertical fire columns</span></div>
+      <div class="fx-card"><div class="fx-dot"></div><h4>Flamethrowers</h4><span>Handheld fire sweeps</span></div>
+      <div class="fx-card"><div class="fx-dot"></div><h4>Fire Cubes</h4><span>Glowing flame blocks</span></div>
+      <div class="fx-card"><div class="fx-dot"></div><h4>Paper Show</h4><span>Storm of falling paper</span></div>
+      <div class="fx-card"><div class="fx-dot"></div><h4>Fire Hearts</h4><span>Burning shapes &amp; logos</span></div>
+      <div class="fx-card"><div class="fx-dot"></div><h4>Confetti</h4><span>Color-burst finale</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GEOGRAPHY ================= -->
+<section id="geography">
+  <div class="wrap">
+    <div class="geo">
+      <div class="geo-grid">
+        <div>
+          <span class="eyebrow">Where we play</span>
+          <div class="stat" style="margin-top:14px">Worldwide<small>Touring Europe &amp; the Gulf, traveling anywhere on request.</small></div>
+          <div class="regions">
+            <span class="pill">Europe festivals</span>
+            <span class="pill">UAE</span>
+            <span class="pill">Qatar</span>
+            <span class="pill">Saudi Arabia</span>
+            <span class="pill">Oman</span>
+            <span class="pill">Turkey</span>
+            <span class="pill">Jordan</span>
+            <span class="pill req">Worldwide on request</span>
+          </div>
+        </div>
+        <div>
+          <p style="color:#C7CCEC;font-size:16px;line-height:1.7;margin:0">
+            We tour festival main stages across Europe and headline private events, openings and national celebrations throughout the Gulf. Logistics, permits and crew travel with the show — you choose the venue, we bring the night to life.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" class="contact">
+  <div class="spotlight"></div>
+  <div class="wrap">
+    <span class="eyebrow">Let's talk dates</span>
+    <h2>Bring the <span class="glow">fire</span> to your stage</h2>
+    <p>Tell us the venue, the date and the vibe — we'll design the show around it.</p>
+    <div class="channels">
+      <a href="mailto:hello@steamshow.example" class="ch"><span class="ic"></span>Email</a>
+      <a href="#" class="ch"><span class="ic"></span>Instagram</a>
+      <a href="#" class="ch"><span class="ic"></span>WhatsApp / Telegram</a>
+      <a href="#" class="ch"><span class="ic"></span>YouTube</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <img src="../assets/Logo_final.png" alt="Steam Show">
+    <small>© Steam Show — Fire · LED · Dragons, worldwide.</small>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var canvas = document.getElementById('stars');
+  if(!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var stars = [], W, H, raf;
+
+  function size(){
+    var hero = canvas.parentElement;
+    W = canvas.width = hero.offsetWidth;
+    H = canvas.height = hero.offsetHeight;
+    var count = Math.min(160, Math.floor(W*H/9000));
+    stars = [];
+    for(var i=0;i<count;i++){
+      stars.push({
+        x:Math.random()*W, y:Math.random()*H,
+        r:Math.random()*1.4+0.3,
+        a:Math.random(),
+        sp:Math.random()*0.012+0.003,
+        // warm stars near top-center spotlight, cool elsewhere
+        warm: Math.random() < 0.18
+      });
+    }
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<stars.length;i++){
+      var s = stars[i];
+      s.a += s.sp;
+      var tw = 0.4 + 0.6*Math.abs(Math.sin(s.a));
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+      ctx.fillStyle = s.warm
+        ? 'rgba(255,180,120,'+tw+')'
+        : 'rgba(180,200,255,'+(tw*0.8)+')';
+      ctx.fill();
+    }
+    raf = requestAnimationFrame(draw);
+  }
+
+  function paintStatic(){
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<stars.length;i++){
+      var s = stars[i];
+      ctx.beginPath();
+      ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle = s.warm ? 'rgba(255,180,120,0.7)' : 'rgba(180,200,255,0.6)';
+      ctx.fill();
+    }
+  }
+
+  size();
+  if(reduce){ paintStatic(); }
+  else { draw(); }
+
+  var rt;
+  window.addEventListener('resize', function(){
+    clearTimeout(rt);
+    rt = setTimeout(function(){
+      if(raf) cancelAnimationFrame(raf);
+      size();
+      if(reduce) paintStatic(); else draw();
+    },200);
+  });
+
+  // subtle parallax on dragon + spotlight (skip if reduced motion)
+  if(!reduce){
+    var dragon = document.querySelector('.hero .dragon');
+    var spot = document.querySelector('.hero .spotlight');
+    window.addEventListener('scroll', function(){
+      var y = window.scrollY;
+      if(y < 900){
+        if(dragon) dragon.style.transform = 'translateY('+(y*0.18)+'px)';
+        if(spot) spot.style.transform = 'translateX(-50%) translateY('+(y*0.08)+'px)';
+      }
+    }, {passive:true});
+  }
+})();
+</script>
+</body>
+</html>

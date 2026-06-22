@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Steam Show — Brass Future</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0C0B0A;
+    --bg-2:#100E0C;
+    --ink:#EDE7DC;
+    --ink-dim:#9E978B;
+    --brass:#C8A24B;
+    --brass-deep:#8C6A2B;
+    --line:rgba(200,162,75,.22);
+    --line-soft:rgba(200,162,75,.10);
+    --maxw:1240px;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Space Grotesk",system-ui,sans-serif;
+    font-weight:300;
+    line-height:1.6;
+    letter-spacing:.01em;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:rgba(200,162,75,.28);color:#fff}
+
+  /* faint blueprint grid over the whole page */
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    background-image:
+      linear-gradient(var(--line-soft) 1px,transparent 1px),
+      linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
+    background-size:88px 88px;
+    opacity:.45;
+    pointer-events:none;
+    z-index:0;
+    mask-image:radial-gradient(120% 90% at 50% 0%,#000 30%,transparent 100%);
+  }
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;position:relative;z-index:1}
+
+  h1,h2,h3,.serif{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;letter-spacing:.01em}
+  .eyebrow{
+    font-family:"Space Grotesk";
+    font-size:11px;font-weight:500;
+    letter-spacing:.34em;text-transform:uppercase;
+    color:var(--brass);
+  }
+  .brass-text{
+    background:linear-gradient(92deg,#E9CE86 0%,#C8A24B 38%,#8C6A2B 72%,#D8B765 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hair{height:1px;width:100%;background:linear-gradient(90deg,transparent,var(--line),transparent);border:0}
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:fixed;top:0;left:0;right:0;z-index:40;
+    backdrop-filter:blur(10px);
+    background:linear-gradient(180deg,rgba(12,11,10,.86),rgba(12,11,10,.42));
+    border-bottom:1px solid var(--line-soft);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+  .brand img{height:34px;width:auto;filter:drop-shadow(0 0 10px rgba(200,162,75,.25))}
+  .brand .bn{font-family:"Cormorant Garamond";font-size:21px;letter-spacing:.06em}
+  .brand .bn b{font-weight:600}
+  nav.links{display:flex;gap:30px}
+  nav.links a{
+    color:var(--ink-dim);text-decoration:none;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;transition:color .3s var(--ease);position:relative;padding:6px 0;
+  }
+  nav.links a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--brass);transition:width .35s var(--ease)}
+  nav.links a:hover{color:var(--ink)}
+  nav.links a:hover::after{width:100%}
+  .nav-cta{
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--bg);
+    background:linear-gradient(100deg,#E9CE86,#C8A24B 60%,#8C6A2B);
+    padding:11px 20px;border-radius:1px;text-decoration:none;font-weight:500;
+    transition:transform .3s var(--ease),box-shadow .3s var(--ease);
+  }
+  .nav-cta:hover{transform:translateY(-1px);box-shadow:0 8px 26px rgba(200,162,75,.22)}
+  .burger{display:none;background:none;border:0;color:var(--ink);cursor:pointer;font-size:22px}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;padding:170px 0 120px;overflow:hidden}
+  /* blueprint guide lines */
+  .hero .guides{position:absolute;inset:0;z-index:0;pointer-events:none}
+  .hero .guides span{position:absolute;background:linear-gradient(180deg,transparent,var(--line),transparent)}
+  .gv{top:0;bottom:0;width:1px}
+  .gv.a{left:18%}.gv.b{right:18%}
+  .gh{left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent)!important}
+  .gh.a{top:46%}
+  .tick{position:absolute;left:18%;width:9px;height:1px;background:var(--brass);opacity:.5}
+  .hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+  .hero h1{font-size:clamp(46px,8vw,108px);line-height:.96;letter-spacing:-.01em;margin:18px 0 6px}
+  .hero h1 em{font-style:italic;font-weight:400}
+  .hero .tag{font-size:clamp(15px,2.4vw,20px);color:var(--ink-dim);letter-spacing:.06em;margin-top:14px}
+  .hero .tag b{color:var(--ink);font-weight:400}
+  .hero .sub{max-width:430px;color:var(--ink-dim);margin-top:26px;font-size:15px}
+  .hero-cta{display:flex;gap:16px;margin-top:38px;flex-wrap:wrap;align-items:center}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-size:12px;
+    letter-spacing:.16em;text-transform:uppercase;padding:14px 26px;border-radius:1px;transition:all .35s var(--ease);
+  }
+  .btn.solid{color:var(--bg);background:linear-gradient(100deg,#E9CE86,#C8A24B 60%,#8C6A2B);font-weight:500}
+  .btn.solid:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(200,162,75,.25)}
+  .btn.ghost{color:var(--ink);border:1px solid var(--line);background:transparent}
+  .btn.ghost:hover{border-color:var(--brass);color:var(--brass)}
+  .btn .arr{transition:transform .35s var(--ease)}
+  .btn:hover .arr{transform:translateX(4px)}
+
+  /* dragon panel */
+  .hero-art{position:relative;display:flex;justify-content:center;align-items:center;min-height:440px}
+  .hero-art .frame{
+    position:absolute;inset:6% 4%;border:1px solid var(--line);
+    background:radial-gradient(120% 90% at 70% 30%,rgba(200,162,75,.06),transparent 60%);
+  }
+  .hero-art .frame::before,.hero-art .frame::after{
+    content:"";position:absolute;width:14px;height:14px;border:1px solid var(--brass);opacity:.6;
+  }
+  .hero-art .frame::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+  .hero-art .frame::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+  .dragon{
+    position:relative;z-index:2;width:108%;max-width:560px;
+    mix-blend-mode:screen;
+    filter:drop-shadow(0 0 50px rgba(200,162,75,.28)) saturate(1.05);
+    animation:float 9s var(--ease) infinite;
+  }
+  .dragon-caption{
+    position:absolute;bottom:2%;left:6%;z-index:3;font-size:10px;letter-spacing:.28em;
+    text-transform:uppercase;color:var(--ink-dim);
+  }
+  .dragon-caption span{color:var(--brass)}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+
+  .scroll-cue{margin-top:64px;display:flex;align-items:center;gap:14px;color:var(--ink-dim);font-size:11px;letter-spacing:.24em;text-transform:uppercase}
+  .scroll-cue i{display:block;width:46px;height:1px;background:linear-gradient(90deg,var(--brass),transparent)}
+
+  /* ---------- MARQUEE STRIP ---------- */
+  .strip{border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);padding:18px 0;overflow:hidden;background:var(--bg-2)}
+  .strip .row{display:flex;gap:60px;white-space:nowrap;animation:slide 32s linear infinite;width:max-content}
+  .strip .row span{font-family:"Cormorant Garamond";font-size:22px;color:var(--ink-dim);font-style:italic}
+  .strip .row span b{color:var(--brass);font-style:normal;font-family:"Space Grotesk";font-weight:400;font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin-right:4px}
+  @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{position:relative;padding:110px 0}
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:54px;flex-wrap:wrap}
+  .sec-head h2{font-size:clamp(34px,5.5vw,62px);line-height:1.02}
+  .sec-head h2 em{font-style:italic;font-weight:400;color:var(--ink-dim)}
+  .sec-head .meta{text-align:right;color:var(--ink-dim);font-size:12px;letter-spacing:.06em;max-width:300px}
+  .idx{font-family:"Space Grotesk";font-size:12px;color:var(--brass);letter-spacing:.24em;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+  .idx::before{content:"";width:30px;height:1px;background:var(--brass)}
+
+  /* ---------- PROGRAMS ---------- */
+  .programs{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft)}
+  .card{
+    position:relative;background:var(--bg);padding:36px 32px 32px;min-height:300px;display:flex;flex-direction:column;
+    transition:background .5s var(--ease);overflow:hidden;
+  }
+  .card.signature{grid-column:1 / -1}
+  .card .visual{
+    position:absolute;inset:0;z-index:0;opacity:.5;transition:opacity .6s var(--ease),transform .8s var(--ease);
+  }
+  .card:hover .visual{opacity:.85;transform:scale(1.04)}
+  .card .visual.v1{background:radial-gradient(120% 120% at 80% 20%,rgba(200,80,30,.34),transparent 55%),linear-gradient(135deg,#1a0f08,#0C0B0A)}
+  .card .visual.v2{background:radial-gradient(110% 110% at 20% 80%,rgba(160,40,30,.30),transparent 55%),linear-gradient(135deg,#180c08,#0C0B0A)}
+  .card .visual.v3{background:radial-gradient(120% 120% at 70% 30%,rgba(40,120,180,.28),rgba(200,120,40,.18) 50%,transparent 70%),linear-gradient(135deg,#08111a,#0C0B0A)}
+  .card .visual.v4{background:radial-gradient(120% 120% at 30% 30%,rgba(70,150,210,.30),transparent 60%),linear-gradient(135deg,#06101a,#0C0B0A)}
+  .card .visual.v5{background:radial-gradient(120% 120% at 80% 70%,rgba(120,90,200,.26),transparent 60%),linear-gradient(135deg,#0d0a16,#0C0B0A)}
+  .card .visual::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(12,11,10,.55) 70%,var(--bg))}
+  .card .body{position:relative;z-index:2;display:flex;flex-direction:column;height:100%}
+  .card .no{font-size:11px;letter-spacing:.24em;color:var(--brass);text-transform:uppercase}
+  .card h3{font-size:clamp(26px,3.4vw,38px);margin:auto 0 8px;line-height:1.02}
+  .card .desc{color:var(--ink-dim);font-size:14px;max-width:440px}
+  .card .specs{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+  .card .specs span{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);border:1px solid var(--line);padding:5px 10px;border-radius:1px}
+  .card .topline{display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dim)}
+  .card .topline .badge{color:var(--brass)}
+  /* hairline brass top accent on hover */
+  .card::before{content:"";position:absolute;top:0;left:0;height:1px;width:0;z-index:3;background:linear-gradient(90deg,var(--brass),transparent);transition:width .6s var(--ease)}
+  .card:hover::before{width:100%}
+
+  /* ---------- EFFECTS ---------- */
+  .effects-sec{background:var(--bg-2);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+  .effects{display:flex;flex-wrap:wrap;gap:14px}
+  .chip{
+    display:flex;align-items:center;gap:12px;border:1px solid var(--line);padding:16px 22px;border-radius:1px;
+    transition:all .35s var(--ease);cursor:default;background:rgba(255,255,255,.01);
+  }
+  .chip:hover{border-color:var(--brass);transform:translateY(-2px);background:rgba(200,162,75,.05)}
+  .chip .n{font-size:11px;color:var(--brass);letter-spacing:.1em}
+  .chip .t{font-family:"Cormorant Garamond";font-size:24px;font-style:italic}
+
+  /* ---------- GEOGRAPHY ---------- */
+  .geo{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center}
+  .geo .map{
+    position:relative;aspect-ratio:4/3;border:1px solid var(--line);
+    background:
+      radial-gradient(60% 60% at 60% 40%,rgba(200,162,75,.10),transparent 70%),
+      linear-gradient(135deg,#0f0d0b,#0C0B0A);
+    overflow:hidden;
+  }
+  .geo .map .ring{position:absolute;border:1px solid var(--line);border-radius:50%}
+  .geo .map .ring.r1{width:46%;aspect-ratio:1;top:24%;left:48%}
+  .geo .map .ring.r2{width:74%;aspect-ratio:1;top:10%;left:34%;border-color:var(--line-soft)}
+  .geo .map .dot{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--brass);box-shadow:0 0 10px rgba(200,162,75,.7)}
+  .geo .map .pulse{animation:pulse 3s var(--ease) infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(200,162,75,.5)}50%{box-shadow:0 0 0 8px rgba(200,162,75,0)}}
+  .geo .map .label{position:absolute;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim)}
+  .geo-list{columns:2;column-gap:30px}
+  .geo-list .place{break-inside:avoid;padding:14px 0;border-bottom:1px solid var(--line-soft);display:flex;align-items:center;gap:12px}
+  .geo-list .place .marker{width:5px;height:5px;background:var(--brass);border-radius:50%;flex:0 0 auto}
+  .geo-list .place span{font-family:"Cormorant Garamond";font-size:21px}
+  .geo-note{margin-top:26px;color:var(--ink-dim);font-size:13px;letter-spacing:.04em}
+
+  /* ---------- CONTACT ---------- */
+  .contact-sec{position:relative;text-align:center;padding:130px 0}
+  .contact-sec .logo-big{height:64px;width:auto;opacity:.92;margin:0 auto 26px;filter:drop-shadow(0 0 26px rgba(200,162,75,.3))}
+  .contact-sec h2{font-size:clamp(40px,7vw,82px);line-height:1;margin-bottom:18px}
+  .contact-sec p{color:var(--ink-dim);max-width:460px;margin:0 auto 44px}
+  .contacts{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+  .contacts a{
+    text-decoration:none;color:var(--ink);border:1px solid var(--line);padding:16px 26px;border-radius:1px;
+    font-size:12px;letter-spacing:.14em;text-transform:uppercase;transition:all .35s var(--ease);
+    display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:150px;text-align:left;
+  }
+  .contacts a .k{color:var(--brass);font-size:10px;letter-spacing:.2em}
+  .contacts a:hover{border-color:var(--brass);transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.4)}
+
+  footer{border-top:1px solid var(--line-soft);padding:34px 0;background:var(--bg-2)}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;color:var(--ink-dim);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+  .foot .brass-text{font-family:"Cormorant Garamond";font-size:16px;letter-spacing:.06em;text-transform:none}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:900px){
+    nav.links{display:none}
+    .nav-cta{display:none}
+    .burger{display:block}
+    .hero-grid{grid-template-columns:1fr;gap:10px}
+    .hero-art{min-height:340px;order:-1}
+    .gv.a{left:8%}.gv.b{right:8%}.tick{left:8%}
+    .geo{grid-template-columns:1fr;gap:30px}
+    .programs{grid-template-columns:1fr}
+    .geo-list{columns:1}
+  }
+  @media(max-width:560px){
+    .wrap{padding:0 18px}
+    .sec-head .meta{text-align:left}
+    .geo-list{columns:1}
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;scroll-behavior:auto!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">
+      <img src="../assets/Logo_final.png" alt="Steam Show logo" />
+      <span class="bn"><b>STEAM</b> SHOW</span>
+    </a>
+    <nav class="links">
+      <a href="#programs">Programs</a>
+      <a href="#effects">Effects</a>
+      <a href="#geo">Geography</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="nav-cta" href="#contact">Book the Show</a>
+    <button class="burger" aria-label="menu" id="burger">≡</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="guides" aria-hidden="true">
+    <span class="gv a"></span><span class="gv b"></span><span class="gh a"></span>
+    <span class="tick" style="top:30%"></span><span class="tick" style="top:60%"></span><span class="tick" style="top:74%"></span>
+  </div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy reveal">
+        <span class="eyebrow">Industrial-Luxe Live Performance · est. forge</span>
+        <h1>Brass <em>&amp;</em><br /><span class="brass-text">Living Fire</span></h1>
+        <p class="tag"><b>Fire · LED · Dragons</b> — worldwide.</p>
+        <p class="sub">A mechanical dragon that breathes real flame, light-suit choreography and large-format pyrotechnics — engineered for festivals, galas and arenas.</p>
+        <div class="hero-cta">
+          <a class="btn solid" href="#programs">Explore Programs <span class="arr">→</span></a>
+          <a class="btn ghost" href="#contact">Get a Quote</a>
+        </div>
+        <div class="scroll-cue"><i></i> Scroll to enter</div>
+      </div>
+      <div class="hero-art reveal">
+        <span class="frame"></span>
+        <img class="dragon" src="../assets/dragon_gold.png" alt="Brass mechanical dragon" />
+        <div class="dragon-caption">Fig. 01 — <span>Mechanical Dragon</span> · brass &amp; flame</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="strip" aria-hidden="true">
+  <div class="row">
+    <span><b>01</b> Dragon Fire Show</span>
+    <span><b>02</b> Classic Fire Show</span>
+    <span><b>03</b> LED Fire Show</span>
+    <span><b>04</b> LED Show</span>
+    <span><b>05</b> Stilt Walkers</span>
+    <span><b>01</b> Dragon Fire Show</span>
+    <span><b>02</b> Classic Fire Show</span>
+    <span><b>03</b> LED Fire Show</span>
+    <span><b>04</b> LED Show</span>
+    <span><b>05</b> Stilt Walkers</span>
+  </div>
+</div>
+
+<!-- PROGRAMS -->
+<section id="programs">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="idx">01 / Repertoire</div>
+        <h2>Five Programs,<br /><em>one mechanism.</em></h2>
+      </div>
+      <div class="meta">Modular formats — scaled from intimate roaming acts to full arena spectacles. Built, rehearsed and toured in-house.</div>
+    </div>
+
+    <div class="programs">
+      <article class="card signature reveal">
+        <div class="visual v1"></div>
+        <div class="body">
+          <div class="topline"><span class="no">01 — Dragon Fire Show</span><span class="badge">★ Signature</span></div>
+          <h3 class="serif">The Living Mechanical Dragon</h3>
+          <p class="desc">Our flagship: a hand-built brass dragon that moves, looms over the crowd and breathes real fire. A centerpiece headline act engineered for grand openings and finales.</p>
+          <div class="specs"><span>Fire-breathing</span><span>Animatronic</span><span>Headline act</span><span>Arena-scale</span></div>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="visual v2"></div>
+        <div class="body">
+          <div class="topline"><span class="no">02 — Classic Fire Show</span><span class="badge">Themed</span></div>
+          <h3 class="serif">Fantasy · Post-Apocalyptic · Rock</h3>
+          <p class="desc">Choreographed fire theatre with flame cubes, fire fans and fire-breathing — dressed to a chosen world and soundtrack.</p>
+          <div class="specs"><span>Flame cubes</span><span>Fire fans</span><span>Fire-breathing</span></div>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="visual v3"></div>
+        <div class="body">
+          <div class="topline"><span class="no">03 — LED Fire Show</span><span class="badge">Hybrid</span></div>
+          <h3 class="serif">Fire Meets Light-Suits</h3>
+          <p class="desc">The heat of live fire fused with programmable LED costumes — a luminous, high-contrast hybrid built for the dark.</p>
+          <div class="specs"><span>LED suits</span><span>Live fire</span><span>Synced light</span></div>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="visual v4"></div>
+        <div class="body">
+          <div class="topline"><span class="no">04 — LED Show</span><span class="badge">Indoor-ready</span></div>
+          <h3 class="serif">Pure Light, Many Costumes</h3>
+          <p class="desc">A flame-free spectacle of programmable light and a deep wardrobe — perfect for indoor halls, ballrooms and stages.</p>
+          <div class="specs"><span>No open flame</span><span>Halls &amp; arenas</span><span>Costume-rich</span></div>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="visual v5"></div>
+        <div class="body">
+          <div class="topline"><span class="no">05 — Stilt Walkers</span><span class="badge">Roaming</span></div>
+          <h3 class="serif">Towering Characters</h3>
+          <p class="desc">A vast costume catalogue brought to life on stilts — as roaming animation through a venue or as a full staged show.</p>
+          <div class="specs"><span>Roaming</span><span>Full show</span><span>Many costumes</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- EFFECTS -->
+<section class="effects-sec" id="effects">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="idx">02 / Apparatus</div>
+        <h2>Special <em>effects.</em></h2>
+      </div>
+      <div class="meta">Licensed pyrotechnics and large-format effects, operated by our own crew — layered into any program.</div>
+    </div>
+    <div class="effects">
+      <div class="chip reveal"><span class="n">E1</span><span class="t">Pyrotechnics</span></div>
+      <div class="chip reveal"><span class="n">E2</span><span class="t">Flame Cannons</span></div>
+      <div class="chip reveal"><span class="n">E3</span><span class="t">Flamethrowers</span></div>
+      <div class="chip reveal"><span class="n">E4</span><span class="t">Fire Cubes</span></div>
+      <div class="chip reveal"><span class="n">E5</span><span class="t">Paper Show</span></div>
+      <div class="chip reveal"><span class="n">E6</span><span class="t">Fire Hearts</span></div>
+      <div class="chip reveal"><span class="n">E7</span><span class="t">Confetti</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- GEOGRAPHY -->
+<section id="geo">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="idx">03 / Reach</div>
+        <h2>Touring <em>worldwide.</em></h2>
+      </div>
+      <div class="meta">A core circuit across Europe and the Gulf — and everywhere else on request.</div>
+    </div>
+    <div class="geo">
+      <div class="map reveal" aria-hidden="true">
+        <span class="ring r1"></span><span class="ring r2"></span>
+        <span class="dot pulse" style="top:36%;left:62%"></span>
+        <span class="dot" style="top:44%;left:66%"></span>
+        <span class="dot" style="top:30%;left:40%"></span>
+        <span class="dot" style="top:52%;left:58%"></span>
+        <span class="dot" style="top:48%;left:72%"></span>
+        <span class="label" style="top:22%;left:30%">EUROPE</span>
+        <span class="label" style="top:60%;left:60%">GULF</span>
+      </div>
+      <div>
+        <div class="geo-list reveal">
+          <div class="place"><i class="marker"></i><span>Europe — festivals</span></div>
+          <div class="place"><i class="marker"></i><span>UAE</span></div>
+          <div class="place"><i class="marker"></i><span>Qatar</span></div>
+          <div class="place"><i class="marker"></i><span>Saudi Arabia</span></div>
+          <div class="place"><i class="marker"></i><span>Oman</span></div>
+          <div class="place"><i class="marker"></i><span>Turkey</span></div>
+          <div class="place"><i class="marker"></i><span>Jordan</span></div>
+          <div class="place"><i class="marker"></i><span>Worldwide on request</span></div>
+        </div>
+        <p class="geo-note reveal">Full technical crew, equipment and logistics travel with the show — turnkey from load-in to finale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-sec" id="contact">
+  <div class="wrap">
+    <div class="reveal">
+      <img class="logo-big" src="../assets/Logo_final.png" alt="Steam Show" />
+      <div class="eyebrow">04 / Booking</div>
+      <h2>Let's light it up.</h2>
+      <p>Tell us the venue, the date and the scale. We'll engineer the rest — fire, light and a dragon if you dare.</p>
+      <div class="contacts">
+        <a href="mailto:hello@steamshow.example"><span class="k">Email</span>hello@steamshow.example</a>
+        <a href="#"><span class="k">Instagram</span>@steamshow</a>
+        <a href="#"><span class="k">WhatsApp · Telegram</span>+00 000 000 000</a>
+        <a href="#"><span class="k">YouTube</span>/steamshow</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <span class="brass-text">Steam Show</span>
+    <span>Fire · LED · Dragons — worldwide</span>
+    <span>© 2026 · Brass Future</span>
+  </div>
+</footer>
+
+<script>
+  // mobile nav: simple toggle to show the link list as a dropdown
+  (function(){
+    var burger=document.getElementById('burger');
+    var links=document.querySelector('nav.links');
+    if(burger){
+      burger.addEventListener('click',function(){
+        var open=links.style.display==='flex';
+        if(open){links.style.display='';}
+        else{
+          links.style.display='flex';
+          links.style.position='absolute';links.style.top='68px';links.style.right='18px';
+          links.style.flexDirection='column';links.style.gap='18px';
+          links.style.background='rgba(12,11,10,.96)';links.style.border='1px solid var(--line)';
+          links.style.padding='22px 26px';
+        }
+      });
+    }
+  })();
+
+  // scroll reveal
+  (function(){
+    var els=document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return;}
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}
+      });
+    },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(e){io.observe(e);});
+  })();
+</script>
+</body>
+</html>

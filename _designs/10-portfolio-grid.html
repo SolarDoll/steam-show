@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steam Show — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0A0B;
+    --bg-soft:#0F0F11;
+    --panel:#131316;
+    --line:rgba(255,255,255,.08);
+    --line-strong:rgba(255,255,255,.16);
+    --txt:#F4F1EA;
+    --txt-dim:#9A968D;
+    --txt-faint:#615E58;
+    --gold:#C8A24B;
+    --gold-soft:#E0C079;
+    --fire:#FF5A1F;
+    --radius:16px;
+    --maxw:1280px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--txt);
+    font-family:"Manrope",system-ui,sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+
+  /* ---------- top bar ---------- */
+  header{
+    position:sticky;top:0;z-index:60;
+    background:rgba(10,10,11,.72);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .bar{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:13px}
+  .brand img{height:38px;width:auto;filter:drop-shadow(0 2px 10px rgba(0,0,0,.5))}
+  .brand .name{font-weight:700;letter-spacing:.14em;font-size:.82rem;text-transform:uppercase}
+  .brand .name span{color:var(--gold)}
+  .nav{display:flex;align-items:center;gap:30px;font-size:.82rem;color:var(--txt-dim);font-weight:500}
+  .nav a{transition:color .2s}
+  .nav a:hover{color:var(--txt)}
+  .cta{
+    border:1px solid var(--gold);
+    color:var(--gold);
+    padding:9px 18px;border-radius:999px;
+    font-size:.78rem;font-weight:600;letter-spacing:.04em;
+    transition:all .2s;
+  }
+  .cta:hover{background:var(--gold);color:#0A0A0B}
+  @media(max-width:760px){.nav .lnk{display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;padding:74px 0 54px;overflow:hidden}
+  .hero::before{
+    content:"";position:absolute;inset:0;z-index:0;
+    background:
+      radial-gradient(680px 420px at 78% -10%, rgba(200,162,75,.16), transparent 60%),
+      radial-gradient(520px 360px at 12% 118%, rgba(255,90,31,.12), transparent 62%);
+    pointer-events:none;
+  }
+  .hero .dragon{
+    position:absolute;right:-60px;top:-30px;width:min(560px,52vw);
+    opacity:.5;mix-blend-mode:screen;z-index:0;
+    pointer-events:none;
+    filter:saturate(1.05);
+    animation:float 9s ease-in-out infinite;
+  }
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+  .hero-inner{position:relative;z-index:2;max-width:760px}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:9px;
+    font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--gold);font-weight:600;margin-bottom:22px;
+  }
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--gold)}
+  h1{
+    font-family:"Fraunces",serif;
+    font-weight:500;
+    font-size:clamp(2.6rem,6.4vw,4.6rem);
+    line-height:1.02;
+    letter-spacing:-.02em;
+  }
+  h1 .em{font-style:italic;color:var(--gold-soft)}
+  .tag{
+    margin-top:20px;font-size:clamp(1rem,2.2vw,1.22rem);
+    color:var(--txt-dim);font-weight:400;max-width:560px;
+  }
+  .tag b{color:var(--txt);font-weight:600}
+  .hero-meta{
+    display:flex;flex-wrap:wrap;gap:26px;margin-top:34px;
+    font-size:.78rem;color:var(--txt-faint);letter-spacing:.04em;
+  }
+  .hero-meta div{display:flex;flex-direction:column;gap:3px}
+  .hero-meta b{color:var(--txt);font-size:1.45rem;font-weight:700;font-family:"Fraunces",serif}
+
+  /* ---------- catalog header / filters ---------- */
+  .cat{padding:18px 0 90px}
+  .cat-head{
+    display:flex;align-items:flex-end;justify-content:space-between;
+    gap:24px;flex-wrap:wrap;
+    padding:30px 0 22px;border-top:1px solid var(--line);
+  }
+  .cat-head h2{
+    font-family:"Fraunces",serif;font-weight:500;
+    font-size:clamp(1.5rem,3vw,2rem);letter-spacing:-.01em;
+  }
+  .cat-head p{color:var(--txt-dim);font-size:.86rem;margin-top:4px}
+  .count{color:var(--txt-faint);font-size:.78rem;letter-spacing:.04em}
+  .count b{color:var(--gold)}
+
+  .filters{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 30px}
+  .chip{
+    cursor:pointer;border:1px solid var(--line-strong);
+    background:transparent;color:var(--txt-dim);
+    padding:9px 18px;border-radius:999px;
+    font-family:inherit;font-size:.8rem;font-weight:600;letter-spacing:.02em;
+    transition:all .22s ease;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:var(--txt-faint);transition:background .22s}
+  .chip:hover{border-color:var(--gold);color:var(--txt)}
+  .chip[aria-pressed="true"]{
+    background:var(--gold);border-color:var(--gold);color:#0A0A0B;
+  }
+  .chip[aria-pressed="true"] .dot{background:#0A0A0B}
+
+  /* ---------- grid ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    gap:22px;
+  }
+  .card{
+    grid-column:span 4;
+    position:relative;border-radius:var(--radius);
+    overflow:hidden;border:1px solid var(--line);
+    background:var(--panel);
+    cursor:pointer;
+    transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .3s,opacity .35s;
+    animation:rise .5s both;
+  }
+  .card.feature{grid-column:span 8}
+  .card:hover{transform:translateY(-4px);border-color:var(--line-strong)}
+  .card.hidden{display:none}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+  .thumb{
+    position:relative;aspect-ratio:4/3;
+    background-size:cover;background-position:center;
+  }
+  .card.feature .thumb{aspect-ratio:16/9}
+  .thumb::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(10,10,11,0) 30%,rgba(10,10,11,.82) 100%);
+  }
+  /* gradient placeholders */
+  .g-dragon{background-image:
+    radial-gradient(120% 90% at 80% 10%,rgba(200,162,75,.55),transparent 55%),
+    linear-gradient(135deg,#2a1505 0%,#6e2c0a 45%,#1a0d06 100%);}
+  .g-fire{background-image:
+    radial-gradient(110% 80% at 20% 20%,rgba(255,120,40,.5),transparent 55%),
+    linear-gradient(135deg,#3a0f06 0%,#a3360e 50%,#160805 100%);}
+  .g-ledfire{background-image:
+    radial-gradient(110% 90% at 80% 15%,rgba(255,90,31,.45),transparent 50%),
+    radial-gradient(100% 90% at 10% 90%,rgba(80,120,255,.5),transparent 55%),
+    linear-gradient(135deg,#1a0a2e 0%,#5a1e6e 50%,#2a0f12 100%);}
+  .g-led{background-image:
+    radial-gradient(110% 90% at 75% 20%,rgba(90,200,255,.55),transparent 55%),
+    radial-gradient(90% 90% at 15% 90%,rgba(150,90,255,.5),transparent 55%),
+    linear-gradient(135deg,#0a1430 0%,#243b8c 50%,#100a2e 100%);}
+  .g-stilts{background-image:
+    radial-gradient(110% 90% at 80% 15%,rgba(200,162,75,.5),transparent 55%),
+    radial-gradient(90% 90% at 20% 95%,rgba(120,180,140,.4),transparent 55%),
+    linear-gradient(135deg,#12241c 0%,#3d5a3a 50%,#0e1a14 100%);}
+
+  .play{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.92);
+    width:60px;height:60px;border-radius:50%;
+    background:rgba(10,10,11,.4);border:1.5px solid rgba(255,255,255,.7);
+    backdrop-filter:blur(4px);
+    display:grid;place-items:center;z-index:3;
+    transition:all .3s ease;
+  }
+  .play svg{width:20px;height:20px;margin-left:3px;fill:#fff}
+  .card:hover .play{transform:translate(-50%,-50%) scale(1);background:var(--gold);border-color:var(--gold)}
+  .card:hover .play svg{fill:#0A0A0B}
+
+  .badge{
+    position:absolute;top:14px;left:14px;z-index:3;
+    display:flex;gap:7px;flex-wrap:wrap;
+  }
+  .badge span{
+    font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;
+    padding:5px 10px;border-radius:999px;
+    background:rgba(10,10,11,.55);backdrop-filter:blur(6px);
+    border:1px solid rgba(255,255,255,.14);color:var(--txt);
+  }
+  .badge span.sig{background:var(--gold);color:#0A0A0B;border-color:var(--gold)}
+
+  .meta{position:absolute;left:18px;right:18px;bottom:16px;z-index:3}
+  .meta h3{
+    font-family:"Fraunces",serif;font-weight:500;
+    font-size:1.3rem;letter-spacing:-.01em;line-height:1.1;
+  }
+  .card.feature .meta h3{font-size:1.75rem}
+  .meta p{color:var(--txt-dim);font-size:.82rem;margin-top:5px;max-width:90%}
+  .meta .cats{margin-top:9px;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-soft);font-weight:600}
+
+  .empty{
+    grid-column:span 12;text-align:center;padding:60px 0;color:var(--txt-faint);
+    display:none;
+  }
+  .empty.show{display:block}
+
+  /* ---------- effects strip ---------- */
+  .fx{border-top:1px solid var(--line);padding:54px 0}
+  .fx h4{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--txt-faint);margin-bottom:20px}
+  .fx-list{display:flex;flex-wrap:wrap;gap:12px}
+  .fx-list span{
+    border:1px solid var(--line);border-radius:10px;
+    padding:11px 16px;font-size:.84rem;color:var(--txt-dim);
+    background:var(--bg-soft);transition:all .25s;
+  }
+  .fx-list span:hover{border-color:var(--gold);color:var(--txt);transform:translateY(-2px)}
+  .fx-list span b{color:var(--fire);font-weight:700;margin-right:2px}
+
+  /* ---------- geo ---------- */
+  .geo{border-top:1px solid var(--line);padding:54px 0}
+  .geo-grid{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .geo-grid .lbl{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--txt-faint);margin-right:8px}
+  .geo-grid a,.geo-grid em{
+    font-family:"Fraunces",serif;font-style:normal;
+    font-size:clamp(1.1rem,2.4vw,1.6rem);color:var(--txt-dim);font-weight:400;
+    transition:color .2s;
+  }
+  .geo-grid em.req{font-style:italic;color:var(--gold-soft)}
+  .geo-grid .sep{color:var(--txt-faint);font-size:1rem}
+
+  /* ---------- contact ---------- */
+  footer{border-top:1px solid var(--line);background:var(--bg-soft);padding:64px 0 40px}
+  .foot{display:grid;grid-template-columns:1.3fr 1fr;gap:40px}
+  .foot h3{font-family:"Fraunces",serif;font-weight:500;font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.05;letter-spacing:-.01em}
+  .foot h3 .em{font-style:italic;color:var(--gold-soft)}
+  .foot p{color:var(--txt-dim);margin-top:14px;max-width:380px;font-size:.92rem}
+  .contacts{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-content:start}
+  .contacts a{
+    border:1px solid var(--line);border-radius:12px;padding:16px 18px;
+    background:var(--panel);transition:all .25s;
+  }
+  .contacts a:hover{border-color:var(--gold);transform:translateY(-2px)}
+  .contacts .k{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--txt-faint)}
+  .contacts .v{margin-top:5px;font-weight:600;font-size:.95rem;color:var(--txt)}
+  .copy{
+    margin-top:54px;padding-top:22px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    font-size:.74rem;color:var(--txt-faint);letter-spacing:.04em;
+  }
+
+  /* ---------- lightbox ---------- */
+  .lb{
+    position:fixed;inset:0;z-index:200;
+    background:rgba(6,6,7,.86);backdrop-filter:blur(10px);
+    display:none;align-items:center;justify-content:center;padding:24px;
+  }
+  .lb.open{display:flex}
+  .lb-box{
+    width:min(960px,100%);background:var(--panel);
+    border:1px solid var(--line-strong);border-radius:18px;overflow:hidden;
+    box-shadow:0 40px 120px rgba(0,0,0,.6);
+    animation:pop .35s cubic-bezier(.2,.7,.2,1) both;
+  }
+  @keyframes pop{from{opacity:0;transform:scale(.96) translateY(10px)}to{opacity:1;transform:none}}
+  .lb-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--line)}
+  .lb-head h3{font-family:"Fraunces",serif;font-weight:500;font-size:1.3rem}
+  .lb-head .cats{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-soft);font-weight:600;margin-top:3px}
+  .lb-close{
+    background:none;border:1px solid var(--line-strong);color:var(--txt-dim);
+    width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1.1rem;
+    transition:all .2s;display:grid;place-items:center;flex-shrink:0;
+  }
+  .lb-close:hover{border-color:var(--gold);color:var(--gold)}
+  .lb-video{
+    position:relative;aspect-ratio:16/9;
+    display:grid;place-items:center;
+    background-size:cover;background-position:center;
+  }
+  .lb-video::after{content:"";position:absolute;inset:0;background:rgba(10,10,11,.6)}
+  .lb-soon{position:relative;z-index:2;text-align:center}
+  .lb-soon .ic{
+    width:64px;height:64px;border-radius:50%;margin:0 auto 16px;
+    border:1.5px solid var(--gold);display:grid;place-items:center;
+  }
+  .lb-soon .ic svg{width:24px;height:24px;fill:var(--gold);margin-left:3px}
+  .lb-soon b{display:block;font-family:"Fraunces",serif;font-size:1.4rem;font-weight:500}
+  .lb-soon span{display:block;color:var(--txt-dim);font-size:.85rem;margin-top:6px}
+
+  /* ---------- responsive ---------- */
+  @media(max-width:980px){
+    .card{grid-column:span 6}
+    .card.feature{grid-column:span 12}
+    .foot{grid-template-columns:1fr}
+  }
+  @media(max-width:620px){
+    .wrap{padding:0 18px}
+    .card,.card.feature{grid-column:span 12}
+    .contacts{grid-template-columns:1fr}
+    .hero .dragon{opacity:.32;width:80vw;right:-30px}
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;scroll-behavior:auto!important;transition:none!important}
+    .hero .dragon{animation:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#top">
+      <img src="../assets/Logo_final.png" alt="Steam Show">
+      <span class="name">Steam<span>·</span>Show</span>
+    </a>
+    <nav class="nav">
+      <a class="lnk" href="#catalog">Programs</a>
+      <a class="lnk" href="#effects">Effects</a>
+      <a class="lnk" href="#geo">Where</a>
+      <a class="cta" href="#contact">Book the show</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <img class="dragon" src="../assets/dragon_gold.png" alt="" aria-hidden="true">
+    <div class="wrap hero-inner">
+      <span class="eyebrow">Show catalog · 2026</span>
+      <h1>Pick a show.<br>Press <span class="em">play</span>.</h1>
+      <p class="tag"><b>Fire · LED · Dragons — worldwide.</b> A clean catalog of every program and costume we tour. Filter, preview, and send straight to your client.</p>
+      <div class="hero-meta">
+        <div><b>5</b><span>signature programs</span></div>
+        <div><b>7+</b><span>special effects</span></div>
+        <div><b>GCC</b><span>+ Europe festivals</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATALOG -->
+  <section class="cat" id="catalog">
+    <div class="wrap">
+      <div class="cat-head">
+        <div>
+          <h2>The Programs</h2>
+          <p>Every act, ready to book. Tap a card to preview.</p>
+        </div>
+        <div class="count">Showing <b id="shown">5</b> of 5</div>
+      </div>
+
+      <div class="filters" role="group" aria-label="Filter programs">
+        <button class="chip" data-filter="all" aria-pressed="true"><span class="dot"></span>All</button>
+        <button class="chip" data-filter="dragon" aria-pressed="false"><span class="dot"></span>Dragon</button>
+        <button class="chip" data-filter="fire" aria-pressed="false"><span class="dot"></span>Fire</button>
+        <button class="chip" data-filter="led" aria-pressed="false"><span class="dot"></span>LED</button>
+        <button class="chip" data-filter="stilts" aria-pressed="false"><span class="dot"></span>Stilt walkers</button>
+      </div>
+
+      <div class="grid" id="grid">
+
+        <!-- Dragon Fire Show — feature -->
+        <article class="card feature" data-cats="dragon fire"
+          data-title="Dragon Fire Show" data-sub="Our signature: a living mechanical dragon that walks, roars and breathes real fire."
+          data-tags="Dragon · Fire">
+          <div class="thumb g-dragon">
+            <div class="badge"><span class="sig">Signature</span><span>Dragon</span></div>
+            <button class="play" aria-label="Preview"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+            <div class="meta">
+              <h3>Dragon Fire Show</h3>
+              <p>A living mechanical dragon that walks, roars and breathes real fire — the centerpiece of any opening.</p>
+              <div class="cats">Dragon · Fire</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Classic Fire Show -->
+        <article class="card" data-cats="fire"
+          data-title="Classic Fire Show" data-sub="Fantasy, post-apocalyptic or rock — flame cubes, fire fans and fire-breathing."
+          data-tags="Fire">
+          <div class="thumb g-fire">
+            <div class="badge"><span>Fire</span></div>
+            <button class="play" aria-label="Preview"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+            <div class="meta">
+              <h3>Classic Fire Show</h3>
+              <p>Fantasy, post-apocalyptic or rock — flame cubes, fans &amp; fire-breathing.</p>
+              <div class="cats">Fire</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- LED Fire Show -->
+        <article class="card" data-cats="fire led"
+          data-title="LED Fire Show" data-sub="Pyro choreography in glowing LED costumes — the best of both worlds."
+          data-tags="Fire · LED">
+          <div class="thumb g-ledfire">
+            <div class="badge"><span>Fire</span><span>LED</span></div>
+            <button class="play" aria-label="Preview"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+            <div class="meta">
+              <h3>LED Fire Show</h3>
+              <p>Pyro choreography performed in glowing LED costumes.</p>
+              <div class="cats">Fire · LED</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- LED Show -->
+        <article class="card" data-cats="led"
+          data-title="LED Show" data-sub="Pure light and a deep costume wardrobe — built for indoor halls and galas."
+          data-tags="LED">
+          <div class="thumb g-led">
+            <div class="badge"><span>LED</span><span>Indoor</span></div>
+            <button class="play" aria-label="Preview"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+            <div class="meta">
+              <h3>LED Show</h3>
+              <p>Pure light, many costumes — perfect for indoor halls &amp; galas.</p>
+              <div class="cats">LED</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Stilt Walkers -->
+        <article class="card" data-cats="stilts"
+          data-title="Stilt Walkers" data-sub="Towering characters — roaming animation or a full staged performance."
+          data-tags="Stilt walkers">
+          <div class="thumb g-stilts">
+            <div class="badge"><span>Stilts</span><span>Roaming</span></div>
+            <button class="play" aria-label="Preview"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+            <div class="meta">
+              <h3>Stilt Walkers</h3>
+              <p>Towering characters — roaming animation or a full staged show.</p>
+              <div class="cats">Stilt walkers</div>
+            </div>
+          </div>
+        </article>
+
+        <div class="empty" id="empty">No programs in this category.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EFFECTS -->
+  <section class="fx" id="effects">
+    <div class="wrap">
+      <h4>Add-on special effects</h4>
+      <div class="fx-list">
+        <span><b>+</b>Pyrotechnics</span>
+        <span><b>+</b>Flame cannons</span>
+        <span><b>+</b>Flamethrowers</span>
+        <span><b>+</b>Fire cubes</span>
+        <span><b>+</b>Paper show</span>
+        <span><b>+</b>Fire hearts</span>
+        <span><b>+</b>Confetti</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- GEO -->
+  <section class="geo" id="geo">
+    <div class="wrap">
+      <div class="geo-grid">
+        <span class="lbl">Where we play</span>
+        <em>Europe festivals</em><span class="sep">·</span>
+        <em>UAE</em><span class="sep">·</span>
+        <em>Qatar</em><span class="sep">·</span>
+        <em>Saudi Arabia</em><span class="sep">·</span>
+        <em>Oman</em><span class="sep">·</span>
+        <em>Turkey</em><span class="sep">·</span>
+        <em>Jordan</em><span class="sep">·</span>
+        <em class="req">worldwide on request</em>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- CONTACT -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <h3>Found the show?<br><span class="em">Let's book it.</span></h3>
+        <p>Send us the date, venue and country — we'll come back with a tailored program and quote.</p>
+      </div>
+      <div class="contacts">
+        <a href="mailto:hello@steamshow.example"><div class="k">Email</div><div class="v">hello@steamshow.example</div></a>
+        <a href="#"><div class="k">Instagram</div><div class="v">@steam.show</div></a>
+        <a href="#"><div class="k">WhatsApp / Telegram</div><div class="v">+000 000 00 00</div></a>
+        <a href="#"><div class="k">YouTube</div><div class="v">Steam Show — reels</div></a>
+      </div>
+    </div>
+    <div class="copy">
+      <span>© 2026 Steam Show — Fire · LED · Dragons</span>
+      <span>Worldwide on request</span>
+    </div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Show preview">
+  <div class="lb-box">
+    <div class="lb-head">
+      <div>
+        <h3 id="lb-title">Show</h3>
+        <div class="cats" id="lb-cats"></div>
+      </div>
+      <button class="lb-close" id="lb-close" aria-label="Close">✕</button>
+    </div>
+    <div class="lb-video g-dragon" id="lb-video">
+      <div class="lb-soon">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <b>Video coming soon</b>
+        <span id="lb-sub">Reel in production — ready to embed shortly.</span>
+      </div>
+      <!--
+        READY FOR YOUTUBE: replace .lb-soon with:
+        <iframe width="100%" height="100%" style="position:absolute;inset:0;border:0;z-index:3"
+          src="https://www.youtube-nocookie.com/embed/VIDEO_ID?rel=0"
+          title="YouTube video" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
+          allowfullscreen></iframe>
+      -->
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // ---- filters ----
+  var chips=document.querySelectorAll('.chip');
+  var cards=document.querySelectorAll('#grid .card');
+  var shown=document.getElementById('shown');
+  var empty=document.getElementById('empty');
+
+  function apply(filter){
+    var n=0;
+    cards.forEach(function(card){
+      var cats=card.getAttribute('data-cats').split(' ');
+      var match=(filter==='all')||cats.indexOf(filter)>-1;
+      card.classList.toggle('hidden',!match);
+      if(match){card.style.animation='none';void card.offsetWidth;card.style.animation='';n++;}
+    });
+    shown.textContent=n;
+    empty.classList.toggle('show',n===0);
+  }
+
+  chips.forEach(function(chip){
+    chip.addEventListener('click',function(){
+      chips.forEach(function(c){c.setAttribute('aria-pressed','false');});
+      chip.setAttribute('aria-pressed','true');
+      apply(chip.getAttribute('data-filter'));
+    });
+  });
+
+  // ---- lightbox ----
+  var lb=document.getElementById('lb');
+  var lbTitle=document.getElementById('lb-title');
+  var lbCats=document.getElementById('lb-cats');
+  var lbSub=document.getElementById('lb-sub');
+  var lbVideo=document.getElementById('lb-video');
+  var lbClose=document.getElementById('lb-close');
+  var gradMap={'dragon fire':'g-dragon','fire':'g-fire','fire led':'g-ledfire','led':'g-led','stilts':'g-stilts'};
+
+  function open(card){
+    lbTitle.textContent=card.getAttribute('data-title');
+    lbCats.textContent=card.getAttribute('data-tags');
+    lbSub.textContent='"'+card.getAttribute('data-sub')+'"';
+    var key=card.getAttribute('data-cats');
+    lbVideo.className='lb-video '+(gradMap[key]||'g-fire');
+    lb.classList.add('open');
+    document.body.style.overflow='hidden';
+    lbClose.focus();
+  }
+  function close(){lb.classList.remove('open');document.body.style.overflow='';}
+
+  cards.forEach(function(card){
+    card.addEventListener('click',function(){open(card);});
+  });
+  lbClose.addEventListener('click',close);
+  lb.addEventListener('click',function(e){if(e.target===lb)close();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&lb.classList.contains('open'))close();});
+})();
+</script>
+
+</body>
+</html>
