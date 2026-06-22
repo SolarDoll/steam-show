@@ -1,0 +1,411 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Steam Show — Noir Editorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0B0B;
+    --panel:#141414;
+    --text:#F4F2ED;
+    --accent:#FF3D00;
+    --line:rgba(244,242,237,.16);
+    --muted:rgba(244,242,237,.55);
+    --grotesk:'Archivo',-apple-system,Helvetica,Arial,sans-serif;
+    --serif:'Cormorant Garamond',Georgia,serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;}
+  body{
+    background:var(--bg);color:var(--text);font-family:var(--grotesk);
+    overflow-x:hidden;line-height:1.3;
+  }
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--accent);color:#0B0B0B;}
+  .wrap{max-width:1500px;margin:0 auto;padding:0 clamp(18px,4.5vw,64px);}
+  .micro{font-size:11px;letter-spacing:.26em;text-transform:uppercase;font-weight:600;}
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(11,11,11,.72);backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:70px;}
+  .brand{display:flex;align-items:center;gap:13px;}
+  .brand img{height:34px;width:auto;display:block;filter:drop-shadow(0 0 14px rgba(255,61,0,.35));}
+  .brand .bn{font-weight:800;letter-spacing:.16em;font-size:13px;text-transform:uppercase;}
+  .brand .bn b{color:var(--accent);}
+  .menu{display:flex;gap:34px;align-items:center;}
+  .menu a{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;color:var(--muted);transition:color .25s;}
+  .menu a:hover{color:var(--text);}
+  .menu .reel{
+    color:var(--text);border:1px solid var(--line);border-radius:100px;
+    padding:9px 18px;display:inline-flex;align-items:center;gap:8px;transition:.25s;
+  }
+  .menu .reel::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);}
+  .menu .reel:hover{background:var(--accent);color:#0B0B0B;border-color:var(--accent);}
+  .menu .reel:hover::before{background:#0B0B0B;box-shadow:none;}
+  .burger{display:none;background:none;border:none;color:var(--text);font-size:22px;cursor:pointer;}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:148px 0 70px;position:relative;}
+  .hero-top{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;color:var(--muted);margin-bottom:clamp(28px,5vw,64px);}
+  .hero-top .micro{color:var(--accent);}
+  .hero-grid{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;}
+  .manifest{
+    font-weight:800;letter-spacing:-.03em;line-height:.86;
+    font-size:clamp(56px,13.5vw,210px);text-transform:uppercase;
+  }
+  .manifest .em{
+    font-family:var(--serif);font-weight:500;font-style:italic;
+    text-transform:none;letter-spacing:-.01em;color:var(--accent);
+    display:inline-block;
+  }
+  .manifest .line2{display:block;}
+  .manifest .outline{
+    -webkit-text-stroke:1.5px var(--text);color:transparent;
+  }
+  .hero-side{max-width:320px;padding-bottom:14px;}
+  .hero-side p{font-family:var(--serif);font-size:clamp(19px,2vw,25px);line-height:1.32;color:rgba(244,242,237,.85);}
+  .hero-side .tag{margin-top:18px;color:var(--muted);font-size:13px;line-height:1.7;}
+  .scroll-hint{margin-top:clamp(30px,5vw,58px);display:flex;align-items:center;gap:14px;color:var(--muted);}
+  .scroll-hint .bar{height:1px;width:60px;background:var(--accent);}
+
+  /* ---------- INDEX (the showpiece) ---------- */
+  .idx-head{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding-top:22px;margin-top:24px;flex-wrap:wrap;gap:12px;}
+  .idx-head h2{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(28px,4vw,46px);}
+  .idx-head .micro{color:var(--muted);}
+
+  .index{position:relative;margin-top:8px;}
+  .row{
+    position:relative;display:grid;grid-template-columns:auto 1fr auto;align-items:center;
+    gap:clamp(16px,3vw,48px);border-bottom:1px solid var(--line);
+    padding:clamp(20px,3.4vw,40px) 4px;cursor:pointer;z-index:2;
+    transition:padding-left .45s cubic-bezier(.2,.8,.2,1);
+  }
+  .row .num{
+    font-size:clamp(13px,1.1vw,15px);font-weight:600;letter-spacing:.1em;
+    color:var(--muted);transition:color .35s;font-variant-numeric:tabular-nums;
+  }
+  .row .name{
+    font-weight:800;letter-spacing:-.025em;line-height:.95;text-transform:uppercase;
+    font-size:clamp(30px,6.6vw,92px);transition:color .35s,transform .45s cubic-bezier(.2,.8,.2,1);
+    display:flex;align-items:baseline;gap:.4em;flex-wrap:wrap;
+  }
+  .row .name .kind{
+    font-family:var(--serif);font-style:italic;font-weight:500;text-transform:none;
+    font-size:clamp(15px,1.5vw,24px);color:var(--muted);letter-spacing:0;white-space:nowrap;
+  }
+  .row .go{
+    font-family:var(--serif);font-style:italic;font-size:clamp(15px,1.4vw,21px);
+    color:var(--muted);white-space:nowrap;opacity:0;transform:translateX(-10px);
+    transition:.4s;display:flex;align-items:center;gap:9px;
+  }
+  .row .go .arr{
+    width:34px;height:34px;border:1px solid var(--accent);border-radius:50%;
+    display:grid;place-items:center;color:var(--accent);font-style:normal;font-size:15px;
+  }
+  /* hover state */
+  .index:hover .row{opacity:.32;}
+  .index .row:hover{opacity:1;padding-left:clamp(14px,2vw,34px);}
+  .row:hover .num{color:var(--accent);}
+  .row:hover .name{color:var(--text);}
+  .row:hover .name .kind{color:var(--accent);}
+  .row:hover .go{opacity:1;transform:none;}
+  .row::before{
+    content:"";position:absolute;left:0;top:50%;width:0;height:2px;background:var(--accent);
+    transform:translateY(-50%);transition:width .4s cubic-bezier(.2,.8,.2,1);
+  }
+  .row:hover::before{width:clamp(8px,1.4vw,22px);}
+
+  /* floating image preview that follows the cursor */
+  .preview{
+    position:fixed;top:0;left:0;width:clamp(240px,24vw,400px);aspect-ratio:4/5;
+    border-radius:6px;overflow:hidden;pointer-events:none;z-index:90;
+    opacity:0;transform:translate(-50%,-50%) scale(.92);
+    transition:opacity .4s ease,transform .4s cubic-bezier(.2,.8,.2,1);
+    box-shadow:0 30px 80px rgba(0,0,0,.6);will-change:transform;
+  }
+  .preview.on{opacity:1;transform:translate(-50%,-50%) scale(1);}
+  .preview img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    opacity:0;transition:opacity .45s ease;
+  }
+  .preview img.show{opacity:1;}
+  .preview::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 55%,rgba(11,11,11,.55));
+    mix-blend-mode:normal;
+  }
+  .preview .pcap{
+    position:absolute;left:14px;bottom:12px;z-index:2;
+    font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;
+    color:#fff;
+  }
+  .preview .pcap b{color:var(--accent);}
+
+  /* ---------- EFFECTS strip ---------- */
+  .strip{border-top:1px solid var(--line);margin-top:24px;padding:clamp(34px,5vw,60px) 0;}
+  .strip .lbl{color:var(--accent);margin-bottom:24px;}
+  .effects{display:flex;flex-wrap:wrap;gap:12px 14px;align-items:center;}
+  .chip{
+    border:1px solid var(--line);border-radius:100px;padding:11px 20px;
+    font-size:clamp(13px,1.4vw,17px);font-weight:500;letter-spacing:.01em;
+    display:inline-flex;align-items:center;gap:10px;transition:.25s;
+  }
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:var(--muted);}
+  .chip.req .dot{background:var(--accent);box-shadow:0 0 8px var(--accent);}
+  .chip:hover{border-color:var(--text);}
+  .chip .meta{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+
+  /* ---------- WORLDWIDE marquee ---------- */
+  .world{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:clamp(26px,4vw,46px) 0;}
+  .ticker{display:flex;white-space:nowrap;width:max-content;animation:slide 34s linear infinite;}
+  .ticker .seg{
+    display:flex;align-items:center;gap:clamp(20px,3vw,46px);padding-right:clamp(20px,3vw,46px);
+    font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(30px,6vw,72px);
+  }
+  .ticker .seg span:nth-child(even){color:var(--accent);font-style:normal;font-family:var(--grotesk);font-weight:800;text-transform:uppercase;letter-spacing:-.01em;}
+  .ticker .dotsep{width:9px;height:9px;border-radius:50%;background:var(--text);display:inline-block;opacity:.4;}
+  @keyframes slide{to{transform:translateX(-50%);}}
+  .world:hover .ticker{animation-play-state:paused;}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:clamp(54px,8vw,110px) 0 50px;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:50px;align-items:start;}
+  .foot-cta{font-weight:800;letter-spacing:-.03em;line-height:.9;text-transform:uppercase;font-size:clamp(40px,8vw,118px);}
+  .foot-cta .em{font-family:var(--serif);font-style:italic;font-weight:500;text-transform:none;color:var(--accent);letter-spacing:-.01em;}
+  .contacts{display:flex;flex-direction:column;gap:2px;padding-top:10px;}
+  .contacts a{
+    display:flex;justify-content:space-between;align-items:center;gap:20px;
+    border-top:1px solid var(--line);padding:17px 2px;transition:.25s;
+  }
+  .contacts a:last-child{border-bottom:1px solid var(--line);}
+  .contacts a .k{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
+  .contacts a .v{font-family:var(--serif);font-size:clamp(19px,2.2vw,27px);}
+  .contacts a:hover{padding-left:14px;color:var(--accent);}
+  .contacts a:hover .v{color:var(--accent);}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-top:clamp(40px,6vw,80px);color:var(--muted);}
+  .foot-bottom .yt{color:var(--text);border-bottom:1px solid var(--accent);padding-bottom:2px;}
+  .foot-bottom .yt:hover{color:var(--accent);}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:980px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-side{max-width:none;}
+    .foot-grid{grid-template-columns:1fr;gap:36px;}
+    .row .go{display:none;}
+    .preview{display:none;}
+  }
+  @media(max-width:720px){
+    .menu{display:none;}
+    .burger{display:block;}
+    .menu.open{
+      display:flex;flex-direction:column;position:fixed;inset:70px 0 auto 0;
+      background:var(--bg);border-bottom:1px solid var(--line);padding:26px clamp(18px,4.5vw,64px);gap:22px;
+    }
+    .menu.open .reel{align-self:flex-start;}
+    .row{grid-template-columns:auto 1fr;gap:14px;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    *,*::before,*::after{transition:none!important;animation:none!important;}
+    .preview{transition:opacity .2s!important;}
+  }
+</style>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Steam Show">
+      <img src="../assets/dragon-light.png" alt="Steam Show">
+      <span class="bn">Steam<b>·</b>Show</span>
+    </a>
+    <nav class="menu" id="menu">
+      <a href="#index">Programs</a>
+      <a href="#effects">Effects</a>
+      <a href="#reach">Worldwide</a>
+      <a href="#contact">Contact</a>
+      <a class="reel" href="#" id="reelBtn">Watch showreel</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-top">
+      <div class="micro">Steam Show — Performance Collective</div>
+      <div class="micro">Est. for the stage · Issue 05</div>
+    </div>
+
+    <div class="hero-grid">
+      <h1 class="manifest">
+        <span class="line2">We set</span>
+        <span class="line2"><span class="em">the night</span></span>
+        <span class="line2 outline">on fire</span>
+      </h1>
+      <div class="hero-side">
+        <p>A collective of fire, light and towering giants — engineered for galas, festivals and main stages.</p>
+        <div class="tag">Dragon fire · LED · stilt walkers<br>Five flagship programs, one company.</div>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <span class="bar"></span>
+      <span class="micro">Scroll — the index of shows</span>
+    </div>
+  </section>
+
+  <!-- INDEX -->
+  <section id="index">
+    <div class="idx-head">
+      <h2>The Programs</h2>
+      <span class="micro">Index 01 — 05 · hover to preview</span>
+    </div>
+    <div class="index" id="indexList"></div>
+  </section>
+
+  <!-- EFFECTS -->
+  <section class="strip" id="effects">
+    <div class="micro lbl">Special effects</div>
+    <div class="effects">
+      <span class="chip req"><span class="dot"></span>Flamethrowers<span class="meta">usually included</span></span>
+      <span class="chip req"><span class="dot"></span>Fire cubes<span class="meta">usually included</span></span>
+      <span class="chip req"><span class="dot"></span>Pyrotechnics<span class="meta">usually included</span></span>
+      <span class="chip"><span class="dot"></span>Cold sparks<span class="meta">on request</span></span>
+      <span class="chip"><span class="dot"></span>CO₂ jets<span class="meta">on request</span></span>
+      <span class="chip"><span class="dot"></span>Confetti / streamers<span class="meta">on request</span></span>
+      <span class="chip"><span class="dot"></span>Heavy fog<span class="meta">on request</span></span>
+    </div>
+  </section>
+
+  <!-- WORLDWIDE -->
+  <section class="world" id="reach">
+    <div class="ticker" id="ticker"></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contact">
+    <div class="foot-grid">
+      <div class="foot-cta">
+        Let's<br><span class="em">light up</span><br>your stage
+      </div>
+      <div class="contacts">
+        <a href="https://instagram.com/steamshow.by" target="_blank" rel="noopener"><span class="k">Instagram</span><span class="v">@steamshow.by</span></a>
+        <a href="mailto:hello@steamshow.by"><span class="k">Email</span><span class="v">hello@steamshow.by</span></a>
+        <a href="https://wa.me/" target="_blank" rel="noopener"><span class="k">WhatsApp</span><span class="v">Message us</span></a>
+        <a href="https://t.me/steamshow" target="_blank" rel="noopener"><span class="k">Telegram</span><span class="v">@steamshow</span></a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span class="micro">© Steam Show — Europe · The Gulf · Middle East</span>
+      <a class="yt" href="https://www.youtube.com/@SteamShowby" target="_blank" rel="noopener">YouTube — @SteamShowby ↗</a>
+    </div>
+  </footer>
+
+</main>
+
+<!-- floating preview -->
+<div class="preview" id="preview" aria-hidden="true">
+  <img id="previewImg" alt="">
+  <div class="pcap" id="previewCap"></div>
+</div>
+
+<script src="media.js"></script>
+<script src="lib.js"></script>
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  /* ---- build editorial index from SS.ORDER ---- */
+  var list = document.getElementById('indexList');
+  SS.ORDER.forEach(function(id, i){
+    var s = SS.SHOWS[id];
+    var num = String(i+1).padStart(2,'0');
+    var row = document.createElement('a');
+    row.className = 'row';
+    row.href = '#';
+    row.setAttribute('data-id', id);
+    row.setAttribute('data-cover', SS.cover(id));
+    row.innerHTML =
+      '<span class="num">'+num+'</span>'+
+      '<span class="name">'+s.name+'<span class="kind">'+s.type+'</span></span>'+
+      '<span class="go">View program <span class="arr">↗</span></span>';
+    row.addEventListener('click', function(e){ e.preventDefault(); SS.openProgram(id); });
+    list.appendChild(row);
+  });
+
+  /* ---- floating image-follows-cursor preview ---- */
+  var preview = document.getElementById('preview');
+  var pImg = document.getElementById('previewImg');
+  var pCap = document.getElementById('previewCap');
+  var tx=0, ty=0, cx=0, cy=0, raf=null, active=false;
+
+  function loop(){
+    cx += (tx-cx)*0.16; cy += (ty-cy)*0.16;
+    preview.style.left = cx+'px';
+    preview.style.top = cy+'px';
+    if(active || Math.abs(tx-cx)>0.5 || Math.abs(ty-cy)>0.5){
+      raf = requestAnimationFrame(loop);
+    } else { raf=null; }
+  }
+
+  var rows = list.querySelectorAll('.row');
+  rows.forEach(function(row){
+    row.addEventListener('mouseenter', function(){
+      var src = row.getAttribute('data-cover');
+      var name = row.querySelector('.name').firstChild.textContent;
+      var num = row.querySelector('.num').textContent;
+      if(src){
+        pImg.classList.remove('show');
+        pImg.onload = function(){ pImg.classList.add('show'); };
+        pImg.src = src;
+      }
+      pCap.innerHTML = '<b>'+num+'</b> &nbsp; '+name;
+      preview.classList.add('on');
+      active = true;
+      if(!raf && !reduce) raf = requestAnimationFrame(loop);
+    });
+    row.addEventListener('mouseleave', function(){
+      preview.classList.remove('on');
+      active = false;
+    });
+  });
+
+  window.addEventListener('mousemove', function(e){
+    tx = e.clientX; ty = e.clientY;
+    if(reduce){ preview.style.left=tx+'px'; preview.style.top=ty+'px'; return; }
+    if(active && !raf) raf = requestAnimationFrame(loop);
+  }, {passive:true});
+
+  /* ---- showreel ---- */
+  function reel(e){ if(e)e.preventDefault(); SS.openReel(); }
+  document.getElementById('reelBtn').addEventListener('click', reel);
+
+  /* ---- worldwide ticker (duplicated for seamless loop) ---- */
+  var pieces = ['Europe','·','The Gulf','·','Middle East','·','20+ countries','·'];
+  var ticker = document.getElementById('ticker');
+  function seg(){
+    var d = document.createElement('div');
+    d.className = 'seg';
+    d.innerHTML = pieces.map(function(p){
+      return p==='·' ? '<span class="dotsep"></span>' : '<span>'+p+'</span>';
+    }).join('');
+    return d;
+  }
+  ticker.appendChild(seg());
+  ticker.appendChild(seg());
+
+  /* ---- mobile menu ---- */
+  var burger = document.getElementById('burger');
+  var menu = document.getElementById('menu');
+  burger.addEventListener('click', function(){ menu.classList.toggle('open'); });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ menu.classList.remove('open'); });
+  });
+})();
+</script>

@@ -1,0 +1,327 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Steam Show — Fire, Light & Giants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    /* used by lib.js overlay too */
+    --bg:#F7F1E6;
+    --panel:#FFFFFF;
+    --text:#141014;
+    --accent:#FF2E6E;
+    --line:#141014;
+    /* superbloom palette */
+    --cream:#F7F1E6;
+    --ink:#141014;
+    --magenta:#FF2E6E;
+    --blue:#2C6BFF;
+    --lime:#B6FF2A;
+    --orange:#FF6A1F;
+    --yellow:#FFD23E;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Archivo',system-ui,sans-serif;
+    font-weight:600;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .display{font-family:'Anton',Impact,sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.005em;line-height:.86;}
+  a{color:inherit;text-decoration:none;}
+  img{display:block;max-width:100%;}
+  .wrap{max-width:1320px;margin:0 auto;padding:0 clamp(16px,4vw,46px);}
+
+  /* ---------- HEADER ---------- */
+  header{position:sticky;top:0;z-index:100;background:var(--cream);border-bottom:3px solid var(--ink);}
+  .bar{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px clamp(16px,4vw,46px);max-width:1320px;margin:0 auto;}
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand img{height:38px;width:auto;}
+  .brand b{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;font-size:23px;letter-spacing:.02em;}
+  .navlinks{display:flex;gap:8px;align-items:center;}
+  .navlinks a{font-weight:800;font-size:12.5px;text-transform:uppercase;letter-spacing:.08em;padding:8px 12px;}
+  .navlinks a:hover{color:var(--magenta);}
+  .btn-reel{font-family:'Archivo';font-weight:900;font-size:13px;text-transform:uppercase;letter-spacing:.06em;
+    background:var(--ink);color:var(--cream);border:none;cursor:pointer;padding:11px 18px;border-radius:100px;
+    display:inline-flex;align-items:center;gap:8px;transition:background .2s,color .2s,transform .15s;}
+  .btn-reel:hover{background:var(--magenta);color:#fff;transform:translateY(-1px);}
+  .btn-reel .dot{width:9px;height:9px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 0 var(--lime);animation:pulse 1.8s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(182,255,42,.7);}70%{box-shadow:0 0 0 8px rgba(182,255,42,0);}100%{box-shadow:0 0 0 0 rgba(182,255,42,0);}}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:clamp(26px,5vw,60px) 0 0;position:relative;}
+  .hero-top{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:18px;}
+  .pill{font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.1em;padding:8px 14px;border-radius:100px;border:2.5px solid var(--ink);}
+  .pill.fill-mag{background:var(--magenta);color:#fff;border-color:var(--magenta);}
+  .pill.fill-blu{background:var(--blue);color:#fff;border-color:var(--blue);}
+  .hero h1{font-family:'Anton',sans-serif;text-transform:uppercase;line-height:.82;letter-spacing:.004em;
+    font-size:clamp(58px,15.5vw,232px);}
+  .hero h1 .l1{color:var(--ink);}
+  .hero h1 .l2{color:var(--magenta);}
+  .hero h1 .l3{color:var(--blue);-webkit-text-stroke:0;}
+  .hero h1 .l3 em{font-style:normal;color:transparent;-webkit-text-stroke:2.5px var(--ink);}
+  .hero-sub{display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px;align-items:flex-end;margin-top:24px;}
+  .hero-sub p{max-width:46ch;font-size:clamp(15px,1.5vw,18px);font-weight:600;line-height:1.4;}
+  .hero-sub p b{font-weight:900;}
+  .scrollcue{font-weight:900;font-size:12px;text-transform:uppercase;letter-spacing:.14em;display:flex;align-items:center;gap:8px;white-space:nowrap;}
+  .scrollcue .arr{display:inline-block;animation:bob 1.6s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(5px);}}
+
+  /* ---------- MARQUEE ---------- */
+  .marquee{margin-top:clamp(28px,4vw,52px);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);overflow:hidden;background:var(--cream);}
+  .mq-track{display:flex;width:max-content;animation:scroll 26s linear infinite;}
+  .mq-track .chip{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:clamp(28px,4.6vw,58px);
+    padding:14px clamp(20px,3vw,40px);white-space:nowrap;line-height:1;display:flex;align-items:center;gap:clamp(20px,3vw,40px);}
+  .chip .star{font-family:'Archivo';font-weight:900;font-size:.42em;}
+  .c-mag{background:var(--magenta);color:#fff;}
+  .c-blu{background:var(--blue);color:#fff;}
+  .c-lim{background:var(--lime);color:var(--ink);}
+  .c-org{background:var(--orange);color:#fff;}
+  .c-yel{background:var(--yellow);color:var(--ink);}
+  @keyframes scroll{to{transform:translateX(-50%);}}
+
+  /* ---------- SHOWS ---------- */
+  .shows{padding:clamp(48px,7vw,92px) 0 clamp(30px,4vw,56px);}
+  .sec-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:clamp(30px,4vw,52px);}
+  .sec-head h2{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:clamp(40px,8vw,108px);line-height:.84;}
+  .sec-head .num{font-weight:900;font-size:13px;letter-spacing:.16em;text-transform:uppercase;border:2.5px solid var(--ink);border-radius:100px;padding:8px 14px;}
+  .sec-head p{max-width:34ch;font-size:15px;font-weight:600;line-height:1.45;}
+
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(16px,2vw,26px);}
+  .card{position:relative;cursor:pointer;border:3px solid var(--ink);border-radius:22px;overflow:hidden;background:var(--card-bg);
+    transform:rotate(var(--rot));transition:transform .35s cubic-bezier(.2,.8,.25,1),box-shadow .35s;
+    box-shadow:8px 8px 0 var(--ink);}
+  .card:hover,.card:focus-visible{transform:rotate(0deg) translateY(-6px);box-shadow:14px 14px 0 var(--card-bg);outline:none;}
+  .card .ph{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--card-bg);}
+  .card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .55s ease, filter .35s;filter:saturate(1.05);}
+  .card:hover .ph img{transform:scale(1.07);}
+  .card .tag{position:absolute;top:14px;left:14px;z-index:2;font-weight:900;font-size:11px;text-transform:uppercase;letter-spacing:.07em;
+    background:var(--card-bg);color:var(--card-fg);border:2.5px solid var(--ink);border-radius:100px;padding:6px 12px;}
+  .card .meta{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:16px 16px 15px;
+    background:linear-gradient(to top,rgba(0,0,0,.78),rgba(0,0,0,.05));}
+  .card .meta h3{font-family:'Anton',sans-serif;text-transform:uppercase;color:#fff;font-size:clamp(20px,2.1vw,30px);line-height:.92;}
+  .card .meta .cnt{margin-top:7px;display:flex;gap:7px;flex-wrap:wrap;}
+  .card .meta .cnt span{font-weight:800;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;
+    background:var(--card-bg);color:var(--card-fg);border-radius:100px;padding:4px 9px;}
+  .card .open{position:absolute;top:14px;right:14px;z-index:2;width:36px;height:36px;border-radius:50%;
+    background:var(--card-bg);border:2.5px solid var(--ink);display:grid;place-items:center;font-weight:900;color:var(--card-fg);
+    transition:transform .3s;}
+  .card:hover .open{transform:rotate(45deg);}
+  /* spans: hero card + 4 */
+  .card.c0{grid-column:span 6;}
+  .card.c0 .ph{aspect-ratio:16/13;}
+  .card.c1{grid-column:span 6;}
+  .card.c1 .ph{aspect-ratio:16/13;}
+  .card.c2,.card.c3,.card.c4{grid-column:span 4;}
+
+  /* ---------- EFFECTS + WORLDWIDE ---------- */
+  .strip{padding:clamp(28px,4vw,46px) 0;border-top:3px solid var(--ink);}
+  .strip .lab{font-weight:900;font-size:12px;text-transform:uppercase;letter-spacing:.14em;margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+  .strip .lab .sq{width:13px;height:13px;background:var(--magenta);border:2px solid var(--ink);}
+  .tags{display:flex;flex-wrap:wrap;gap:11px;}
+  .tg{font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.03em;border:2.5px solid var(--ink);border-radius:100px;padding:10px 17px;
+    transition:transform .15s, background .2s, color .2s;}
+  .tg:hover{transform:translateY(-2px) rotate(-1.5deg);}
+  .tg.inc{background:var(--lime);}
+  .tg.inc:hover{background:var(--ink);color:var(--lime);}
+  .tg.req{background:transparent;}
+  .tg.req:hover{background:var(--orange);color:#fff;border-color:var(--orange);}
+  .strip .note{font-weight:700;font-size:12.5px;opacity:.6;margin-top:14px;text-transform:uppercase;letter-spacing:.05em;}
+
+  .ww{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(14px,3vw,40px);}
+  .ww .big{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:clamp(32px,5.5vw,72px);line-height:.86;}
+  .ww .big em{font-style:normal;color:var(--blue);}
+  .ww .geo{display:flex;flex-wrap:wrap;gap:9px;}
+  .ww .geo span{font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.04em;border:2.5px solid var(--ink);border-radius:100px;padding:8px 14px;}
+  .ww .geo span:nth-child(4){background:var(--yellow);}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--ink);color:var(--cream);margin-top:clamp(40px,5vw,70px);}
+  .foot{padding:clamp(46px,6vw,86px) 0 36px;}
+  .foot .cta{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:clamp(40px,9vw,128px);line-height:.84;}
+  .foot .cta .a1{color:var(--lime);}
+  .foot .cta .a2{color:var(--magenta);}
+  .foot-links{display:flex;flex-wrap:wrap;gap:11px;margin-top:clamp(26px,3vw,40px);}
+  .foot-links a{font-weight:800;font-size:13.5px;text-transform:uppercase;letter-spacing:.05em;
+    border:2.5px solid var(--cream);border-radius:100px;padding:11px 18px;display:inline-flex;align-items:center;gap:8px;
+    transition:background .2s,color .2s,transform .15s,border-color .2s;}
+  .foot-links a:hover{transform:translateY(-2px);}
+  .foot-links a:nth-child(1):hover{background:var(--magenta);border-color:var(--magenta);color:#fff;}
+  .foot-links a:nth-child(2):hover{background:var(--blue);border-color:var(--blue);color:#fff;}
+  .foot-links a:nth-child(3):hover{background:var(--lime);border-color:var(--lime);color:var(--ink);}
+  .foot-links a:nth-child(4):hover{background:var(--blue);border-color:var(--blue);color:#fff;}
+  .foot-links a:nth-child(5):hover{background:var(--orange);border-color:var(--orange);color:#fff;}
+  .foot-bot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;align-items:center;
+    border-top:1px solid rgba(247,241,230,.25);margin-top:clamp(34px,4vw,56px);padding-top:24px;font-weight:700;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;opacity:.8;}
+  .foot-bot b{color:var(--lime);}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:900px){
+    .card.c0,.card.c1{grid-column:span 12;}
+    .card.c2,.card.c3,.card.c4{grid-column:span 6;}
+    .navlinks{display:none;}
+  }
+  @media(max-width:560px){
+    .card.c2,.card.c3,.card.c4{grid-column:span 12;}
+    .scrollcue{display:none;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;scroll-behavior:auto;}
+    .mq-track{transform:none;flex-wrap:wrap;}
+    .card{transform:none!important;}
+    .card:hover,.card:focus-visible{transform:translateY(-4px)!important;}
+  }
+</style>
+
+<header>
+  <div class="bar">
+    <a class="brand" href="#top" aria-label="Steam Show home">
+      <img src="../assets/dragon-light.png" alt="" />
+      <b>Steam Show</b>
+    </a>
+    <nav class="navlinks" aria-label="Primary">
+      <a href="#shows">Shows</a>
+      <a href="#effects">Effects</a>
+      <a href="#where">Worldwide</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="btn-reel" onclick="SS.openReel()"><span class="dot"></span>Watch showreel</button>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero wrap">
+    <div class="hero-top">
+      <span class="pill fill-mag">Fire · Light · Giants</span>
+      <span class="pill fill-blu">Live show team</span>
+      <span class="pill">Est. for the main stage</span>
+    </div>
+    <h1 class="display">
+      <span class="l1">We set</span><br />
+      <span class="l2">the night</span><br />
+      <span class="l3"><em>on fire</em></span>
+    </h1>
+    <div class="hero-sub">
+      <p>Steam Show builds big-stage spectacle out of <b>real flame, LED light and towering characters</b>. Five programs, one team — engineered to scale from an intimate gala to a festival main stage.</p>
+      <span class="scrollcue">Scroll to the shows <span class="arr">↓</span></span>
+    </div>
+  </section>
+
+  <!-- KINETIC MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="mq-track" id="mqTrack"></div>
+  </div>
+
+  <!-- SHOWS -->
+  <section class="shows wrap" id="shows">
+    <div class="sec-head">
+      <div>
+        <span class="num">05 programs · pick your fire</span>
+        <h2 class="display">The shows</h2>
+      </div>
+      <p>Every program is a full visual world. Tap any sticker to open costumes, photos and video.</p>
+    </div>
+    <div class="grid" id="showGrid"></div>
+  </section>
+
+  <!-- EFFECTS -->
+  <section class="strip wrap" id="effects">
+    <div class="lab"><span class="sq"></span>Special effects</div>
+    <div class="tags">
+      <span class="tg inc">Flamethrowers</span>
+      <span class="tg inc">Fire cannons</span>
+      <span class="tg inc">Fire cubes</span>
+      <span class="tg inc">Pyrotechnics</span>
+      <span class="tg req">Paper show</span>
+      <span class="tg req">Fire hearts</span>
+      <span class="tg req">Confetti</span>
+    </div>
+    <p class="note"><span style="color:var(--ink);opacity:1;">Lime</span> = usually included · Outlined = on request</p>
+  </section>
+
+  <!-- WORLDWIDE -->
+  <section class="strip wrap" id="where">
+    <div class="ww">
+      <div class="big display">We perform<br /><em>worldwide</em></div>
+      <div class="geo">
+        <span>Europe</span>
+        <span>The Gulf</span>
+        <span>Middle East</span>
+        <span>20+ countries</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="foot wrap">
+    <div class="cta display">Let's <span class="a1">light</span><br />it <span class="a2">up.</span></div>
+    <div class="foot-links">
+      <a href="https://instagram.com/steamshow" target="_blank" rel="noopener">Instagram ↗</a>
+      <a href="mailto:hello@steamshow.by">Email ↗</a>
+      <a href="https://wa.me/0000000000" target="_blank" rel="noopener">WhatsApp ↗</a>
+      <a href="https://t.me/steamshow" target="_blank" rel="noopener">Telegram ↗</a>
+      <a href="https://www.youtube.com/@SteamShowby" target="_blank" rel="noopener">YouTube ↗</a>
+    </div>
+    <div class="foot-bot">
+      <span>Steam Show — fire, light &amp; giants for the main stage.</span>
+      <span>Booking worldwide · <b>Watch the showreel</b></span>
+    </div>
+  </div>
+</footer>
+
+<script src="media.js"></script>
+<script src="lib.js"></script>
+<script>
+(function(){
+  if(!window.SS){console.error('SS not loaded');return;}
+
+  // ---- kinetic marquee: show names in alternating neon blocks ----
+  var neon=['c-mag','c-blu','c-lim','c-org','c-yel'];
+  var names=SS.ORDER.map(function(id){return SS.SHOWS[id].name;});
+  function buildMarquee(){
+    var seq='';
+    for(var pass=0;pass<2;pass++){
+      names.forEach(function(n,i){
+        var c=neon[i%neon.length];
+        seq+='<div class="chip '+c+'">'+n+' <span class="star">✶</span></div>';
+      });
+    }
+    document.getElementById('mqTrack').innerHTML=seq;
+  }
+  buildMarquee();
+
+  // ---- show cards as colorful sticker tiles ----
+  var palette=[
+    {bg:'var(--magenta)',fg:'#fff',rot:'-2deg'},
+    {bg:'var(--blue)',   fg:'#fff',rot:'2deg'},
+    {bg:'var(--lime)',   fg:'var(--ink)',rot:'-1.5deg'},
+    {bg:'var(--orange)', fg:'#fff',rot:'2deg'},
+    {bg:'var(--yellow)', fg:'var(--ink)',rot:'-2deg'}
+  ];
+  var grid=document.getElementById('showGrid');
+  grid.innerHTML=SS.ORDER.map(function(id,i){
+    var s=SS.SHOWS[id], c=SS.counts(id), cover=SS.cover(id), p=palette[i%palette.length];
+    var bits=[];
+    if(c.p) bits.push('<span>'+c.p+' photos</span>');
+    if(c.v) bits.push('<span>'+c.v+' videos</span>');
+    if(c.c) bits.push('<span>'+c.c+' costumes</span>');
+    return '<article class="card c'+i+'" tabindex="0" role="button" '+
+      'aria-label="Open '+s.name+' gallery" '+
+      'style="--card-bg:'+p.bg+';--card-fg:'+p.fg+';--rot:'+p.rot+'" '+
+      'onclick="SS.openProgram(\''+id+'\')" '+
+      'onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();SS.openProgram(\''+id+'\');}">'+
+        '<div class="tag">'+s.type+'</div>'+
+        '<div class="open">+</div>'+
+        '<div class="ph"><img loading="lazy" src="'+cover+'" alt="'+s.name+'" /></div>'+
+        '<div class="meta"><h3>'+s.name+'</h3><div class="cnt">'+bits.join('')+'</div></div>'+
+      '</article>';
+  }).join('');
+})();
+</script>
