@@ -57,6 +57,62 @@
   .hw-hint .ln{width:1px;height:30px;background:linear-gradient(var(--accent2),transparent);animation:hbob 2.2s ease-in-out infinite}
   @keyframes hbob{0%,100%{opacity:.4}50%{opacity:1}}
   @media(max-width:860px){.hw-row.r3{display:none}.hw-tile{width:clamp(132px,40vw,200px);height:clamp(98px,30vw,150px)}}
+
+  /* лого — силуэт дракона в фирменном градиенте */
+  .brand .mark{width:34px;height:34px;flex:0 0 auto;
+    -webkit-mask:url(../assets/silhuete_dragon_1.png) center/contain no-repeat;
+            mask:url(../assets/silhuete_dragon_1.png) center/contain no-repeat;
+    background:conic-gradient(from 210deg,var(--accent3),var(--accent),var(--accent2),var(--cool),var(--accent3));
+    filter:drop-shadow(0 0 12px color-mix(in srgb,var(--accent) 55%,transparent))}
+
+  /* глобус-радар (стильный, без «3D-устаревшего») */
+  .gx{position:relative;aspect-ratio:1;border-radius:50%;overflow:hidden;isolation:isolate;
+    background:radial-gradient(circle at 50% 40%,color-mix(in srgb,var(--accent3) 20%,transparent),transparent 55%),
+      radial-gradient(circle at 50% 55%,var(--bg2),#0a0610);
+    border:1px solid var(--line);
+    box-shadow:inset 0 0 90px color-mix(in srgb,var(--accent) 13%,transparent),0 0 70px color-mix(in srgb,var(--accent3) 18%,transparent)}
+  .gx::before{content:"";position:absolute;inset:0;z-index:1;border-radius:50%;mix-blend-mode:screen;
+    background:conic-gradient(from 0deg,color-mix(in srgb,var(--accent) 34%,transparent) 0deg,transparent 65deg);
+    animation:gxsweep 5s linear infinite}
+  @keyframes gxsweep{to{transform:rotate(360deg)}}
+  .gx .ring{position:absolute;border-radius:50%;border:1px dashed color-mix(in srgb,var(--ink) 13%,transparent)}
+  .gx .cross{position:absolute;inset:0;z-index:0}
+  .gx .cross::before,.gx .cross::after{content:"";position:absolute;background:color-mix(in srgb,var(--ink) 8%,transparent)}
+  .gx .cross::before{left:50%;top:0;bottom:0;width:1px}
+  .gx .cross::after{top:50%;left:0;right:0;height:1px}
+  .gx .sat{position:absolute;inset:9%;border-radius:50%;z-index:2;animation:gxorbit 9s linear infinite}
+  .gx .sat i{position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:9px;height:9px;border-radius:50%;
+    background:var(--accent2);box-shadow:0 0 16px 2px var(--accent2)}
+  @keyframes gxorbit{to{transform:rotate(360deg)}}
+  .gx .gping{position:absolute;z-index:2;width:9px;height:9px;border-radius:50%;background:var(--accent3);box-shadow:0 0 12px var(--accent3)}
+  .gx .gping::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:1px solid var(--accent3);animation:gxpulse 2.4s ease-out infinite}
+  @keyframes gxpulse{0%{transform:scale(.6);opacity:.9}100%{transform:scale(2.8);opacity:0}}
+  .gx .core{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+  .gx .core b{font-family:var(--display);font-weight:400;font-size:clamp(22px,4vw,38px);letter-spacing:.04em;
+    background:linear-gradient(90deg,var(--accent),var(--accent3));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .gx .core small{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+  @media(prefers-reduced-motion:reduce){.gx::before,.gx .sat{animation:none}}
+
+  /* контакты в стиле fireflow */
+  .ccta{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(40px,7vw,96px);line-height:.9;margin:14px 0 0}
+  .clead{color:var(--muted);max-width:46ch;margin:20px 0 0;font-size:16px}
+  .fchannels{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:clamp(36px,5vh,56px)}
+  .fch{position:relative;display:flex;flex-direction:column;gap:14px;min-height:190px;padding:26px;border-radius:18px;
+    border:1px solid var(--line);background:linear-gradient(180deg,rgba(245,239,247,.04),transparent);overflow:hidden;
+    transition:transform .35s,border-color .35s,box-shadow .35s;--ac:var(--accent)}
+  .fch::before{content:"";position:absolute;inset:0;opacity:0;transition:.4s;
+    background:radial-gradient(120% 120% at 0% 0%,color-mix(in srgb,var(--ac) 22%,transparent),transparent 60%)}
+  .fch:hover{transform:translateY(-6px);border-color:var(--ac);box-shadow:0 20px 50px rgba(0,0,0,.5)}
+  .fch:hover::before{opacity:1}
+  .fch>*{position:relative;z-index:1}
+  .fch .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;color:#160405;
+    background:linear-gradient(120deg,var(--ac),var(--ac2,var(--accent)))}
+  .fch .ic svg{width:24px;height:24px;display:block}
+  .fch .fk{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+  .fch .fv{font-family:var(--body);font-weight:800;font-size:19px}
+  .fch .fgo{margin-top:auto;font-size:12px;letter-spacing:.06em;color:var(--ac)}
+  @media(max-width:880px){.fchannels{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:480px){.fchannels{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -68,7 +124,7 @@
 
 <header class="bar">
   <div class="bar-in">
-    <a class="brand" href="#top"><img src="../assets/Logo_final.png" alt="Steam Show"><span class="nm">Steam Show</span></a>
+    <a class="brand" href="#top"><span class="mark" aria-hidden="true"></span><span class="nm">Steam Show</span></a>
     <nav class="menu"><a href="#programs">Programs</a><a href="#world">Worldwide</a><a href="#contact">Contact</a></nav>
     <a class="nav-cta" href="#contact">Book the show</a>
     <button class="nav-toggle" id="navBtn" aria-label="Menu">☰</button>
@@ -80,7 +136,7 @@
   <header class="hw" id="wall" aria-label="Steam Show photo wall">
     <div class="hw-scrim">
       <div class="hw-eyebrow">Fire · LED · Dragons · Stilts — worldwide</div>
-      <h1 class="hw-title">We bring the<br><span class="o">fire</span>, <span class="c">light</span> &amp; <span class="m">giants</span></h1>
+      <h1 class="hw-title">We bring the<br><span class="o">fire</span>, <span class="c">light</span> &amp; <span class="m">dragons</span></h1>
       <p class="hw-tag">A wall of fire, light and giants. Tap any frame to step into the show.</p>
       <div class="hw-cta">
         <a class="hbtn solid" href="#programs">Explore the shows</a>
@@ -109,7 +165,7 @@
     <div class="wrap geo-grid">
       <div class="reveal from-left">
         <span class="kicker">On tour</span>
-        <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(36px,7vw,84px);line-height:.9;margin-bottom:16px">Performed <span class="grad">worldwide</span></h2>
+        <h2 style="font-family:var(--display);text-transform:uppercase;font-size:clamp(36px,7vw,84px);line-height:.9;margin-bottom:16px">We perform <span class="grad">anywhere</span></h2>
         <p style="color:var(--muted);font-size:17px;margin:0 0 26px">A road-tested touring crew with full kit logistics. We bring the rig, the safety and the show to your venue.</p>
         <div class="geo-list">
           <span class="geo-pill">Europe festivals</span><span class="geo-pill">UAE</span><span class="geo-pill">Qatar</span>
@@ -117,11 +173,16 @@
           <span class="geo-pill">Jordan</span><span class="geo-pill world">+ 20 countries on request</span>
         </div>
       </div>
-      <div class="reveal from-right"><div class="globe">
-        <div class="core"><b>WORLD</b><small>WIDE</small></div>
-        <span class="ping" style="top:30%;left:40%"></span>
-        <span class="ping" style="top:55%;left:62%;animation-delay:.8s"></span>
-        <span class="ping" style="top:68%;left:38%;animation-delay:1.5s"></span>
+      <div class="reveal from-right"><div class="gx">
+        <span class="cross"></span>
+        <span class="ring" style="inset:9%"></span>
+        <span class="ring" style="inset:27%"></span>
+        <span class="ring" style="inset:45%"></span>
+        <span class="sat"><i></i></span>
+        <span class="gping" style="top:30%;left:40%"></span>
+        <span class="gping" style="top:55%;left:62%;animation-delay:.8s"></span>
+        <span class="gping" style="top:66%;left:36%;animation-delay:1.5s"></span>
+        <span class="core"><b>WORLDWIDE</b><small>on request</small></span>
       </div></div>
     </div>
     <div class="wrap"><div class="stats reveal">
@@ -133,17 +194,17 @@
   </section>
 
   <section id="contact" data-spine>
-    <div class="wrap"><div class="contact-card reveal"><div class="contact-in">
-      <span class="kicker" style="justify-content:center">Book the Steam Show</span>
-      <h2>Let's <span class="grad">light it up</span>.</h2>
-      <p>Tell us the event, the country and the date — we'll bring the spectacle. Replies usually within a day.</p>
-      <div class="channels">
-        <a class="ch" href="#"><span class="chic" data-ic="instagram"></span><span class="lbl">Instagram</span><span class="val">@steamshow</span><span class="arrow2">Follow →</span></a>
-        <a class="ch" href="mailto:hello@steamshow.com"><span class="chic" data-ic="email"></span><span class="lbl">Email</span><span class="val">hello@steamshow</span><span class="arrow2">Write →</span></a>
-        <a class="ch" href="#"><span class="chic" data-ic="whatsapp"></span><span class="lbl">WhatsApp · Telegram</span><span class="val">Message us</span><span class="arrow2">Chat →</span></a>
-        <a class="ch" href="https://www.youtube.com/@SteamShowby" target="_blank" rel="noopener"><span class="chic" data-ic="youtube"></span><span class="lbl">YouTube</span><span class="val">@SteamShowby</span><span class="arrow2">Watch →</span></a>
+    <div class="wrap">
+      <div class="kicker">Book the Steam Show</div>
+      <h2 class="ccta">Let's <span class="grad">light it up</span></h2>
+      <p class="clead">Tell us the date, the venue and the vibe — we'll bring the fire. Reach us on whatever's fastest for you.</p>
+      <div class="fchannels reveal">
+        <a class="fch" style="--ac:var(--accent3);--ac2:var(--accent)" href="https://instagram.com/steamshow" target="_blank" rel="noopener"><span class="ic" data-ic="instagram"></span><span class="fk">Instagram</span><span class="fv">@steamshow</span><span class="fgo">See the feed →</span></a>
+        <a class="fch" style="--ac:var(--accent2);--ac2:var(--accent)" href="mailto:hello@steamshow.com"><span class="ic" data-ic="email"></span><span class="fk">Email</span><span class="fv">hello@steamshow</span><span class="fgo">Send a brief →</span></a>
+        <a class="fch" style="--ac:var(--accent);--ac2:var(--accent3)" href="#"><span class="ic" data-ic="whatsapp"></span><span class="fk">WhatsApp · Telegram</span><span class="fv">Message us</span><span class="fgo">Chat now →</span></a>
+        <a class="fch" style="--ac:var(--cool);--ac2:var(--accent3)" href="https://www.youtube.com/@SteamShowby" target="_blank" rel="noopener"><span class="ic" data-ic="youtube"></span><span class="fk">YouTube</span><span class="fv">@SteamShowby</span><span class="fgo">Watch shows →</span></a>
       </div>
-    </div></div></div>
+    </div>
   </section>
 </main>
 
