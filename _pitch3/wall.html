@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Steam Show — Concept 3 · Wall</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0c0a09;--panel:#141110;--text:#F4F1EA;--muted:#94897e;--faint:#5f574e;
+    --accent:#FF5A1F;--accent-2:#FFB347;
+    --line:rgba(244,241,234,.12);--line2:rgba(244,241,234,.22);
+    --display:"Archivo",system-ui,sans-serif;--body:"Space Grotesk",system-ui,sans-serif;
+    --ease:cubic-bezier(.2,.7,.2,1);--maxw:1240px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.55;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
+  ::selection{background:var(--accent);color:#fff}
+  .display{font-family:var(--display);font-weight:900;letter-spacing:-.02em;line-height:.92}
+  .section{max-width:var(--maxw);margin:0 auto;padding:clamp(70px,11vw,140px) clamp(20px,5vw,48px)}
+  .sec-label{font-size:.74rem;letter-spacing:.34em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;font-weight:500}
+  .sec-head{font-family:var(--display);font-weight:900;font-size:clamp(30px,5vw,58px);max-width:20ch;
+    margin-bottom:clamp(34px,5vw,56px);letter-spacing:-.02em;line-height:1.0}
+
+  /* nav */
+  header.nav{position:fixed;inset:0 0 auto 0;z-index:50;transition:.4s;border-bottom:1px solid transparent}
+  header.nav.scrolled{background:rgba(12,10,9,.82);backdrop-filter:blur(14px);border-color:var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:72px;max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,48px)}
+  .brand{display:flex;align-items:center;gap:11px;font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.01em;text-transform:uppercase}
+  .brand .mark{width:26px;height:26px;background:linear-gradient(150deg,var(--accent-2),var(--accent));
+    -webkit-mask:url("../assets/silhuete_dragon_1.png") center/contain no-repeat;mask:url("../assets/silhuete_dragon_1.png") center/contain no-repeat}
+  .nav-l{display:flex;gap:28px;font-size:.8rem;font-weight:500;color:var(--muted)}
+  .nav-l a:hover{color:var(--text)}
+  .nav-cta{font-size:.76rem;font-weight:600;letter-spacing:.02em;text-transform:uppercase;border:1px solid var(--line2);
+    padding:11px 20px;border-radius:100px;transition:.3s}
+  .nav-cta:hover{background:var(--text);color:var(--bg);border-color:var(--text)}
+  @media(max-width:880px){.nav-l{display:none}}
+
+  /* hero photo wall */
+  .wall{position:relative;height:100svh;min-height:600px;overflow:hidden;background:var(--bg);
+    display:flex;flex-direction:column;justify-content:center;gap:clamp(8px,1.4vw,16px);padding:clamp(8px,1.4vw,16px) 0}
+  .row{display:flex;gap:clamp(8px,1.4vw,16px);width:max-content;flex-shrink:0;will-change:transform}
+  .row.r1{animation:sL 74s linear infinite}.row.r2{animation:sR 92s linear infinite}
+  .row.r3{animation:sL 64s linear infinite}.row.r4{animation:sR 100s linear infinite}
+  @keyframes sL{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes sR{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+  .tile{position:relative;flex:0 0 auto;width:clamp(160px,20vw,300px);height:clamp(118px,14vw,210px);
+    border-radius:10px;overflow:hidden;background:#000;border:1px solid rgba(255,255,255,.05);
+    transition:transform .45s var(--ease),filter .45s,box-shadow .45s}
+  .tile img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+  .wall.hovering .tile{filter:brightness(.4) saturate(.7)}
+  .wall.hovering .tile:hover{filter:brightness(1.06);transform:scale(1.1);z-index:5;box-shadow:0 24px 60px -18px rgba(0,0,0,.9),0 0 0 1px var(--accent)}
+  .tile:hover img{transform:scale(1.1)}
+  .scrim{position:absolute;inset:0;z-index:10;pointer-events:none;
+    background:radial-gradient(120% 90% at 50% 50%,rgba(12,10,9,.3) 0%,rgba(12,10,9,.78) 55%,rgba(12,10,9,.96) 100%),
+      linear-gradient(180deg,rgba(12,10,9,.55),transparent 22%,transparent 72%,var(--bg));
+    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
+  .scrim>*{pointer-events:auto}
+  .hero-kicker{font-size:clamp(11px,1.1vw,13px);letter-spacing:.42em;text-transform:uppercase;color:var(--accent);margin-bottom:20px}
+  .hero-title{font-family:var(--display);font-weight:900;font-size:clamp(60px,14vw,200px);letter-spacing:-.03em;line-height:.84}
+  .hero-tagline{font-size:clamp(14px,1.7vw,19px);max-width:36ch;color:#d8cdba;margin-top:18px;line-height:1.4}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:30px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:15px 28px;border-radius:100px;font-weight:600;font-size:.82rem;
+    letter-spacing:.02em;transition:.25s;border:1px solid var(--line2);color:var(--text)}
+  .btn.solid{background:var(--accent);color:#180603;border-color:transparent}
+  .btn.solid:hover{transform:translateY(-2px);box-shadow:0 14px 36px -12px var(--accent)}
+  .btn.ghost:hover{border-color:var(--text);background:rgba(255,255,255,.05)}
+  .scroll-hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:11;font-size:.68rem;
+    letter-spacing:.3em;text-transform:uppercase;color:var(--faint);display:flex;flex-direction:column;align-items:center;gap:8px;animation:bob 2.4s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,7px)}}
+  .scroll-hint .ln{width:1px;height:30px;background:linear-gradient(var(--accent),transparent)}
+  @media(max-width:860px){.row.r4{display:none}.tile{width:clamp(132px,40vw,200px);height:clamp(98px,30vw,150px)}.wall.hovering .tile{filter:none}.wall.hovering .tile:hover{transform:scale(1.04)}}
+
+  /* programs — interactive text index with cursor preview */
+  .index{border-top:1px solid var(--line)}
+  .irow{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:clamp(14px,3vw,40px);
+    padding:clamp(22px,3.2vw,38px) 6px;border-bottom:1px solid var(--line);cursor:pointer;position:relative;transition:.35s var(--ease)}
+  .irow .num{font-size:.82rem;color:var(--faint);font-variant-numeric:tabular-nums}
+  .iname{font-family:var(--display);font-weight:900;font-size:clamp(28px,5.2vw,60px);letter-spacing:-.02em;transition:.35s var(--ease);transform-origin:left center}
+  .itype{font-size:.8rem;letter-spacing:.04em;color:var(--muted);text-transform:uppercase;white-space:nowrap}
+  .icount{font-size:.8rem;color:var(--muted);white-space:nowrap;display:flex;gap:14px}
+  .icount b{color:var(--accent);font-weight:600}
+  .irow .go{font-size:1.6rem;opacity:0;transform:translateX(-8px);transition:.35s var(--ease);color:var(--accent)}
+  .irow::before{content:"";position:absolute;left:0;top:0;height:100%;width:0;z-index:-1;
+    background:linear-gradient(90deg,rgba(255,90,31,.09),transparent);transition:.4s var(--ease)}
+  .irow:hover{padding-left:clamp(10px,2vw,28px)}
+  .irow:hover::before{width:100%}
+  .irow:hover .iname{color:var(--accent)}
+  .irow:hover .go{opacity:1;transform:none}
+  /* floating cursor preview */
+  #preview{position:fixed;width:300px;height:380px;border-radius:14px;overflow:hidden;pointer-events:none;
+    z-index:60;opacity:0;transform:translate(-50%,-50%) scale(.9);transition:opacity .3s,transform .3s;
+    box-shadow:0 30px 80px -20px rgba(0,0,0,.85);border:1px solid var(--line2)}
+  #preview img{width:100%;height:100%;object-fit:cover}
+  #preview.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  @media(max-width:860px){
+    .irow{grid-template-columns:auto 1fr;gap:8px 16px}
+    .itype,.icount{grid-column:2;font-size:.72rem}.icount{order:3}
+    .irow .go{display:none}
+    #preview{display:none}
+  }
+
+  /* effects + reach split */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,90px);align-items:start}
+  .fx-grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+  .chip{font-size:.82rem;padding:10px 17px;border-radius:100px;border:1px solid var(--line2);display:inline-flex;align-items:center;gap:9px;background:var(--panel)}
+  .chip .dot{width:7px;height:7px;border-radius:50%}
+  .chip.inc .dot{background:var(--accent)}.chip.req .dot{background:var(--accent-2)}
+  .legend{display:flex;gap:22px;font-size:.74rem;color:var(--muted);margin-top:18px;flex-wrap:wrap}
+  .legend span{display:inline-flex;align-items:center;gap:7px}.legend i{width:7px;height:7px;border-radius:50%}
+  .reach{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px;align-items:center}
+  .reach .place{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(22px,3.6vw,40px);
+    line-height:1;color:transparent;-webkit-text-stroke:1px rgba(244,241,234,.5)}
+  .reach .place.fill{color:var(--accent);-webkit-text-stroke:1px var(--accent)}
+  .reach .dotsep{opacity:.4}
+  @media(max-width:860px){.split{grid-template-columns:1fr}}
+
+  /* contact link list */
+  .contact{background:var(--panel);border-top:1px solid var(--line)}
+  .links{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));border-top:1px solid var(--line)}
+  .link{display:flex;align-items:center;justify-content:space-between;padding:24px 6px;border-bottom:1px solid var(--line);
+    font-size:clamp(16px,2vw,21px);transition:.3s var(--ease);cursor:pointer}
+  .link:hover{padding-left:16px;color:var(--accent)}
+  .link .ch{opacity:.5;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase}
+  .big-cta{font-family:var(--display);font-weight:900;font-size:clamp(40px,9vw,120px);letter-spacing:-.03em;line-height:.86;
+    margin-bottom:clamp(36px,6vw,60px);background:linear-gradient(92deg,#fff,var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;margin-top:48px;font-size:.74rem;color:var(--faint)}
+
+  .reveal{opacity:0;transform:translateY(34px);transition:.85s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    .row{transform:translateX(0)!important}.reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top"><span class="mark"></span>Steam Show</a>
+    <nav class="nav-l"><a href="#shows">Programs</a><a href="#fx">Effects</a><a href="#geo">Worldwide</a><a href="#contact">Contact</a></nav>
+    <a class="nav-cta" href="#contact">Book the show</a>
+  </div>
+</header>
+
+<header class="wall" id="wall" aria-label="Steam Show photo wall">
+  <div class="scrim">
+    <div class="hero-kicker">Fire · LED · Stilts · Worldwide</div>
+    <h1 class="hero-title">STEAM<br>SHOW</h1>
+    <p class="hero-tagline">A working catalogue of fire, light and giants — every frame is a real moment you can book.</p>
+    <div class="hero-cta">
+      <a class="btn solid" href="#contact">Book the show</a>
+      <a class="btn ghost" href="#shows">Browse programs</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>Scroll</span><span class="ln"></span></div>
+</header>
+
+<main id="top">
+  <!-- PROGRAMS: interactive index -->
+  <section class="section" id="shows">
+    <div class="sec-label">The repertoire</div>
+    <h2 class="sec-head">Five programs.<br>Hover to preview, click to open.</h2>
+    <div class="index" id="index">
+      <div class="irow" data-img="../assets/web/dragon/dragon-003.jpg">
+        <span class="num">01</span><span class="iname">Dragon Fire Show</span>
+        <span class="itype">Signature · large-scale fire</span>
+        <span class="icount"><span><b>22</b> photos</span><span><b>4</b> videos</span></span><span class="go">→</span>
+      </div>
+      <div class="irow" data-img="../assets/web/fire/fire-006.jpg">
+        <span class="num">02</span><span class="iname">Fire Show</span>
+        <span class="itype">Fantasy · post-apoc · rock</span>
+        <span class="icount"><span><b>23</b> photos</span><span><b>5</b> videos</span></span><span class="go">→</span>
+      </div>
+      <div class="irow" data-img="../assets/web/ledfire/ledfire-004.jpg">
+        <span class="num">03</span><span class="iname">LED Fire Show</span>
+        <span class="itype">Glow + real fire</span>
+        <span class="icount"><span><b>14</b> photos</span><span><b>3</b> videos</span></span><span class="go">→</span>
+      </div>
+      <div class="irow" data-img="../assets/web/led/led-002.jpg">
+        <span class="num">04</span><span class="iname">LED Show</span>
+        <span class="itype">Pure light · many looks</span>
+        <span class="icount"><span><b>10</b> photos</span><span><b>10</b> looks</span></span><span class="go">→</span>
+      </div>
+      <div class="irow" data-img="../assets/web/stilts/stilts-005.jpg">
+        <span class="num">05</span><span class="iname">Stilt Walkers</span>
+        <span class="itype">Animation or full show</span>
+        <span class="icount"><span><b>59</b> photos</span><span><b>30+</b> costumes</span></span><span class="go">→</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- EFFECTS + REACH -->
+  <section class="section" style="padding-top:0">
+    <div class="split">
+      <div class="reveal">
+        <div class="sec-label">Special effects</div>
+        <h3 class="sec-head" style="font-size:clamp(24px,3.6vw,40px);margin-bottom:24px">Stacked onto any act</h3>
+        <div class="fx-grid">
+          <span class="chip inc"><span class="dot"></span>Flamethrowers</span>
+          <span class="chip inc"><span class="dot"></span>Fire cannons</span>
+          <span class="chip inc"><span class="dot"></span>Fire cubes</span>
+          <span class="chip inc"><span class="dot"></span>Pyrotechnics</span>
+          <span class="chip req"><span class="dot"></span>Paper show</span>
+          <span class="chip req"><span class="dot"></span>Fire hearts</span>
+          <span class="chip req"><span class="dot"></span>Confetti</span>
+          <span class="chip req"><span class="dot"></span>Fire on stilts</span>
+        </div>
+        <div class="legend"><span><i style="background:var(--accent)"></i>Usually included</span><span><i style="background:var(--accent-2)"></i>On request</span></div>
+      </div>
+      <div class="reveal" id="geo">
+        <div class="sec-label">Where we play</div>
+        <h3 class="sec-head" style="font-size:clamp(24px,3.6vw,40px);margin-bottom:24px">Worldwide</h3>
+        <div class="reach">
+          <span class="place fill">Europe</span><span class="dotsep">·</span>
+          <span class="place">The Gulf</span><span class="dotsep">·</span>
+          <span class="place">Middle East</span>
+        </div>
+        <p style="margin-top:22px;color:var(--muted);max-width:36ch">Regulars on the European festival circuit and on contract across the Gulf — open to events <b style="color:var(--accent)">anywhere in the world.</b> The regions are just examples.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <footer class="contact" id="contact">
+    <div class="section">
+      <div class="sec-label">Get in touch</div>
+      <h2 class="big-cta">Let's light it up</h2>
+      <div class="links">
+        <a class="link" href="#"><span>Instagram</span><span class="ch">@steamshow</span></a>
+        <a class="link" href="mailto:hello@steamshow.com"><span>Email</span><span class="ch">hello@steamshow</span></a>
+        <a class="link" href="#"><span>WhatsApp</span><span class="ch">Message us</span></a>
+        <a class="link" href="#"><span>Telegram</span><span class="ch">@steamshow</span></a>
+        <a class="link" href="#"><span>YouTube</span><span class="ch">/steamshow</span></a>
+      </div>
+      <div class="foot"><span>© Steam Show — Fire · LED · Stilt performance</span><span>Concept 3 · Wall</span></div>
+    </div>
+  </footer>
+</main>
+
+<div id="preview" aria-hidden="true"><img id="previewImg" src="" alt="" /></div>
+
+<script>
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var mobile=matchMedia('(max-width:860px)').matches;
+  var nav=document.getElementById('nav');
+  addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>40)},{passive:true});
+
+  /* photo wall */
+  var P={dragon:22,fire:23,ledfire:14,led:10,stilts:59},names={dragon:'Dragon Fire',fire:'Fire Show',ledfire:'LED Fire',led:'LED Show',stilts:'Stilt Walkers'};
+  var pool=[];
+  Object.keys(P).forEach(function(k){for(var i=1;i<=P[k];i++){pool.push({src:'../assets/web/'+k+'/'+k+'-'+('00'+i).slice(-3)+'.jpg',name:names[k]});}});
+  for(var i=pool.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=pool[i];pool[i]=pool[j];pool[j]=t;}
+  var wall=document.getElementById('wall'),nRows=mobile?3:4,rc=['r1','r2','r3','r4'],perRow=Math.max(8,Math.ceil(pool.length/nRows));
+  var frag=document.createDocumentFragment();
+  for(var r=0;r<nRows;r++){var row=document.createElement('div');row.className='row '+rc[r];var html='';
+    for(var k=0;k<perRow;k++){var t=pool[(r*perRow+k)%pool.length];html+='<div class="tile"><img loading="lazy" src="'+t.src+'" alt="'+t.name+'"/></div>';}
+    row.innerHTML=html+html;frag.appendChild(row);}
+  wall.insertBefore(frag,wall.firstChild);
+  if(!mobile){
+    wall.addEventListener('pointerover',function(e){if(e.target.closest('.tile'))wall.classList.add('hovering')});
+    wall.addEventListener('pointerout',function(e){if(!e.relatedTarget||!e.relatedTarget.closest||!e.relatedTarget.closest('.tile'))wall.classList.remove('hovering')});
+  }
+  if(reduce)document.querySelectorAll('.row').forEach(function(row){row.style.transform='translateX(0)'});
+
+  /* index cursor preview */
+  if(!mobile){
+    var pv=document.getElementById('preview'),pvImg=document.getElementById('previewImg');
+    document.querySelectorAll('.irow').forEach(function(row){
+      row.addEventListener('mouseenter',function(){pvImg.src=row.dataset.img;pv.classList.add('on')});
+      row.addEventListener('mouseleave',function(){pv.classList.remove('on')});
+      row.addEventListener('mousemove',function(e){pv.style.left=e.clientX+'px';pv.style.top=e.clientY+'px'});
+    });
+  }
+
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}})},{threshold:.14});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+})();
+</script>
+</body>
+</html>
