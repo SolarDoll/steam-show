@@ -1,0 +1,439 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steam Show — Light It Up. Bring The Dragon.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0c0608;
+  --bg2:#160a10;
+  --panel:#1a0e15;
+  --text:#f6efe9;
+  --muted:rgba(246,239,233,.62);
+  --accent:#FF6A1F;
+  --accent2:#FF2E6E;
+  --line:rgba(255,140,80,.16);
+  --beam:rgba(255,150,70,.14);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Manrope',system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.display{font-family:'Anton',sans-serif;font-weight:400;letter-spacing:.005em;text-transform:uppercase;line-height:.92}
+.wrap{max-width:1320px;margin:0 auto;padding:0 clamp(18px,4vw,48px)}
+
+/* ---------- HEADER ---------- */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px clamp(18px,4vw,48px);
+  transition:background .35s ease,backdrop-filter .35s ease,border-color .35s ease;
+  border-bottom:1px solid transparent;
+}
+header.scrolled{background:rgba(12,6,8,.78);backdrop-filter:blur(14px);border-bottom-color:var(--line)}
+.brand{display:flex;align-items:center;gap:11px;font-family:'Anton',sans-serif;font-size:20px;letter-spacing:.04em;text-transform:uppercase}
+.brand .dot{width:11px;height:11px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 0 16px var(--accent)}
+.nav{display:flex;gap:30px;align-items:center}
+.nav a{font-size:13.5px;letter-spacing:.04em;color:var(--muted);transition:color .2s}
+.nav a:hover{color:var(--text)}
+.nav .cta{
+  font-weight:700;color:var(--text);padding:10px 20px;border-radius:100px;
+  background:linear-gradient(120deg,var(--accent),var(--accent2));box-shadow:0 6px 26px rgba(255,46,110,.32)
+}
+.burger{display:none;background:none;border:none;color:var(--text);font-size:26px;cursor:pointer}
+@media(max-width:820px){.nav a:not(.cta){display:none}.burger{display:none}}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;isolation:isolate}
+/* луч прожектора сверху */
+.beam{
+  position:absolute;top:-12%;left:50%;transform:translateX(-50%);
+  width:120vw;height:135%;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(58% 70% at 50% 0%, var(--beam) 0%, rgba(255,120,60,.05) 38%, transparent 68%);
+  filter:blur(2px);
+}
+.beam::before{
+  content:"";position:absolute;top:-6%;left:50%;width:42vw;height:120%;
+  transform:translateX(-50%) perspective(700px) rotateX(2deg);
+  background:linear-gradient(180deg, rgba(255,170,90,.20) 0%, rgba(255,110,60,.07) 40%, transparent 72%);
+  clip-path:polygon(40% 0%,60% 0%,100% 100%,0% 100%);
+  filter:blur(8px);
+  animation:beamSway 9s ease-in-out infinite;
+  transform-origin:50% 0;
+}
+@keyframes beamSway{0%,100%{transform:translateX(-50%) rotate(-1.4deg)}50%{transform:translateX(-50%) rotate(1.4deg)}}
+/* зернистый виньет-фон */
+.hero::after{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(110% 90% at 50% 110%, rgba(255,46,110,.10), transparent 55%),
+             radial-gradient(80% 70% at 12% 18%, rgba(255,106,31,.08), transparent 60%);
+}
+.hero .wrap{position:relative;z-index:3;width:100%;display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:center;padding-top:96px;padding-bottom:48px}
+
+.kicker{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);margin-bottom:22px}
+.kicker::before{content:"";width:34px;height:1px;background:linear-gradient(90deg,var(--accent),transparent)}
+.hero h1{font-size:clamp(52px,9vw,138px);line-height:.86}
+.hero h1 .l2{display:block;background:linear-gradient(100deg,var(--accent) 0%,var(--accent2) 70%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.hero p.lead{margin:26px 0 34px;max-width:46ch;font-size:clamp(15px,1.5vw,18px);line-height:1.55;color:var(--muted)}
+.hero .actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:15px;padding:15px 28px;border-radius:100px;cursor:pointer;border:none;transition:transform .2s,box-shadow .2s}
+.btn-fire{background:linear-gradient(120deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 10px 34px rgba(255,46,110,.36)}
+.btn-fire:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(255,46,110,.5)}
+.btn-ghost{background:rgba(255,255,255,.04);color:var(--text);border:1px solid var(--line)}
+.btn-ghost:hover{border-color:var(--accent);color:#fff}
+.btn-ghost .tri{width:0;height:0;border-left:11px solid var(--accent);border-top:7px solid transparent;border-bottom:7px solid transparent}
+
+/* статы под заголовком */
+.hero-meta{display:flex;gap:30px;margin-top:42px;flex-wrap:wrap}
+.hero-meta .m{display:flex;flex-direction:column;gap:3px}
+.hero-meta .m b{font-family:'Anton',sans-serif;font-size:30px;letter-spacing:.01em;background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-meta .m span{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- ДРАКОН ---------- */
+.dragon-stage{position:relative;height:min(80vh,720px);display:flex;align-items:center;justify-content:center}
+/* мягкое свечение за драконом */
+.dragon-glow{
+  position:absolute;width:78%;height:70%;border-radius:50%;z-index:0;
+  background:radial-gradient(circle, rgba(255,90,40,.42), rgba(255,46,110,.16) 45%, transparent 70%);
+  filter:blur(34px);
+  animation:glowPulse 5.5s ease-in-out infinite;
+}
+@keyframes glowPulse{0%,100%{opacity:.7;transform:scale(.96)}50%{opacity:1;transform:scale(1.05)}}
+/* дракон, залитый живым огнём через mask */
+.dragon-fire{
+  position:relative;z-index:2;width:100%;height:100%;
+  -webkit-mask:url(../assets/dragon-mask.png) center/contain no-repeat;
+          mask:url(../assets/dragon-mask.png) center/contain no-repeat;
+  background:
+    linear-gradient(0deg, #FFD23F 0%, #FF8A1F 22%, #FF6A1F 44%, #FF2E6E 72%, #8a0f3a 100%);
+  background-size:100% 260%;
+  background-position:50% 100%;
+  animation:firePan 4.2s ease-in-out infinite;
+  filter:drop-shadow(0 0 26px rgba(255,90,30,.55)) drop-shadow(0 0 60px rgba(255,46,110,.35));
+}
+@keyframes firePan{0%,100%{background-position:50% 100%}50%{background-position:50% 30%}}
+/* мерцающий слой огня поверх */
+.dragon-flicker{
+  position:absolute;inset:0;z-index:3;pointer-events:none;
+  -webkit-mask:url(../assets/dragon-mask.png) center/contain no-repeat;
+          mask:url(../assets/dragon-mask.png) center/contain no-repeat;
+  background:radial-gradient(40% 30% at 50% 18%, rgba(255,234,150,.9), transparent 60%),
+            radial-gradient(50% 24% at 60% 50%, rgba(255,120,40,.6), transparent 65%);
+  mix-blend-mode:screen;opacity:.7;
+  animation:flick 1.6s steps(6) infinite;
+}
+@keyframes flick{0%{opacity:.45;transform:translateY(0)}50%{opacity:.85;transform:translateY(-3px)}100%{opacity:.5;transform:translateY(0)}}
+/* тонкий контур поверх для чёткости силуэта */
+.dragon-edge{
+  position:absolute;inset:0;z-index:4;pointer-events:none;
+  background:url(../assets/dragon-outline.png) center/contain no-repeat;
+  opacity:.5;mix-blend-mode:screen;
+  filter:drop-shadow(0 0 6px rgba(255,180,90,.6));
+}
+.scrollcue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:5;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:8px}
+.scrollcue .line{width:1px;height:34px;background:linear-gradient(180deg,var(--accent),transparent);animation:cueMove 1.8s ease-in-out infinite}
+@keyframes cueMove{0%,100%{opacity:.4;height:24px}50%{opacity:1;height:40px}}
+
+@media(max-width:920px){
+  .hero .wrap{grid-template-columns:1fr;gap:8px;text-align:center;padding-top:120px}
+  .kicker{justify-content:center}
+  .hero p.lead{margin-left:auto;margin-right:auto}
+  .hero .actions{justify-content:center}
+  .hero-meta{justify-content:center}
+  .dragon-stage{height:min(54vh,480px);order:-1;margin-bottom:8px}
+}
+
+/* ---------- SECTION SHELL ---------- */
+section{position:relative}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:38px;flex-wrap:wrap}
+.sec-head .eyebrow{font-size:12.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.sec-head h2{font-size:clamp(36px,6vw,80px);line-height:.92}
+.sec-head h2 em{font-style:normal;background:linear-gradient(110deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sec-head .sub{max-width:42ch;color:var(--muted);font-size:15.5px;line-height:1.55}
+
+/* ---------- PROGRAMS ---------- */
+.programs{padding:clamp(70px,11vw,140px) 0 clamp(50px,8vw,100px)}
+.prog-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
+.card{
+  position:relative;border-radius:20px;overflow:hidden;cursor:pointer;background:var(--panel);
+  border:1px solid var(--line);min-height:300px;
+  transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s,border-color .4s;
+}
+.card.big{grid-column:span 3;min-height:480px}
+.card.wide{grid-column:span 3}
+.card.third{grid-column:span 2}
+.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.2,1),filter .4s;filter:saturate(1.02)}
+.card .veil{position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,3,5,.92) 4%,rgba(8,3,5,.32) 46%,rgba(8,3,5,.05) 100%);transition:opacity .4s}
+.card .body{position:absolute;left:0;right:0;bottom:0;padding:26px 26px 24px;z-index:2}
+.card .tp{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:9px;display:flex;align-items:center;gap:8px}
+.card .tp::before{content:"";width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 0 10px var(--accent)}
+.card h3{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.01em;font-size:clamp(24px,2.4vw,40px);line-height:.95;margin-bottom:10px}
+.card p{font-size:13.5px;line-height:1.5;color:var(--muted);max-width:48ch;max-height:0;opacity:0;overflow:hidden;transition:max-height .45s ease,opacity .35s ease,margin .35s}
+.card .meta{display:flex;gap:16px;margin-top:14px;font-size:11.5px;letter-spacing:.06em;color:var(--muted)}
+.card .meta b{color:var(--text);font-weight:700}
+.card .go{position:absolute;top:20px;right:20px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(255,255,255,.08);backdrop-filter:blur(6px);border:1px solid var(--line);font-size:18px;color:#fff;
+  transform:translateY(-6px) scale(.85);opacity:0;transition:.4s;z-index:3}
+.card:hover{transform:translateY(-6px);border-color:rgba(255,106,31,.55);box-shadow:0 26px 60px rgba(0,0,0,.55),0 0 0 1px rgba(255,106,31,.25)}
+.card:hover img{transform:scale(1.07)}
+.card:hover .veil{opacity:.94}
+.card:hover p{max-height:120px;opacity:1;margin-top:10px}
+.card:hover .go{transform:translateY(0) scale(1);opacity:1;background:linear-gradient(120deg,var(--accent),var(--accent2));border-color:transparent}
+@media(max-width:1024px){.prog-grid{grid-template-columns:repeat(4,1fr)}.card.big,.card.wide{grid-column:span 4}.card.third{grid-column:span 2}}
+@media(max-width:640px){.prog-grid{grid-template-columns:1fr}.card,.card.big,.card.wide,.card.third{grid-column:span 1;min-height:340px}.card p{max-height:120px;opacity:1;margin-top:10px}.card .go{opacity:1;transform:none}}
+
+/* ---------- EFFECTS STRIP ---------- */
+.effects{padding:clamp(50px,8vw,90px) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--bg),var(--bg2))}
+.eff-cols{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+@media(max-width:820px){.eff-cols{grid-template-columns:1fr;gap:36px}}
+.eff-col h4{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.eff-col h4 .pip{width:8px;height:8px;border-radius:50%}
+.eff-col.inc h4 .pip{background:var(--accent);box-shadow:0 0 12px var(--accent)}
+.eff-col.req h4 .pip{background:var(--accent2);box-shadow:0 0 12px var(--accent2)}
+.tags{display:flex;flex-wrap:wrap;gap:11px}
+.tag{font-size:14px;padding:11px 19px;border-radius:100px;border:1px solid var(--line);color:var(--text);transition:.25s;cursor:default}
+.eff-col.inc .tag:hover{border-color:var(--accent);background:rgba(255,106,31,.12);transform:translateY(-2px)}
+.eff-col.req .tag:hover{border-color:var(--accent2);background:rgba(255,46,110,.12);transform:translateY(-2px)}
+
+/* ---------- WORLDWIDE ---------- */
+.worldwide{padding:clamp(60px,9vw,120px) 0;text-align:center;position:relative;overflow:hidden}
+.worldwide::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 80% at 50% 50%,rgba(255,106,31,.10),transparent 70%);pointer-events:none}
+.worldwide .eyebrow{font-size:12.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-bottom:24px;position:relative}
+.ww-line{display:flex;align-items:center;justify-content:center;gap:clamp(14px,3vw,42px);flex-wrap:wrap;position:relative}
+.ww-line span{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:clamp(26px,5vw,68px);letter-spacing:.01em;line-height:1}
+.ww-line span:nth-child(even){background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.ww-line .sep{font-family:'Anton';color:var(--accent);font-size:clamp(20px,3vw,40px);-webkit-text-fill-color:var(--accent)}
+
+/* ---------- FOOTER ---------- */
+footer{padding:clamp(60px,9vw,110px) 0 50px;border-top:1px solid var(--line);background:var(--bg2)}
+.foot-top{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:end;margin-bottom:56px}
+@media(max-width:820px){.foot-top{grid-template-columns:1fr;gap:30px}}
+.foot-top h2{font-size:clamp(36px,6.5vw,86px);line-height:.9}
+.foot-top h2 em{font-style:normal;background:linear-gradient(110deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.foot-top .right{display:flex;flex-direction:column;gap:8px}
+.foot-cta{align-self:flex-end}
+.contacts{display:flex;flex-wrap:wrap;gap:14px}
+.contacts a{display:inline-flex;align-items:center;gap:9px;font-size:14.5px;padding:13px 22px;border-radius:100px;border:1px solid var(--line);color:var(--text);transition:.25s}
+.contacts a:hover{border-color:var(--accent);background:rgba(255,106,31,.1);transform:translateY(-2px)}
+.contacts a .ic{font-size:16px}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;padding-top:30px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+.foot-bottom .brand{font-size:17px}
+
+/* reveal on scroll */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- reduced motion ---------- */
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;scroll-behavior:auto}
+  .dragon-fire{background-position:50% 60%}
+  .reveal{opacity:1;transform:none;transition:none}
+}
+</style>
+
+<header id="hdr">
+  <a class="brand" href="#top"><span class="dot"></span>Steam&nbsp;Show</a>
+  <nav class="nav">
+    <a href="#programs">Programs</a>
+    <a href="#effects">Effects</a>
+    <a href="#reach">Worldwide</a>
+    <a class="cta" href="#contact">Book the show</a>
+  </nav>
+</header>
+
+<main id="top">
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="beam"></div>
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="kicker">Fire · Light · Spectacle</span>
+        <h1 class="display">Light it up.<span class="l2">Bring the dragon.</span></h1>
+        <p class="lead">A flame-breathing dragon, glowing LED giants and large-scale fire choreography — built for galas, festivals and main stages across the world.</p>
+        <div class="actions">
+          <button class="btn btn-fire" id="bookBtn">Book the show →</button>
+          <button class="btn btn-ghost" id="reelBtn"><span class="tri"></span> Watch showreel</button>
+        </div>
+        <div class="hero-meta">
+          <div class="m"><b>5</b><span>Signature shows</span></div>
+          <div class="m"><b>20+</b><span>Countries</span></div>
+          <div class="m"><b>1</b><span>Living dragon</span></div>
+        </div>
+      </div>
+      <div class="dragon-stage">
+        <div class="dragon-glow"></div>
+        <div class="dragon-fire"></div>
+        <div class="dragon-flicker"></div>
+        <div class="dragon-edge"></div>
+      </div>
+    </div>
+    <div class="scrollcue"><span>Scroll</span><span class="line"></span></div>
+  </section>
+
+  <!-- ================= PROGRAMS ================= -->
+  <section class="programs wrap" id="programs">
+    <div class="sec-head reveal">
+      <div>
+        <div class="eyebrow">The repertoire</div>
+        <h2 class="display">Five shows.<br><em>One spark.</em></h2>
+      </div>
+      <p class="sub">From a colossal fire-breathing dragon to smoke-free luminous spectacles — tap any show to open its full gallery of real performances.</p>
+    </div>
+    <div class="prog-grid" id="progGrid"></div>
+  </section>
+
+  <!-- ================= EFFECTS ================= -->
+  <section class="effects" id="effects">
+    <div class="wrap">
+      <div class="sec-head reveal" style="margin-bottom:48px">
+        <div>
+          <div class="eyebrow">Special effects</div>
+          <h2 class="display">Turn it up<br><em>to eleven.</em></h2>
+        </div>
+        <p class="sub">A full arsenal of pyrotechnics and atmospherics, layered into any program to match your venue and budget.</p>
+      </div>
+      <div class="eff-cols reveal">
+        <div class="eff-col inc">
+          <h4><span class="pip"></span> Usually included</h4>
+          <div class="tags">
+            <span class="tag">Flamethrowers</span>
+            <span class="tag">Fire cubes</span>
+            <span class="tag">Hand fire</span>
+            <span class="tag">Sparkle fountains</span>
+            <span class="tag">LED costumes</span>
+            <span class="tag">Pixel poi</span>
+          </div>
+        </div>
+        <div class="eff-col req">
+          <h4><span class="pip"></span> On request</h4>
+          <div class="tags">
+            <span class="tag">Cold sparks</span>
+            <span class="tag">CO₂ jets</span>
+            <span class="tag">Heavy fog</span>
+            <span class="tag">Confetti blast</span>
+            <span class="tag">Stage pyro</span>
+            <span class="tag">Custom dragon scale</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WORLDWIDE ================= -->
+  <section class="worldwide" id="reach">
+    <div class="wrap">
+      <div class="eyebrow reveal">Performing worldwide</div>
+      <div class="ww-line reveal">
+        <span>Europe</span><span class="sep">·</span>
+        <span>The Gulf</span><span class="sep">·</span>
+        <span>Middle East</span><span class="sep">·</span>
+        <span>20+ countries</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer id="contact">
+    <div class="wrap">
+      <div class="foot-top reveal">
+        <h2 class="display">Let's set the<br>stage <em>on fire.</em></h2>
+        <div class="right">
+          <p class="sub" style="color:var(--muted);margin-bottom:18px">Tell us the date, the venue and the vibe — we'll bring the dragon.</p>
+          <button class="btn btn-fire foot-cta" id="bookBtn2">Book the show →</button>
+        </div>
+      </div>
+      <div class="contacts reveal">
+        <a href="https://instagram.com/steamshow.by" target="_blank" rel="noopener"><span class="ic">◎</span> Instagram</a>
+        <a href="mailto:hello@steamshow.by"><span class="ic">✉</span> Email</a>
+        <a href="https://wa.me/" target="_blank" rel="noopener"><span class="ic">✆</span> WhatsApp</a>
+        <a href="https://t.me/" target="_blank" rel="noopener"><span class="ic">✈</span> Telegram</a>
+        <a href="https://www.youtube.com/@SteamShowby" target="_blank" rel="noopener"><span class="ic">▶</span> YouTube</a>
+      </div>
+      <div class="foot-bottom">
+        <a class="brand" href="#top"><span class="dot"></span>Steam&nbsp;Show</a>
+        <span>© <span id="yr"></span> Steam Show — Fire · Light · Spectacle</span>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<script src="media.js"></script>
+<script src="lib.js"></script>
+<script>
+(function(){
+  // год в футере
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // header scrolled
+  const hdr = document.getElementById('hdr');
+  const onScroll = () => hdr.classList.toggle('scrolled', window.scrollY > 30);
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  // ---- крупный обзор программ из реальных данных SS ----
+  // раскладка плиток: dragon=big, fire=wide, остальные = third(2 кол)
+  const layout = { dragon:'big', fire:'wide', ledfire:'third', led:'third', stilts:'third' };
+  const grid = document.getElementById('progGrid');
+  const order = (window.SS && SS.ORDER) ? SS.ORDER : [];
+  grid.innerHTML = order.map(id=>{
+    const s = SS.SHOWS[id];
+    const c = SS.counts(id);
+    const cover = SS.cover(id);
+    const cls = layout[id] || 'third';
+    const bits = [];
+    bits.push('<b>'+c.p+'</b> photos');
+    if(c.v) bits.push('<b>'+c.v+'</b> videos');
+    if(c.c) bits.push('<b>'+c.c+'</b> costumes');
+    return ''+
+      '<article class="card '+cls+' reveal" data-id="'+id+'" tabindex="0" role="button" aria-label="Open '+s.name+' gallery">'+
+        '<img loading="lazy" src="'+cover+'" alt="'+s.name+'">'+
+        '<div class="veil"></div>'+
+        '<div class="go">→</div>'+
+        '<div class="body">'+
+          '<div class="tp">'+s.type+'</div>'+
+          '<h3>'+s.name+'</h3>'+
+          '<p>'+s.desc+'</p>'+
+          '<div class="meta">'+bits.map(b=>'<span>'+b+'</span>').join('')+'</div>'+
+        '</div>'+
+      '</article>';
+  }).join('');
+
+  // клик / клавиатура по плитке -> открыть программу
+  grid.addEventListener('click', e=>{
+    const card = e.target.closest('.card');
+    if(card) SS.openProgram(card.dataset.id);
+  });
+  grid.addEventListener('keydown', e=>{
+    if(e.key!=='Enter' && e.key!==' ') return;
+    const card = e.target.closest('.card');
+    if(card){ e.preventDefault(); SS.openProgram(card.dataset.id); }
+  });
+
+  // CTA -> showreel / открыть флагман
+  const reel = ()=> SS.openReel();
+  document.getElementById('reelBtn').addEventListener('click', reel);
+  const book = ()=> SS.openProgram('dragon');
+  document.getElementById('bookBtn').addEventListener('click', book);
+  document.getElementById('bookBtn2').addEventListener('click', book);
+
+  // ---- reveal on scroll ----
+  const reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(reduce){
+    document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+  } else {
+    const io = new IntersectionObserver((ents)=>{
+      ents.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+    },{threshold:.12, rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  }
+})();
+</script>
