@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Steam Show — Loud. Bright. Unforgettable.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0c0610;
+  --bg2:#140019;
+  --panel:#1c0d27;
+  --text:#f6eefb;
+  --accent:#FF2E6E;
+  --line:#3a2547;
+  --cyan:#25F4EE;
+  --mag:#FF2E6E;
+  --yellow:#FFD23E;
+  --orange:#FF6A1F;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Manrope',system-ui,sans-serif;
+  font-weight:500;
+  line-height:1.5;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+/* cytene background glows */
+.bgfx{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.bgfx span{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;}
+.g1{width:46vw;height:46vw;background:var(--mag);top:-12vw;left:-8vw;}
+.g2{width:42vw;height:42vw;background:var(--cyan);top:8vw;right:-10vw;opacity:.42;}
+.g3{width:40vw;height:40vw;background:var(--orange);bottom:-6vw;left:18vw;opacity:.4;}
+.g4{width:30vw;height:30vw;background:var(--yellow);bottom:14vw;right:6vw;opacity:.3;}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.06;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+.wrap{position:relative;z-index:2;max-width:1320px;margin:0 auto;padding:0 clamp(18px,4vw,42px);}
+
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);
+  background:linear-gradient(180deg,rgba(12,6,16,.85),rgba(12,6,16,.4));
+  border-bottom:1px solid rgba(255,255,255,.06);}
+.nav{display:flex;align-items:center;justify-content:space-between;height:74px;}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text);}
+.brand img{height:40px;width:auto;display:block;filter:drop-shadow(0 0 14px rgba(255,46,110,.5));}
+.brand b{font-family:'Anton',sans-serif;font-weight:400;font-size:21px;letter-spacing:.04em;text-transform:uppercase;}
+.menu{display:flex;align-items:center;gap:28px;}
+.menu a{color:var(--text);opacity:.78;text-decoration:none;font-size:14px;font-weight:600;letter-spacing:.02em;}
+.menu a:hover{opacity:1;color:var(--cyan);}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:14px;letter-spacing:.02em;
+  border:none;cursor:pointer;border-radius:100px;padding:12px 22px;text-decoration:none;transition:transform .2s ease,box-shadow .2s ease;}
+.btn-y{background:var(--yellow);color:#1a0a00;box-shadow:0 0 0 0 rgba(255,210,62,.5);}
+.btn-y:hover{transform:translateY(-2px);box-shadow:0 10px 30px -6px rgba(255,210,62,.6);}
+.btn-line{background:transparent;color:var(--text);border:1.5px solid rgba(255,255,255,.3);}
+.btn-line:hover{transform:translateY(-2px);border-color:var(--cyan);color:var(--cyan);}
+.burger{display:none;background:none;border:none;color:var(--text);font-size:26px;cursor:pointer;}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(48px,8vw,96px) 0 clamp(40px,6vw,72px);}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,4vw,56px);align-items:center;}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;font-weight:700;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--cyan);margin-bottom:22px;}
+.eyebrow::before{content:"";width:30px;height:2px;background:var(--cyan);}
+h1{font-family:'Anton',sans-serif;font-weight:400;line-height:.92;letter-spacing:.005em;
+  font-size:clamp(52px,9vw,124px);text-transform:uppercase;}
+h1 .l{color:var(--yellow);}
+h1 .b{color:var(--cyan);}
+h1 .u{color:var(--mag);display:inline-block;}
+.lead{margin:26px 0 0;font-size:clamp(16px,1.5vw,19px);max-width:46ch;color:rgba(246,238,251,.82);}
+.cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px;}
+.cta .btn{padding:16px 28px;font-size:15px;}
+.play-ico{width:20px;height:20px;border-radius:50%;border:2px solid currentColor;display:inline-grid;place-items:center;}
+.play-ico::before{content:"";border-left:8px solid currentColor;border-top:5px solid transparent;border-bottom:5px solid transparent;margin-left:2px;}
+
+/* hero photo panel */
+.hero-photo{position:relative;border-radius:26px;overflow:hidden;aspect-ratio:4/5;
+  box-shadow:0 0 0 1px rgba(255,255,255,.08), 0 30px 80px -24px rgba(255,46,110,.55), 0 0 120px -30px rgba(37,244,238,.5);}
+.hero-photo img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.02);}
+.hero-photo .frame{position:absolute;inset:0;border-radius:26px;pointer-events:none;
+  box-shadow:inset 0 0 0 2px rgba(255,210,62,.35), inset 0 -120px 90px -60px rgba(12,6,16,.85);}
+.hero-photo .tag{position:absolute;left:18px;bottom:18px;display:flex;gap:8px;flex-wrap:wrap;}
+.hero-photo .tag b{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  background:rgba(12,6,16,.6);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.18);
+  padding:6px 12px;border-radius:100px;}
+/* small floating collage chips */
+.chip{position:absolute;width:108px;height:108px;border-radius:18px;overflow:hidden;
+  box-shadow:0 14px 40px -10px rgba(0,0,0,.7), 0 0 0 2px rgba(255,255,255,.1);background:#000;}
+.chip img{width:100%;height:100%;object-fit:cover;}
+.chip.c1{top:-26px;right:-22px;transform:rotate(6deg);box-shadow:0 0 0 2px rgba(37,244,238,.5),0 14px 40px -10px rgba(0,0,0,.7);}
+.chip.c2{bottom:40px;right:-30px;width:120px;height:120px;transform:rotate(-5deg);box-shadow:0 0 0 2px rgba(255,210,62,.5),0 14px 40px -10px rgba(0,0,0,.7);}
+
+/* marquee strip */
+.strip{position:relative;z-index:2;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);
+  background:rgba(255,46,110,.06);overflow:hidden;margin-top:8px;}
+.marquee{display:flex;gap:44px;white-space:nowrap;padding:16px 0;animation:scroll 26s linear infinite;}
+.marquee span{font-family:'Anton',sans-serif;font-size:20px;letter-spacing:.05em;text-transform:uppercase;
+  color:rgba(246,238,251,.55);display:inline-flex;align-items:center;gap:44px;}
+.marquee span i{font-style:normal;color:var(--yellow);}
+@keyframes scroll{to{transform:translateX(-50%);}}
+
+/* ---------- section heads ---------- */
+.section{padding:clamp(60px,8vw,110px) 0;}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:42px;flex-wrap:wrap;}
+.sec-kick{font-size:12.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--mag);margin-bottom:14px;}
+.sec-title{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;line-height:.95;
+  font-size:clamp(34px,5vw,68px);letter-spacing:.01em;}
+.sec-title em{font-style:normal;color:var(--cyan);}
+.sec-sub{max-width:42ch;color:rgba(246,238,251,.72);font-size:15.5px;}
+
+/* ---------- programs grid ---------- */
+.progs{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;}
+.prog{position:relative;border-radius:22px;overflow:hidden;cursor:pointer;background:#150a1d;
+  border:1px solid rgba(255,255,255,.07);min-height:340px;display:flex;align-items:flex-end;
+  transition:transform .35s cubic-bezier(.2,.7,.3,1),box-shadow .35s ease;}
+.prog:nth-child(1){grid-column:span 4;min-height:440px;}
+.prog:nth-child(2){grid-column:span 2;}
+.prog:nth-child(3){grid-column:span 2;}
+.prog:nth-child(4){grid-column:span 2;}
+.prog:nth-child(5){grid-column:span 2;}
+.prog img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;
+  transition:transform .6s cubic-bezier(.2,.7,.3,1);}
+.prog::after{content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(12,6,16,0) 30%,rgba(12,6,16,.55) 64%,rgba(12,6,16,.94) 100%);}
+.prog .meta{position:relative;z-index:2;padding:24px;width:100%;}
+.prog .ptype{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--yellow);margin-bottom:8px;}
+.prog .pname{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;line-height:.96;
+  font-size:clamp(24px,2.6vw,40px);}
+.prog .pcount{margin-top:10px;font-size:12.5px;font-weight:600;color:rgba(246,238,251,.7);display:flex;gap:14px;}
+.prog .pcount b{color:var(--cyan);font-weight:800;}
+.prog .arrow{position:absolute;top:20px;right:20px;z-index:2;width:42px;height:42px;border-radius:50%;
+  display:grid;place-items:center;background:rgba(12,6,16,.5);backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.2);font-size:18px;transition:background .3s,transform .3s;}
+.prog:hover{transform:translateY(-6px);box-shadow:0 30px 70px -24px rgba(255,46,110,.5),0 0 0 1px rgba(37,244,238,.4);}
+.prog:hover img{transform:scale(1.07);}
+.prog:hover .arrow{background:var(--accent);color:#10070a;transform:rotate(-45deg);}
+
+/* ---------- effects tags ---------- */
+.fx{background:linear-gradient(135deg,rgba(255,46,110,.1),rgba(37,244,238,.07));
+  border:1px solid rgba(255,255,255,.08);border-radius:28px;padding:clamp(28px,4vw,48px);}
+.fx-row{margin-bottom:26px;}
+.fx-row:last-child{margin-bottom:0;}
+.fx-row h4{font-size:12.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;margin-bottom:16px;}
+.fx-row.inc h4{color:var(--orange);}
+.fx-row.req h4{color:var(--cyan);}
+.tags{display:flex;flex-wrap:wrap;gap:12px;}
+.tag-pill{font-size:15px;font-weight:700;letter-spacing:.01em;padding:11px 20px;border-radius:100px;
+  border:1.5px solid;background:rgba(12,6,16,.35);}
+.fx-row.inc .tag-pill{border-color:rgba(255,106,31,.55);color:#ffd9c2;}
+.fx-row.inc .tag-pill:hover{background:var(--orange);color:#1a0a00;}
+.fx-row.req .tag-pill{border-color:rgba(37,244,238,.5);color:#c6fffb;}
+.fx-row.req .tag-pill:hover{background:var(--cyan);color:#04201f;}
+.tag-pill{transition:background .25s,color .25s,transform .25s;}
+.tag-pill:hover{transform:translateY(-2px);}
+
+/* ---------- worldwide ---------- */
+.world{text-align:center;padding:clamp(50px,7vw,90px) 0;}
+.world .big{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;
+  font-size:clamp(28px,4.4vw,60px);line-height:1.04;letter-spacing:.01em;}
+.world .big span{color:var(--mag);}
+.world .big span:nth-child(2){color:var(--cyan);}
+.world .big span:nth-child(3){color:var(--yellow);}
+.world .big span:nth-child(4){color:var(--orange);}
+.world .dot{color:rgba(246,238,251,.3);margin:0 .25em;}
+
+/* ---------- footer ---------- */
+footer{position:relative;z-index:2;border-top:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(180deg,rgba(20,0,25,.4),rgba(12,6,16,.9));}
+.foot{padding:clamp(50px,7vw,84px) 0 40px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;}
+.foot-cta h3{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;line-height:.96;
+  font-size:clamp(30px,4.5vw,58px);}
+.foot-cta h3 span{color:var(--yellow);}
+.foot-cta p{margin:18px 0 26px;color:rgba(246,238,251,.72);max-width:38ch;}
+.contacts{display:flex;flex-direction:column;gap:2px;align-self:center;}
+.contacts a{display:flex;align-items:center;justify-content:space-between;gap:18px;
+  text-decoration:none;color:var(--text);padding:16px 4px;border-bottom:1px solid rgba(255,255,255,.08);
+  font-weight:700;font-size:16px;transition:color .25s,padding .25s;}
+.contacts a:hover{color:var(--cyan);padding-left:10px;}
+.contacts a .k{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:rgba(246,238,251,.45);}
+.foot-bottom{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  padding:24px 0 8px;border-top:1px solid rgba(255,255,255,.08);font-size:13px;color:rgba(246,238,251,.5);}
+.foot-bottom img{height:30px;opacity:.85;}
+
+@media(max-width:980px){
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-photo{max-width:540px;margin:0 auto;}
+  .progs{grid-template-columns:repeat(2,1fr);}
+  .prog:nth-child(n){grid-column:span 2;min-height:300px;}
+  .foot{grid-template-columns:1fr;}
+}
+@media(max-width:680px){
+  .menu{display:none;}
+  .burger{display:block;}
+  .progs{grid-template-columns:1fr;}
+  .chip{display:none;}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  .marquee{animation:none;}
+  .prog,.prog img,.btn,.tag-pill{transition:none;}
+}
+</style>
+</head>
+<body>
+<div class="bgfx" aria-hidden="true"><span class="g1"></span><span class="g2"></span><span class="g3"></span><span class="g4"></span></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <img src="../assets/dragon-light.png" alt="Steam Show"/>
+      <b>Steam Show</b>
+    </a>
+    <nav class="menu">
+      <a href="#shows">Shows</a>
+      <a href="#effects">Effects</a>
+      <a href="#reach">Worldwide</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn-y" href="#contact">Book the show</a>
+    <button class="burger" aria-label="menu" onclick="document.getElementById('shows').scrollIntoView()">☰</button>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Fire · LED · Giants · Live spectacle</span>
+        <h1><span class="l">Loud.</span> <span class="b">Bright.</span><br/><span class="u">Unforgettable.</span></h1>
+        <p class="lead">Steam Show turns any stage into an inferno of fire, light and towering characters — engineered spectacle for galas, festivals and grand openings worldwide.</p>
+        <div class="cta">
+          <a class="btn btn-y" href="#shows">Explore the shows</a>
+          <button class="btn btn-line" onclick="SS.openReel()"><span class="play-ico"></span> Watch showreel</button>
+        </div>
+      </div>
+      <div class="hero-photo" id="heroPhoto" onclick="SS.openProgram('dragon')">
+        <!-- filled by JS: cover('dragon') + collage chips -->
+        <div class="frame"></div>
+        <div class="tag"><b>Dragon Fire Show</b><b>Flagship</b></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="strip">
+    <div class="marquee" id="marquee"></div>
+  </div>
+
+  <!-- SHOWS -->
+  <section class="section" id="shows">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-kick">Five signature programs</div>
+          <h2 class="sec-title">Pick your <em>spectacle</em></h2>
+        </div>
+        <p class="sec-sub">Every show is real footage from real events. Tap any program to open its full gallery — costumes, photos and videos.</p>
+      </div>
+      <div class="progs" id="progs"></div>
+    </div>
+  </section>
+
+  <!-- EFFECTS -->
+  <section class="section" id="effects" style="padding-top:0;">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="sec-kick">Special effects</div>
+          <h2 class="sec-title">Turn it <em>up</em></h2>
+        </div>
+        <p class="sec-sub">Layer pyrotechnics and effects onto any program to scale the energy to your venue.</p>
+      </div>
+      <div class="fx">
+        <div class="fx-row inc">
+          <h4>Usually included</h4>
+          <div class="tags">
+            <span class="tag-pill">Flamethrowers</span>
+            <span class="tag-pill">Fire cannons</span>
+            <span class="tag-pill">Fire cubes</span>
+            <span class="tag-pill">Pyrotechnics</span>
+          </div>
+        </div>
+        <div class="fx-row req">
+          <h4>On request</h4>
+          <div class="tags">
+            <span class="tag-pill">Paper show</span>
+            <span class="tag-pill">Fire hearts</span>
+            <span class="tag-pill">Confetti</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORLDWIDE -->
+  <section id="reach">
+    <div class="wrap world">
+      <div class="sec-kick" style="text-align:center;color:var(--cyan);">Booked across</div>
+      <div class="big">
+        <span>Europe</span><i class="dot">·</i><span>The Gulf</span><i class="dot">·</i><span>Middle East</span><i class="dot">·</i><span>20+ countries</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="wrap foot">
+    <div class="foot-cta">
+      <h3>Ready to <span>light up</span> your event?</h3>
+      <p>Tell us the date, the venue and the vibe — we'll build the show around it.</p>
+      <a class="btn btn-y" href="mailto:hello@steamshow.by">Book the show</a>
+    </div>
+    <div class="contacts">
+      <a href="https://instagram.com/steamshow" target="_blank" rel="noopener"><span>Instagram</span><span class="k">@steamshow</span></a>
+      <a href="mailto:hello@steamshow.by"><span>Email</span><span class="k">hello@steamshow.by</span></a>
+      <a href="https://wa.me/375000000000" target="_blank" rel="noopener"><span>WhatsApp</span><span class="k">Chat now</span></a>
+      <a href="https://t.me/steamshow" target="_blank" rel="noopener"><span>Telegram</span><span class="k">@steamshow</span></a>
+      <a href="https://www.youtube.com/@SteamShowby" target="_blank" rel="noopener"><span>YouTube</span><span class="k">@SteamShowby</span></a>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <img src="../assets/Logo_final.png" alt="Steam Show"/>
+    <span>© 2026 Steam Show — Loud. Bright. Unforgettable.</span>
+  </div>
+</footer>
+
+<script src="media.js"></script>
+<script src="lib.js"></script>
+<script>
+(function(){
+  /* ---- hero: big real photo + collage chips ---- */
+  var hp = document.getElementById('heroPhoto');
+  var dragon = SS.data('dragon').photos;
+  var heroImg = document.createElement('img');
+  heroImg.src = SS.cover('dragon');
+  heroImg.alt = 'Dragon Fire Show';
+  heroImg.loading = 'eager';
+  hp.insertBefore(heroImg, hp.firstChild);
+  // floating collage chips from real photos (different shows for variety)
+  var chipSrcs = [SS.cover('fire'), SS.cover('led')];
+  ['c1','c2'].forEach(function(cls,i){
+    var ch = document.createElement('div');
+    ch.className = 'chip ' + cls;
+    var im = document.createElement('img');
+    im.src = chipSrcs[i]; im.alt = ''; im.loading = 'lazy';
+    ch.appendChild(im);
+    hp.appendChild(ch);
+  });
+
+  /* ---- programs overview from SS.ORDER with real covers ---- */
+  var grid = document.getElementById('progs');
+  grid.innerHTML = SS.ORDER.map(function(id){
+    var s = SS.SHOWS[id];
+    var c = SS.counts(id);
+    var parts = [];
+    if(c.c) parts.push('<span><b>'+c.c+'</b> costumes</span>');
+    parts.push('<span><b>'+c.p+'</b> photos</span>');
+    parts.push('<span><b>'+c.v+'</b> videos</span>');
+    return '<article class="prog" onclick="SS.openProgram(\''+id+'\')">'
+      + '<img loading="lazy" src="'+SS.cover(id)+'" alt="'+s.name+'"/>'
+      + '<div class="arrow">↗</div>'
+      + '<div class="meta">'
+      +   '<div class="ptype">'+s.type+'</div>'
+      +   '<h3 class="pname">'+s.name+'</h3>'
+      +   '<div class="pcount">'+parts.join('')+'</div>'
+      + '</div></article>';
+  }).join('');
+
+  /* ---- marquee content ---- */
+  var words = ['Dragon Fire Show','Fire Show','LED Fire Show','LED Show','Stilt Walkers','Pyrotechnics','Flamethrowers'];
+  var unit = words.map(function(w){return '<i>✦</i> '+w;}).join(' ');
+  var mq = document.getElementById('marquee');
+  mq.innerHTML = '<span>'+unit+' </span><span aria-hidden="true">'+unit+' </span>';
+})();
+</script>
+</body>
+</html>
