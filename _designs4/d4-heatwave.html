@@ -1,0 +1,450 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Steam Show — Heatwave</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --bg:#120A1E;
+  --panel:#1C0F2E;
+  --text:#FFF4E8;
+  --accent:#FF4D17;
+  --line:#34244A;
+
+  --orange:#FF4D17;
+  --magenta:#FF2E9A;
+  --cyan:#00E0D6;
+  --violet:#7A3CFF;
+  --yellow:#FFD23F;
+  --red:#E11436;
+  --cream:#FFF4E8;
+  --ink:#120A1E;
+
+  --grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>");
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:"Space Grotesk",system-ui,sans-serif;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  line-height:1.4;
+}
+
+/* ---------- global grain + halftone overlays ---------- */
+.fx-grain{
+  position:fixed;inset:0;z-index:9999;pointer-events:none;
+  background-image:var(--grain);
+  mix-blend-mode:soft-light;opacity:.5;
+}
+.fx-halftone{
+  position:fixed;inset:0;z-index:9998;pointer-events:none;
+  background-image:radial-gradient(circle at center, rgba(255,255,255,.13) 0.6px, transparent 1.1px);
+  background-size:5px 5px;
+  mix-blend-mode:overlay;opacity:.45;
+}
+
+/* ---------- duotone engine ---------- */
+/* Proper duotone: grayscale photo sits on the HIGHLIGHT color (--duo-b).
+   The photo is then 'multiply'-blended so its darks pull toward the dark
+   shadow tint, its lights reveal the bright base. A second screen wash
+   re-tints the shadows so they're colored, not muddy black. */
+.duo{
+  position:relative;overflow:hidden;isolation:isolate;
+  background:var(--duo-b,var(--orange));
+}
+.duo .ph{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;display:block;z-index:1;
+  filter:grayscale(1) contrast(1.35) brightness(1.05);
+  mix-blend-mode:multiply;
+}
+.duo::before{ /* recolor the shadows: screen the dark tint back in */
+  content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:var(--duo-a,var(--violet));
+  mix-blend-mode:screen;opacity:.6;
+}
+.duo::after{ /* subtle highlight pop to unify the set */
+  content:"";position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:linear-gradient(160deg,transparent 40%,var(--duo-b,var(--orange)));
+  mix-blend-mode:overlay;opacity:.35;
+}
+/* halftone dots clipped to each tile */
+.duo .grit{
+  position:absolute;inset:0;z-index:4;pointer-events:none;
+  background-image:radial-gradient(circle at center, rgba(0,0,0,.4) 0.7px, transparent 1.3px);
+  background-size:4px 4px;
+  mix-blend-mode:soft-light;opacity:.5;
+}
+
+/* per-show duotone duets */
+.t-dragon{--duo-a:#5A0E5C;--duo-b:#FF4D17;}   /* magenta-violet shadow → orange light */
+.t-fire  {--duo-a:#7A1020;--duo-b:#FFD23F;}   /* deep red → yellow */
+.t-ledfire{--duo-a:#1B1066;--duo-b:#FF2E9A;}  /* indigo → magenta */
+.t-led   {--duo-a:#062A4A;--duo-b:#00E0D6;}   /* navy → cyan */
+.t-stilts{--duo-a:#4A0E45;--duo-b:#FFD23F;}   /* plum → yellow */
+
+/* ---------- shell ---------- */
+.wrap{max-width:1340px;margin:0 auto;padding:0 clamp(18px,4vw,46px);}
+
+/* ---------- header ---------- */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px clamp(18px,4vw,46px);
+  mix-blend-mode:difference;
+}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:#fff;}
+.brand img{height:34px;width:auto;display:block;filter:drop-shadow(0 0 1px rgba(0,0,0,.4));}
+.brand b{font-family:"Anton",sans-serif;font-weight:400;font-size:19px;letter-spacing:.04em;text-transform:uppercase;}
+.nav{display:flex;align-items:center;gap:22px;}
+.nav a{color:#fff;text-decoration:none;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;}
+.nav a:hover{opacity:.6;}
+@media(max-width:720px){.nav a:not(.reel){display:none;}}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;padding:120px 0 40px;}
+.hero-poster{position:relative;}
+/* giant headline */
+.bigtype{
+  font-family:"Anton",sans-serif;font-weight:400;text-transform:uppercase;
+  line-height:.82;letter-spacing:-.01em;
+  margin:0;
+}
+.hl1{font-size:clamp(64px,17vw,260px);}
+.hl-row{display:flex;align-items:baseline;flex-wrap:wrap;gap:0 .12em;}
+/* the duotone word is text-clipped to a photo */
+.word-clip{
+  background:linear-gradient(120deg,var(--orange),var(--magenta) 45%,var(--yellow));
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;
+  position:relative;
+}
+.outline{
+  color:transparent;
+  -webkit-text-stroke:clamp(1px,.35vw,3px) var(--cream);
+}
+.hero-sub{
+  display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center;
+  margin-top:30px;max-width:640px;
+}
+.hero-sub p{font-size:clamp(15px,1.5vw,18px);max-width:46ch;opacity:.92;}
+.kick{
+  display:inline-block;font-family:"Archivo Black",sans-serif;font-size:11.5px;
+  letter-spacing:.26em;text-transform:uppercase;color:var(--ink);
+  background:var(--yellow);padding:7px 13px 6px;transform:rotate(-1.5deg);
+}
+
+/* hero collage strip — 3 duotone slabs, ragged */
+.collage{
+  display:grid;grid-template-columns:1.3fr 1fr 1.1fr;gap:12px;
+  margin-top:42px;height:clamp(220px,38vw,440px);
+}
+.collage .duo{border-radius:3px;}
+.collage .duo:nth-child(2){transform:translateY(18px);}
+.collage .duo:nth-child(3){transform:translateY(-14px);}
+.slab-tag{
+  position:absolute;left:0;bottom:0;z-index:4;
+  font-family:"Archivo Black",sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  background:var(--cream);color:var(--ink);padding:6px 11px;
+}
+@media(max-width:720px){
+  .collage{grid-template-columns:1fr 1fr;height:auto;}
+  .collage .duo{height:200px;}
+  .collage .duo:nth-child(3){grid-column:1/-1;height:230px;transform:none;}
+  .collage .duo:nth-child(2){transform:none;}
+}
+
+/* ---------- marquee ---------- */
+.marquee{
+  overflow:hidden;white-space:nowrap;
+  border-top:2px solid var(--line);border-bottom:2px solid var(--line);
+  margin:62px 0 0;padding:14px 0;
+  background:var(--accent);
+}
+.marquee .track{display:inline-flex;gap:0;will-change:transform;animation:scroll 26s linear infinite;}
+.marquee span{
+  font-family:"Anton",sans-serif;font-size:clamp(22px,3.2vw,40px);text-transform:uppercase;
+  color:var(--ink);padding:0 26px;letter-spacing:.02em;
+}
+.marquee .dot{color:var(--ink);opacity:.5;}
+@keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ---------- section frame ---------- */
+section{position:relative;}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin:90px 0 30px;}
+.eyebrow{font-family:"Archivo Black",sans-serif;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);}
+.sec-title{font-family:"Anton",sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(34px,6vw,82px);line-height:.86;}
+.sec-note{font-size:14px;max-width:34ch;opacity:.7;text-align:right;}
+
+/* ---------- shows showcase ---------- */
+.shows{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;}
+.show{
+  position:relative;cursor:pointer;border:none;padding:0;color:var(--text);
+  text-align:left;background:none;display:block;
+}
+.show .duo{width:100%;height:100%;border-radius:4px;transition:transform .5s cubic-bezier(.2,.8,.2,1);}
+.show .ph{transition:transform .7s cubic-bezier(.2,.8,.2,1);}
+.show:hover .ph{transform:scale(1.06);}
+.show:hover .duo{transform:translateY(-4px);}
+.show:focus-visible{outline:3px solid var(--yellow);outline-offset:4px;}
+
+/* ragged layout: feature big, others varied */
+.show.s0{grid-column:span 7;}
+.show.s1{grid-column:span 5;}
+.show.s2{grid-column:span 4;}
+.show.s3{grid-column:span 4;}
+.show.s4{grid-column:span 4;}
+.show.s0 .duo{aspect-ratio:16/11;}
+.show.s1 .duo{aspect-ratio:16/13;}
+.show.s2 .duo,.show.s3 .duo,.show.s4 .duo{aspect-ratio:4/5;}
+
+.show .meta{position:absolute;inset:auto 0 0 0;z-index:5;padding:18px 18px 16px;
+  display:flex;justify-content:space-between;align-items:flex-end;gap:12px;
+  background:linear-gradient(0deg,rgba(10,5,18,.78),transparent);}
+.show .nm{font-family:"Anton",sans-serif;font-size:clamp(20px,2.4vw,40px);line-height:.9;text-transform:uppercase;}
+.show .tp{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--yellow);margin-top:6px;font-weight:700;}
+.show .num{font-family:"Archivo Black",sans-serif;font-size:13px;opacity:.85;white-space:nowrap;}
+.show .cta-pill{position:absolute;top:14px;left:14px;z-index:5;
+  font-family:"Archivo Black",sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  background:var(--cream);color:var(--ink);padding:6px 10px;border-radius:2px;
+  opacity:0;transform:translateY(-6px);transition:.3s;}
+.show:hover .cta-pill{opacity:1;transform:none;}
+
+@media(max-width:900px){
+  .show.s0,.show.s1{grid-column:span 12;}
+  .show.s2,.show.s3,.show.s4{grid-column:span 6;}
+  .show.s4{grid-column:span 12;}
+  .show.s0 .duo,.show.s1 .duo{aspect-ratio:16/10;}
+}
+@media(max-width:560px){
+  .show.s2,.show.s3,.show.s4{grid-column:span 12;}
+  .show .duo{aspect-ratio:4/3 !important;}
+}
+
+/* ---------- effects tags ---------- */
+.effects{margin-top:24px;}
+.fx-rows{display:grid;gap:22px;}
+.fx-rowlabel{font-family:"Archivo Black",sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
+.tags{display:flex;flex-wrap:wrap;gap:10px;}
+.tag{
+  font-size:14px;font-weight:600;letter-spacing:.01em;
+  padding:9px 15px;border:1.5px solid var(--line);border-radius:100px;
+  background:var(--panel);
+}
+.tag.req{border-style:dashed;border-color:var(--cyan);color:var(--cyan);background:transparent;}
+.tag.inc{border-color:transparent;background:var(--accent);color:var(--ink);font-weight:700;}
+
+/* ---------- worldwide band ---------- */
+.world{
+  margin-top:90px;padding:54px 0;
+  border-top:2px solid var(--line);border-bottom:2px solid var(--line);
+  text-align:center;position:relative;
+}
+.world .pre{font-family:"Archivo Black",sans-serif;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--yellow);}
+.world .places{
+  font-family:"Anton",sans-serif;text-transform:uppercase;line-height:.95;
+  font-size:clamp(30px,7vw,96px);margin-top:14px;
+}
+.world .places em{font-style:normal;color:transparent;-webkit-text-stroke:2px var(--accent);}
+.world .sep{color:var(--accent);}
+
+/* ---------- footer ---------- */
+footer{padding:96px 0 60px;position:relative;}
+.foot-top{display:grid;grid-template-columns:1.4fr 1fr;gap:50px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:46px;}
+.foot-cta{font-family:"Anton",sans-serif;text-transform:uppercase;font-size:clamp(36px,7vw,110px);line-height:.84;}
+.foot-cta .gl{background:linear-gradient(120deg,var(--orange),var(--magenta));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.contacts{display:flex;flex-direction:column;gap:2px;}
+.contacts a{
+  display:flex;justify-content:space-between;align-items:center;gap:18px;
+  text-decoration:none;color:var(--text);
+  padding:15px 4px;border-bottom:1px solid var(--line);
+  font-size:16px;font-weight:600;letter-spacing:.01em;
+  transition:.25s;
+}
+.contacts a:first-child{border-top:1px solid var(--line);}
+.contacts a .ch{font-family:"Archivo Black",sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.5;}
+.contacts a:hover{padding-left:14px;color:var(--accent);}
+.contacts a:hover .ch{opacity:1;color:var(--accent);}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-top:34px;font-size:12px;letter-spacing:.05em;opacity:.6;text-transform:uppercase;}
+.foot-bottom img{height:40px;opacity:.85;}
+@media(max-width:720px){.foot-top{grid-template-columns:1fr;}}
+
+/* reduced motion */
+@media(prefers-reduced-motion:reduce){
+  *{animation:none !important;transition:none !important;scroll-behavior:auto;}
+  .collage .duo{transform:none !important;}
+}
+</style>
+
+<div class="fx-grain" aria-hidden="true"></div>
+<div class="fx-halftone" aria-hidden="true"></div>
+
+<header>
+  <a class="brand" href="#top">
+    <img src="../assets/dragon-light.png" alt="Steam Show" />
+    <b>Steam Show</b>
+  </a>
+  <nav class="nav">
+    <a href="#shows">Shows</a>
+    <a href="#effects">Effects</a>
+    <a href="#contact">Contact</a>
+    <a class="reel" href="#" onclick="SS.openReel();return false;">▶ Showreel</a>
+  </nav>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-poster">
+      <span class="kick">Fire · Light · Giants — Worldwide</span>
+      <h1 class="bigtype" style="margin-top:18px;">
+        <span class="hl-row hl1"><span class="word-clip">HEAT</span></span>
+        <span class="hl-row hl1"><span class="outline">WAVE</span></span>
+      </h1>
+      <div class="hero-sub">
+        <p>Steam Show turns a stage into a poster — colossal fire creatures, glowing LED worlds and towering giants, engineered to fill the biggest room you've got.</p>
+      </div>
+
+      <div class="collage" id="collage" aria-hidden="true"></div>
+    </div>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="track" id="mtrack"></div>
+    </div>
+  </section>
+
+  <!-- SHOWS -->
+  <section id="shows">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">The Programme · 05 acts</div>
+          <h2 class="sec-title">Pick your<br/>heat</h2>
+        </div>
+        <p class="sec-note">Every photo below is real, run through one duotone press so the whole roster reads as a single poster. Tap any act for the full gallery.</p>
+      </div>
+      <div class="shows" id="shows"></div>
+    </div>
+  </section>
+
+  <!-- EFFECTS -->
+  <section id="effects" class="effects">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">Special Effects</div>
+          <h2 class="sec-title">The arsenal</h2>
+        </div>
+        <p class="sec-note">Some land in the base price, some we wire in on request — tell us the venue and we'll spec the rig.</p>
+      </div>
+      <div class="fx-rows">
+        <div>
+          <div class="fx-rowlabel">Usually included</div>
+          <div class="tags" id="fxInc"></div>
+        </div>
+        <div>
+          <div class="fx-rowlabel">On request</div>
+          <div class="tags" id="fxReq"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORLDWIDE -->
+  <div class="wrap">
+    <section class="world">
+      <div class="pre">Booked across</div>
+      <div class="places">
+        Europe <span class="sep">·</span> The Gulf <span class="sep">·</span> Middle East <span class="sep">·</span> <em>20+ countries</em>
+      </div>
+    </section>
+  </div>
+
+  <!-- FOOTER -->
+  <footer id="contact">
+    <div class="wrap">
+      <div class="foot-top">
+        <div class="foot-cta">Let's set<br/>the night<br/><span class="gl">on fire.</span></div>
+        <div class="contacts">
+          <a href="https://instagram.com/steamshow" target="_blank" rel="noopener"><span>Instagram</span><span class="ch">@steamshow</span></a>
+          <a href="mailto:hello@steamshow.by"><span>Email</span><span class="ch">hello@steamshow.by</span></a>
+          <a href="https://wa.me/" target="_blank" rel="noopener"><span>WhatsApp</span><span class="ch">Message us</span></a>
+          <a href="https://t.me/steamshow" target="_blank" rel="noopener"><span>Telegram</span><span class="ch">@steamshow</span></a>
+          <a href="https://www.youtube.com/@SteamShowby" target="_blank" rel="noopener"><span>YouTube</span><span class="ch">@SteamShowby</span></a>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <img src="../assets/Logo_final.png" alt="Steam Show" />
+        <span>Steam Show — Fire · LED · Stilts — Worldwide booking</span>
+        <a href="#" onclick="SS.openReel();return false;" style="color:var(--yellow);text-decoration:none;font-weight:700;letter-spacing:.1em;">▶ WATCH SHOWREEL</a>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<script src="media.js"></script>
+<script src="lib.js"></script>
+<script>
+(function(){
+  // ---- hero collage: 3 duotone slabs from real photos ----
+  var collageSrc = [
+    {id:'dragon', i:6, tag:'Dragon Fire'},
+    {id:'ledfire', i:3, tag:'LED Fire'},
+    {id:'stilts', i:11, tag:'Giants'}
+  ];
+  var col = document.getElementById('collage');
+  collageSrc.forEach(function(c){
+    var ph = (SS.data(c.id).photos||[])[c.i] || SS.cover(c.id);
+    var el = document.createElement('div');
+    el.className = 'duo t-'+c.id;
+    el.innerHTML = '<img class="ph" src="'+ph+'" alt="" loading="lazy"/>'
+      + '<div class="grit"></div>'
+      + '<span class="slab-tag">'+c.tag+'</span>';
+    col.appendChild(el);
+  });
+
+  // ---- marquee: worldwide + spec line ----
+  var bits = ['Fire Shows','Dragon Fire','LED Worlds','Stilt Giants','Pyro','Flamethrowers','Europe','The Gulf','Middle East','20+ Countries'];
+  var seg = bits.map(function(b){return '<span>'+b+'</span><span class="dot">✺</span>';}).join('');
+  document.getElementById('mtrack').innerHTML = seg + seg; // doubled for seamless loop
+
+  // ---- shows showcase ----
+  // hand-pick a striking cover frame per show
+  var covers = {dragon:0, fire:4, ledfire:1, led:2, stilts:9};
+  var grid = document.getElementById('shows');
+  SS.ORDER.forEach(function(id, idx){
+    var s = SS.SHOWS[id], c = SS.counts(id);
+    var photos = SS.data(id).photos || [];
+    var ph = photos[covers[id]] || SS.cover(id);
+    var total = c.p + c.v + c.c;
+    var btn = document.createElement('button');
+    btn.className = 'show s'+idx;
+    btn.setAttribute('aria-label', 'Open '+s.name+' gallery');
+    btn.onclick = function(){ SS.openProgram(id); };
+    btn.innerHTML =
+      '<div class="duo t-'+id+'">'
+      +   '<img class="ph" src="'+ph+'" alt="'+s.name+'" loading="lazy"/>'
+      +   '<div class="grit"></div>'
+      +   '<span class="cta-pill">View gallery →</span>'
+      +   '<div class="meta">'
+      +     '<div><div class="nm">'+s.name.replace(/ /g,'<br/>')+'</div><div class="tp">'+s.type+'</div></div>'
+      +     '<div class="num">'+total+' assets</div>'
+      +   '</div>'
+      + '</div>';
+    grid.appendChild(btn);
+  });
+
+  // ---- effects tags ----
+  var included = ['Live fire choreography','Pyro bursts','Smoke / haze','Stage lighting cues','LED costume looks'];
+  var onRequest = ['Flamethrowers','Fire cubes','Cold sparks / fountains','CO₂ jets','Custom characters','Confetti / streamers'];
+  var fxInc = document.getElementById('fxInc'), fxReq = document.getElementById('fxReq');
+  included.forEach(function(t){ var e=document.createElement('span'); e.className='tag inc'; e.textContent=t; fxInc.appendChild(e); });
+  onRequest.forEach(function(t){ var e=document.createElement('span'); e.className='tag req'; e.textContent=t; fxReq.appendChild(e); });
+})();
+</script>
