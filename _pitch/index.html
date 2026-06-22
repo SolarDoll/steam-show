@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Steam Show — 3 концепта</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;1,400&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0A0908;color:#F2E9DC;font-family:"Space Grotesk",sans-serif;
+    min-height:100vh;padding:64px 24px;line-height:1.6}
+  .wrap{max-width:1100px;margin:0 auto}
+  h1{font-family:"Fraunces",serif;font-weight:400;font-size:clamp(2rem,5vw,3.4rem);
+    letter-spacing:-.02em;margin-bottom:10px}
+  h1 em{font-style:italic;color:#D9A441}
+  .sub{color:#9A8E7C;max-width:60ch;margin-bottom:48px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}}
+  .c{display:block;border:1px solid rgba(242,233,220,.14);border-radius:10px;padding:30px;
+    transition:.35s;text-decoration:none;color:inherit;min-height:230px;
+    display:flex;flex-direction:column}
+  .c:hover{transform:translateY(-5px);border-color:var(--a)}
+  .c .tag{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--a)}
+  .c h2{font-family:"Fraunces",serif;font-weight:400;font-size:1.9rem;margin:14px 0 10px}
+  .c p{color:#9A8E7C;font-size:.92rem;flex:1}
+  .c .go{margin-top:16px;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--a)}
+  .c1{--a:#E2562B}.c2{--a:#19E3FF}.c3{--a:#C8551F}
+  .note{margin-top:42px;color:#6f675c;font-size:.84rem}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Steam Show — <em>три концепта</em></h1>
+    <p class="sub">Один каркас, три настроения. Открой каждый, прокрути до конца и выбери, что цепляет нутром. Все на твоих реальных фото и hero-видео.</p>
+    <div class="grid">
+      <a class="c c1" href="ember.html">
+        <span class="tag">01 — Тёплый кинопремиум</span>
+        <h2>Ember</h2>
+        <p>Чёрный + угли + золото. Кинематографично, дорого, сдержанно. Уголь-частицы на hero, антиква Fraunces.</p>
+        <span class="go">Открыть →</span>
+      </a>
+      <a class="c c2" href="pulse.html">
+        <span class="tag">02 — Неон-вау, цветокод</span>
+        <h2>Pulse</h2>
+        <p>Каждое шоу — свой неон. Энергия, крупные жирные буквы, заливки цветом. Сразу читается весь спектр.</p>
+        <span class="go">Открыть →</span>
+      </a>
+      <a class="c c3" href="stage.html">
+        <span class="tag">03 — Минимал-люкс</span>
+        <h2>Stage</h2>
+        <p>Максимум воздуха, один ember-акцент, огромная лёгкая антиква Instrument Serif. Галерея топ-агентства.</p>
+        <span class="go">Открыть →</span>
+      </a>
+    </div>
+    <p class="note">Дракон — только как тонкий знак (силуэт-маска в логотипе и навигации). Никакого стимпанка и анимированных зверей.</p>
+  </div>
+</body>
+</html>
