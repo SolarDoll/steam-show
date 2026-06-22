@@ -3,21 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Steam Show — _pitch5 · второй заход</title>
+<title>Steam Show — _pitch5 · сравнение</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{--bg:#08080C;--bg2:#0F0F18;--ink:#EAEAF5;--muted:#9A9AB8;--line:rgba(255,255,255,.1);
-    --portal:#2AD4FF;--marquee:#FF6A1F;--kinetic:#FF2AD4;--lab:#B6FF2A}
+    --kinetic:#FF2AD4;--marquee:#FF6A1F;--reel:#FF7A18;--fireflow:#FFC53D;--lab:#25F4EE}
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--bg);color:var(--ink);font-family:"Inter",system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:1100px;margin:0 auto;padding:0 28px}
   header.top{padding:74px 0 26px}
-  header.top .eyebrow{font:600 12px/1 "Space Grotesk";letter-spacing:.3em;text-transform:uppercase;color:var(--portal)}
+  header.top .eyebrow{font:600 12px/1 "Space Grotesk";letter-spacing:.3em;text-transform:uppercase;color:var(--marquee)}
   header.top h1{font-family:"Space Grotesk";font-weight:700;font-size:clamp(30px,6vw,56px);margin:14px 0 12px;letter-spacing:-.02em}
-  header.top p{color:var(--muted);max-width:66ch;font-size:15.5px}
+  header.top p{color:var(--muted);max-width:68ch;font-size:15.5px}
   .feat{margin:24px 0 0;padding:18px 22px;border:1px solid var(--line);border-radius:14px;background:var(--bg2);font-size:14px;color:var(--muted)}
   .feat b{color:var(--ink)}
   .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;padding:30px 0 60px}
@@ -40,39 +40,46 @@
 <body>
 <div class="wrap">
   <header class="top">
-    <div class="eyebrow">Steam Show · pitch5 · второй заход</div>
-    <h1>3 сайта + лаборатория карточек</h1>
-    <p>Доработка по фидбэку: секции спецэффектов больше нет — все эффекты ушли в бегущую строку; блок про гео называется «Performed worldwide»; нигде нет горизонтального скролла; у каждого варианта своя раскладка карточек и свой тип «движения».</p>
-    <div class="feat"><b>Карточки:</b> все 5 программ помещаются на один экран, крупные фото, читаемые названия и теги (напр. Fire Show · Fantasy / Post-apoc / Rock). Сравнить все раскладки можно в <b>лаборатории карточек</b>.</div>
+    <div class="eyebrow">Steam Show · pitch5 · сравнение</div>
+    <h1>4 сайта + лаборатория карточек</h1>
+    <p>Доработка по фидбэку: секции спецэффектов нет (эффекты — в бегущей строке); блок гео — «Performed worldwide»; нигде нет горизонтального скролла; контакты везде с иконками и названием «Book the Steam Show»; аккордеон убран; на херо kinetic и marquee добавлен glitch.</p>
+    <div class="feat"><b>Карточки:</b> все 5 программ на один экран, крупные фото, читаемые название и теги, явная кнопка <b>View more</b>. У каждого сайта своя раскладка; все раскладки рядом — в <b>лаборатории карточек</b>.</div>
   </header>
 
   <div class="grid">
-    <a class="card" style="--ac:var(--portal)" href="portal.html">
-      <div class="vis"><span class="tag">Bento · фото-цикл</span></div>
-      <div class="body"><div class="nm">1 · Portal</div>
-        <div class="meta">Неон · херо-портал (glitch + неон-кольца)</div>
-        <div class="desc">Карточки бенто-мозаикой (1 крупная Dragon + 4), фото в них постоянно мягко перелистываются. Контакты + Performed worldwide.</div>
+    <a class="card" style="--ac:var(--kinetic)" href="kinetic.html">
+      <div class="vis"><span class="tag">Bento · glitch hero</span></div>
+      <div class="body"><div class="nm">1 · Kinetic</div>
+        <div class="meta">Неон · glitch «Steam Show» + ротатор «We bring → …»</div>
+        <div class="desc">Карточки бенто (как pitch2): флагман крупнее + 4. Название и теги читаются сразу, явная View more.</div>
         <span class="open">Открыть →</span></div></a>
 
     <a class="card" style="--ac:var(--marquee)" href="marquee.html">
-      <div class="vis"><span class="tag">Poster · видео</span></div>
+      <div class="vis"><span class="tag">Preview · видео · glitch</span></div>
       <div class="body"><div class="nm">2 · Marquee</div>
-        <div class="meta">Тёплый · херо «летящие слова» + фото под ними</div>
-        <div class="desc">Карточки постер-сеткой 5×, по наведению играет ВИДЕО (демо на hero.mp4). Огненное свечение снизу, canvas-эмберы.</div>
+        <div class="meta">Тёплый · glitch «STEAM SHOW», летящие слова + фото ярче</div>
+        <div class="desc">Карточки-превью: крупные тумбы с видео по наведению и типографикой поверх. Огненное свечение, canvas-эмберы.</div>
         <span class="open">Открыть →</span></div></a>
 
-    <a class="card" style="--ac:var(--kinetic)" href="kinetic.html">
-      <div class="vis"><span class="tag">Accordion · фото</span></div>
-      <div class="body"><div class="nm">3 · Kinetic</div>
-        <div class="meta">Неон · херо-ротатор «We bring → …»</div>
-        <div class="desc">Карточки аккордеоном: наведение разворачивает панель с описанием и тегами. Статичное крупное фото.</div>
+    <a class="card" style="--ac:var(--reel)" href="reel.html">
+      <div class="vis"><span class="tag">Stripes · видео-герой</span></div>
+      <div class="body"><div class="nm">3 · Reel</div>
+        <div class="meta">Кино/Anton · видео-герой «We set the night on fire»</div>
+        <div class="desc">Карточки — полноширинные фото-полосы с гигантскими номерами (как v3-stripes). Явная View more.</div>
+        <span class="open">Открыть →</span></div></a>
+
+    <a class="card" style="--ac:var(--fireflow)" href="fireflow.html">
+      <div class="vis"><span class="tag">Rows · видео-герой</span></div>
+      <div class="body"><div class="nm">4 · Fireflow</div>
+        <div class="meta">Тёплый огонь · видео-герой с цветными буквами</div>
+        <div class="desc">Вернулся в сравнение. Карточки — крупные чередующиеся ряды, теперь с явной кнопкой View more. Иконки в контактах.</div>
         <span class="open">Открыть →</span></div></a>
 
     <a class="card" style="--ac:var(--lab)" href="cards-lab.html">
-      <div class="vis"><span class="tag">Все 5 раскладок</span></div>
+      <div class="vis"><span class="tag">Все раскладки</span></div>
       <div class="body"><div class="nm">★ Лаборатория карточек</div>
-        <div class="meta">poster · bento · accordion · showcase · tilt</div>
-        <div class="desc">Все придуманные раскладки карточек подряд на одних данных + разные типы движения. Выбираешь — потом скомпонуем.</div>
+        <div class="meta">bento · stripes · rows · preview · poster · showcase · tilt</div>
+        <div class="desc">Все раскладки подряд на одних данных + разные типы движения. Выбираешь — потом скомпонуем.</div>
         <span class="open">Открыть →</span></div></a>
   </div>
 

@@ -24,8 +24,8 @@
   .mh{position:relative;min-height:100svh;overflow:hidden;display:grid;place-items:center}
   .mh__photos{position:absolute;inset:0;z-index:0}
   .mh__photos .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.1);
-    transition:opacity 1.6s ease,transform 7s linear;filter:saturate(1.05) brightness(.7)}
-  .mh__photos .slide.on{opacity:.55;transform:scale(1)}
+    transition:opacity 1.6s ease,transform 7s linear;filter:saturate(1.12) brightness(.95)}
+  .mh__photos .slide.on{opacity:.82;transform:scale(1)}
   .mh__rows{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;justify-content:center;gap:clamp(2px,1vh,14px);pointer-events:none}
   .mh__row{white-space:nowrap;overflow:hidden}
   .mh__row .t{display:inline-flex;will-change:transform}
@@ -79,7 +79,7 @@
     <div class="mh__scrim"></div>
     <div class="mh__text">
       <span class="eyebrow">Live fire · LED · giants — worldwide</span>
-      <h1>Steam Show</h1>
+      <h1 class="glitch" data-t="Steam Show" style="--g1:var(--accent);--g2:var(--c-ledfire)">Steam Show</h1>
       <p class="mh__tag">A full-scale live spectacle company — fire, light and towering giants, built for the main stage.</p>
       <div class="mh__cta">
         <button class="hbtn solid" onclick="SS.openReel()">▶ Watch showreel</button>
@@ -98,8 +98,8 @@
     <div class="wrap">
       <div class="sec-head reveal"><span class="kicker">Five programs</span>
         <h2>The repertoire.</h2>
-        <p>Все пять на одном экране. Наведи на карточку — играет видео (демо на общем клипе; позже подставим по-программные сжатые лупы). Клик — галерея.</p></div>
-      <div data-cards="poster" data-media="video"></div>
+        <p>Все пять на одном экране — крупные «превью» с видео по наведению (демо на общем клипе; позже подставим по-программные сжатые лупы) и кнопкой View more.</p></div>
+      <div data-cards="preview" data-media="video"></div>
     </div>
   </section>
 
@@ -126,14 +126,14 @@
 
   <section id="contact" data-spine>
     <div class="wrap"><div class="contact-card reveal"><div class="contact-in">
-      <span class="kicker" style="justify-content:center">Book the show</span>
+      <span class="kicker" style="justify-content:center">Book the Steam Show</span>
       <h2>Let's <span class="fire-text">light it up</span>.</h2>
       <p>Tell us the date, the venue and the vibe — we'll bring the fire. Reach us on whatever's fastest for you.</p>
       <div class="channels">
-        <a class="ch" href="#"><span class="lbl">Instagram</span><span class="val">@steamshow</span><span class="arrow2">See the feed →</span></a>
-        <a class="ch" href="mailto:hello@steamshow.by"><span class="lbl">Email</span><span class="val">hello@steamshow.by</span><span class="arrow2">Send a brief →</span></a>
-        <a class="ch" href="#"><span class="lbl">WhatsApp · Telegram</span><span class="val">Message us</span><span class="arrow2">Chat now →</span></a>
-        <a class="ch" href="https://www.youtube.com/@SteamShowby" target="_blank" rel="noopener"><span class="lbl">YouTube</span><span class="val">@SteamShowby</span><span class="arrow2">Watch shows →</span></a>
+        <a class="ch" href="#"><span class="chic">IG</span><span class="lbl">Instagram</span><span class="val">@steamshow</span><span class="arrow2">See the feed →</span></a>
+        <a class="ch" href="mailto:hello@steamshow.by"><span class="chic">@</span><span class="lbl">Email</span><span class="val">hello@steamshow.by</span><span class="arrow2">Send a brief →</span></a>
+        <a class="ch" href="#"><span class="chic">WA</span><span class="lbl">WhatsApp · Telegram</span><span class="val">Message us</span><span class="arrow2">Chat now →</span></a>
+        <a class="ch" href="https://www.youtube.com/@SteamShowby" target="_blank" rel="noopener"><span class="chic">YT</span><span class="lbl">YouTube</span><span class="val">@SteamShowby</span><span class="arrow2">Watch shows →</span></a>
       </div>
     </div></div></div>
   </section>

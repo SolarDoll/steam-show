@@ -6,22 +6,23 @@
 <title>Steam Show — Лаборатория карточек</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="parts.css">
 <link rel="stylesheet" href="cards.css">
 <style>
   :root{
     --bg:#08080C; --bg2:#10101A; --ink:#EAEAF5; --muted:#9A9AB8;
     --line:rgba(255,255,255,.1);
-    --accent:#2AD4FF; --accent2:#FF2AD4; --accent3:#B6FF2A;
-    --display:"Space Grotesk","Inter",sans-serif; --body:"Inter",system-ui,sans-serif;
+    --accent:#FF6A1F; --accent2:#FF2E84; --accent3:#FF3D2E;
+    --display:"Anton",Impact,sans-serif; --body:"Inter",system-ui,sans-serif;
   }
   body{padding:0 0 80px}
   .lab-top{padding:56px 0 10px;border-bottom:1px solid var(--line);margin-bottom:10px}
-  .lab-top h1{font-family:var(--display);font-weight:700;font-size:clamp(28px,5vw,46px);letter-spacing:-.02em}
-  .lab-top p{color:var(--muted);margin-top:10px;max-width:70ch;font-size:15px}
-  .lab-top .back{display:inline-block;margin-bottom:18px;color:var(--accent);font:600 13px/1 var(--display);letter-spacing:.04em}
-  section.lab{padding:46px 0}
+  .lab-top h1{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(30px,6vw,52px);letter-spacing:.01em}
+  .lab-top p{color:var(--muted);margin-top:12px;max-width:72ch;font-size:15px}
+  .lab-top .back{display:inline-block;margin-bottom:18px;color:var(--accent);font:700 13px/1 var(--body);letter-spacing:.04em}
+  section.lab{padding:48px 0}
+  .lab-note{margin:30px 0 0;padding:16px 20px;border:1px solid var(--line);border-radius:12px;background:var(--bg2);color:var(--muted);font-size:13.5px}
 </style>
 </head>
 <body>
@@ -29,31 +30,42 @@
 <div class="wrap lab-top">
   <a class="back" href="index.html">← все варианты</a>
   <h1>Лаборатория карточек</h1>
-  <p>5 раскладок программ на одних реальных данных. Везде: крупные фото, название и теги читаемы, всё помещается без горизонтального скролла. Клик по карточке открывает галерею. Тип «движения» подписан у каждой.</p>
+  <p>Все раскладки программ на одних реальных данных. Везде: крупные фото, читаемые название и теги, явная кнопка <b>View more</b>, всё на один экран, без горизонтального скролла. Аккордеон убрали по фидбэку. Тип «движения» подписан у каждой.</p>
+  <p class="lab-note"><b>Первые четыре — то, что ты отметила:</b> бенто (как pitch2), полосы (как v3-stripes), ряды (как fireflow, но с явной кнопкой), превью с видео и крупной типографикой (как тумбы на странице _designs8).</p>
 </div>
 
 <section class="lab"><div class="wrap">
-  <div class="lab-label"><span class="n">01</span><h3>Постер-сетка 5×</h3><span class="d">движение: видео по наведению (демо на hero.mp4)</span></div>
-  <div data-cards="poster" data-media="video"></div>
-</div></section>
-
-<section class="lab"><div class="wrap">
-  <div class="lab-label"><span class="n">02</span><h3>Бенто-мозаика</h3><span class="d">движение: фото-цикл (постоянный кросс-фейд)</span></div>
+  <div class="lab-label"><span class="n">01</span><h3>Бенто (как pitch2)</h3><span class="d">1 крупная + 4 · движение: фото-цикл</span></div>
   <div data-cards="bento" data-media="cycle"></div>
 </div></section>
 
 <section class="lab"><div class="wrap">
-  <div class="lab-label"><span class="n">03</span><h3>Аккордеон-панели</h3><span class="d">движение: нет (статичное фото) · наведение разворачивает</span></div>
-  <div data-cards="accordion" data-media="static"></div>
+  <div class="lab-label"><span class="n">02</span><h3>Полосы (как v3-stripes)</h3><span class="d">полноширинные фото-полосы с гигантскими номерами · статика</span></div>
+  <div data-cards="stripes" data-media="static"></div>
 </div></section>
 
 <section class="lab"><div class="wrap">
-  <div class="lab-label"><span class="n">04</span><h3>Showcase — кадр + список</h3><span class="d">движение: фото-цикл в крупном кадре · наведение по списку меняет кадр</span></div>
+  <div class="lab-label"><span class="n">03</span><h3>Ряды (как fireflow)</h3><span class="d">крупные чередующиеся ряды + явная кнопка View more · статика</span></div>
+  <div data-cards="rows" data-media="static"></div>
+</div></section>
+
+<section class="lab"><div class="wrap">
+  <div class="lab-label"><span class="n">04</span><h3>Превью с видео</h3><span class="d">крупные ландшафтные тумбы, видео по наведению + типографика поверх</span></div>
+  <div data-cards="preview" data-media="video"></div>
+</div></section>
+
+<section class="lab"><div class="wrap">
+  <div class="lab-label"><span class="n">05</span><h3>Постер-сетка 5×</h3><span class="d">экстра · движение: фото-цикл</span></div>
+  <div data-cards="poster" data-media="cycle"></div>
+</div></section>
+
+<section class="lab"><div class="wrap">
+  <div class="lab-label"><span class="n">06</span><h3>Showcase — кадр + список</h3><span class="d">экстра · наведение по списку меняет крупный кадр</span></div>
   <div data-cards="showcase" data-media="cycle"></div>
 </div></section>
 
 <section class="lab"><div class="wrap">
-  <div class="lab-label"><span class="n">05</span><h3>Tilt-ряд постеров</h3><span class="d">движение: фото-цикл · смещение и наклон, наведение выравнивает</span></div>
+  <div class="lab-label"><span class="n">07</span><h3>Tilt-ряд</h3><span class="d">экстра · смещение и наклон, наведение выравнивает</span></div>
   <div data-cards="tilt" data-media="cycle"></div>
 </div></section>
 

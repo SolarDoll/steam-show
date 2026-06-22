@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steam Show — Reel (stripes · видео-герой)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="parts.css">
+<link rel="stylesheet" href="cards.css">
+<style>
+  :root{
+    --bg:#0A0A0B; --bg2:#121013; --ink:#F4EFE4; --muted:#8A857A;
+    --line:rgba(200,162,75,.22); --sky-top:#2a1505;
+    --accent:#FF7A18; --accent2:#FFC24B; --accent3:#FF3B1F;
+    --display:"Anton",Impact,sans-serif; --body:"Inter",system-ui,sans-serif;
+  }
+  .fire-text{background:linear-gradient(180deg,var(--accent2),var(--accent) 55%,var(--accent3));
+    -webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 24px rgba(255,90,30,.35))}
+  .film-strip{position:relative;height:24px;z-index:3;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);
+    background:repeating-linear-gradient(90deg,transparent 0 18px,rgba(0,0,0,.55) 18px 28px,transparent 28px 46px),#000}
+  .vh{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;padding:120px 0 60px}
+  .vh video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:saturate(1.1) contrast(1.04)}
+  .vh::after{content:"";position:absolute;inset:0;z-index:1;
+    background:radial-gradient(120% 80% at 30% 40%,transparent 20%,rgba(10,10,11,.5) 100%),
+      linear-gradient(180deg,rgba(10,10,11,.6),transparent 30%,transparent 50%,rgba(10,10,11,.95) 100%)}
+  .vh-in{position:relative;z-index:2;width:100%}
+  .vh .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--accent2);font:500 12.5px/1 var(--body);
+    letter-spacing:.32em;text-transform:uppercase;margin-bottom:20px}
+  .vh .eyebrow::before{content:"";width:34px;height:1px;background:var(--accent)}
+  .vh h1{font-family:var(--display);font-size:clamp(62px,14vw,200px);line-height:.84;text-transform:uppercase;color:#fff;letter-spacing:.01em}
+  .vh .lead{margin-top:22px;max-width:48ch;color:#cfc7ba;font-size:clamp(15px,1.6vw,18px)}
+  .vh-cta{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap}
+  .hbtn{font-family:"Bebas Neue",sans-serif;letter-spacing:2px;font-size:18px;padding:14px 28px;border-radius:3px;
+    transition:.25s;display:inline-flex;align-items:center;gap:10px;cursor:pointer;border:1px solid transparent}
+  .hbtn.solid{background:linear-gradient(135deg,var(--accent),var(--accent3));color:#fff;box-shadow:0 0 30px rgba(255,80,30,.4)}
+  .hbtn.solid:hover{transform:translateY(-2px);box-shadow:0 0 46px rgba(255,80,30,.65)}
+  .hbtn.ghost{border-color:var(--line);color:#fff;background:rgba(255,255,255,.03)}
+  .hbtn.ghost:hover{border-color:var(--accent2);color:var(--accent2)}
+</style>
+</head>
+<body>
+
+<div id="sky"></div>
+<div id="embers" aria-hidden="true"></div>
+<div id="prog"></div>
+<div class="spine" id="spine" aria-hidden="true"><div class="spine__track"></div><div class="spine__fill" id="spineFill"></div></div>
+
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="#top"><img src="../assets/Logo_final.png" alt="Steam Show"><span class="nm">Steam Show</span></a>
+    <nav class="menu"><a href="#programs">Programs</a><a href="#world">Worldwide</a><a href="#contact">Contact</a></nav>
+    <a class="nav-cta" href="#contact">Book the show</a>
+    <button class="nav-toggle" id="navBtn" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<main id="top">
+  <header class="vh">
+    <video autoplay muted loop playsinline poster="../assets/web/hero/hero-poster.jpg">
+      <source src="../assets/web/hero/hero.mp4" type="video/mp4">
+    </video>
+    <div class="wrap vh-in">
+      <span class="eyebrow">Live Fire · LED · Giants — worldwide</span>
+      <h1>We set the night<br><span class="fire-text">on fire</span></h1>
+      <p class="lead">A flame-breathing dragon, fire choreography, glowing LED worlds and towering giants — engineered for galas, festivals and main stages.</p>
+      <div class="vh-cta">
+        <button class="hbtn solid" onclick="SS.openReel()">▶ Watch the reel</button>
+        <a class="hbtn ghost" href="#programs">See the programs</a>
+      </div>
+    </div>
+  </header>
+  <div class="film-strip" aria-hidden="true"></div>
+
+  <div class="ticker" aria-hidden="true"><div class="tt">
+    <b>Dragon fire</b><b>LED couture</b><b>Stilt giants</b><b>Pyrotechnics</b><b>Flame cannons</b><b>Flamethrowers</b><b>Fire cubes</b><b>Fire hearts</b><b>Paper show</b><b>Confetti</b>
+    <b>Dragon fire</b><b>LED couture</b><b>Stilt giants</b><b>Pyrotechnics</b><b>Flame cannons</b><b>Flamethrowers</b><b>Fire cubes</b><b>Fire hearts</b><b>Paper show</b><b>Confetti</b>
+  </div></div>
+
+  <!-- ПРОГРАММЫ — STRIPES (полноширинные фото-полосы) -->
+  <section id="programs" data-spine style="padding-bottom:0">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="kicker">The repertoire · 5 shows</span>
+        <h2>Five acts,<br>one reel.</h2>
+        <p>Полноширинные фото-полосы с гигантскими номерами. Название и теги читаются сразу, кнопка View more открывает галерею.</p></div>
+      <div data-cards="stripes" data-media="static"></div>
+    </div>
+  </section>
+
+  <section id="world" data-spine>
+    <div class="wrap geo-grid">
+      <div class="reveal from-left">
+        <span class="kicker">On tour</span>
+        <h2 style="font-size:clamp(34px,6vw,64px);line-height:.92;margin-bottom:16px;text-transform:uppercase">Performed <span class="fire-text">worldwide</span></h2>
+        <p style="color:var(--muted);font-size:17px;margin:0 0 26px">A road-tested touring crew with full kit logistics. We bring the rig, the safety and the show to your venue.</p>
+        <div class="geo-list">
+          <span class="geo-pill">Europe festivals</span><span class="geo-pill">UAE</span><span class="geo-pill">Qatar</span>
+          <span class="geo-pill">Saudi Arabia</span><span class="geo-pill">Oman</span><span class="geo-pill">Turkey</span>
+          <span class="geo-pill">Jordan</span><span class="geo-pill world">+ 20 countries on request</span>
+        </div>
+      </div>
+      <div class="reveal from-right"><div class="globe">
+        <div class="core"><b>WORLD</b><small>WIDE</small></div>
+        <span class="ping" style="top:30%;left:40%"></span>
+        <span class="ping" style="top:55%;left:62%;animation-delay:.8s"></span>
+        <span class="ping" style="top:68%;left:38%;animation-delay:1.5s"></span>
+      </div></div>
+    </div>
+  </section>
+
+  <section id="contact" data-spine>
+    <div class="wrap"><div class="contact-card reveal"><div class="contact-in">
+      <span class="kicker" style="justify-content:center">Book the Steam Show</span>
+      <h2>Book the <span class="fire-text">show</span>.</h2>
+      <p>Tell us the date, the venue and the vibe — we'll cut the perfect reel for your night.</p>
+      <div class="channels">
+        <a class="ch" href="#"><span class="chic">IG</span><span class="lbl">Instagram</span><span class="val">@steam.show</span><span class="arrow2">Follow →</span></a>
+        <a class="ch" href="mailto:hello@steamshow.com"><span class="chic">@</span><span class="lbl">Email</span><span class="val">hello@steamshow</span><span class="arrow2">Write →</span></a>
+        <a class="ch" href="#"><span class="chic">WA</span><span class="lbl">WhatsApp · Telegram</span><span class="val">Message us</span><span class="arrow2">Chat →</span></a>
+        <a class="ch" href="https://www.youtube.com/@SteamShowby" target="_blank" rel="noopener"><span class="chic">YT</span><span class="lbl">YouTube</span><span class="val">/steamshow</span><span class="arrow2">Watch →</span></a>
+      </div>
+    </div></div></div>
+  </section>
+</main>
+
+<footer class="foot"><div class="wrap foot-in">
+  <div style="display:flex;align-items:center;gap:12px"><img src="../assets/Logo_final.png" alt="Steam Show"><span>Steam Show — Fire · LED · Dragons</span></div>
+  <div>© <span id="yr"></span> Steam Show — Reel · stripes</div>
+</div></footer>
+
+<script src="media.js"></script>
+<script src="lib.js"></script>
+<script src="parts.js"></script>
+<script src="cards.js"></script>
+</body>
+</html>
