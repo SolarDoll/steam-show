@@ -36,10 +36,8 @@
     background:color-mix(in srgb,var(--accent) 5%,transparent);margin-bottom:20px}
   .kh-eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);animation:kp 1.8s infinite}
   @keyframes kp{0%,100%{opacity:.4;transform:scale(.8)}50%{opacity:1;transform:scale(1.25)}}
-  .kh h1.kh-mark{font-family:var(--display);font-weight:700;font-size:clamp(50px,12vw,150px);line-height:.9;color:#fff;letter-spacing:-.02em}
-  .kh .kh-rot{font-family:var(--display);font-weight:700;font-size:clamp(26px,5vw,62px);line-height:.95;color:var(--ink);
-    margin-top:8px;display:flex;align-items:baseline;gap:.3em;flex-wrap:wrap}
-  .kh .we{opacity:.9}
+  .kh h1{font-family:var(--display);font-weight:700;font-size:clamp(50px,12vw,150px);line-height:.92;color:var(--ink);letter-spacing:-.01em}
+  .kh .we{display:block}
   .rotator{position:relative;display:inline-block;min-width:5em;height:1em;overflow:hidden;vertical-align:bottom}
   .rotator .word{position:absolute;left:0;top:0;white-space:nowrap;opacity:0;transform:translateY(.6em);
     transition:opacity .5s ease,transform .5s cubic-bezier(.2,.9,.2,1);
@@ -82,8 +80,7 @@
     <div class="kh-dots" id="khDots"></div>
     <div class="kh-in">
       <div class="kh-eyebrow"><span class="dot"></span> Live · Fire · Light</div>
-      <h1 class="kh-mark glitch" data-t="Steam Show">Steam Show</h1>
-      <div class="kh-rot"><span class="we">We bring</span><span class="rotator" id="rotator"></span></div>
+      <h1><span class="we glitch" data-t="We bring">We bring</span><span class="rotator" id="rotator"></span></h1>
       <div class="kh-foot">
         <p>A touring spectacle of LED choreography, live fire and a fire-breathing mechanical dragon — engineered to light up festivals and arenas anywhere on earth.</p>
         <div class="kh-cta">
@@ -136,10 +133,10 @@
       <h2>Book the <span class="grad-text">Steam Show</span>.</h2>
       <p>Tell us the venue, the date and the vibe. We'll design a fire-and-light run that fits your stage and your crowd.</p>
       <div class="channels">
-        <a class="ch" href="#"><span class="chic">IG</span><span class="lbl">Instagram</span><span class="val">@steamshow</span><span class="arrow2">Follow →</span></a>
-        <a class="ch" href="mailto:hello@steamshow.com"><span class="chic">@</span><span class="lbl">Email</span><span class="val">hello@steamshow</span><span class="arrow2">Write →</span></a>
-        <a class="ch" href="#"><span class="chic">WA</span><span class="lbl">WhatsApp · Telegram</span><span class="val">Message us</span><span class="arrow2">Chat →</span></a>
-        <a class="ch" href="https://www.youtube.com/@SteamShowby" target="_blank" rel="noopener"><span class="chic">YT</span><span class="lbl">YouTube</span><span class="val">@SteamShowby</span><span class="arrow2">Watch →</span></a>
+        <a class="ch" href="#"><span class="chic" data-ic="instagram"></span><span class="lbl">Instagram</span><span class="val">@steamshow</span><span class="arrow2">Follow →</span></a>
+        <a class="ch" href="mailto:hello@steamshow.com"><span class="chic" data-ic="email"></span><span class="lbl">Email</span><span class="val">hello@steamshow</span><span class="arrow2">Write →</span></a>
+        <a class="ch" href="#"><span class="chic" data-ic="whatsapp"></span><span class="lbl">WhatsApp · Telegram</span><span class="val">Message us</span><span class="arrow2">Chat →</span></a>
+        <a class="ch" href="https://www.youtube.com/@SteamShowby" target="_blank" rel="noopener"><span class="chic" data-ic="youtube"></span><span class="lbl">YouTube</span><span class="val">@SteamShowby</span><span class="arrow2">Watch →</span></a>
       </div>
     </div></div></div>
   </section>

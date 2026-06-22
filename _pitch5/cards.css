@@ -189,9 +189,9 @@
 #emberCanvas{position:fixed;inset:0;z-index:-1;pointer-events:none}
 
 /* иконки-бейджи в контактах */
-.ch .chic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;
-  font-family:var(--display,sans-serif);font-weight:800;font-size:15px;letter-spacing:.02em;color:#0a0708;
+.ch .chic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;color:#0a0708;
   background:linear-gradient(120deg,var(--c),color-mix(in srgb,var(--c) 55%,#fff));margin-bottom:8px}
+.ch .chic svg{width:23px;height:23px;display:block}
 
 /* лейбл лаборатории */
 .lab-label{position:relative;z-index:2;margin:0 0 22px;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}

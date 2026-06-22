@@ -100,10 +100,30 @@
     });
   }
   function wireVideo(box){
-    box.querySelectorAll('video').forEach(function(v){
-      var card=v.closest('.ocard,.stripe-card,.r-media')||v.parentElement;
-      card.addEventListener('pointerenter',function(){if(reduce)return;try{v.load();var p=v.play();if(p&&p.catch)p.catch(function(){});}catch(e){}card.classList.add('is-playing');});
-      card.addEventListener('pointerleave',function(){v.pause();card.classList.remove('is-playing');});
+    var vids=box.querySelectorAll('video');
+    if(!vids.length||reduce||!('IntersectionObserver' in window))return;
+    // авто-проигрывание, пока карточка в зоне видимости (как «движущиеся превью»)
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      var v=e.target,card=v.closest('.ocard,.stripe-card,.r-media')||v.parentElement;
+      if(e.isIntersecting){
+        if(!v.dataset.loaded){v.load();v.dataset.loaded='1';}
+        try{var p=v.play();if(p&&p.catch)p.catch(function(){});}catch(err){}
+        card.classList.add('is-playing');
+      }else{v.pause();card.classList.remove('is-playing');}
+    });},{threshold:.25});
+    vids.forEach(function(v){io.observe(v);});
+  }
+
+  /* настоящие иконки приложений (SVG, цвет наследуется от бейджа) */
+  var ICONS={
+    instagram:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5.4"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor" stroke="none"/></svg>',
+    email:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.6"/><path d="M3.6 7.6 12 13l8.4-5.4"/></svg>',
+    whatsapp:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 3.5 17.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm0 2a8 8 0 1 1-4.2 14.8l-.3-.2-2.6.8.8-2.5-.2-.3A8 8 0 0 1 12 4Zm-2.7 4c-.2 0-.5 0-.7.4-.2.4-.9.9-.9 2.1 0 1.2.9 2.4 1 2.6.1.2 1.8 2.9 4.5 3.9 2.2.8 2.7.7 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.3-.2-.6-.3l-2-1c-.3-.1-.5-.1-.7.1l-.7.9c-.1.2-.3.2-.5.1-.7-.3-1.5-.7-2.3-1.7-.3-.4.3-.4.8-1.3.1-.2 0-.4 0-.5l-.9-2.1c-.2-.5-.4-.4-.6-.4Z"/></svg>',
+    youtube:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4.6"/><path d="M10.4 9.1 15.2 12l-4.8 2.9Z" fill="currentColor" stroke="none"/></svg>'
+  };
+  function injectIcons(){
+    document.querySelectorAll('.chic[data-ic],.ic[data-ic]').forEach(function(el){
+      var k=el.getAttribute('data-ic');if(ICONS[k])el.innerHTML=ICONS[k];
     });
   }
   function reveal(box){
@@ -128,6 +148,7 @@
         box.addEventListener('click',function(e){var t=e.target.closest('[data-id]');if(t)SS.openProgram(t.getAttribute('data-id'));});
       }
     });
+    injectIcons();
 
     /* canvas-эмберы */
     var cv=document.getElementById('emberCanvas');

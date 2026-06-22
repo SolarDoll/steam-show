@@ -262,6 +262,7 @@ h1.title .l3 .b{color:var(--red);}
 .ch:hover{transform:translateY(-6px);border-color:var(--ac);box-shadow:0 20px 50px rgba(0,0,0,.5);}
 .ch .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;color:#170b06;
   background:linear-gradient(120deg,var(--ac),var(--ac2,var(--accent)));font-family:var(--util);font-weight:700;font-size:18px;}
+.ch .ic svg{width:23px;height:23px;display:block}
 .ch .k{font-family:var(--util);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);}
 .ch .v{font-family:var(--expanded);font-weight:700;font-size:19px;}
 .ch .go{margin-top:auto;font-family:var(--util);font-size:12px;letter-spacing:.06em;color:var(--ac);}
@@ -346,16 +347,16 @@ footer .row2{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
     <p class="lead">Tell us the date, the venue and the vibe — we'll bring the fire. Reach us on whatever's fastest for you.</p>
     <div class="channels">
       <a class="ch" style="--ac:var(--magenta);--ac2:var(--red)" href="https://instagram.com/steamshow" target="_blank" rel="noopener">
-        <span class="ic">IG</span><span class="k">Instagram</span><span class="v">@steamshow</span><span class="go">See the feed →</span>
+        <span class="ic" data-ic="instagram"></span><span class="k">Instagram</span><span class="v">@steamshow</span><span class="go">See the feed →</span>
       </a>
       <a class="ch" style="--ac:var(--accent-2);--ac2:var(--accent)" href="mailto:hello@steamshow.by">
-        <span class="ic">@</span><span class="k">Email</span><span class="v">hello@steamshow.by</span><span class="go">Send a brief →</span>
+        <span class="ic" data-ic="email"></span><span class="k">Email</span><span class="v">hello@steamshow.by</span><span class="go">Send a brief →</span>
       </a>
       <a class="ch" style="--ac:var(--accent);--ac2:var(--red)" href="https://wa.me/375000000000" target="_blank" rel="noopener">
-        <span class="ic">WA</span><span class="k">WhatsApp · Telegram</span><span class="v">Message us</span><span class="go">Chat now →</span>
+        <span class="ic" data-ic="whatsapp"></span><span class="k">WhatsApp · Telegram</span><span class="v">Message us</span><span class="go">Chat now →</span>
       </a>
       <a class="ch" style="--ac:var(--red);--ac2:var(--magenta)" href="https://www.youtube.com/@SteamShowby" target="_blank" rel="noopener">
-        <span class="ic">YT</span><span class="k">YouTube</span><span class="v">@SteamShowby</span><span class="go">Watch shows →</span>
+        <span class="ic" data-ic="youtube"></span><span class="k">YouTube</span><span class="v">@SteamShowby</span><span class="go">Watch shows →</span>
       </a>
     </div>
   </section>
@@ -372,6 +373,16 @@ footer .row2{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
 <script src="media.js"></script>
 <script src="lib.js"></script>
 <script>
+/* иконки приложений в контактах */
+(function(){
+  var I={
+    instagram:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5.4"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor" stroke="none"/></svg>',
+    email:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.6"/><path d="M3.6 7.6 12 13l8.4-5.4"/></svg>',
+    whatsapp:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 3.5 17.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm0 2a8 8 0 1 1-4.2 14.8l-.3-.2-2.6.8.8-2.5-.2-.3A8 8 0 0 1 12 4Zm-2.7 4c-.2 0-.5 0-.7.4-.2.4-.9.9-.9 2.1 0 1.2.9 2.4 1 2.6.1.2 1.8 2.9 4.5 3.9 2.2.8 2.7.7 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.3-.2-.6-.3l-2-1c-.3-.1-.5-.1-.7.1l-.7.9c-.1.2-.3.2-.5.1-.7-.3-1.5-.7-2.3-1.7-.3-.4.3-.4.8-1.3.1-.2 0-.4 0-.5l-.9-2.1c-.2-.5-.4-.4-.6-.4Z"/></svg>',
+    youtube:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4.6"/><path d="M10.4 9.1 15.2 12l-4.8 2.9Z" fill="currentColor" stroke="none"/></svg>'
+  };
+  document.querySelectorAll('.ic[data-ic]').forEach(function(el){var k=el.getAttribute('data-ic');if(I[k])el.innerHTML=I[k];});
+})();
 (function(){
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
