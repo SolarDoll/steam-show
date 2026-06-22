@@ -77,6 +77,28 @@
     background:linear-gradient(100deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
   .fa-core small{display:block;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:6px}
   @media(prefers-reduced-motion:reduce){.fa .fly,.fa .halo{animation:none}}
+  /* ГЕО — точечная карта мира + хабы + дуги-перелёты */
+  .dotmap{position:relative;aspect-ratio:16/11;border-radius:18px;overflow:hidden;border:1px solid var(--line);
+    background:radial-gradient(circle at 50% 42%,color-mix(in srgb,var(--accent) 12%,transparent),transparent 60%),var(--bg2)}
+  .dotmap .dots{position:absolute;inset:0;opacity:.55;
+    background-image:radial-gradient(color-mix(in srgb,var(--ink) 30%,transparent) 1.3px,transparent 1.6px);background-size:15px 15px;
+    -webkit-mask:radial-gradient(115% 100% at 50% 44%,#000 52%,transparent 86%);mask:radial-gradient(115% 100% at 50% 44%,#000 52%,transparent 86%)}
+  .dotmap svg{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+  .dotmap .arcbase{fill:none;stroke:color-mix(in srgb,var(--ink) 16%,transparent);stroke-width:1}
+  .dotmap .arc{fill:none;stroke:var(--accent);stroke-width:1.6;stroke-linecap:round;stroke-dasharray:5 320;
+    filter:drop-shadow(0 0 5px var(--accent2));animation:dmFly 4.4s linear infinite}
+  @keyframes dmFly{to{stroke-dashoffset:-325}}
+  .dotmap .city{fill:var(--accent2);animation:dmBlink 4s ease-in-out infinite}
+  .dotmap .city.b{fill:var(--accent)}.dotmap .city.c{fill:var(--accent3)}
+  .dotmap .halo{fill:none;stroke:var(--accent2);stroke-width:1.2;animation:dmHalo 3s ease-out infinite}
+  @keyframes dmHalo{0%{r:4;opacity:.6}100%{r:16;opacity:0}}
+  @keyframes dmBlink{0%,100%{opacity:.55}50%{opacity:1}}
+  .dotmap .hub{fill:#fff;filter:drop-shadow(0 0 8px var(--accent))}
+  .dotmap-core{position:absolute;left:16px;bottom:14px;z-index:2;pointer-events:none}
+  .dotmap-core b{display:block;font-family:var(--display);font-weight:700;font-size:clamp(18px,2.6vw,26px);
+    background:linear-gradient(100deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .dotmap-core small{display:block;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+  @media(prefers-reduced-motion:reduce){.dotmap .arc,.dotmap .city,.dotmap .halo{animation:none}}
 </style>
 </head>
 <body>
@@ -139,11 +161,31 @@
           <span class="geo-pill">Jordan</span><span class="geo-pill world">+ 20 countries on request</span>
         </div>
       </div>
-      <div class="reveal from-right"><div class="globe">
-        <div class="core"><b>WORLD</b><small>WIDE</small></div>
-        <span class="ping" style="top:30%;left:40%"></span>
-        <span class="ping" style="top:55%;left:62%;animation-delay:.8s"></span>
-        <span class="ping" style="top:68%;left:38%;animation-delay:1.5s"></span>
+      <div class="reveal from-right"><div class="dotmap">
+        <div class="dots"></div>
+        <svg viewBox="0 0 320 200" aria-hidden="true">
+          <g>
+            <path class="arcbase" d="M150,86 Q180,66 196,112"/><path class="arcbase" d="M150,86 Q212,58 244,104"/>
+            <path class="arcbase" d="M150,86 Q100,50 60,98"/><path class="arcbase" d="M150,86 Q92,104 96,150"/>
+            <path class="arcbase" d="M150,86 Q172,104 158,132"/>
+          </g>
+          <g>
+            <path class="arc" style="animation-delay:0s" d="M150,86 Q180,66 196,112"/>
+            <path class="arc" style="animation-delay:.6s" d="M150,86 Q212,58 244,104"/>
+            <path class="arc" style="animation-delay:1.1s" d="M150,86 Q100,50 60,98"/>
+            <path class="arc" style="animation-delay:1.6s" d="M150,86 Q92,104 96,150"/>
+            <path class="arc" style="animation-delay:2.1s" d="M150,86 Q172,104 158,132"/>
+          </g>
+          <g>
+            <circle class="halo" cx="150" cy="86"/><circle class="hub" cx="150" cy="86" r="4.5"/>
+            <circle class="city" cx="196" cy="112" r="4" style="animation-delay:.3s"/>
+            <circle class="city b" cx="244" cy="104" r="4" style="animation-delay:1s"/>
+            <circle class="city c" cx="60" cy="98" r="4" style="animation-delay:1.7s"/>
+            <circle class="city" cx="96" cy="150" r="4" style="animation-delay:.9s"/>
+            <circle class="city b" cx="158" cy="132" r="4" style="animation-delay:2.2s"/>
+          </g>
+        </svg>
+        <div class="dotmap-core"><b>WORLDWIDE</b><small>20+ countries</small></div>
       </div></div>
     </div>
     <div class="wrap"><div class="stats reveal">

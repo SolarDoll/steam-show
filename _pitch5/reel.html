@@ -78,6 +78,21 @@
   .wire .core b{font-family:var(--display);text-transform:uppercase;font-size:clamp(22px,3.6vw,34px);color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.72)}
   .wire .core small{display:block;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent2);margin-top:6px}
   @media(prefers-reduced-motion:reduce){.wire .grid{animation:none}}
+  /* блоки в стиле a-kinetic */
+  .nav-cta{background:var(--accent);box-shadow:0 0 22px -4px var(--accent)}
+  .sec-head h2 em{font-style:normal;color:transparent;-webkit-text-stroke:1.6px var(--accent2)}
+  .contact-in{text-align:center}
+  .contact-in .num{display:block;font-family:var(--body);font-size:.74rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  .contact-in h2 em{font-style:normal;background:linear-gradient(92deg,var(--accent2),var(--accent3));-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+  .channels{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:clamp(34px,5vh,52px)}
+  .ch{border:1px solid var(--line);border-radius:14px;padding:26px 20px;display:flex;flex-direction:column;gap:8px;text-align:left;transition:.35s;--c:var(--accent)}
+  .ch:nth-child(1){--c:var(--accent)}.ch:nth-child(2){--c:var(--accent2)}.ch:nth-child(3){--c:var(--cool)}.ch:nth-child(4){--c:var(--mag)}
+  .ch:hover{border-color:var(--c);transform:translateY(-4px);box-shadow:0 18px 50px -22px var(--c)}
+  .ch .t{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .ch .v{font-family:var(--display);font-size:1.4rem;letter-spacing:.01em}
+  .ch .arrow{margin-top:auto;color:var(--c);font-size:.82rem;font-weight:700}
+  @media(max-width:820px){.channels{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:480px){.channels{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -121,8 +136,8 @@
   <!-- ПРОГРАММЫ — POSTER (кино-постеры, все 5 на экран) -->
   <section id="programs" data-spine>
     <div class="wrap">
-      <div class="sec-head reveal"><span class="kicker">Our Shows</span>
-        <h2>Five acts,<br>one reel.</h2>
+      <div class="sec-head reveal"><span class="kicker">01 — Our Shows</span>
+        <h2>Five acts, <em>one reel</em>.</h2>
         <p>Пять кино-постеров на один экран — кадры листаются сами, название и теги читаются сразу, кнопка View more открывает галерею.</p></div>
       <div data-cards="poster" data-media="cycle"></div>
     </div>
@@ -131,8 +146,8 @@
   <section id="world" data-spine>
     <div class="wrap geo-grid">
       <div class="reveal from-left">
-        <span class="kicker">On tour</span>
-        <h2 style="font-size:clamp(34px,6vw,64px);line-height:.92;margin-bottom:16px;text-transform:uppercase">Performed <span class="fire-text">worldwide</span></h2>
+        <span class="kicker">02 — Worldwide</span>
+        <h2 style="font-size:clamp(34px,6vw,64px);line-height:.92;margin-bottom:16px;text-transform:uppercase">Booked across <em>the map</em>.</h2>
         <p style="color:var(--muted);font-size:17px;margin:0 0 26px">A road-tested touring crew with full kit logistics. We bring the rig, the safety and the show to your venue.</p>
         <div class="geo-list">
           <span class="geo-pill">Europe festivals</span><span class="geo-pill">UAE</span><span class="geo-pill">Qatar</span>
@@ -165,14 +180,14 @@
 
   <section id="contact" data-spine>
     <div class="wrap"><div class="contact-card reveal"><div class="contact-in">
-      <span class="kicker" style="justify-content:center">Book the Steam Show</span>
-      <h2>Book the <span class="fire-text">show</span>.</h2>
+      <span class="num">Let's talk</span>
+      <h2>Book the <em>Steam Show</em>.</h2>
       <p>Tell us the date, the venue and the vibe — we'll cut the perfect reel for your night.</p>
       <div class="channels">
-        <a class="ch" href="#"><span class="chic" data-ic="instagram"></span><span class="lbl">Instagram</span><span class="val">@steam.show</span><span class="arrow2">Follow →</span></a>
-        <a class="ch" href="mailto:hello@steamshow.com"><span class="chic" data-ic="email"></span><span class="lbl">Email</span><span class="val">hello@steamshow</span><span class="arrow2">Write →</span></a>
-        <a class="ch" href="#"><span class="chic" data-ic="whatsapp"></span><span class="lbl">WhatsApp · Telegram</span><span class="val">Message us</span><span class="arrow2">Chat →</span></a>
-        <a class="ch" href="https://www.youtube.com/@SteamShowby" target="_blank" rel="noopener"><span class="chic" data-ic="youtube"></span><span class="lbl">YouTube</span><span class="val">/steamshow</span><span class="arrow2">Watch →</span></a>
+        <a class="ch" href="#"><span class="t">Instagram</span><span class="v">@steam.show</span><span class="arrow">Follow →</span></a>
+        <a class="ch" href="mailto:hello@steamshow.com"><span class="t">Email</span><span class="v">hello@steamshow</span><span class="arrow">Write →</span></a>
+        <a class="ch" href="#"><span class="t">Messengers</span><span class="v">WhatsApp · TG</span><span class="arrow">Message →</span></a>
+        <a class="ch" href="https://www.youtube.com/@SteamShowby" target="_blank" rel="noopener"><span class="t">YouTube</span><span class="v">Steam Show</span><span class="arrow">Watch →</span></a>
       </div>
     </div></div></div>
   </section>
