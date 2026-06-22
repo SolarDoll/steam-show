@@ -267,16 +267,19 @@ h1.title .o{color:var(--accent);} h1.title .c{color:var(--cool);} h1.title .m{co
 }
 .world .countries span.plus{border-color:transparent;background:linear-gradient(100deg,var(--accent),var(--red));color:#190a05;font-weight:600;}
 
-/* selected events — крупные имена вместо «пинов» */
+/* selected events — стена логотипов (сейчас текстовые плейсхолдеры) */
 .world .events{margin-top:clamp(44px,7vh,76px);}
-.world .events .evlist{display:flex;flex-wrap:wrap;align-items:center;gap:16px 0;margin-top:22px;}
-.world .events .evlist span{
-  font-family:var(--expanded);font-weight:800;text-transform:uppercase;
-  font-size:clamp(17px,2.2vw,28px);letter-spacing:.01em;color:var(--text);display:inline-flex;align-items:center;
+.world .events .logos{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:24px;}
+.world .events .lg{
+  display:flex;align-items:center;justify-content:center;text-align:center;min-height:88px;padding:18px;
+  border:1px solid var(--line);border-radius:14px;background:rgba(246,235,221,.03);
+  font-family:var(--expanded);font-weight:800;text-transform:uppercase;font-size:13px;letter-spacing:.04em;
+  color:var(--muted);opacity:.78;filter:grayscale(1);transition:opacity .35s,filter .35s,border-color .35s,color .35s;
 }
-.world .events .evlist span::after{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);
-  box-shadow:0 0 12px var(--accent);margin:0 26px;}
-.world .events .evlist span:last-child::after{display:none;}
+.world .events .lg:hover{opacity:1;filter:none;border-color:var(--accent);color:var(--text);}
+.world .events .lg img{max-height:48px;width:auto;object-fit:contain;}
+@media(max-width:880px){.world .events .logos{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:480px){.world .events .logos{grid-template-columns:repeat(2,1fr);}}
 
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:clamp(50px,8vh,90px);
   border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--line);}
@@ -404,8 +407,14 @@ footer .row2{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
     </div>
     <div class="events">
       <div class="eyebrow">Selected stages</div>
-      <div class="evlist">
-        <span>Annotopia</span><span>Elfia</span><span>Medieval Cyprus Festival</span><span>Jeddah Season</span><span>Lestival</span>
+      <!-- LOGO WALL: когда будут файлы логотипов, положи их в assets/logos/ и замени текст внутри .lg на:
+           <div class="lg"><img src="../assets/logos/elfia.svg" alt="Elfia"></div> -->
+      <div class="logos" aria-label="Selected events and festivals">
+        <div class="lg">Annotopia</div>
+        <div class="lg">Elfia</div>
+        <div class="lg">Medieval Cyprus Festival</div>
+        <div class="lg">Jeddah Season</div>
+        <div class="lg">Lestival</div>
       </div>
     </div>
     <div class="stats">
