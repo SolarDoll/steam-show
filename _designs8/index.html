@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Steam Show — 3 варианта (с чистого листа)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{--bg:#0b0712;--panel:#15101e;--line:rgba(255,255,255,.1);--ink:#f5eff7;--mid:#a89fb0;--dim:#6c6470;--accent:#FF6A1F;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Manrope",system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(60% 50% at 12% 0%,rgba(255,106,31,.14),transparent 60%),radial-gradient(50% 50% at 90% 6%,rgba(255,43,214,.12),transparent 60%)}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1280px;margin:0 auto;padding:clamp(2rem,5vw,4rem) clamp(1.2rem,4vw,3rem)}
+  header{border-bottom:1px solid var(--line)}
+  .eyebrow{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:1rem}
+  h1{font-family:"Anton",sans-serif;font-weight:400;font-size:clamp(2.4rem,7vw,4rem);line-height:.95;letter-spacing:.01em;text-transform:uppercase}
+  .lead{color:var(--mid);max-width:72ch;margin-top:1.1rem}
+  .note{margin-top:1.3rem;padding:1rem 1.2rem;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--mid);font-size:.95rem;max-width:74ch}
+  .note b{color:var(--ink)}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.4rem}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+  .card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--panel);transition:transform .4s,border-color .4s;display:flex;flex-direction:column}
+  .card:hover{transform:translateY(-5px);border-color:var(--accent)}
+  .thumb{position:relative;overflow:hidden;background:#000;border-bottom:1px solid var(--line)}
+  .thumb iframe{border:0;transform-origin:top left;pointer-events:none}
+  .thumb a.cover{position:absolute;inset:0;z-index:2;display:flex;align-items:flex-end;padding:1rem;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.6));opacity:0;transition:opacity .35s}
+  .card:hover .thumb a.cover{opacity:1}
+  .thumb .open{font-size:.78rem;font-weight:800;letter-spacing:.04em;padding:.5rem .9rem;border-radius:100px;background:var(--ink);color:#0b0712}
+  .body{padding:1.2rem 1.3rem 1.4rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+  .num{font-size:.72rem;font-weight:800;letter-spacing:.14em;color:var(--accent)}
+  .name{font-family:"Anton",sans-serif;font-weight:400;font-size:1.4rem;text-transform:uppercase;letter-spacing:.01em}
+  .desc{color:var(--mid);font-size:.9rem}
+  footer{border-top:1px solid var(--line);color:var(--dim);font-size:.85rem;text-align:center;padding:2.5rem}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <p class="eyebrow">Steam Show · 3 варианта · с чистого листа</p>
+  <h1>Три разных каркаса</h1>
+  <p class="lead">Все три собраны из твоих правок (видео-герой с цветными буквами, светяшки + огонь к низу, строка фишек, левая полоса, карточки-шоу с анимацией, worldwide, контакты, без бокового скролла) — но с разной структурой и палитрой.</p>
+  <p class="note"><b>Открывай на весь экран и скролль.</b> Внутри клик по шоу → вкладки Costumes / Photos / Videos.</p>
+</div></header>
+<div class="wrap">
+  <div class="grid">
+    <article class="card"><div class="thumb"><iframe src="v1-fireflow.html" loading="lazy"></iframe><a class="cover" href="v1-fireflow.html" target="_blank"><span class="open">Открыть ↗</span></a></div>
+      <div class="body"><span class="num">V1 · FIREFLOW</span><h2 class="name">Огонь, карточки-строки</h2>
+        <p class="desc">Тёплая огненная палитра. Шоу — крупные карточки-строки с анимацией появления, по очереди лево/право.</p></div></article>
+    <article class="card"><div class="thumb"><iframe src="v2-neon.html" loading="lazy"></iframe><a class="cover" href="v2-neon.html" target="_blank"><span class="open">Открыть ↗</span></a></div>
+      <div class="body"><span class="num">V2 · NEON</span><h2 class="name">Неон, бенто</h2>
+        <p class="desc">Циан/маджента + огонь. Герой — гигантские светящиеся буквы. Шоу — крупное бенто, все 5 сразу.</p></div></article>
+    <article class="card"><div class="thumb"><iframe src="v3-stripes.html" loading="lazy"></iframe><a class="cover" href="v3-stripes.html" target="_blank"><span class="open">Открыть ↗</span></a></div>
+      <div class="body"><span class="num">V3 · STRIPES</span><h2 class="name">Editorial, фото-полосы</h2>
+        <p class="desc">Контрастный постер. Шоу — полноширинные фото-полосы с гигантскими номерами 01–05.</p></div></article>
+  </div>
+</div>
+<footer>Steam Show · 3 варианта · открой каждый на весь экран</footer>
+<script>
+  var BASE_W=1440,RATIO=0.66;
+  function fit(){document.querySelectorAll('.thumb').forEach(function(t){var f=t.querySelector('iframe');var w=t.clientWidth;var s=w/BASE_W;
+    f.style.width=BASE_W+'px';f.style.height=Math.round(BASE_W*RATIO)+'px';f.style.transform='scale('+s+')';t.style.height=Math.round(BASE_W*RATIO*s)+'px';});}
+  addEventListener('load',fit);addEventListener('resize',fit);fit();
+</script>
+</body>
+</html>
