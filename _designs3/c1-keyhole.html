@@ -32,8 +32,8 @@
   /* ===== THE KEYHOLE: дракон — окно в живой огонь ===== */
   .portal{position:relative;z-index:2;justify-self:center;width:min(52vh,460px);aspect-ratio:1239/1583;
     -webkit-mask:url(../assets/dragon-mask.png) center/contain no-repeat;mask:url(../assets/dragon-mask.png) center/contain no-repeat;}
-  .portal__media{position:absolute;inset:-12%;
-    /* стенд-ин под реальное видео: положи сюда <video> и убери фон */
+  .portal__vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;}
+  .portal__media{position:absolute;inset:-12%;overflow:hidden;
     background:
       radial-gradient(40% 30% at 50% 86%,#FFE9A8,transparent 60%),
       radial-gradient(55% 45% at 38% 72%,#FF9A2E,transparent 62%),
@@ -75,12 +75,16 @@
       <p class="hero__lead">Large-scale fire, light and stilt spectacles for festivals and private events worldwide. Move your cursor — the show lives inside the dragon.</p>
       <div class="cta-row">
         <a class="solid" href="#shows" onclick="document.getElementById('shows').scrollIntoView({behavior:'smooth'});return false;">Explore the shows</a>
-        <button class="ghost" onclick="openLightbox('Steam Show — Showreel','reel',0,true)"><span class="pd"></span> Watch showreel</button>
+        <button class="ghost" onclick="openLightbox('reel')"><span class="pd"></span> Watch showreel</button>
       </div>
     </div>
     <div class="portal" id="portal">
       <div class="portal__glow"></div>
-      <div class="portal__media" id="portalMedia"></div>
+      <div class="portal__media" id="portalMedia">
+        <video class="portal__vid" autoplay muted loop playsinline preload="metadata" poster="../assets/web/hero/hero-poster.jpg">
+          <source src="../assets/web/hero/hero.mp4" type="video/mp4" />
+        </video>
+      </div>
       <div class="portal__rim"></div>
       <div class="portal__hint">the dragon is a window</div>
     </div>
@@ -119,7 +123,7 @@
 
 <footer id="contact"><div class="wrap">
   <h2>Let’s light up<br><em>your event.</em></h2>
-  <div class="contacts"><a href="#">Instagram ↗</a><a href="mailto:hello@steamshow.com">Email ↗</a><a href="#">WhatsApp ↗</a><a href="#">Telegram ↗</a><a href="#">YouTube ↗</a></div>
+  <div class="contacts"><a href="#">Instagram ↗</a><a href="mailto:hello@steamshow.com">Email ↗</a><a href="#">WhatsApp ↗</a><a href="#">Telegram ↗</a><a data-yt-channel>YouTube ↗</a></div>
   <div class="fn">© <span id="year"></span> Steam Show · Concept Keyhole</div>
 </div></footer>
 
@@ -136,6 +140,7 @@
     hero.addEventListener('mouseleave',function(){media.style.transform='translate(0,0) scale(1)';});
   })();
 </script>
+<script src="media.js"></script>
 <script src="engine.js"></script>
 </body>
 </html>

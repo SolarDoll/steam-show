@@ -72,7 +72,7 @@
       <p class="hero__lead">Large-scale fire, light and stilt spectacles for festivals and private events worldwide. Watch the dragon catch.</p>
       <div class="cta-row">
         <a class="solid" href="#shows" onclick="document.getElementById('shows').scrollIntoView({behavior:'smooth'});return false;">Explore the shows</a>
-        <button class="ghost" onclick="openLightbox('Steam Show — Showreel','reel',0,true)"><span class="pd"></span> Watch showreel</button>
+        <button class="ghost" onclick="openLightbox('reel')"><span class="pd"></span> Watch showreel</button>
       </div>
     </div>
     <div class="ign" id="ign">
@@ -118,7 +118,7 @@
 
 <footer id="contact"><div class="wrap">
   <h2>Let’s light up<br><em>your event.</em></h2>
-  <div class="contacts"><a href="#">Instagram ↗</a><a href="mailto:hello@steamshow.com">Email ↗</a><a href="#">WhatsApp ↗</a><a href="#">Telegram ↗</a><a href="#">YouTube ↗</a></div>
+  <div class="contacts"><a href="#">Instagram ↗</a><a href="mailto:hello@steamshow.com">Email ↗</a><a href="#">WhatsApp ↗</a><a href="#">Telegram ↗</a><a data-yt-channel>YouTube ↗</a></div>
   <div class="fn">© <span id="year"></span> Steam Show · Concept Ignition</div>
 </div></footer>
 
@@ -143,6 +143,7 @@
     else ignite();
   })();
 </script>
+<script src="media.js"></script>
 <script src="engine.js"></script>
 </body>
 </html>

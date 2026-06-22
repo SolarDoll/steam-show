@@ -65,7 +65,7 @@
       <p class="hero__lead">This dragon is built from our work — fire, light and giants from festivals and private events worldwide. Tap it to browse the catalogue.</p>
       <div class="cta-row">
         <a class="solid" href="#shows" onclick="document.getElementById('shows').scrollIntoView({behavior:'smooth'});return false;">Explore the shows</a>
-        <button class="ghost" onclick="openLightbox('Steam Show — Showreel','reel',0,true)"><span class="pd"></span> Watch showreel</button>
+        <button class="ghost" onclick="openLightbox('reel')"><span class="pd"></span> Watch showreel</button>
       </div>
     </div>
     <div class="mosaic" id="mosaic" onclick="document.getElementById('shows').scrollIntoView({behavior:'smooth'});">
@@ -109,25 +109,24 @@
 
 <footer id="contact"><div class="wrap">
   <h2>Let’s light up<br><em>your event.</em></h2>
-  <div class="contacts"><a href="#">Instagram ↗</a><a href="mailto:hello@steamshow.com">Email ↗</a><a href="#">WhatsApp ↗</a><a href="#">Telegram ↗</a><a href="#">YouTube ↗</a></div>
+  <div class="contacts"><a href="#">Instagram ↗</a><a href="mailto:hello@steamshow.com">Email ↗</a><a href="#">WhatsApp ↗</a><a href="#">Telegram ↗</a><a data-yt-channel>YouTube ↗</a></div>
   <div class="fn">© <span id="year"></span> Steam Show · Concept Mosaic</div>
 </div></footer>
 
+<script src="media.js"></script>
 <script>
-  // строим мозаику из плиток (стенд-ин под реальные фото шоу)
+  // дракон собран из реальных кадров шоу
   (function(){
     var grid=document.getElementById('mgrid');if(!grid)return;
-    var GR=[
-      'linear-gradient(150deg,#FF7A1A,#7a1500)','linear-gradient(150deg,#FFB347,#8a2b00)','linear-gradient(150deg,#E23A0E,#3a0a02)',
-      'linear-gradient(150deg,#36E0E6,#0a2a4a)','linear-gradient(150deg,#8C6BFF,#10103a)','linear-gradient(150deg,#FF4FA3,#2a0a40)',
-      'linear-gradient(150deg,#FFD27A,#7a3d00)','linear-gradient(150deg,#5BE0A0,#06303a)','linear-gradient(150deg,#FF5A1F,#2a0a04)'
-    ];
+    var pics=[];var sh=(window.SS_DATA&&SS_DATA.shows)||{};
+    Object.keys(sh).forEach(function(k){(sh[k].photos||[]).forEach(function(p){pics.push(p);});});
+    var seed=9;function rnd(){seed=(seed*1103515245+12345)&0x7fffffff;return seed/0x7fffffff;}
+    for(var i=pics.length-1;i>0;i--){var j=Math.floor(rnd()*(i+1));var t=pics[i];pics[i]=pics[j];pics[j]=t;}
     var COLS=8,ROWS=11,n=COLS*ROWS;
-    var seed=7;function rnd(){seed=(seed*1103515245+12345)&0x7fffffff;return seed/0x7fffffff;}
-    var html='';for(var i=0;i<n;i++){var g=GR[Math.floor(rnd()*GR.length)];
-      html+='<div class="tile" style="background:'+g+';--d:'+(4+rnd()*5).toFixed(1)+'s;--dl:'+(-rnd()*6).toFixed(1)+'s"></div>';}
-    grid.innerHTML=html;
-    grid.style.gridTemplateRows='repeat('+ROWS+',1fr)';
+    var html='';for(var k=0;k<n;k++){var src=pics.length?pics[k%pics.length]:'';
+      var bg=src?("background:#0a0810 url('"+src+"') center/cover"):"background:linear-gradient(150deg,#FF7A1A,#3a0a02)";
+      html+='<div class="tile" style="'+bg+';--d:'+(4+rnd()*5).toFixed(1)+'s;--dl:'+(-rnd()*6).toFixed(1)+'s"></div>';}
+    grid.innerHTML=html;grid.style.gridTemplateRows='repeat('+ROWS+',1fr)';
   })();
 </script>
 <script src="engine.js"></script>

@@ -20,10 +20,11 @@
   /* скрытая сцена — её «находишь» факелом */
   .scene{position:absolute;inset:0;z-index:1;display:grid;place-items:center;}
   .scene__dragon{width:min(78vh,640px);aspect-ratio:1239/1583;position:relative;}
-  .scene__fire{position:absolute;inset:0;
+  .scene__fire{position:absolute;inset:0;overflow:hidden;
     -webkit-mask:url(../assets/dragon-mask.png) center/contain no-repeat;mask:url(../assets/dragon-mask.png) center/contain no-repeat;
     background:radial-gradient(50% 40% at 50% 88%,#FFE9A8,transparent 60%),radial-gradient(60% 55% at 45% 66%,#FF7A1A,transparent 64%),linear-gradient(0deg,#FFB347,#FF5A1F 45%,#6a1604);
     background-size:150% 150%;animation:burn 9s ease-in-out infinite;}
+  .scene__vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
   @keyframes burn{0%,100%{background-position:50% 100%;}50%{background-position:50% 10%;}}
   .scene__amb{position:absolute;inset:-20%;background:radial-gradient(closest-side,rgba(255,90,31,.3),transparent);filter:blur(50px);}
   /* факел: вуаль с дыркой у курсора */
@@ -60,7 +61,7 @@
 <div class="overview-wrap" id="overview">
 
   <header class="hero" id="hero">
-    <div class="scene"><div class="scene__amb"></div><div class="scene__dragon"><div class="scene__fire"></div></div></div>
+    <div class="scene"><div class="scene__amb"></div><div class="scene__dragon"><div class="scene__fire"><video class="scene__vid" autoplay muted loop playsinline preload="metadata" poster="../assets/web/hero/hero-poster.jpg"><source src="../assets/web/hero/hero.mp4" type="video/mp4" /></video></div></div></div>
     <div class="veil" id="veil"></div>
     <div class="torch" id="torch"></div>
     <div class="hero__text">
@@ -69,7 +70,7 @@
       <p class="hero__lead">Move the light. We bring fire, glow and giants to events worldwide — and there’s a dragon hiding in here.</p>
       <div class="cta-row pe">
         <a class="solid" href="#shows" onclick="document.getElementById('shows').scrollIntoView({behavior:'smooth'});return false;">Explore the shows</a>
-        <button class="ghost" onclick="openLightbox('Steam Show — Showreel','reel',0,true)"><span class="pd"></span> Watch showreel</button>
+        <button class="ghost" onclick="openLightbox('reel')"><span class="pd"></span> Watch showreel</button>
       </div>
     </div>
     <div class="hint">move your cursor — find the dragon</div>
@@ -108,7 +109,7 @@
 
 <footer id="contact"><div class="wrap">
   <h2>Let’s light up<br><em>your event.</em></h2>
-  <div class="contacts"><a href="#">Instagram ↗</a><a href="mailto:hello@steamshow.com">Email ↗</a><a href="#">WhatsApp ↗</a><a href="#">Telegram ↗</a><a href="#">YouTube ↗</a></div>
+  <div class="contacts"><a href="#">Instagram ↗</a><a href="mailto:hello@steamshow.com">Email ↗</a><a href="#">WhatsApp ↗</a><a href="#">Telegram ↗</a><a data-yt-channel>YouTube ↗</a></div>
   <div class="fn">© <span id="year"></span> Steam Show · Concept Torchlight</div>
 </div></footer>
 
@@ -127,6 +128,7 @@
     (function loop(){if(auto){t+=0.012;var r=hero.getBoundingClientRect();move(r.left+r.width*(0.5+Math.sin(t)*0.22),r.top+r.height*(0.5+Math.cos(t*1.3)*0.16));}requestAnimationFrame(loop);})();
   })();
 </script>
+<script src="media.js"></script>
 <script src="engine.js"></script>
 </body>
 </html>
