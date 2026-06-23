@@ -112,6 +112,7 @@ window.SS_DATA = {
         "../assets/web/led-costumes/led-costumes-009.jpg",
         "../assets/web/led-costumes/led-costumes-010.jpg"
       ],
+      "video": "../assets/web/led/led-hero.mp4",
       "videos": [
         "v3MyA-lNGok",
         "U4-_8da2uuI",

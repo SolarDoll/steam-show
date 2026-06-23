@@ -454,7 +454,7 @@
     var s=SHOWS[id], d=DATA.shows[id], ac=accentMap[id];
     document.documentElement.style.setProperty('--ac',ac);
     var cover=(d.photos[0])||(d.videos[0]?ytThumb(d.videos[0]):'');
-    var heroVid=(id==='dragon')?DATA.hero:null;
+    var heroVid=d.video||((id==='dragon')?DATA.hero:null);
 
     var html='';
     /* HERO */
