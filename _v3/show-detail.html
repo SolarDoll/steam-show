@@ -394,33 +394,43 @@
         +'<a class="btn ghost" href="#book">Book the show</a></div>';
     html+='</div></header>';
 
+    /* для LED видео идёт первым, затем каталог костюмов */
+    var videoFirst=(id==='led')&&d.videos&&d.videos.length;
+
     /* SUB-NAV (секции этого шоу) */
     var nav=[{href:'top',label:'Top'}];
+    if(videoFirst) nav.push({href:'videos',label:'Videos'});
     if(s.variants) nav.push({href:'sec-variants',label:s.variants.navLabel});
-    if(d.videos&&d.videos.length) nav.push({href:'videos',label:'Videos'});
+    if(!videoFirst && d.videos&&d.videos.length) nav.push({href:'videos',label:'Videos'});
     if(d.photos&&d.photos.length) nav.push({href:'gallery',label:'Photos'});
     nav.push({href:'book',label:'Book'});
     html+='<div class="subnav" id="subnav"><div class="si">'
         +nav.map(function(n){return '<a href="#'+n.href+'" data-sec="'+n.href+'">'+n.label+'</a>';}).join('')+'</div></div>';
 
     /* VARIANTS */
+    var variantsHTML='';
     if(s.variants){
-      if(s.variants.kind==='themes') html+=renderThemes(id,s,d);
-      else if(s.variants.kind==='catalogue') html+=renderCatalogue(id,s,d);
-      else if(s.variants.kind==='stilts') html+=renderStilts(id,s,d);
+      if(s.variants.kind==='themes') variantsHTML=renderThemes(id,s,d);
+      else if(s.variants.kind==='catalogue') variantsHTML=renderCatalogue(id,s,d);
+      else if(s.variants.kind==='stilts') variantsHTML=renderStilts(id,s,d);
     }
 
     /* VIDEOS */
+    var videosHTML='';
     if(d.videos&&d.videos.length){
-      html+='<section id="videos"><div class="wrap">';
-      html+='<div class="shead"><span class="kicker">Watch</span><h2>Videos</h2>'
-          +'<p>'+d.videos.length+' clip'+(d.videos.length>1?'s':'')+' — full performances and highlights.</p></div>';
-      html+=railBox(d.videos.map(function(v,i){
-        return '<div class="vcard" data-video="'+v+'" data-vlabel="'+esc(s.name)+' — video '+(i+1)+'">'
-          +'<div class="vw"><img loading="lazy" src="'+ytThumb(v)+'" alt=""><span class="pl"></span></div>'
-          +'<div class="vl">'+esc(s.name)+' — video '+(i+1)+'</div></div>';
-      }).join(''),'vrail')+'</div></section>';
+      videosHTML='<section id="videos"><div class="wrap">'
+        +'<div class="shead"><span class="kicker">Watch</span><h2>Videos</h2>'
+          +'<p>'+d.videos.length+' clip'+(d.videos.length>1?'s':'')+' — full performances and highlights.</p></div>'
+        +railBox(d.videos.map(function(v,i){
+          return '<div class="vcard" data-video="'+v+'" data-vlabel="'+esc(s.name)+' — video '+(i+1)+'">'
+            +'<div class="vw"><img loading="lazy" src="'+ytThumb(v)+'" alt=""><span class="pl"></span></div>'
+            +'<div class="vl">'+esc(s.name)+' — video '+(i+1)+'</div></div>';
+        }).join(''),'vrail')+'</div></section>';
     }
+
+    /* LED: видео → каталог; остальные: каталог/темы/гардероб → видео */
+    if(videoFirst){ html+=videosHTML; html+=variantsHTML; }
+    else { html+=variantsHTML; html+=videosHTML; }
 
     /* GALLERY */
     if(d.photos&&d.photos.length){
@@ -497,7 +507,7 @@
     if(!ST||!ST.themes||!ST.themes.length) return renderStiltsLegacy(id,s,d);
     var h='<section id="sec-variants"><div class="wrap">';
     h+='<div class="shead"><span class="kicker">Costumes & themes</span><h2>The wardrobe</h2>'
-      +'<p>100+ towering characters. Start with our showstoppers, then explore each theme — its film and costume gallery. The same costume can appear in several themes.</p></div>';
+      +'<p>100+ towering characters. Start with our showstoppers, then explore each theme — its film and costume gallery, or browse the full set with theme filters below.</p></div>';
 
     /* 1. Showstoppers */
     if(ST.stars&&ST.stars.length){
@@ -526,19 +536,30 @@
       var grid='<div class="mini-grid">'+gridPhotos.map(function(p,k){
         return '<div class="cell" data-gallery="theme:'+t.key+'" data-gi="'+(gi+k)+'"><img loading="lazy" src="'+p+'" alt=""></div>';
       }).join('')+'</div>';
-      var more=photos.length>(gi+6)?'<button class="tmore" data-gallery="theme:'+t.key+'">View all '+photos.length+' '+esc(t.name)+' looks →</button>':'';
+      var more=photos.length>(gi+6)?'<button class="tmore" data-filter="'+t.key+'">View all '+photos.length+' '+esc(t.name)+' looks →</button>':'';
       h+='<div class="tblock"><div class="th"><h4>'+esc(t.name)+'</h4><span class="cnt">'+photos.length+' looks</span></div>'
         +'<div class="tb">'+feat+'<div class="side">'+grid+more+'</div></div></div>';
     });
 
-    /* 2b. Остальные костюмы */
-    if(ST.other&&ST.other.length){
-      h+='<div class="tblock"><div class="th"><h4>More characters</h4><span class="cnt">'+ST.other.length+' looks</span></div>'
-        +'<p style="color:var(--muted);font-size:14px;margin:-6px 0 16px;max-width:60ch">One-offs and crossovers that don\'t sit in a single theme — still fully available for your event.</p>'
-        +'<div class="gridc">'+ST.other.map(function(p,k){
-          return '<div class="cell" data-gallery="other" data-gi="'+k+'"><img loading="lazy" src="'+p+'" alt=""></div>';
-        }).join('')+'</div></div>';
-    }
+    /* 3. Browse all costumes + фильтр по темам (теги вернули) */
+    var groups=[];
+    ST.themes.forEach(function(t){ if(t.photos&&t.photos.length) groups.push({token:t.key,label:t.name,photos:t.photos}); });
+    (ST.stars||[]).forEach(function(st){ if(st.photos&&st.photos.length) groups.push({token:st.key,label:st.name,photos:st.photos}); });
+    if(ST.other&&ST.other.length) groups.push({token:'other',label:'Other',photos:ST.other});
+    var ALL=[]; groups.forEach(function(g){ g.photos.forEach(function(p){ ALL.push({src:p,token:g.token,label:g.label}); }); });
+
+    h+='<div id="browse-all" style="margin-top:clamp(40px,6vh,64px)"><div class="th" style="margin-bottom:16px">'
+      +'<h4 style="font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(22px,2.8vw,36px);margin:0">Browse all '+ALL.length+' costumes</h4>'
+      +'<span class="cnt" id="stCount" style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-left:14px">'+ALL.length+' shown</span></div>';
+    h+='<div class="filters" id="stFilters">'
+      +groups.map(function(g){return '<button class="fl" data-tag="'+g.token+'">'+esc(g.label)+'<span class="n">'+g.photos.length+'</span></button>';}).join('')
+      +'<button class="clr" id="stClear">Clear</button></div>';
+    h+='<div class="gridc" id="stGrid">'+ALL.map(function(x,i){
+        return '<div class="cell" data-gallery="browse" data-gi="'+i+'" data-tags="'+x.token+'">'
+          +'<img loading="lazy" src="'+x.src+'" alt="">'
+          +'<div class="tg"><span>'+esc(x.label)+'</span></div></div>';
+      }).join('')+'</div>';
+    h+='<div class="emptymsg" id="stEmpty" style="display:none">No costumes match those themes — try clearing a filter.</div></div>';
 
     return h+'</div></section>';
   }
@@ -633,9 +654,14 @@
     page.querySelectorAll('[data-costume]').forEach(function(el){
       el.addEventListener('click',function(){LB.openList(costList,+el.getAttribute('data-costume'));});
     });
-    // реальные тематические галереи ходулистов (data-gallery="theme:key|star:key|other")
+    // реальные тематические галереи ходулистов (data-gallery="theme:key|star:key|other|browse")
     function galleryFor(g){var ST=window.SS_STILTS;if(!ST)return null;
       if(g==='other')return {photos:ST.other,name:'Character'};
+      if(g==='browse'){ // плоский список всех костюмов в порядке: темы → звёзды → other
+        var ph=[];(ST.themes||[]).forEach(function(t){(t.photos||[]).forEach(function(p){ph.push(p);});});
+        (ST.stars||[]).forEach(function(st){(st.photos||[]).forEach(function(p){ph.push(p);});});
+        (ST.other||[]).forEach(function(p){ph.push(p);});
+        return {photos:ph,name:'Costume'};}
       var p=g.split(':'),arr=p[0]==='star'?ST.stars:ST.themes;
       return (arr||[]).filter(function(x){return x.key===p[1];})[0]||null;}
     page.querySelectorAll('[data-gallery]').forEach(function(el){
@@ -720,12 +746,14 @@
     else if(x.video) stage.innerHTML='<iframe src="'+ytEmbed(x.video)+'" allow="autoplay;fullscreen;encrypted-media" allowfullscreen></iframe>';
     else stage.innerHTML='<img src="'+(x.img||'')+'" alt="">';
     cap.textContent=x.label||''; idx.textContent=L.length>1?(P+1)+' / '+L.length:'';}
+  var EMBED=new URLSearchParams(location.search).get('embed');
+  function lbNotify(on){ if(EMBED&&window.parent!==window) window.parent.postMessage(on?'ss-lb-on':'ss-lb-off','*'); }
   window.LB={
-    openVideo:function(v,label){L=[{video:v,label:label}];P=0;paint();lb.classList.add('on');},
-    openLocal:function(f,label){L=[{file:f,label:label}];P=0;paint();lb.classList.add('on');},
-    openList:function(list,i){L=list;P=i||0;paint();lb.classList.add('on');},
+    openVideo:function(v,label){L=[{video:v,label:label}];P=0;paint();lb.classList.add('on');lbNotify(true);},
+    openLocal:function(f,label){L=[{file:f,label:label}];P=0;paint();lb.classList.add('on');lbNotify(true);},
+    openList:function(list,i){L=list;P=i||0;paint();lb.classList.add('on');lbNotify(true);},
     step:function(dir){if(!L.length)return;P=(P+dir+L.length)%L.length;paint();},
-    close:function(){lb.classList.remove('on');setTimeout(function(){stage.innerHTML='';},220);}
+    close:function(){lb.classList.remove('on');lbNotify(false);setTimeout(function(){stage.innerHTML='';},220);}
   };
   lb.addEventListener('click',function(e){if(e.target===lb)LB.close();});
   document.addEventListener('keydown',function(e){if(!lb.classList.contains('on'))return;

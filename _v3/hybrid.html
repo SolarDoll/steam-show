@@ -157,7 +157,7 @@
   <section id="programs" data-spine>
     <div class="wrap">
       <div class="sec-head reveal"><span class="kicker">Our Shows</span>
-        <h2>Five worlds of <span class="grad">show</span>.</h2>
+        <h2>Our <span class="grad">shows</span>.</h2>
         <p>Все пять на одном экране — tilt-ряд карточек. Клик по карточке разворачивает её в полноценную страницу шоу прямо на месте.</p></div>
       <div id="tiltMount"></div>
     </div>
@@ -255,9 +255,12 @@
 <script src="tilt-lab.js"></script>
 <script>
 TiltLab.init('full');
-/* кнопка «All shows» внутри развёрнутого show-detail закрывает tilt-панель */
+/* сообщения из развёрнутого show-detail (tilt-панель Full) */
 window.addEventListener('message',function(e){
-  if(e.data==='ss-close'){var x=document.querySelector('.exp-panel.show .exp-x');if(x)x.click();}
+  var x=document.querySelector('.exp-panel.show .exp-x');
+  if(e.data==='ss-close'){ if(x)x.click(); }                 // кнопка All shows → закрыть панель
+  else if(e.data==='ss-lb-on'){ if(x)x.style.display='none'; } // лайтбокс открыт → спрятать × панели
+  else if(e.data==='ss-lb-off'){ if(x)x.style.display=''; }
 });
 </script>
 <script>

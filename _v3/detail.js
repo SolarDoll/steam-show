@@ -45,8 +45,9 @@
     return 'inset(' + t + 'px ' + rt + 'px ' + b + 'px ' + l + 'px round 16px)';
   }
 
-  function open(id){
+  function open(id, originEl){
     if(!id) return;
+    if(originEl && originEl.getBoundingClientRect) lastRect = originEl.getBoundingClientRect();
     ensure();
     frame.src = 'show-detail.html?show=' + id + '&embed=1';
     ov.classList.remove('animating');
@@ -86,8 +87,13 @@
     if(el){ e.preventDefault(); open(el.getAttribute('data-prog')); }
   });
 
-  /* закрытие по сообщению из iframe (кнопка «All shows» в embed-режиме) */
-  window.addEventListener('message', function(e){ if(e.data === 'ss-close') close(); });
+  /* сообщения из iframe (embed-режим show-detail) */
+  window.addEventListener('message', function(e){
+    if(e.data === 'ss-close') close();
+    /* пока внутри открыт лайтбокс — прячем наш ×, чтобы его крестик не закрывал весь оверлей */
+    else if(e.data === 'ss-lb-on' && btn) btn.style.display = 'none';
+    else if(e.data === 'ss-lb-off' && btn) btn.style.display = '';
+  });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && isOpen) close(); });
 
   /* перехватываем openProgram у общего модуля (lib.js) */
