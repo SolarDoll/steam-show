@@ -44,7 +44,7 @@
   .is-embed .back{display:inline-flex}
   .is-embed .brand,.is-embed .nav-cta{display:none}
   @media(max-width:600px){.nav-cta{display:none}.brand .bnm{display:none}}
-  .back{display:inline-flex;align-items:center;gap:9px;cursor:pointer;border:1px solid var(--line);
+  .back{align-items:center;gap:9px;cursor:pointer;border:1px solid var(--line);
     background:rgba(255,255,255,.05);color:var(--ink);font:800 12px/1 var(--body);letter-spacing:.06em;
     text-transform:uppercase;padding:11px 17px;border-radius:100px;transition:.2s;white-space:nowrap}
   .back:hover{border-color:var(--ac);color:var(--ac)}
@@ -63,7 +63,7 @@
   @media(max-width:760px){.brand{font-size:17px}.shownav a{padding:9px 10px;font-size:12px}}
 
   /* ===== sub-nav (секции текущего шоу, sticky под хедером) ===== */
-  .subnav{position:sticky;top:0;z-index:90;background:rgba(11,7,18,.92);backdrop-filter:blur(12px);
+  .subnav{position:sticky;top:70px;z-index:90;background:rgba(11,7,18,.92);backdrop-filter:blur(12px);
     border-bottom:1px solid var(--line);padding:0 clamp(18px,4vw,40px)}
   .subnav .si{display:flex;gap:4px;max-width:1240px;margin:0 auto;overflow-x:auto;scrollbar-width:none}
   .subnav .si::-webkit-scrollbar{display:none}
