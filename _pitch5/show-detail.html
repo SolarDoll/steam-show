@@ -23,36 +23,36 @@
   .grad{background:linear-gradient(90deg,var(--accent),var(--accent3));-webkit-background-clip:text;background-clip:text;color:transparent}
   .wrap{max-width:1240px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
 
-  /* ===== DEMO show-switcher (только для прототипа) ===== */
-  .demo{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:120;display:flex;gap:6px;
-    padding:7px;border-radius:100px;background:rgba(10,7,16,.82);backdrop-filter:blur(14px);border:1px solid var(--line);
-    box-shadow:0 18px 50px rgba(0,0,0,.55)}
-  .demo button{font:800 11px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
-    background:none;border:none;padding:9px 14px;border-radius:100px;cursor:pointer;transition:.2s;white-space:nowrap}
-  .demo button:hover{color:var(--ink)}
-  .demo button.on{background:linear-gradient(100deg,var(--accent),var(--accent3));color:#160405}
-  .demo .lbl{align-self:center;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding-left:8px}
-  @media(max-width:680px){.demo .lbl{display:none}.demo button{padding:8px 10px}}
-
-  /* ===== sticky back bar (всегда видна) ===== */
-  .topbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
-    gap:16px;padding:12px clamp(18px,4vw,40px);
-    background:linear-gradient(180deg,rgba(11,7,18,.9),rgba(11,7,18,.0));backdrop-filter:blur(10px);
+  /* ===== HEADER (бренд + список шоу + contact) ===== */
+  .topbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;gap:18px;
+    padding:11px clamp(18px,4vw,40px);
+    background:linear-gradient(180deg,rgba(11,7,18,.92),rgba(11,7,18,.0));backdrop-filter:blur(10px);
     transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
-  .topbar.solid{background:rgba(11,7,18,.92);border-bottom-color:var(--line)}
-  .back{display:inline-flex;align-items:center;gap:9px;cursor:pointer;border:1px solid var(--line);
-    background:rgba(255,255,255,.04);color:var(--ink);font:800 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;
-    padding:11px 18px;border-radius:100px;transition:.2s}
-  .back:hover{border-color:var(--ac);color:var(--ac)}
-  .back .ar{font-size:15px;line-height:0}
-  .topbar .now{display:flex;align-items:center;gap:10px;opacity:0;transform:translateY(-6px);transition:.35s}
-  .topbar.solid .now{opacity:1;transform:none}
-  .topbar .now b{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:18px;letter-spacing:.02em}
-  .topbar .now .dot{width:8px;height:8px;border-radius:50%;background:var(--ac);box-shadow:0 0 12px var(--ac)}
-  .topbar .book{display:none;align-items:center;gap:8px;background:linear-gradient(100deg,var(--accent),var(--accent3));
-    color:#160405;font:800 12px/1 var(--body);letter-spacing:.06em;text-transform:uppercase;padding:11px 20px;border-radius:100px;
-    text-decoration:none}
-  @media(min-width:861px){.topbar .book{display:inline-flex}}
+  .topbar.solid{background:rgba(11,7,18,.94);border-bottom-color:var(--line)}
+  .brand{display:inline-flex;align-items:center;gap:9px;cursor:pointer;background:none;border:none;color:var(--ink);
+    font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:20px;letter-spacing:.02em;white-space:nowrap}
+  .brand .mk{width:12px;height:12px;border-radius:50%;background:conic-gradient(from 210deg,var(--accent3),var(--accent),var(--accent2),var(--cool),var(--accent3));
+    box-shadow:0 0 12px color-mix(in srgb,var(--accent) 60%,transparent)}
+  .shownav{display:flex;align-items:center;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+  .shownav::-webkit-scrollbar{display:none}
+  .shownav a{font:700 13px/1 var(--body);letter-spacing:.02em;color:var(--muted);text-decoration:none;cursor:pointer;
+    padding:10px 13px;border-radius:100px;white-space:nowrap;transition:.18s}
+  .shownav a:hover{color:var(--ink)}
+  .shownav a.on{color:#160405;background:linear-gradient(100deg,var(--accent),var(--accent3));font-weight:800}
+  .shownav .sep{width:1px;height:18px;background:var(--line);margin:0 4px;flex:0 0 auto}
+  .shownav a.contact{border:1px solid var(--line)}
+  .shownav a.contact:hover{border-color:var(--ac);color:var(--ac)}
+  @media(max-width:760px){.brand{font-size:17px}.shownav a{padding:9px 10px;font-size:12px}}
+
+  /* ===== sub-nav (секции текущего шоу, sticky под хедером) ===== */
+  .subnav{position:sticky;top:0;z-index:90;background:rgba(11,7,18,.92);backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);padding:0 clamp(18px,4vw,40px)}
+  .subnav .si{display:flex;gap:4px;max-width:1240px;margin:0 auto;overflow-x:auto;scrollbar-width:none}
+  .subnav .si::-webkit-scrollbar{display:none}
+  .subnav a{font:700 12px/1 var(--body);letter-spacing:.04em;color:var(--muted);text-decoration:none;
+    padding:15px 14px;border-bottom:2px solid transparent;white-space:nowrap;transition:.18s}
+  .subnav a:hover{color:var(--ink)}
+  .subnav a.on{color:var(--ac);border-bottom-color:var(--ac)}
 
   /* ===== HERO ===== */
   .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden}
@@ -66,7 +66,6 @@
   .htitle{font-family:var(--display);font-weight:400;text-transform:uppercase;line-height:.84;letter-spacing:.01em;
     font-size:clamp(54px,11vw,150px);margin:0;max-width:14ch}
   .hdesc{color:#e6deec;font-size:clamp(16px,1.9vw,21px);line-height:1.55;max-width:52ch;margin:26px 0 0}
-  /* мета-строка */
   .meta{display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,52px);margin:34px 0 0;padding-top:26px;border-top:1px solid var(--line)}
   .meta .m .k{font:800 11px/1 var(--body);letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
   .meta .m .v{font-family:var(--body);font-weight:800;font-size:clamp(16px,1.7vw,19px)}
@@ -83,7 +82,7 @@
   .btn.ghost:hover{border-color:var(--ac);color:var(--ac)}
   .btn .pd{width:9px;height:9px;border-radius:50%;background:#160405}
 
-  /* ===== общие секции ===== */
+  /* ===== секции ===== */
   section{padding:clamp(56px,9vh,118px) 0;position:relative}
   section + section{border-top:1px solid var(--line)}
   .shead{margin:0 0 clamp(26px,4vh,46px)}
@@ -92,9 +91,9 @@
     font-size:clamp(34px,6vw,76px);margin:14px 0 0}
   .shead p{color:var(--muted);font-size:16px;max-width:56ch;margin:16px 0 0;line-height:1.5}
 
-  /* --- fire: три мира --- */
+  /* --- fire: themes --- */
   .worlds{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  .world{position:relative;border-radius:18px;overflow:hidden;min-height:clamp(320px,42vh,440px);cursor:pointer;
+  .world{position:relative;border-radius:18px;overflow:hidden;min-height:clamp(300px,40vh,420px);cursor:pointer;
     border:1px solid var(--line);isolation:isolate}
   .world img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
   .world:hover img{transform:scale(1.06)}
@@ -103,37 +102,51 @@
   .world .wc .wn{font:800 11px/1 var(--body);letter-spacing:.24em;text-transform:uppercase;color:var(--accent2)}
   .world .wc h3{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(26px,3vw,40px);margin:12px 0 0;line-height:.95}
   .world .wc p{color:#d8cfe0;font-size:14px;margin:10px 0 0;line-height:1.45}
+  .world.bespoke{display:flex;align-items:center;justify-content:center;text-align:center;cursor:default;
+    background:radial-gradient(120% 100% at 50% 0%,color-mix(in srgb,var(--ac) 26%,transparent),transparent 62%),var(--bg2)}
+  .world.bespoke::after{display:none}.world.bespoke .wc{position:static;padding:32px}
+  .world.bespoke .wn{color:var(--ac)}.world.bespoke h3{color:var(--ink)}
   @media(max-width:820px){.worlds{grid-template-columns:1fr}}
 
   /* --- stilts: звёзды --- */
-  .stars{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:clamp(40px,6vh,70px)}
-  .star{position:relative;border-radius:20px;overflow:hidden;min-height:clamp(300px,44vh,460px);cursor:pointer;border:1px solid var(--line)}
+  .stars{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:clamp(40px,6vh,70px)}
+  .star{position:relative;border-radius:20px;overflow:hidden;min-height:clamp(300px,42vh,440px);cursor:pointer;border:1px solid var(--line)}
   .star img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
   .star:hover img{transform:scale(1.05)}
   .star::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 38%,rgba(8,5,12,.88))}
-  .star .sc{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:26px}
+  .star .sc{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:24px}
   .star .badge{display:inline-flex;align-items:center;gap:7px;font:800 10px/1 var(--body);letter-spacing:.2em;text-transform:uppercase;
     color:#160405;background:var(--accent2);padding:7px 12px;border-radius:100px}
-  .star h3{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(28px,3.4vw,48px);margin:14px 0 0;line-height:.92}
-  .star p{color:#d8cfe0;font-size:14.5px;margin:9px 0 0;max-width:40ch}
-  @media(max-width:760px){.stars{grid-template-columns:1fr}}
+  .star h3{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(26px,3vw,40px);margin:13px 0 0;line-height:.92}
+  .star p{color:#d8cfe0;font-size:14px;margin:8px 0 0;max-width:38ch}
+  @media(max-width:860px){.stars{grid-template-columns:1fr}}
 
-  /* --- коллекции-ленты --- */
-  .coll{margin-bottom:clamp(34px,5vh,56px)}
-  .coll .ch{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin:0 0 16px}
-  .coll .ch h4{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(20px,2.4vw,30px);margin:0;letter-spacing:.02em}
-  .coll .ch .cnt{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-  .rail{display:flex;gap:13px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 0 14px;
-    scrollbar-width:thin;scrollbar-color:var(--ac) transparent}
-  .rail::-webkit-scrollbar{height:7px}.rail::-webkit-scrollbar-thumb{background:var(--ac);border-radius:10px}
-  .rail .it{flex:0 0 auto;width:clamp(168px,22vw,234px);scroll-snap-align:start;cursor:pointer}
-  .rail .it .ph{position:relative;aspect-ratio:4/5;border-radius:14px;overflow:hidden;background:#000;border:1px solid var(--line)}
-  .rail .it .ph img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
-  .rail .it:hover .ph img{transform:scale(1.06)}
-  .rail .it .nm{font-size:12.5px;color:var(--muted);margin-top:9px;letter-spacing:.02em}
-  .rail .it .ph .mini{position:absolute;left:8px;bottom:8px;right:8px;display:flex;gap:5px;flex-wrap:wrap}
-  .rail .it .ph .mini span{font-size:9px;letter-spacing:.1em;text-transform:uppercase;background:rgba(0,0,0,.55);
-    backdrop-filter:blur(4px);padding:4px 7px;border-radius:100px;color:#e6deec}
+  /* --- stilts: тема = основное видео + доп-галерея --- */
+  .tblock{margin-bottom:clamp(40px,6vh,72px)}
+  .tblock .th{display:flex;align-items:baseline;gap:14px;margin:0 0 16px}
+  .tblock .th h4{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(22px,2.8vw,36px);margin:0;letter-spacing:.02em}
+  .tblock .th .cnt{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .tblock .tb{display:grid;grid-template-columns:1.45fr 1fr;gap:18px;align-items:start}
+  .tblock .feat{position:relative;border-radius:16px;overflow:hidden;background:#000;border:1px solid var(--line);cursor:pointer}
+  .tblock .feat .vw{position:relative;aspect-ratio:16/9}
+  .tblock .feat .vw img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+  .tblock .feat:hover .vw img{transform:scale(1.05)}
+  .tblock .feat .pl{position:absolute;inset:0;margin:auto;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;
+    background:rgba(0,0,0,.42);border:1.5px solid #fff;transition:.2s}
+  .tblock .feat:hover .pl{background:var(--ac);border-color:var(--ac)}
+  .tblock .feat .pl::before{content:"";border-left:17px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:4px}
+  .tblock .feat:hover .pl::before{border-left-color:#160405}
+  .tblock .feat .vlbl{position:absolute;left:14px;bottom:12px;font:800 10px/1 var(--body);letter-spacing:.16em;text-transform:uppercase;
+    background:rgba(0,0,0,.55);backdrop-filter:blur(5px);padding:7px 11px;border-radius:100px;color:#e6deec}
+  .tblock .side{display:flex;flex-direction:column;gap:13px}
+  .mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .mini-grid .cell{position:relative;aspect-ratio:4/5;border-radius:11px;overflow:hidden;background:#000;cursor:pointer;border:1px solid var(--line)}
+  .mini-grid .cell img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+  .mini-grid .cell:hover img{transform:scale(1.07)}
+  .tmore{align-self:flex-start;margin-top:2px;font:800 12px/1 var(--body);letter-spacing:.04em;color:var(--ac);
+    background:none;border:none;cursor:pointer;padding:6px 0;text-transform:capitalize}
+  .tmore:hover{text-decoration:underline;text-underline-offset:3px}
+  @media(max-width:820px){.tblock .tb{grid-template-columns:1fr}.mini-grid{grid-template-columns:repeat(4,1fr)}}
 
   /* --- browse all + фильтр --- */
   .filters{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 22px;align-items:center}
@@ -147,7 +160,7 @@
   .filters .clr:hover{color:var(--ink)}
   .gridc{display:grid;grid-template-columns:repeat(5,1fr);gap:13px}
   .gridc .cell{position:relative;aspect-ratio:4/5;border-radius:13px;overflow:hidden;background:#000;cursor:pointer;
-    border:1px solid var(--line);transition:opacity .25s,transform .25s}
+    border:1px solid var(--line);transition:opacity .25s}
   .gridc .cell img{width:100%;height:100%;object-fit:cover;transition:transform .45s}
   .gridc .cell:hover img{transform:scale(1.06)}
   .gridc .cell.hide{display:none}
@@ -161,7 +174,14 @@
   @media(max-width:900px){.gridc{grid-template-columns:repeat(3,1fr)}}
   @media(max-width:540px){.gridc{grid-template-columns:repeat(2,1fr)}}
 
-  /* --- видео-карусель --- */
+  /* --- rail (видео-карусель) + стрелки --- */
+  .railbox{position:relative}
+  .rnav{position:absolute;top:calc(50% - 26px);z-index:6;width:44px;height:44px;border-radius:50%;cursor:pointer;
+    display:grid;place-items:center;font-size:24px;line-height:0;color:var(--ink);
+    background:rgba(11,7,18,.8);border:1px solid var(--line);backdrop-filter:blur(8px);transition:.2s}
+  .rnav:hover{background:var(--ac);color:#160405;border-color:transparent}
+  .rnav.l{left:-8px}.rnav.r{right:-8px}
+  @media(hover:none){.rnav{display:none}}
   .vrail{display:flex;gap:15px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 0 14px;
     scrollbar-width:thin;scrollbar-color:var(--ac) transparent}
   .vrail::-webkit-scrollbar{height:7px}.vrail::-webkit-scrollbar-thumb{background:var(--ac);border-radius:10px}
@@ -179,10 +199,40 @@
   /* --- галерея masonry --- */
   .gallery{columns:4;column-gap:13px}
   .gallery .g{break-inside:avoid;margin-bottom:13px;border-radius:13px;overflow:hidden;background:#000;cursor:pointer;border:1px solid var(--line)}
-  .gallery .g img{width:100%;transition:transform .5s,opacity .4s}
+  .gallery .g img{width:100%;transition:transform .5s}
   .gallery .g:hover img{transform:scale(1.04)}
   @media(max-width:1000px){.gallery{columns:3}}
   @media(max-width:680px){.gallery{columns:2}}
+
+  /* --- booking (как на главной) --- */
+  .ccta{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(40px,7vw,96px);line-height:.9;margin:14px 0 0}
+  .clead{color:var(--muted);max-width:46ch;margin:20px 0 0;font-size:16px}
+  .fchannels{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:clamp(30px,5vh,48px)}
+  .fch{position:relative;display:flex;flex-direction:column;gap:14px;min-height:190px;padding:26px;border-radius:18px;
+    border:1px solid var(--line);background:linear-gradient(180deg,rgba(245,239,247,.04),transparent);overflow:hidden;
+    transition:transform .35s,border-color .35s,box-shadow .35s;text-decoration:none;color:var(--ink);--fc:var(--accent)}
+  .fch::before{content:"";position:absolute;inset:0;opacity:0;transition:.4s;
+    background:radial-gradient(120% 120% at 0% 0%,color-mix(in srgb,var(--fc) 22%,transparent),transparent 60%)}
+  .fch:hover{transform:translateY(-6px);border-color:var(--fc);box-shadow:0 20px 50px rgba(0,0,0,.5)}
+  .fch:hover::before{opacity:1}
+  .fch>*{position:relative;z-index:1}
+  .fch .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;color:#160405;background:var(--fc)}
+  .fch .ic svg{width:24px;height:24px;display:block}
+  .fch .fk{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+  .fch .fv{font-family:var(--body);font-weight:800;font-size:19px}
+  .fch .fgo{margin-top:auto;font-size:12px;letter-spacing:.06em;color:var(--fc)}
+  @media(max-width:880px){.fchannels{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:480px){.fchannels{grid-template-columns:1fr}}
+
+  /* --- prev/next show --- */
+  .pnav{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .pnav a{display:flex;flex-direction:column;gap:9px;padding:24px 26px;border-radius:16px;border:1px solid var(--line);
+    cursor:pointer;text-decoration:none;color:var(--ink);transition:.2s;background:rgba(255,255,255,.02)}
+  .pnav a:hover{border-color:var(--ac);background:rgba(255,255,255,.04)}
+  .pnav a.next{text-align:right}
+  .pnav .pk{font:800 11px/1 var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .pnav .pv{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(20px,2.4vw,30px);line-height:.95}
+  @media(max-width:600px){.pnav{grid-template-columns:1fr}.pnav a.next{text-align:left}}
 
   /* --- lightbox --- */
   .lb{position:fixed;inset:0;z-index:9500;background:rgba(4,3,7,.95);backdrop-filter:blur(8px);display:none;
@@ -198,69 +248,27 @@
     background:none;border:none;padding:16px;transition:.2s}
   .lb .arr:hover{color:#fff}.lb .arr.l{left:4px}.lb .arr.r{right:4px}
 
-  /* --- rail arrows (стрелки прокрутки лент) --- */
-  .railbox{position:relative}
-  .rnav{position:absolute;top:calc(50% - 26px);z-index:6;width:44px;height:44px;border-radius:50%;cursor:pointer;
-    display:grid;place-items:center;font-size:24px;line-height:0;color:var(--ink);
-    background:rgba(11,7,18,.8);border:1px solid var(--line);backdrop-filter:blur(8px);transition:.2s}
-  .rnav:hover{background:var(--ac);color:#160405;border-color:transparent}
-  .rnav.l{left:-8px}.rnav.r{right:-8px}
-  @media(hover:none){.rnav{display:none}}
-
-  /* --- bespoke world tile --- */
-  .world.bespoke{display:flex;align-items:center;justify-content:center;text-align:center;cursor:default;
-    background:radial-gradient(120% 100% at 50% 0%,color-mix(in srgb,var(--ac) 26%,transparent),transparent 62%),var(--bg2)}
-  .world.bespoke::after{display:none}
-  .world.bespoke .wc{position:static;padding:32px}
-  .world.bespoke .wn{color:var(--ac)}.world.bespoke h3{color:var(--ink)}
-
-  /* --- секционная навигация в топбаре --- */
-  .secnav{display:none;gap:4px;opacity:0;transform:translateY(-6px);transition:.35s}
-  .topbar.solid .secnav{opacity:1;transform:none}
-  .secnav a{font:700 12px/1 var(--body);letter-spacing:.04em;color:var(--muted);text-decoration:none;
-    padding:9px 13px;border-radius:100px;transition:.18s}
-  .secnav a:hover{color:var(--ink)}
-  .secnav a.on{color:var(--ac);background:rgba(255,255,255,.05)}
-  @media(min-width:861px){.secnav{display:flex}}
-
-  /* --- кнопка «наверх» --- */
-  .totop{position:fixed;right:20px;bottom:88px;z-index:110;width:48px;height:48px;border-radius:50%;cursor:pointer;
+  /* --- back to top --- */
+  .totop{position:fixed;right:20px;bottom:24px;z-index:110;width:48px;height:48px;border-radius:50%;cursor:pointer;
     display:grid;place-items:center;font-size:21px;color:#160405;background:linear-gradient(100deg,var(--accent),var(--accent3));
     border:none;box-shadow:0 14px 36px -10px rgba(255,46,132,.6);opacity:0;pointer-events:none;transform:translateY(10px);transition:.3s}
   .totop.on{opacity:1;pointer-events:auto;transform:none}
-
-  /* --- prev/next show --- */
-  .pnav{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  .pnav a{display:flex;flex-direction:column;gap:9px;padding:24px 26px;border-radius:16px;border:1px solid var(--line);
-    cursor:pointer;text-decoration:none;color:var(--ink);transition:.2s;background:rgba(255,255,255,.02)}
-  .pnav a:hover{border-color:var(--ac);background:rgba(255,255,255,.04)}
-  .pnav a.next{text-align:right}
-  .pnav .pk{font:800 11px/1 var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-  .pnav .pv{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(20px,2.4vw,30px);line-height:.95}
-  @media(max-width:600px){.pnav{grid-template-columns:1fr}.pnav a.next{text-align:left}}
 
   .foot{padding:46px 0;border-top:1px solid var(--line);color:var(--muted);font-size:13px;text-align:center}
 </style>
 </head>
 <body>
 
-<div class="topbar" id="topbar">
-  <button class="back" onclick="alert('В реальном сайте — возврат к списку шоу')"><span class="ar">←</span> All shows</button>
-  <nav class="secnav" id="secnav"></nav>
-  <div style="display:flex;align-items:center;gap:14px">
-    <div class="now"><span class="dot"></span><b id="nowName"></b></div>
-    <a class="book" href="#book">Book the show</a>
-  </div>
-</div>
+<header class="topbar" id="topbar">
+  <button class="brand" onclick="alert('В реальном сайте — на главную / к списку шоу')"><span class="mk"></span>Steam Show</button>
+  <nav class="shownav" id="shownav"></nav>
+</header>
 
 <main id="page"></main>
 
 <footer class="foot">Steam Show — прототип подстранички шоу · Вариант A «Лонгрид» · палитра hybrid2</footer>
 
 <button class="totop" id="totop" aria-label="Back to top">↑</button>
-
-<!-- DEMO switcher -->
-<div class="demo" id="demo"><span class="lbl">Демо · шоу:</span></div>
 
 <!-- lightbox -->
 <div class="lb" id="lb">
@@ -277,76 +285,87 @@
   var ytThumb=function(id){return 'https://i.ytimg.com/vi/'+id+'/hqdefault.jpg';};
   var ytEmbed=function(id){return 'https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0&modestbranding=1&playsinline=1';};
 
-  /* ----- конфиг шоу: мета (из fireflow-full) + описания + блок «вариантов» ----- */
   var SHOWS={
-    dragon:{name:'Dragon Fire Show',type:'Flagship · fire',
+    dragon:{name:'Dragon Fire Show',nav:'Dragon',type:'Flagship · fire',
       desc:'Our signature act — a colossal, flame-breathing dragon built from fire, smoke and light. Scales from intimate galas to festival main stages.',
       duration:'10–15 min · adaptable',format:'Outdoor',cast:'Scalable',
       chips:['Flamethrowers','Fire cubes','Pyro','Headliner'],variants:null},
-    fire:{name:'Fire Show',type:'Classic · fire',
-      desc:'Large-scale fire choreography, dressed to a theme. Pick one of our worlds — or, for big events, we build one around your concept.',
+    fire:{name:'Fire Show',nav:'Fire',type:'Classic · fire',
+      desc:'Large-scale fire choreography, dressed to a theme. Pick one of our themes — or, for big events, we build one around your concept.',
       duration:'10–15 min · adaptable',format:'Outdoor',cast:'Scalable',
       chips:['Live fire','Choreography','Bespoke themes'],
-      variants:{kind:'worlds',title:'Themed fire',
-        lead:'Every world has its own costumes, music and choreography. These are our signature ones — for large events we create a new theme to brief.',
+      variants:{kind:'themes',title:'Themed fire',navLabel:'Themes',
+        lead:'Every theme has its own costumes, music and choreography. These are our signature ones — for large events we create a new theme to brief.',
         items:[
-          {nm:'World 01',h:'Rock',p:'Raw, loud, rebellious — fire to a driving rock energy.'},
-          {nm:'World 02',h:'Fantasy',p:'Ethereal and mythic — a fairy-tale told in flame.'},
-          {nm:'World 03',h:'Post-apocalyptic',p:'Gritty, industrial, dystopian — fire from a scorched future.'},
-          {nm:'World 04',h:'Steampunk',p:'Plague doctors and Victorian dames — brass, gears and gaslight.'},
-          {nm:'World 05',h:'Slavic Folk',p:'Born at a Maslenitsa festival — a folkloric winter fire ritual.'},
-          {bespoke:true,nm:'On request',h:'Your theme',p:'For large events we build a bespoke world around your concept, brand or festival theme.'}
+          {nm:'Theme 01',h:'Rock',p:'Raw, loud, rebellious — fire to a driving rock energy.'},
+          {nm:'Theme 02',h:'Fantasy',p:'Ethereal and mythic — a fairy-tale told in flame.'},
+          {nm:'Theme 03',h:'Post-apocalyptic',p:'Gritty, industrial, dystopian — fire from a scorched future.'},
+          {nm:'Theme 04',h:'Steampunk',p:'Plague doctors and Victorian dames — brass, gears and gaslight.'},
+          {nm:'Theme 05',h:'Slavic Folk',p:'Born at a Maslenitsa festival — a folkloric winter fire ritual.'},
+          {bespoke:true,nm:'On request',h:'Your theme',p:'For large events we build a bespoke theme around your concept, brand or festival.'}
         ]}},
-    ledfire:{name:'LED Fire Show',type:'Hybrid · fire + light',
+    ledfire:{name:'LED Fire Show',nav:'LED Fire',type:'Hybrid · fire + light',
       desc:'The best of both — live fire performed in glowing LED costumes. The heat of fire with the colour of light.',
       duration:'10–15 min · adaptable',format:'Outdoor',cast:'Scalable',
       chips:['Live fire','LED costumes','Hybrid'],variants:null},
-    led:{name:'LED Show',type:'Electric · light',
+    led:{name:'LED Show',nav:'LED',type:'Electric · light',
       desc:'A fully luminous, smoke-free spectacle. Deep catalogue of LED costumes — pick the looks that fit your venue.',
       duration:'10–15 min · adaptable',format:'Indoor & outdoor',cast:'Scalable',
       chips:['Smoke-free','LED catalogue','Full luminous'],
-      variants:{kind:'catalogue',title:'LED costume catalogue',lead:'Smoke-free and fully programmable. Mix and match looks for your venue.'}},
-    stilts:{name:'Stilt Walkers',type:'Roaming · giants',
+      variants:{kind:'catalogue',title:'LED costume catalogue',navLabel:'Costumes',
+        lead:'Smoke-free and fully programmable. Mix and match looks for your venue.'}},
+    stilts:{name:'Stilt Walkers',nav:'Stilts',type:'Roaming · giants',
       desc:'A wardrobe of towering characters — as roaming animation or a full stilt performance. Costumes group into themes, and mix freely across them.',
       duration:'Roaming or set act',format:'Indoor & outdoor',cast:'Scalable',
       chips:['Roaming','Full stage show','100+ costumes'],
-      variants:{kind:'stilts'}}
+      variants:{kind:'stilts',navLabel:'Wardrobe'}}
   };
   var ORDER=['dragon','fire','ledfire','led','stilts'];
 
-  /* ===== псевдо-теги костюмов ходулистов (ВРЕМЕННО — потом заменим реальной разметкой) =====
-     Темы из брифа: Fairy Garden, Circus, Giraffe, Dragons, Pirates, Classics, Trees, Fantasy, Shamans + LED on stilts.
-     Намеренно делаем пересечения (один костюм в нескольких темах) — чтобы показать механику. */
+  /* ===== псевдо-теги костюмов ходулистов (ВРЕМЕННО — заменим реальной разметкой) ===== */
   var STILT_THEMES=['fairy garden','circus','carnival','pirates','classics','trees','fantasy','shamans','led on stilts'];
   function stiltTags(i){
     var t=[STILT_THEMES[i%STILT_THEMES.length]];
     if(i%3===0) t.push('fantasy');
-    if(i%5===0 && t.indexOf('carnival')<0) t.push('carnival');     // напр. джокеры → circus И carnival
+    if(i%5===0 && t.indexOf('carnival')<0) t.push('carnival');
     if(i%7===0 && t.indexOf('classics')<0) t.push('classics');
     return t.filter(function(v,k,a){return a.indexOf(v)===k;});
   }
-  // звёзды-гиганты: первые два костюма помечаем как Dragon и Giraffe
+  // три звезды-гиганта: Dragons, Giraffe, Trees
   var STILT_STARS=[
-    {i:0,h:'Dragon',p:'A towering dragon on stilts — our signature giant. A guaranteed showstopper.',tags:['dragons','fantasy']},
-    {i:1,h:'Giraffe',p:'A friendly 4-metre giraffe that roams the crowd. Kids and cameras love it.',tags:['classics']}
+    {i:0,h:'Dragons',p:'Towering dragons on stilts — our signature giants. A guaranteed showstopper.',tag:'dragons'},
+    {i:1,h:'Giraffe',p:'A friendly 4-metre giraffe that roams the crowd. Kids and cameras love it.',tag:'classics'},
+    {i:2,h:'Trees',p:'Living walking trees — ethereal, photogenic and great for nature themes.',tag:'trees'}
+  ];
+  // тема-блоки ходулистов: каждой — основное видео (если есть) + доп-галерея
+  var STILT_BLOCKS=[
+    {key:'fairy garden'},{key:'circus'},{key:'pirates'},{key:'classics'},{key:'trees'},{key:'led on stilts'}
   ];
 
-  /* ===== рендер ===== */
+  var ICONS={
+    instagram:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5.4"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor" stroke="none"/></svg>',
+    email:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.6"/><path d="M3.6 7.6 12 13l8.4-5.4"/></svg>',
+    whatsapp:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 3.5 17.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm0 2a8 8 0 1 1-4.2 14.8l-.3-.2-2.6.8.8-2.5-.2-.3A8 8 0 0 1 12 4Zm-2.7 4c-.2 0-.5 0-.7.4-.2.4-.9.9-.9 2.1 0 1.2.9 2.4 1 2.6.1.2 1.8 2.9 4.5 3.9 2.2.8 2.7.7 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.3-.2-.6-.3l-2-1c-.3-.1-.5-.1-.7.1l-.7.9c-.1.2-.3.2-.5.1-.7-.3-1.5-.7-2.3-1.7-.3-.4.3-.4.8-1.3.1-.2 0-.4 0-.5l-.9-2.1c-.2-.5-.4-.4-.6-.4Z"/></svg>',
+    youtube:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4.6"/><path d="M10.4 9.1 15.2 12l-4.8 2.9Z" fill="currentColor" stroke="none"/></svg>'
+  };
+
   var page=document.getElementById('page');
   function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;');}
   function railBox(inner,cls){
     return '<div class="railbox"><button class="rnav l" aria-label="Scroll left">‹</button>'
-      +'<div class="'+(cls||'rail')+'">'+inner+'</div>'
+      +'<div class="'+(cls||'vrail')+'">'+inner+'</div>'
       +'<button class="rnav r" aria-label="Scroll right">›</button></div>';
   }
-  function go(id){demo.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x.getAttribute('data-id')===id);});render(id);}
+  function go(id){
+    document.querySelectorAll('#shownav a[data-id]').forEach(function(a){a.classList.toggle('on',a.getAttribute('data-id')===id);});
+    render(id);
+  }
 
   function render(id){
     var s=SHOWS[id], d=DATA.shows[id], ac=accentMap[id];
     document.documentElement.style.setProperty('--ac',ac);
-    document.getElementById('nowName').textContent=s.name;
     var cover=(d.photos[0])||(d.videos[0]?ytThumb(d.videos[0]):'');
-    var heroVid = (id==='dragon') ? DATA.hero : null; // у dragon крутим общий hero-видео для демо
+    var heroVid=(id==='dragon')?DATA.hero:null;
 
     var html='';
     /* HERO */
@@ -367,15 +386,24 @@
         +'<a class="btn ghost" href="#book">Book the show</a></div>';
     html+='</div></header>';
 
+    /* SUB-NAV (секции этого шоу) */
+    var nav=[{href:'top',label:'Top'}];
+    if(s.variants) nav.push({href:'sec-variants',label:s.variants.navLabel});
+    if(d.videos&&d.videos.length) nav.push({href:'videos',label:'Videos'});
+    if(d.photos&&d.photos.length) nav.push({href:'gallery',label:'Photos'});
+    nav.push({href:'book',label:'Book'});
+    html+='<div class="subnav" id="subnav"><div class="si">'
+        +nav.map(function(n){return '<a href="#'+n.href+'" data-sec="'+n.href+'">'+n.label+'</a>';}).join('')+'</div></div>';
+
     /* VARIANTS */
     if(s.variants){
-      if(s.variants.kind==='worlds') html+=renderWorlds(id,s,d);
+      if(s.variants.kind==='themes') html+=renderThemes(id,s,d);
       else if(s.variants.kind==='catalogue') html+=renderCatalogue(id,s,d);
       else if(s.variants.kind==='stilts') html+=renderStilts(id,s,d);
     }
 
     /* VIDEOS */
-    if(d.videos && d.videos.length){
+    if(d.videos&&d.videos.length){
       html+='<section id="videos"><div class="wrap">';
       html+='<div class="shead"><span class="kicker">Watch</span><h2>Videos</h2>'
           +'<p>'+d.videos.length+' clip'+(d.videos.length>1?'s':'')+' — full performances and highlights.</p></div>';
@@ -387,7 +415,7 @@
     }
 
     /* GALLERY */
-    if(d.photos && d.photos.length){
+    if(d.photos&&d.photos.length){
       html+='<section id="gallery"><div class="wrap">';
       html+='<div class="shead"><span class="kicker">Gallery</span><h2>Photos</h2>'
           +'<p>'+d.photos.length+' shots from real events.</p></div>';
@@ -396,14 +424,19 @@
       }).join('')+'</div></div></section>';
     }
 
-    /* BOOK anchor */
-    html+='<section id="book"><div class="wrap"><div class="shead"><span class="kicker">Book it</span>'
-        +'<h2>Bring <span class="grad">'+esc(s.name)+'</span> to your event</h2>'
-        +'<p>Tell us the date, venue and vibe — we tailor the show to your run of show. Fastest reply on WhatsApp.</p></div>'
-        +'<div class="hcta"><a class="btn solid" href="#"><span class="pd"></span> Message us on WhatsApp</a>'
-        +'<a class="btn ghost" href="mailto:hello@steamshow.com">Email a brief</a></div></div></section>';
+    /* BOOK — как на главной */
+    html+='<section id="book"><div class="wrap">'
+        +'<div class="kicker">Book the show</div>'
+        +'<h2 class="ccta">Let\'s <span class="grad">light it up</span></h2>'
+        +'<p class="clead">Tell us the date, the venue and the vibe — we\'ll tailor '+esc(s.name)+' to your run of show. Reach us on whatever\'s fastest.</p>'
+        +'<div class="fchannels">'
+          +'<a class="fch" style="--fc:var(--accent3)" href="https://instagram.com/steamshow" target="_blank" rel="noopener"><span class="ic" data-ic="instagram"></span><span class="fk">Instagram</span><span class="fv">@steamshow</span><span class="fgo">See the feed →</span></a>'
+          +'<a class="fch" style="--fc:var(--accent2)" href="mailto:hello@steamshow.com"><span class="ic" data-ic="email"></span><span class="fk">Email</span><span class="fv">hello@steamshow</span><span class="fgo">Send a brief →</span></a>'
+          +'<a class="fch" style="--fc:var(--accent)" href="#"><span class="ic" data-ic="whatsapp"></span><span class="fk">WhatsApp · Telegram</span><span class="fv">Message us</span><span class="fgo">Chat now →</span></a>'
+          +'<a class="fch" style="--fc:var(--cool)" href="https://www.youtube.com/@SteamShowby" target="_blank" rel="noopener"><span class="ic" data-ic="youtube"></span><span class="fk">YouTube</span><span class="fv">@SteamShowby</span><span class="fgo">Watch shows →</span></a>'
+        +'</div></div></section>';
 
-    /* PREV / NEXT show */
+    /* PREV / NEXT */
     var ci=ORDER.indexOf(id),pv=ORDER[(ci-1+ORDER.length)%ORDER.length],nx=ORDER[(ci+1)%ORDER.length];
     html+='<section><div class="wrap"><div class="pnav">'
         +'<a class="prev" data-go="'+pv+'"><span class="pk">← Previous show</span><span class="pv">'+esc(SHOWS[pv].name)+'</span></a>'
@@ -411,12 +444,13 @@
         +'</div></div></section>';
 
     page.innerHTML=html;
+    injectIcons();
     wirePage(id,d,s);
-    buildSecNav(id,s,d);
+    wireSpy(nav);
     window.scrollTo(0,0);
   }
 
-  function renderWorlds(id,s,d){
+  function renderThemes(id,s,d){
     var v=s.variants, ph=d.photos, n=v.items.length;
     var h='<section id="sec-variants"><div class="wrap"><div class="shead"><span class="kicker">Programs</span>'
       +'<h2>'+esc(v.title)+'</h2><p>'+esc(v.lead)+'</p></div><div class="worlds">';
@@ -437,19 +471,26 @@
     if(!cs.length) return '';
     var h='<section id="sec-variants"><div class="wrap"><div class="shead"><span class="kicker">Costumes</span>'
       +'<h2>'+esc(s.variants.title)+'</h2><p>'+esc(s.variants.lead)+'</p></div>';
-    h+='<div class="gridc" id="ledGrid">'+cs.map(function(c,i){
+    h+='<div class="gridc">'+cs.map(function(c,i){
       return '<div class="cell" data-costume="'+i+'"><img loading="lazy" src="'+c+'" alt=""></div>';
     }).join('')+'</div></div></section>';
     return h;
   }
 
+  function idxsForTheme(cs,theme){
+    var idxs=[];
+    if(theme==='led on stilts'){ for(var j=0;j<cs.length;j+=6) idxs.push(j); return idxs; }
+    for(var i=0;i<cs.length;i++){ if(stiltTags(i).indexOf(theme)>=0) idxs.push(i); }
+    return idxs;
+  }
+
   function renderStilts(id,s,d){
-    var cs=d.costumes||[];
+    var cs=d.costumes||[], vids=d.videos||[];
     var h='<section id="sec-variants"><div class="wrap">';
     h+='<div class="shead"><span class="kicker">Costumes & themes</span><h2>The wardrobe</h2>'
-      +'<p>100+ towering characters. Start with our showstoppers, browse by theme, or filter the full set — costumes can live in several themes at once.</p></div>';
+      +'<p>100+ towering characters. Start with our showstoppers, explore each theme with its film and costume gallery, or filter the full set — costumes can live in several themes at once.</p></div>';
 
-    /* 1. Showstoppers */
+    /* 1. Showstoppers (3) */
     h+='<div class="stars">';
     STILT_STARS.forEach(function(st){
       var img=cs[st.i]||cs[0];
@@ -458,29 +499,37 @@
     });
     h+='</div>';
 
-    /* 2. Curated collections (ленты по темам) */
-    var themesForRails=['fairy garden','circus','pirates','classics','trees','led on stilts'];
-    themesForRails.forEach(function(theme){
-      var idxs=[];
-      for(var i=0;i<cs.length;i++){ if(stiltTags(i).indexOf(theme)>=0) idxs.push(i); }
-      if(theme==='led on stilts'){ // подмешаем как «световые на ходулях» каждый 6-й
-        idxs=[]; for(var j=0;j<cs.length;j+=6) idxs.push(j);
-      }
+    /* 2. Тема-блоки: основное видео + доп-галерея */
+    STILT_BLOCKS.forEach(function(block,bi){
+      var idxs=idxsForTheme(cs,block.key);
       if(idxs.length<3) return;
-      var inner=idxs.slice(0,10).map(function(i){
-        return '<div class="it" data-costume="'+i+'"><div class="ph"><img loading="lazy" src="'+cs[i]+'" alt="">'
-          +'<div class="mini">'+stiltTags(i).slice(0,2).map(function(t){return '<span>'+esc(t)+'</span>';}).join('')+'</div></div>'
-          +'<div class="nm">Costume '+(i+1)+'</div></div>';
-      }).join('');
-      h+='<div class="coll"><div class="ch"><h4>'+esc(theme)+'</h4><span class="cnt">'+idxs.length+' looks</span></div>'+railBox(inner,'rail')+'</div>';
+      var video=vids[bi]||null;                       // назначаем доступные видео по порядку (демо)
+      var featIdx=video?null:idxs[0];
+      var gridIdxs=video?idxs.slice(0,6):idxs.slice(1,7);
+      var feat;
+      if(video){
+        feat='<div class="feat" data-video="'+video+'" data-vlabel="Stilt Walkers — '+esc(block.key)+'">'
+          +'<div class="vw"><img loading="lazy" src="'+ytThumb(video)+'" alt=""><span class="pl"></span></div>'
+          +'<span class="vlbl">'+esc(block.key)+' — film</span></div>';
+      }else{
+        feat='<div class="feat" data-costume="'+featIdx+'"><div class="vw"><img loading="lazy" src="'+cs[featIdx]+'" alt=""></div>'
+          +'<span class="vlbl">'+esc(block.key)+'</span></div>';
+      }
+      var grid='<div class="mini-grid">'+gridIdxs.map(function(i){
+        return '<div class="cell" data-costume="'+i+'"><img loading="lazy" src="'+cs[i]+'" alt=""></div>';
+      }).join('')+'</div>';
+      h+='<div class="tblock"><div class="th"><h4>'+esc(block.key)+'</h4><span class="cnt">'+idxs.length+' looks</span></div>'
+        +'<div class="tb">'+feat+'<div class="side">'+grid
+        +'<button class="tmore" data-filter="'+esc(block.key)+'">Browse all '+idxs.length+' '+esc(block.key)+' looks →</button>'
+        +'</div></div></div>';
     });
 
     /* 3. Browse all + мульти-тег фильтр */
     var allTags={};
     for(var k=0;k<cs.length;k++){ stiltTags(k).forEach(function(t){allTags[t]=(allTags[t]||0)+1;}); }
     var tagList=Object.keys(allTags).sort();
-    h+='<div class="coll" style="margin-top:clamp(40px,6vh,64px)"><div class="ch"><h4>Browse all '+cs.length+' costumes</h4>'
-      +'<span class="cnt" id="stCount">'+cs.length+' shown</span></div>';
+    h+='<div style="margin-top:clamp(40px,6vh,64px)"><div class="th" style="margin-bottom:16px"><h4 style="font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(22px,2.8vw,36px);margin:0">Browse all '+cs.length+' costumes</h4>'
+      +'<span class="cnt" id="stCount" style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-left:14px">'+cs.length+' shown</span></div>';
     h+='<div class="filters" id="stFilters">'
       +tagList.map(function(t){return '<button class="fl" data-tag="'+t+'">'+esc(t)+'<span class="n">'+allTags[t]+'</span></button>';}).join('')
       +'<button class="clr" id="stClear">Clear</button></div>';
@@ -491,29 +540,27 @@
         +'<img loading="lazy" src="'+c+'" alt="">'
         +'<div class="tg">'+tags.map(function(t){return '<span>'+esc(t)+'</span>';}).join('')+'</div></div>';
     }).join('')+'</div>';
-    h+='<div class="emptymsg" id="stEmpty" style="display:none">No costumes match those themes — try clearing a filter.</div>';
-    h+='</div>';
+    h+='<div class="emptymsg" id="stEmpty" style="display:none">No costumes match those themes — try clearing a filter.</div></div>';
 
     return h+'</div></section>';
   }
 
   /* ----- wiring ----- */
+  function injectIcons(){
+    page.querySelectorAll('.ic[data-ic]').forEach(function(el){var k=el.getAttribute('data-ic');if(ICONS[k])el.innerHTML=ICONS[k];});
+  }
   function wirePage(id,d,s){
-    // видео
+    var photoList=(d.photos||[]).map(function(p,i){return {img:p,label:s.name+' — photo '+(i+1)};});
+    var costList=(d.costumes||[]).map(function(c,i){return {img:c,label:'Costume '+(i+1)};});
     page.querySelectorAll('[data-video]').forEach(function(el){
       el.addEventListener('click',function(){LB.openVideo(el.getAttribute('data-video'),el.getAttribute('data-vlabel'));});
     });
-    // фото-галерея → lightbox
-    var photoList=(d.photos||[]).map(function(p,i){return {img:p,label:s.name+' — photo '+(i+1)};});
     page.querySelectorAll('[data-photo]').forEach(function(el){
       el.addEventListener('click',function(){LB.openList(photoList,+el.getAttribute('data-photo'));});
     });
-    // костюмы → lightbox
-    var costList=(d.costumes||[]).map(function(c,i){return {img:c,label:'Costume '+(i+1)};});
     page.querySelectorAll('[data-costume]').forEach(function(el){
       el.addEventListener('click',function(){LB.openList(costList,+el.getAttribute('data-costume'));});
     });
-    // миры (fire) → открыть соответствующую часть галереи
     var worldEls=page.querySelectorAll('[data-world]'),wn=worldEls.length;
     worldEls.forEach(function(el){
       el.addEventListener('click',function(){
@@ -521,9 +568,8 @@
         LB.openList(photoList,Math.min(start,photoList.length-1));
       });
     });
-    // стрелки прокрутки лент/карусели
     page.querySelectorAll('.railbox').forEach(function(box){
-      var rail=box.querySelector('.rail,.vrail');
+      var rail=box.querySelector('.vrail,.rail');if(!rail)return;
       box.querySelectorAll('.rnav').forEach(function(btn){
         btn.addEventListener('click',function(){
           var dir=btn.classList.contains('l')?-1:1;
@@ -531,11 +577,11 @@
         });
       });
     });
-    // prev/next show
     page.querySelectorAll('[data-go]').forEach(function(el){
       el.addEventListener('click',function(){go(el.getAttribute('data-go'));});
     });
-    // фильтр костюмов ходулистов (мультивыбор, логика ИЛИ)
+
+    /* фильтр костюмов ходулистов (мультивыбор ИЛИ) + связь с «browse all … looks» */
     var filters=document.getElementById('stFilters');
     if(filters){
       var active=[],grid=document.getElementById('stGrid'),count=document.getElementById('stCount'),empty=document.getElementById('stEmpty');
@@ -549,35 +595,33 @@
         count.textContent=shown+' shown';
         empty.style.display=shown?'none':'block';
       }
+      function syncBtns(){filters.querySelectorAll('.fl').forEach(function(b){b.classList.toggle('on',active.indexOf(b.getAttribute('data-tag'))>=0);});}
       filters.querySelectorAll('.fl').forEach(function(b){
         b.addEventListener('click',function(){
           var t=b.getAttribute('data-tag'),k=active.indexOf(t);
-          if(k>=0){active.splice(k,1);b.classList.remove('on');}else{active.push(t);b.classList.add('on');}
-          apply();
+          if(k>=0)active.splice(k,1);else active.push(t);
+          syncBtns();apply();
         });
       });
-      document.getElementById('stClear').addEventListener('click',function(){
-        active=[];filters.querySelectorAll('.fl').forEach(function(b){b.classList.remove('on');});apply();
+      document.getElementById('stClear').addEventListener('click',function(){active=[];syncBtns();apply();});
+      // «Browse all N {theme} looks →» из тема-блоков
+      page.querySelectorAll('.tmore').forEach(function(b){
+        b.addEventListener('click',function(){
+          active=[b.getAttribute('data-filter')];syncBtns();apply();
+          grid.scrollIntoView({behavior:'smooth',block:'start'});
+        });
       });
     }
   }
 
-  /* ----- секционная навигация + scrollspy ----- */
-  function buildSecNav(id,s,d){
-    var items=[{href:'top',label:'Top'}];
-    if(s.variants){var vl=s.variants.kind==='worlds'?'Worlds':s.variants.kind==='catalogue'?'Costumes':'Wardrobe';
-      items.push({href:'sec-variants',label:vl});}
-    if(d.videos&&d.videos.length)items.push({href:'videos',label:'Videos'});
-    if(d.photos&&d.photos.length)items.push({href:'gallery',label:'Photos'});
-    var nav=document.getElementById('secnav');
-    nav.innerHTML=items.map(function(it){return '<a href="#'+it.href+'" data-sec="'+it.href+'">'+it.label+'</a>';}).join('');
-    var links=nav.querySelectorAll('a');
-    if('IntersectionObserver' in window){
-      var obs=new IntersectionObserver(function(es){es.forEach(function(e){
-        if(e.isIntersecting)links.forEach(function(l){l.classList.toggle('on',l.getAttribute('data-sec')===e.target.id);});
-      });},{rootMargin:'-45% 0px -50% 0px'});
-      items.forEach(function(it){var el=document.getElementById(it.href);if(el)obs.observe(el);});
-    }
+  /* ----- scrollspy для sub-nav ----- */
+  function wireSpy(nav){
+    var links=document.querySelectorAll('#subnav a');
+    if(!('IntersectionObserver' in window))return;
+    var obs=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting)links.forEach(function(l){l.classList.toggle('on',l.getAttribute('data-sec')===e.target.id);});
+    });},{rootMargin:'-45% 0px -50% 0px'});
+    nav.forEach(function(n){var el=document.getElementById(n.href);if(el)obs.observe(el);});
   }
 
   /* ----- lightbox ----- */
@@ -598,26 +642,24 @@
   document.addEventListener('keydown',function(e){if(!lb.classList.contains('on'))return;
     if(e.key==='Escape')LB.close();if(e.key==='ArrowRight')LB.step(1);if(e.key==='ArrowLeft')LB.step(-1);});
 
-  /* ----- sticky topbar + кнопка «наверх» ----- */
+  /* ----- sticky header + кнопка «наверх» ----- */
   var topbar=document.getElementById('topbar'),totop=document.getElementById('totop');
   addEventListener('scroll',function(){
-    topbar.classList.toggle('solid',scrollY>window.innerHeight*0.6);
+    topbar.classList.toggle('solid',scrollY>40);
     totop.classList.toggle('on',scrollY>window.innerHeight);
   },{passive:true});
   totop.onclick=function(){scrollTo({top:0,behavior:'smooth'});};
 
-  /* ----- demo switcher ----- */
-  var demo=document.getElementById('demo');
-  ORDER.forEach(function(id){
-    var b=document.createElement('button');b.textContent=SHOWS[id].name.replace(' Show','').replace(' Walkers','');
-    b.setAttribute('data-id',id);
-    b.addEventListener('click',function(){
-      demo.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');render(id);
-    });
-    demo.appendChild(b);
+  /* ----- хедер: список шоу + Contact ----- */
+  var shownav=document.getElementById('shownav');
+  var navHtml=ORDER.map(function(id){return '<a data-id="'+id+'">'+SHOWS[id].nav+'</a>';}).join('');
+  navHtml+='<span class="sep"></span><a class="contact" href="#book">Contact</a>';
+  shownav.innerHTML=navHtml;
+  shownav.querySelectorAll('a[data-id]').forEach(function(a){
+    a.addEventListener('click',function(){go(a.getAttribute('data-id'));});
   });
-  demo.querySelector('button').classList.add('on');
-  render('dragon');
+
+  go('dragon');
 })();
 </script>
 </body>
