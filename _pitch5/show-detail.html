@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steam Show — Show detail (Вариант A · Лонгрид)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fonts.css">
+<style>
+  :root{
+    --bg:#0b0712; --bg2:#15101e; --ink:#f5eff7; --muted:#a89fb0;
+    --line:rgba(255,255,255,.11);
+    --accent:#FF6A1F; --accent2:#FFD23E; --accent3:#FF2E84; --cool:#25F4EE;
+    --display:"Anton",Impact,sans-serif; --body:"Manrope",system-ui,sans-serif;
+    --ac:var(--accent);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  .grad{background:linear-gradient(90deg,var(--accent),var(--accent3));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+
+  /* ===== DEMO show-switcher (только для прототипа) ===== */
+  .demo{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:120;display:flex;gap:6px;
+    padding:7px;border-radius:100px;background:rgba(10,7,16,.82);backdrop-filter:blur(14px);border:1px solid var(--line);
+    box-shadow:0 18px 50px rgba(0,0,0,.55)}
+  .demo button{font:800 11px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+    background:none;border:none;padding:9px 14px;border-radius:100px;cursor:pointer;transition:.2s;white-space:nowrap}
+  .demo button:hover{color:var(--ink)}
+  .demo button.on{background:linear-gradient(100deg,var(--accent),var(--accent3));color:#160405}
+  .demo .lbl{align-self:center;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding-left:8px}
+  @media(max-width:680px){.demo .lbl{display:none}.demo button{padding:8px 10px}}
+
+  /* ===== sticky back bar (всегда видна) ===== */
+  .topbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+    gap:16px;padding:12px clamp(18px,4vw,40px);
+    background:linear-gradient(180deg,rgba(11,7,18,.9),rgba(11,7,18,.0));backdrop-filter:blur(10px);
+    transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+  .topbar.solid{background:rgba(11,7,18,.92);border-bottom-color:var(--line)}
+  .back{display:inline-flex;align-items:center;gap:9px;cursor:pointer;border:1px solid var(--line);
+    background:rgba(255,255,255,.04);color:var(--ink);font:800 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;
+    padding:11px 18px;border-radius:100px;transition:.2s}
+  .back:hover{border-color:var(--ac);color:var(--ac)}
+  .back .ar{font-size:15px;line-height:0}
+  .topbar .now{display:flex;align-items:center;gap:10px;opacity:0;transform:translateY(-6px);transition:.35s}
+  .topbar.solid .now{opacity:1;transform:none}
+  .topbar .now b{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:18px;letter-spacing:.02em}
+  .topbar .now .dot{width:8px;height:8px;border-radius:50%;background:var(--ac);box-shadow:0 0 12px var(--ac)}
+  .topbar .book{display:none;align-items:center;gap:8px;background:linear-gradient(100deg,var(--accent),var(--accent3));
+    color:#160405;font:800 12px/1 var(--body);letter-spacing:.06em;text-transform:uppercase;padding:11px 20px;border-radius:100px;
+    text-decoration:none}
+  @media(min-width:861px){.topbar .book{display:inline-flex}}
+
+  /* ===== HERO ===== */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden}
+  .hero .bg{position:absolute;inset:0;z-index:0}
+  .hero .bg img,.hero .bg video{width:100%;height:100%;object-fit:cover}
+  .hero .scrim{position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg,rgba(11,7,18,.35),transparent 30%,transparent 42%,rgba(11,7,18,.72) 78%,var(--bg)),
+      radial-gradient(70% 60% at 18% 100%,color-mix(in srgb,var(--ac) 30%,transparent),transparent 60%)}
+  .hero .inner{position:relative;z-index:2;width:100%;padding-bottom:clamp(40px,7vh,80px);padding-top:120px}
+  .eyebrow{font:800 13px/1 var(--body);letter-spacing:.32em;text-transform:uppercase;color:var(--ac);margin:0 0 18px}
+  .htitle{font-family:var(--display);font-weight:400;text-transform:uppercase;line-height:.84;letter-spacing:.01em;
+    font-size:clamp(54px,11vw,150px);margin:0;max-width:14ch}
+  .hdesc{color:#e6deec;font-size:clamp(16px,1.9vw,21px);line-height:1.55;max-width:52ch;margin:26px 0 0}
+  /* мета-строка */
+  .meta{display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,52px);margin:34px 0 0;padding-top:26px;border-top:1px solid var(--line)}
+  .meta .m .k{font:800 11px/1 var(--body);letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+  .meta .m .v{font-family:var(--body);font-weight:800;font-size:clamp(16px,1.7vw,19px)}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 0}
+  .chip{font:700 12px/1 var(--body);letter-spacing:.04em;color:var(--ink);background:rgba(255,255,255,.05);
+    border:1px solid var(--line);padding:10px 16px;border-radius:100px}
+  .chip b{color:var(--ac);margin-right:7px}
+  .hcta{display:flex;gap:13px;flex-wrap:wrap;margin:32px 0 0}
+  .btn{display:inline-flex;align-items:center;gap:10px;cursor:pointer;border:none;font:800 13px/1 var(--body);
+    letter-spacing:.06em;text-transform:uppercase;padding:16px 28px;border-radius:100px;transition:.22s;text-decoration:none}
+  .btn.solid{background:linear-gradient(100deg,var(--accent),var(--accent3));color:#160405;box-shadow:0 14px 40px -12px rgba(255,46,132,.6)}
+  .btn.solid:hover{transform:translateY(-2px);filter:brightness(1.07)}
+  .btn.ghost{border:1px solid rgba(255,255,255,.26);color:#fff;background:none}
+  .btn.ghost:hover{border-color:var(--ac);color:var(--ac)}
+  .btn .pd{width:9px;height:9px;border-radius:50%;background:#160405}
+
+  /* ===== общие секции ===== */
+  section{padding:clamp(56px,9vh,118px) 0;position:relative}
+  section + section{border-top:1px solid var(--line)}
+  .shead{margin:0 0 clamp(26px,4vh,46px)}
+  .kicker{font:800 12px/1 var(--body);letter-spacing:.26em;text-transform:uppercase;color:var(--ac)}
+  .shead h2{font-family:var(--display);font-weight:400;text-transform:uppercase;line-height:.9;
+    font-size:clamp(34px,6vw,76px);margin:14px 0 0}
+  .shead p{color:var(--muted);font-size:16px;max-width:56ch;margin:16px 0 0;line-height:1.5}
+
+  /* --- fire: три мира --- */
+  .worlds{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .world{position:relative;border-radius:18px;overflow:hidden;min-height:clamp(320px,42vh,440px);cursor:pointer;
+    border:1px solid var(--line);isolation:isolate}
+  .world img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+  .world:hover img{transform:scale(1.06)}
+  .world::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 32%,rgba(8,5,12,.86))}
+  .world .wc{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:24px}
+  .world .wc .wn{font:800 11px/1 var(--body);letter-spacing:.24em;text-transform:uppercase;color:var(--accent2)}
+  .world .wc h3{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(26px,3vw,40px);margin:12px 0 0;line-height:.95}
+  .world .wc p{color:#d8cfe0;font-size:14px;margin:10px 0 0;line-height:1.45}
+  @media(max-width:820px){.worlds{grid-template-columns:1fr}}
+
+  /* --- stilts: звёзды --- */
+  .stars{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:clamp(40px,6vh,70px)}
+  .star{position:relative;border-radius:20px;overflow:hidden;min-height:clamp(300px,44vh,460px);cursor:pointer;border:1px solid var(--line)}
+  .star img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+  .star:hover img{transform:scale(1.05)}
+  .star::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 38%,rgba(8,5,12,.88))}
+  .star .sc{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:26px}
+  .star .badge{display:inline-flex;align-items:center;gap:7px;font:800 10px/1 var(--body);letter-spacing:.2em;text-transform:uppercase;
+    color:#160405;background:var(--accent2);padding:7px 12px;border-radius:100px}
+  .star h3{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(28px,3.4vw,48px);margin:14px 0 0;line-height:.92}
+  .star p{color:#d8cfe0;font-size:14.5px;margin:9px 0 0;max-width:40ch}
+  @media(max-width:760px){.stars{grid-template-columns:1fr}}
+
+  /* --- коллекции-ленты --- */
+  .coll{margin-bottom:clamp(34px,5vh,56px)}
+  .coll .ch{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin:0 0 16px}
+  .coll .ch h4{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(20px,2.4vw,30px);margin:0;letter-spacing:.02em}
+  .coll .ch .cnt{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .rail{display:flex;gap:13px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 0 14px;
+    scrollbar-width:thin;scrollbar-color:var(--ac) transparent}
+  .rail::-webkit-scrollbar{height:7px}.rail::-webkit-scrollbar-thumb{background:var(--ac);border-radius:10px}
+  .rail .it{flex:0 0 auto;width:clamp(168px,22vw,234px);scroll-snap-align:start;cursor:pointer}
+  .rail .it .ph{position:relative;aspect-ratio:4/5;border-radius:14px;overflow:hidden;background:#000;border:1px solid var(--line)}
+  .rail .it .ph img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+  .rail .it:hover .ph img{transform:scale(1.06)}
+  .rail .it .nm{font-size:12.5px;color:var(--muted);margin-top:9px;letter-spacing:.02em}
+  .rail .it .ph .mini{position:absolute;left:8px;bottom:8px;right:8px;display:flex;gap:5px;flex-wrap:wrap}
+  .rail .it .ph .mini span{font-size:9px;letter-spacing:.1em;text-transform:uppercase;background:rgba(0,0,0,.55);
+    backdrop-filter:blur(4px);padding:4px 7px;border-radius:100px;color:#e6deec}
+
+  /* --- browse all + фильтр --- */
+  .filters{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 22px;align-items:center}
+  .filters .fl{font:700 12px/1 var(--body);letter-spacing:.03em;color:var(--muted);background:rgba(255,255,255,.04);
+    border:1px solid var(--line);padding:10px 15px;border-radius:100px;cursor:pointer;transition:.18s;text-transform:capitalize}
+  .filters .fl:hover{color:var(--ink);border-color:var(--ink)}
+  .filters .fl.on{background:var(--ac);color:#160405;border-color:transparent;font-weight:800}
+  .filters .fl .n{opacity:.7;margin-left:6px;font-weight:600}
+  .filters .clr{margin-left:4px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+    background:none;border:none;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+  .filters .clr:hover{color:var(--ink)}
+  .gridc{display:grid;grid-template-columns:repeat(5,1fr);gap:13px}
+  .gridc .cell{position:relative;aspect-ratio:4/5;border-radius:13px;overflow:hidden;background:#000;cursor:pointer;
+    border:1px solid var(--line);transition:opacity .25s,transform .25s}
+  .gridc .cell img{width:100%;height:100%;object-fit:cover;transition:transform .45s}
+  .gridc .cell:hover img{transform:scale(1.06)}
+  .gridc .cell.hide{display:none}
+  .gridc .cell .tg{position:absolute;left:7px;bottom:7px;right:7px;display:flex;gap:4px;flex-wrap:wrap;opacity:0;transition:.2s}
+  .gridc .cell:hover .tg{opacity:1}
+  .gridc .cell .tg span{font-size:9px;letter-spacing:.08em;text-transform:uppercase;background:rgba(0,0,0,.6);
+    backdrop-filter:blur(4px);padding:3px 7px;border-radius:100px;color:#e6deec}
+  .gridc .cell .stbadge{position:absolute;top:8px;left:8px;font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+    background:var(--accent2);color:#160405;padding:4px 8px;border-radius:100px;font-weight:800}
+  .emptymsg{color:var(--muted);font-size:15px;padding:30px 0}
+  @media(max-width:900px){.gridc{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:540px){.gridc{grid-template-columns:repeat(2,1fr)}}
+
+  /* --- видео-карусель --- */
+  .vrail{display:flex;gap:15px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 0 14px;
+    scrollbar-width:thin;scrollbar-color:var(--ac) transparent}
+  .vrail::-webkit-scrollbar{height:7px}.vrail::-webkit-scrollbar-thumb{background:var(--ac);border-radius:10px}
+  .vcard{flex:0 0 auto;width:clamp(280px,40vw,460px);scroll-snap-align:start;cursor:pointer}
+  .vcard .vw{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000;border:1px solid var(--line)}
+  .vcard .vw img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+  .vcard:hover .vw img{transform:scale(1.05)}
+  .vcard .vw .pl{position:absolute;inset:0;margin:auto;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;
+    background:rgba(0,0,0,.42);border:1.5px solid #fff;transition:.2s}
+  .vcard:hover .vw .pl{background:var(--ac);border-color:var(--ac)}
+  .vcard .vw .pl::before{content:"";border-left:18px solid #fff;border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:4px}
+  .vcard:hover .vw .pl::before{border-left-color:#160405}
+  .vcard .vl{font-size:13px;color:var(--muted);margin-top:11px;letter-spacing:.02em}
+
+  /* --- галерея masonry --- */
+  .gallery{columns:4;column-gap:13px}
+  .gallery .g{break-inside:avoid;margin-bottom:13px;border-radius:13px;overflow:hidden;background:#000;cursor:pointer;border:1px solid var(--line)}
+  .gallery .g img{width:100%;transition:transform .5s,opacity .4s}
+  .gallery .g:hover img{transform:scale(1.04)}
+  @media(max-width:1000px){.gallery{columns:3}}
+  @media(max-width:680px){.gallery{columns:2}}
+
+  /* --- lightbox --- */
+  .lb{position:fixed;inset:0;z-index:9500;background:rgba(4,3,7,.95);backdrop-filter:blur(8px);display:none;
+    align-items:center;justify-content:center;padding:clamp(16px,4vw,48px)}
+  .lb.on{display:flex}
+  .lb .bx{width:min(1080px,100%)}
+  .lb .stage{aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000}
+  .lb .stage img{width:100%;height:100%;object-fit:contain}
+  .lb .stage iframe{width:100%;height:100%;border:0}
+  .lb .cap{display:flex;justify-content:space-between;margin-top:13px;font-size:14px;color:var(--muted)}
+  .lb .x{position:absolute;top:18px;right:22px;font-size:32px;color:#fff;cursor:pointer;background:none;border:none;line-height:1}
+  .lb .arr{position:absolute;top:50%;transform:translateY(-50%);font-size:44px;color:rgba(255,255,255,.65);cursor:pointer;
+    background:none;border:none;padding:16px;transition:.2s}
+  .lb .arr:hover{color:#fff}.lb .arr.l{left:4px}.lb .arr.r{right:4px}
+
+  .foot{padding:46px 0;border-top:1px solid var(--line);color:var(--muted);font-size:13px;text-align:center}
+</style>
+</head>
+<body>
+
+<div class="topbar" id="topbar">
+  <button class="back" onclick="alert('В реальном сайте — возврат к списку шоу')"><span class="ar">←</span> All shows</button>
+  <div class="now"><span class="dot"></span><b id="nowName"></b></div>
+  <a class="book" href="#book">Book the show</a>
+</div>
+
+<main id="page"></main>
+
+<footer class="foot">Steam Show — прототип подстранички шоу · Вариант A «Лонгрид» · палитра hybrid2</footer>
+
+<!-- DEMO switcher -->
+<div class="demo" id="demo"><span class="lbl">Демо · шоу:</span></div>
+
+<!-- lightbox -->
+<div class="lb" id="lb">
+  <button class="x" onclick="LB.close()">×</button>
+  <button class="arr l" onclick="LB.step(-1)">‹</button>
+  <button class="arr r" onclick="LB.step(1)">›</button>
+  <div class="bx"><div class="stage" id="lbStage"></div><div class="cap"><span id="lbCap"></span><span id="lbIdx"></span></div></div>
+</div>
+
+<script src="media.js"></script>
+<script>
+(function(){
+  var DATA = window.SS_DATA, accentMap={dragon:'#FF6A1F',fire:'#FFD23E',ledfire:'#FF2E84',led:'#25F4EE',stilts:'#FF6A1F'};
+  var ytThumb=function(id){return 'https://i.ytimg.com/vi/'+id+'/hqdefault.jpg';};
+  var ytEmbed=function(id){return 'https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0&modestbranding=1&playsinline=1';};
+
+  /* ----- конфиг шоу: мета (из fireflow-full) + описания + блок «вариантов» ----- */
+  var SHOWS={
+    dragon:{name:'Dragon Fire Show',type:'Flagship · fire',
+      desc:'Our signature act — a colossal, flame-breathing dragon built from fire, smoke and light. Scales from intimate galas to festival main stages.',
+      duration:'10–15 min · adaptable',format:'Outdoor',cast:'Scalable',
+      chips:['Flamethrowers','Fire cubes','Pyro','Headliner'],variants:null},
+    fire:{name:'Fire Show',type:'Classic · fire',
+      desc:'Large-scale fire choreography in three visual worlds — pick the world that fits your event, or blend them.',
+      duration:'10–15 min · adaptable',format:'Outdoor',cast:'Scalable',
+      chips:['Live fire','Choreography','Three worlds'],
+      variants:{kind:'worlds',title:'Three worlds',lead:'One show, three moods. Each world has its own costumes, music and choreography.',
+        items:[
+          {nm:'World 01',h:'Rock',p:'Raw, loud, rebellious — fire to a driving rock energy.'},
+          {nm:'World 02',h:'Fantasy',p:'Ethereal and mythic — a fairy-tale told in flame.'},
+          {nm:'World 03',h:'Post-apocalyptic',p:'Gritty, industrial, dystopian — fire from a scorched future.'}
+        ]}},
+    ledfire:{name:'LED Fire Show',type:'Hybrid · fire + light',
+      desc:'The best of both — live fire performed in glowing LED costumes. The heat of fire with the colour of light.',
+      duration:'10–15 min · adaptable',format:'Outdoor',cast:'Scalable',
+      chips:['Live fire','LED costumes','Hybrid'],variants:null},
+    led:{name:'LED Show',type:'Electric · light',
+      desc:'A fully luminous, smoke-free spectacle. Deep catalogue of LED costumes — pick the looks that fit your venue.',
+      duration:'10–15 min · adaptable',format:'Indoor & outdoor',cast:'Scalable',
+      chips:['Smoke-free','LED catalogue','Full luminous'],
+      variants:{kind:'catalogue',title:'LED costume catalogue',lead:'Smoke-free and fully programmable. Mix and match looks for your venue.'}},
+    stilts:{name:'Stilt Walkers',type:'Roaming · giants',
+      desc:'A wardrobe of towering characters — as roaming animation or a full stilt performance. Costumes group into themes, and mix freely across them.',
+      duration:'Roaming or set act',format:'Indoor & outdoor',cast:'Scalable',
+      chips:['Roaming','Giants','100+ costumes'],
+      variants:{kind:'stilts'}}
+  };
+  var ORDER=['dragon','fire','ledfire','led','stilts'];
+
+  /* ===== псевдо-теги костюмов ходулистов (ВРЕМЕННО — потом заменим реальной разметкой) =====
+     Темы из брифа: Fairy Garden, Circus, Giraffe, Dragons, Pirates, Classics, Trees, Fantasy, Shamans + LED on stilts.
+     Намеренно делаем пересечения (один костюм в нескольких темах) — чтобы показать механику. */
+  var STILT_THEMES=['fairy garden','circus','carnival','pirates','classics','trees','fantasy','shamans','led on stilts'];
+  function stiltTags(i){
+    var t=[STILT_THEMES[i%STILT_THEMES.length]];
+    if(i%3===0) t.push('fantasy');
+    if(i%5===0 && t.indexOf('carnival')<0) t.push('carnival');     // напр. джокеры → circus И carnival
+    if(i%7===0 && t.indexOf('classics')<0) t.push('classics');
+    return t.filter(function(v,k,a){return a.indexOf(v)===k;});
+  }
+  // звёзды-гиганты: первые два костюма помечаем как Dragon и Giraffe
+  var STILT_STARS=[
+    {i:0,h:'Dragon',p:'A towering dragon on stilts — our signature giant. A guaranteed showstopper.',tags:['dragons','fantasy']},
+    {i:1,h:'Giraffe',p:'A friendly 4-metre giraffe that roams the crowd. Kids and cameras love it.',tags:['classics']}
+  ];
+
+  /* ===== рендер ===== */
+  var page=document.getElementById('page');
+  function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+
+  function render(id){
+    var s=SHOWS[id], d=DATA.shows[id], ac=accentMap[id];
+    document.documentElement.style.setProperty('--ac',ac);
+    document.getElementById('nowName').textContent=s.name;
+    var cover=(d.photos[0])||(d.videos[0]?ytThumb(d.videos[0]):'');
+    var heroVid = (id==='dragon') ? DATA.hero : null; // у dragon крутим общий hero-видео для демо
+
+    var html='';
+    /* HERO */
+    html+='<header class="hero">';
+    html+='<div class="bg">'+(heroVid
+        ? '<video autoplay muted loop playsinline poster="'+cover+'"><source src="'+heroVid+'" type="video/mp4"></video>'
+        : '<img src="'+cover+'" alt="'+esc(s.name)+'">')+'</div>';
+    html+='<div class="scrim"></div><div class="inner wrap">';
+    html+='<p class="eyebrow">'+esc(s.type)+'</p>';
+    html+='<h1 class="htitle">'+esc(s.name)+'</h1>';
+    html+='<p class="hdesc">'+esc(s.desc)+'</p>';
+    html+='<div class="meta">'
+        +'<div class="m"><div class="k">Duration</div><div class="v">'+esc(s.duration)+'</div></div>'
+        +'<div class="m"><div class="k">Format</div><div class="v">'+esc(s.format)+'</div></div>'
+        +'<div class="m"><div class="k">Cast</div><div class="v">'+esc(s.cast)+'</div></div></div>';
+    html+='<div class="chips">'+s.chips.map(function(c){return '<span class="chip"><b>·</b>'+esc(c)+'</span>';}).join('')+'</div>';
+    html+='<div class="hcta"><a class="btn solid" href="#videos"><span class="pd"></span> Watch the show</a>'
+        +'<a class="btn ghost" href="#book">Book the show</a></div>';
+    html+='</div></header>';
+
+    /* VARIANTS */
+    if(s.variants){
+      if(s.variants.kind==='worlds') html+=renderWorlds(id,s,d);
+      else if(s.variants.kind==='catalogue') html+=renderCatalogue(id,s,d);
+      else if(s.variants.kind==='stilts') html+=renderStilts(id,s,d);
+    }
+
+    /* VIDEOS */
+    if(d.videos && d.videos.length){
+      html+='<section id="videos"><div class="wrap">';
+      html+='<div class="shead"><span class="kicker">Watch</span><h2>Videos</h2>'
+          +'<p>'+d.videos.length+' clip'+(d.videos.length>1?'s':'')+' — full performances and highlights.</p></div>';
+      html+='<div class="vrail">'+d.videos.map(function(v,i){
+        return '<div class="vcard" data-video="'+v+'" data-vlabel="'+esc(s.name)+' — video '+(i+1)+'">'
+          +'<div class="vw"><img loading="lazy" src="'+ytThumb(v)+'" alt=""><span class="pl"></span></div>'
+          +'<div class="vl">'+esc(s.name)+' — video '+(i+1)+'</div></div>';
+      }).join('')+'</div></div></section>';
+    }
+
+    /* GALLERY */
+    if(d.photos && d.photos.length){
+      html+='<section id="gallery"><div class="wrap">';
+      html+='<div class="shead"><span class="kicker">Gallery</span><h2>Photos</h2>'
+          +'<p>'+d.photos.length+' shots from real events.</p></div>';
+      html+='<div class="gallery">'+d.photos.map(function(p,i){
+        return '<div class="g" data-photo="'+i+'"><img loading="lazy" src="'+p+'" alt=""></div>';
+      }).join('')+'</div></div></section>';
+    }
+
+    /* BOOK anchor */
+    html+='<section id="book"><div class="wrap"><div class="shead"><span class="kicker">Book it</span>'
+        +'<h2>Bring <span class="grad">'+esc(s.name)+'</span> to your event</h2>'
+        +'<p>Tell us the date, venue and vibe — we tailor the show to your run of show.</p></div>'
+        +'<a class="btn solid" href="#"><span class="pd"></span> Get a quote</a></div></section>';
+
+    page.innerHTML=html;
+    wirePage(id,d,s);
+    window.scrollTo(0,0);
+  }
+
+  function renderWorlds(id,s,d){
+    var v=s.variants, ph=d.photos, per=Math.floor(ph.length/3);
+    var h='<section><div class="wrap"><div class="shead"><span class="kicker">Programs</span>'
+      +'<h2>'+esc(v.title)+'</h2><p>'+esc(v.lead)+'</p></div><div class="worlds">';
+    v.items.forEach(function(w,i){
+      var cov=ph[i*per]||ph[i]||ph[0];
+      h+='<div class="world" data-world="'+i+'"><img loading="lazy" src="'+cov+'" alt="">'
+        +'<div class="wc"><div class="wn">'+esc(w.nm)+'</div><h3>'+esc(w.h)+'</h3><p>'+esc(w.p)+'</p></div></div>';
+    });
+    return h+'</div></div></section>';
+  }
+
+  function renderCatalogue(id,s,d){
+    var cs=d.costumes||[];
+    if(!cs.length) return '';
+    var h='<section><div class="wrap"><div class="shead"><span class="kicker">Costumes</span>'
+      +'<h2>'+esc(s.variants.title)+'</h2><p>'+esc(s.variants.lead)+'</p></div>';
+    h+='<div class="gridc" id="ledGrid">'+cs.map(function(c,i){
+      return '<div class="cell" data-costume="'+i+'"><img loading="lazy" src="'+c+'" alt=""></div>';
+    }).join('')+'</div></div></section>';
+    return h;
+  }
+
+  function renderStilts(id,s,d){
+    var cs=d.costumes||[];
+    var h='<section><div class="wrap">';
+    h+='<div class="shead"><span class="kicker">Costumes & themes</span><h2>The wardrobe</h2>'
+      +'<p>100+ towering characters. Start with our showstoppers, browse by theme, or filter the full set — costumes can live in several themes at once.</p></div>';
+
+    /* 1. Showstoppers */
+    h+='<div class="stars">';
+    STILT_STARS.forEach(function(st){
+      var img=cs[st.i]||cs[0];
+      h+='<div class="star" data-costume="'+st.i+'"><img loading="lazy" src="'+img+'" alt="">'
+        +'<div class="sc"><span class="badge">★ Showstopper</span><h3>'+esc(st.h)+'</h3><p>'+esc(st.p)+'</p></div></div>';
+    });
+    h+='</div>';
+
+    /* 2. Curated collections (ленты по темам) */
+    var themesForRails=['fairy garden','circus','pirates','classics','trees','led on stilts'];
+    themesForRails.forEach(function(theme){
+      var idxs=[];
+      for(var i=0;i<cs.length;i++){ if(stiltTags(i).indexOf(theme)>=0) idxs.push(i); }
+      if(theme==='led on stilts'){ // подмешаем как «световые на ходулях» каждый 6-й
+        idxs=[]; for(var j=0;j<cs.length;j+=6) idxs.push(j);
+      }
+      if(idxs.length<3) return;
+      h+='<div class="coll"><div class="ch"><h4>'+esc(theme)+'</h4><span class="cnt">'+idxs.length+' looks</span></div><div class="rail">';
+      idxs.slice(0,10).forEach(function(i){
+        h+='<div class="it" data-costume="'+i+'"><div class="ph"><img loading="lazy" src="'+cs[i]+'" alt="">'
+          +'<div class="mini">'+stiltTags(i).slice(0,2).map(function(t){return '<span>'+esc(t)+'</span>';}).join('')+'</div></div>'
+          +'<div class="nm">Costume '+(i+1)+'</div></div>';
+      });
+      h+='</div></div>';
+    });
+
+    /* 3. Browse all + мульти-тег фильтр */
+    var allTags={};
+    for(var k=0;k<cs.length;k++){ stiltTags(k).forEach(function(t){allTags[t]=(allTags[t]||0)+1;}); }
+    var tagList=Object.keys(allTags).sort();
+    h+='<div class="coll" style="margin-top:clamp(40px,6vh,64px)"><div class="ch"><h4>Browse all '+cs.length+' costumes</h4>'
+      +'<span class="cnt" id="stCount">'+cs.length+' shown</span></div>';
+    h+='<div class="filters" id="stFilters">'
+      +tagList.map(function(t){return '<button class="fl" data-tag="'+t+'">'+esc(t)+'<span class="n">'+allTags[t]+'</span></button>';}).join('')
+      +'<button class="clr" id="stClear">Clear</button></div>';
+    h+='<div class="gridc" id="stGrid">'+cs.map(function(c,i){
+      var tags=stiltTags(i), star=STILT_STARS.filter(function(x){return x.i===i;})[0];
+      return '<div class="cell" data-costume="'+i+'" data-tags="'+tags.join(' ')+'">'
+        +(star?'<span class="stbadge">★ '+esc(star.h)+'</span>':'')
+        +'<img loading="lazy" src="'+c+'" alt="">'
+        +'<div class="tg">'+tags.map(function(t){return '<span>'+esc(t)+'</span>';}).join('')+'</div></div>';
+    }).join('')+'</div>';
+    h+='<div class="emptymsg" id="stEmpty" style="display:none">No costumes match those themes — try clearing a filter.</div>';
+    h+='</div>';
+
+    return h+'</div></section>';
+  }
+
+  /* ----- wiring ----- */
+  function wirePage(id,d,s){
+    // видео
+    page.querySelectorAll('[data-video]').forEach(function(el){
+      el.addEventListener('click',function(){LB.openVideo(el.getAttribute('data-video'),el.getAttribute('data-vlabel'));});
+    });
+    // фото-галерея → lightbox
+    var photoList=(d.photos||[]).map(function(p,i){return {img:p,label:s.name+' — photo '+(i+1)};});
+    page.querySelectorAll('[data-photo]').forEach(function(el){
+      el.addEventListener('click',function(){LB.openList(photoList,+el.getAttribute('data-photo'));});
+    });
+    // костюмы → lightbox
+    var costList=(d.costumes||[]).map(function(c,i){return {img:c,label:'Costume '+(i+1)};});
+    page.querySelectorAll('[data-costume]').forEach(function(el){
+      el.addEventListener('click',function(){LB.openList(costList,+el.getAttribute('data-costume'));});
+    });
+    // миры (fire) → открыть соответствующую часть галереи
+    page.querySelectorAll('[data-world]').forEach(function(el){
+      el.addEventListener('click',function(){
+        var wi=+el.getAttribute('data-world'),per=Math.floor(photoList.length/3),start=wi*per;
+        LB.openList(photoList,Math.min(start,photoList.length-1));
+      });
+    });
+    // фильтр костюмов ходулистов (мультивыбор, логика ИЛИ)
+    var filters=document.getElementById('stFilters');
+    if(filters){
+      var active=[],grid=document.getElementById('stGrid'),count=document.getElementById('stCount'),empty=document.getElementById('stEmpty');
+      function apply(){
+        var shown=0;
+        grid.querySelectorAll('.cell').forEach(function(c){
+          var tags=(c.getAttribute('data-tags')||'').split(' ');
+          var ok=active.length===0||active.some(function(a){return tags.indexOf(a)>=0;});
+          c.classList.toggle('hide',!ok); if(ok)shown++;
+        });
+        count.textContent=shown+' shown';
+        empty.style.display=shown?'none':'block';
+      }
+      filters.querySelectorAll('.fl').forEach(function(b){
+        b.addEventListener('click',function(){
+          var t=b.getAttribute('data-tag'),k=active.indexOf(t);
+          if(k>=0){active.splice(k,1);b.classList.remove('on');}else{active.push(t);b.classList.add('on');}
+          apply();
+        });
+      });
+      document.getElementById('stClear').addEventListener('click',function(){
+        active=[];filters.querySelectorAll('.fl').forEach(function(b){b.classList.remove('on');});apply();
+      });
+    }
+  }
+
+  /* ----- lightbox ----- */
+  var lb=document.getElementById('lb'),stage=document.getElementById('lbStage'),
+      cap=document.getElementById('lbCap'),idx=document.getElementById('lbIdx');
+  var L=[],P=0;
+  function paint(){var x=L[P]||{};
+    if(x.video) stage.innerHTML='<iframe src="'+ytEmbed(x.video)+'" allow="autoplay;fullscreen;encrypted-media" allowfullscreen></iframe>';
+    else stage.innerHTML='<img src="'+(x.img||'')+'" alt="">';
+    cap.textContent=x.label||''; idx.textContent=L.length>1?(P+1)+' / '+L.length:'';}
+  window.LB={
+    openVideo:function(v,label){L=[{video:v,label:label}];P=0;paint();lb.classList.add('on');},
+    openList:function(list,i){L=list;P=i||0;paint();lb.classList.add('on');},
+    step:function(dir){if(!L.length)return;P=(P+dir+L.length)%L.length;paint();},
+    close:function(){lb.classList.remove('on');setTimeout(function(){stage.innerHTML='';},220);}
+  };
+  lb.addEventListener('click',function(e){if(e.target===lb)LB.close();});
+  document.addEventListener('keydown',function(e){if(!lb.classList.contains('on'))return;
+    if(e.key==='Escape')LB.close();if(e.key==='ArrowRight')LB.step(1);if(e.key==='ArrowLeft')LB.step(-1);});
+
+  /* ----- sticky topbar solid on scroll ----- */
+  var topbar=document.getElementById('topbar');
+  addEventListener('scroll',function(){topbar.classList.toggle('solid',scrollY>window.innerHeight*0.6);},{passive:true});
+
+  /* ----- demo switcher ----- */
+  var demo=document.getElementById('demo');
+  ORDER.forEach(function(id){
+    var b=document.createElement('button');b.textContent=SHOWS[id].name.replace(' Show','').replace(' Walkers','');
+    b.setAttribute('data-id',id);
+    b.addEventListener('click',function(){
+      demo.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');render(id);
+    });
+    demo.appendChild(b);
+  });
+  demo.querySelector('button').classList.add('on');
+  render('dragon');
+})();
+</script>
+</body>
+</html>
