@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tilt-ряд — варианты разворота</title>
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="tilt-lab.css">
+<style>
+  .vgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}
+  .vcard{display:block;text-decoration:none;color:inherit;border:1px solid var(--line2);
+    border-radius:18px;overflow:hidden;background:var(--panel);transition:.3s}
+  .vcard:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 24px 60px -28px var(--accent)}
+  .vcard .vis{aspect-ratio:16/10;position:relative;overflow:hidden;background:#0c0c14;border-bottom:1px solid var(--line)}
+  .vcard .vis svg{position:absolute;inset:0;width:100%;height:100%}
+  .vcard .body{padding:20px 22px 24px}
+  .vcard .k{font-family:var(--display);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .vcard h3{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:26px;
+    line-height:.95;margin:8px 0 10px}
+  .vcard p{color:var(--muted);font-size:13.5px;line-height:1.55;margin:0 0 14px}
+  .vcard .tag{font-size:11px;color:var(--ink);border:1px solid var(--line);border-radius:100px;padding:5px 11px}
+  .vcard .go{display:inline-block;margin-top:14px;color:var(--accent);font:700 12.5px/1 var(--body);
+    letter-spacing:.04em;text-transform:uppercase}
+  .table{margin-top:42px;border:1px solid var(--line);border-radius:16px;overflow:hidden;font-size:13.5px}
+  .table div{display:grid;grid-template-columns:130px 1fr 1fr 1fr;border-bottom:1px solid var(--line)}
+  .table div:last-child{border:none}
+  .table span{padding:13px 16px;border-right:1px solid var(--line)}
+  .table span:last-child{border-right:none}
+  .table .h span{background:var(--bg2);color:var(--ink);font-weight:700;text-transform:uppercase;
+    letter-spacing:.06em;font-size:11.5px}
+  .table .r span:first-child{color:var(--muted)}
+  @media(max-width:900px){.vgrid{grid-template-columns:1fr}
+    .table div,.table .h{grid-template-columns:1fr}
+    .table span{border-right:none}}
+</style>
+</head>
+<body>
+
+<div class="wrap lab-top">
+  <a class="back" href="cards-lab.html">← лаборатория карточек</a>
+  <h1>Tilt-ряд → разворот на странице</h1>
+  <p>Три способа развернуть полную информацию о шоу прямо из Tilt-ряда — <b>без перехода на отдельную страницу и без классической модалки-поверх</b>. Везде реальные данные пяти шоу, реальные фото, галерея с лайтбоксом. Открой каждый и пощупай ощущение.</p>
+</div>
+
+<section class="lab"><div class="wrap">
+
+  <div class="vgrid">
+    <a class="vcard" href="tilt-a.html">
+      <div class="vis"><svg viewBox="0 0 320 200" fill="none">
+        <rect x="20" y="50" width="42" height="100" rx="6" fill="#222230" transform="rotate(-3 41 100)"/>
+        <rect x="72" y="40" width="42" height="100" rx="6" fill="#222230" transform="rotate(2 93 90)"/>
+        <rect x="206" y="40" width="42" height="100" rx="6" fill="#222230" transform="rotate(-2 227 90)"/>
+        <rect x="258" y="50" width="42" height="100" rx="6" fill="#222230" transform="rotate(3 279 100)"/>
+        <rect x="108" y="28" width="104" height="144" rx="10" fill="#FF6A1F"/>
+        <rect x="120" y="120" width="80" height="8" rx="4" fill="#10070a"/>
+        <rect x="120" y="136" width="56" height="6" rx="3" fill="#10070a" opacity=".6"/>
+      </svg></div>
+      <div class="body">
+        <div class="k">Вариант A</div><h3>Expand</h3>
+        <p>Карточка вырастает из ряда в большую панель поверх затемнённого фона. Самый «вау»-момент: видно физическое превращение постера в страницу.</p>
+        <span class="tag">FLIP-анимация</span>
+        <span class="go">Открыть →</span>
+      </div>
+    </a>
+
+    <a class="vcard" href="tilt-b.html">
+      <div class="vis"><svg viewBox="0 0 320 200" fill="none">
+        <rect x="20" y="20" width="40" height="60" rx="5" fill="#222230"/>
+        <rect x="68" y="20" width="40" height="60" rx="5" fill="#FF6A1F"/>
+        <rect x="116" y="20" width="40" height="60" rx="5" fill="#222230"/>
+        <rect x="164" y="20" width="40" height="60" rx="5" fill="#222230"/>
+        <rect x="212" y="20" width="40" height="60" rx="5" fill="#222230"/>
+        <rect x="20" y="96" width="280" height="84" rx="9" fill="#15151f" stroke="#FF6A1F" stroke-width="2"/>
+        <rect x="34" y="110" width="90" height="56" rx="5" fill="#2a2a3a"/>
+        <rect x="140" y="116" width="120" height="9" rx="4" fill="#3a3a4a"/>
+        <rect x="140" y="134" width="150" height="6" rx="3" fill="#2f2f3f"/>
+        <rect x="140" y="148" width="100" height="6" rx="3" fill="#2f2f3f"/>
+      </svg></div>
+      <div class="body">
+        <div class="k">Вариант B</div><h3>Drawer</h3>
+        <p>Ряд на месте, под ним раскрывается панель с инфо. Всё в потоке страницы, ничего не всплывает. «Мягкий» аккордеон — сам ряд не раздвигается.</p>
+        <span class="tag">Раскрытие в потоке</span>
+        <span class="go">Открыть →</span>
+      </div>
+    </a>
+
+    <a class="vcard" href="tilt-c.html">
+      <div class="vis"><svg viewBox="0 0 320 200" fill="none">
+        <rect x="20" y="24" width="150" height="120" rx="9" fill="#FF6A1F"/>
+        <rect x="184" y="28" width="116" height="11" rx="5" fill="#3a3a4a"/>
+        <rect x="184" y="48" width="116" height="7" rx="3" fill="#2f2f3f"/>
+        <rect x="184" y="62" width="90" height="7" rx="3" fill="#2f2f3f"/>
+        <rect x="184" y="84" width="36" height="44" rx="5" fill="#2a2a3a"/>
+        <rect x="226" y="84" width="36" height="44" rx="5" fill="#2a2a3a"/>
+        <rect x="268" y="84" width="32" height="44" rx="5" fill="#2a2a3a"/>
+        <rect x="20" y="158" width="50" height="28" rx="5" fill="#2a2a3a"/>
+        <rect x="76" y="158" width="50" height="28" rx="5" fill="#FF6A1F" opacity=".5"/>
+        <rect x="132" y="158" width="50" height="28" rx="5" fill="#2a2a3a"/>
+        <rect x="188" y="158" width="50" height="28" rx="5" fill="#2a2a3a"/>
+      </svg></div>
+      <div class="body">
+        <div class="k">Вариант C</div><h3>Split / Spotlight</h3>
+        <p>Ряд сменяется режимом «крупный кадр + детали» с лентой остальных шоу снизу. Самый «приложение»-подобный: листаешь шоу, не возвращаясь к ряду.</p>
+        <span class="tag">Master-detail</span>
+        <span class="go">Открыть →</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="table">
+    <div class="h"><span>&nbsp;</span><span>A · Expand</span><span>B · Drawer</span><span>C · Split</span></div>
+    <div class="r"><span>Переход</span><span>нет (поверх)</span><span>нет (в потоке)</span><span>нет (на месте)</span></div>
+    <div class="r"><span>Эффект</span><span>★★★ рост карточки</span><span>★★ раскрытие</span><span>★★ смена сцены</span></div>
+    <div class="r"><span>Сравнить шоу</span><span>закрыть → открыть</span><span>клик по соседу</span><span>лента снизу</span></div>
+    <div class="r"><span>Контент</span><span>много (скролл)</span><span>средне</span><span>много</span></div>
+    <div class="r"><span>Мобайл</span><span>панель на весь экран</span><span>стопка</span><span>стопка</span></div>
+  </div>
+
+</div></section>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tilt · Вариант B — Drawer</title>
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="tilt-lab.css">
+</head>
+<body>
+
+<div class="wrap lab-top">
+  <a class="back" href="tilt-lab.html">← все варианты разворота</a>
+  <h1>B · Drawer</h1>
+  <p>Ряд остаётся на месте — под ним плавно раскрывается широкая панель с полной информацией по выбранному шоу. Активная карточка подсвечивается. Повторный клик закрывает, клик по другой карточке перебрасывает контент. Ничего не «всплывает» поверх — всё в потоке страницы.</p>
+  <div class="pills">
+    <a href="tilt-a.html">A · Expand</a>
+    <a class="on" href="tilt-b.html">B · Drawer</a>
+    <a href="tilt-c.html">C · Split</a>
+  </div>
+</div>
+
+<section class="lab"><div class="wrap">
+  <p class="hint">Кликни карточку — <b>под рядом раскроется панель</b>. Это сознательно «мягкий» аккордеон: сам ряд карточек не раздвигается (его убрали по фидбэку), панель отдельным блоком ниже.</p>
+  <div id="tiltMount"></div>
+</div></section>
+
+<script src="media.js"></script>
+<script src="tilt-lab.js"></script>
+<script>TiltLab.init('drawer');</script>
+</body>
+</html>

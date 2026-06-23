@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tilt · Вариант A — Expand</title>
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="tilt-lab.css">
+</head>
+<body>
+
+<div class="wrap lab-top">
+  <a class="back" href="tilt-lab.html">← все варианты разворота</a>
+  <h1>A · Expand</h1>
+  <p>Карточка «вырастает» из своего места в ряду в большую панель прямо поверх страницы — без перехода и без классической модалки. Видно, как именно этот постер превратился в карточку шоу. Закрытие — крестик, клик по фону или Esc, панель схлопывается обратно в ряд.</p>
+  <div class="pills">
+    <a class="on" href="tilt-a.html">A · Expand</a>
+    <a href="tilt-b.html">B · Drawer</a>
+    <a href="tilt-c.html">C · Split</a>
+  </div>
+</div>
+
+<section class="lab"><div class="wrap">
+  <p class="hint">Кликни любую карточку. <b>Соседи притухают</b>, выбранная разворачивается в панель с описанием, статистикой и галереей.</p>
+  <div id="tiltMount"></div>
+</div></section>
+
+<script src="media.js"></script>
+<script src="tilt-lab.js"></script>
+<script>TiltLab.init('expand');</script>
+</body>
+</html>

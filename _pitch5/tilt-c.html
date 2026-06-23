@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tilt · Вариант C — Split</title>
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="tilt-lab.css">
+</head>
+<body>
+
+<div class="wrap lab-top">
+  <a class="back" href="tilt-lab.html">← все варианты разворота</a>
+  <h1>C · Split / Spotlight</h1>
+  <p>Клик уводит ряд и раскрывает на его месте режим «крупный кадр + детали»: слева большой герой выбранного шоу, справа описание и галерея, внизу — лента-миниатюры остальных шоу. Между шоу переключаешься, не выходя из режима. «← all shows» возвращает ряд. Самый «приложение»-подобный сценарий, всё на одной странице.</p>
+  <div class="pills">
+    <a href="tilt-a.html">A · Expand</a>
+    <a href="tilt-b.html">B · Drawer</a>
+    <a class="on" href="tilt-c.html">C · Split</a>
+  </div>
+</div>
+
+<section class="lab"><div class="wrap">
+  <p class="hint">Кликни карточку — ряд сменится на <b>master-detail</b>. Лента снизу переключает шоу без возврата к ряду.</p>
+  <div id="tiltMount"></div>
+</div></section>
+
+<script src="media.js"></script>
+<script src="tilt-lab.js"></script>
+<script>TiltLab.init('split');</script>
+</body>
+</html>
