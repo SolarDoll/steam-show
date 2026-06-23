@@ -25,14 +25,25 @@
 
   /* ===== HEADER (бренд + список шоу + contact) ===== */
   .topbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;gap:18px;
-    padding:11px clamp(18px,4vw,40px);
+    min-height:70px;padding:8px clamp(18px,4vw,40px);
     background:linear-gradient(180deg,rgba(11,7,18,.92),rgba(11,7,18,.0));backdrop-filter:blur(10px);
     transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
   .topbar.solid{background:rgba(11,7,18,.94);border-bottom-color:var(--line)}
-  .brand{display:inline-flex;align-items:center;gap:9px;cursor:pointer;background:none;border:none;color:var(--ink);
-    font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:20px;letter-spacing:.02em;white-space:nowrap}
+  .brand{display:inline-flex;align-items:center;gap:11px;cursor:pointer;background:none;border:none;color:var(--ink);
+    font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:20px;letter-spacing:.04em;white-space:nowrap;flex:0 0 auto}
+  .brand .blogo{height:32px;width:auto;filter:drop-shadow(0 0 14px color-mix(in srgb,var(--accent) 45%,transparent))}
   .brand .mk{width:12px;height:12px;border-radius:50%;background:conic-gradient(from 210deg,var(--accent3),var(--accent),var(--accent2),var(--cool),var(--accent3));
     box-shadow:0 0 12px color-mix(in srgb,var(--accent) 60%,transparent)}
+  /* CTA «Book the show» — как в шапках макетов */
+  .nav-cta{flex:0 0 auto;font:800 12px/1 var(--body);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;
+    background:linear-gradient(100deg,var(--accent),var(--accent2));color:#160405;padding:13px 21px;border-radius:100px;
+    box-shadow:0 0 22px color-mix(in srgb,var(--accent) 32%,transparent);transition:.25s}
+  .nav-cta:hover{transform:translateY(-2px);filter:brightness(1.08)}
+  /* standalone: бренд+CTA, кнопка «All shows» скрыта; embed (FLIP-панель hybrid): наоборот */
+  .back{display:none}
+  .is-embed .back{display:inline-flex}
+  .is-embed .brand,.is-embed .nav-cta{display:none}
+  @media(max-width:600px){.nav-cta{display:none}.brand .bnm{display:none}}
   .back{display:inline-flex;align-items:center;gap:9px;cursor:pointer;border:1px solid var(--line);
     background:rgba(255,255,255,.05);color:var(--ink);font:800 12px/1 var(--body);letter-spacing:.06em;
     text-transform:uppercase;padding:11px 17px;border-radius:100px;transition:.2s;white-space:nowrap}
@@ -272,8 +283,10 @@
 <body>
 
 <header class="topbar" id="topbar">
-  <button class="back" onclick="(function(){if(new URLSearchParams(location.search).get('embed')){parent.postMessage('ss-close','*');}else if(history.length>1){history.back();}else{location.href='index.html';}})()"><span class="mk"></span><span class="ar">←</span> All shows</button>
+  <button class="back" onclick="parent.postMessage('ss-close','*')"><span class="mk"></span><span class="ar">←</span> All shows</button>
+  <a class="brand" id="brandHome" href="index.html"><img class="blogo" src="../assets/Logo_final.png" alt="Steam Show"><span class="bnm">Steam Show</span></a>
   <nav class="shownav" id="shownav"></nav>
+  <a class="nav-cta book" id="bookCta" href="#book">Book the show</a>
 </header>
 
 <main id="page"></main>
@@ -320,12 +333,13 @@
       accents:{dragon:'#FF6A1F',fire:'#FFC53D',ledfire:'#FF2E9A',led:'#25F4EE',stilts:'#FF6A1F'}}
   };
   (function(){
-    var t=(new URLSearchParams(location.search)).get('theme');
+    var qs=new URLSearchParams(location.search), t=qs.get('theme');
     var th=THEMES[t]||THEMES.hybrid, root=document.documentElement.style;
     for(var k in th.vars) root.setProperty(k,th.vars[k]);
     root.setProperty('--display',th.display);
     root.setProperty('--body',th.body);
     document.documentElement.classList.add('theme-'+(THEMES[t]?t:'hybrid'));
+    if(qs.get('embed')) document.documentElement.classList.add('is-embed');  // FLIP-панель hybrid
     accentMap=th.accents;
   })();
 
@@ -805,6 +819,14 @@
     totop.classList.toggle('on',scrollY>window.innerHeight);
   },{passive:true});
   totop.onclick=function(){scrollTo({top:0,behavior:'smooth'});};
+
+  /* ----- хедер: логотип ведёт на главную макета-носителя ----- */
+  (function(){
+    var CARRIER={'marquee':'marquee.html','kinetic':'kinetic.html','kinetic-full':'kinetic-full.html',
+      'fireflow-full':'fireflow-full.html','hybrid':'hybrid.html'};
+    var th=(new URLSearchParams(location.search)).get('theme'),b=document.getElementById('brandHome');
+    if(b) b.setAttribute('href',CARRIER[th]||'index.html');
+  })();
 
   /* ----- хедер: список шоу + Contact ----- */
   var shownav=document.getElementById('shownav');
