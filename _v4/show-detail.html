@@ -23,44 +23,68 @@
   .grad{background:linear-gradient(90deg,var(--accent),var(--accent3));-webkit-background-clip:text;background-clip:text;color:transparent}
   .wrap{max-width:1240px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
 
-  /* ===== HEADER (бренд + список шоу + contact) ===== */
-  .topbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;gap:18px;
-    min-height:70px;padding:8px clamp(18px,4vw,40px);
+  /* ===== HEADER — повторяет шапку макета-носителя (бренд · меню · CTA) ===== */
+  .topbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;
+    min-height:70px;padding:0 clamp(20px,4vw,40px);
     background:linear-gradient(180deg,rgba(11,7,18,.92),rgba(11,7,18,.0));backdrop-filter:blur(10px);
     transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
   .topbar.solid{background:rgba(11,7,18,.94);border-bottom-color:var(--line)}
+  /* контент шапки центрирован в той же ширине, что и контент страницы (как у макетов) */
+  .topbar-in{flex:1;display:flex;align-items:center;justify-content:space-between;gap:24px;max-width:1240px;margin:0 auto}
+  .theme-fireflow-full .topbar-in{max-width:none}
+
+  /* бренд (слева) — глиф меняется под тему */
   .brand{display:inline-flex;align-items:center;gap:11px;cursor:pointer;background:none;border:none;color:var(--ink);
-    font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:20px;letter-spacing:.04em;white-space:nowrap;flex:0 0 auto}
-  .brand .blogo{height:32px;width:auto;filter:drop-shadow(0 0 14px color-mix(in srgb,var(--accent) 45%,transparent))}
-  .brand .mk{width:12px;height:12px;border-radius:50%;background:conic-gradient(from 210deg,var(--accent3),var(--accent),var(--accent2),var(--cool),var(--accent3));
-    box-shadow:0 0 12px color-mix(in srgb,var(--accent) 60%,transparent)}
-  /* CTA «Book the show» — как в шапках макетов */
-  .nav-cta{flex:0 0 auto;font:800 12px/1 var(--body);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;
-    background:linear-gradient(100deg,var(--accent),var(--accent2));color:#160405;padding:13px 21px;border-radius:100px;
-    box-shadow:0 0 22px color-mix(in srgb,var(--accent) 32%,transparent);transition:.25s}
+    font-family:var(--display);letter-spacing:.05em;white-space:nowrap;flex:0 0 auto}
+  .brand .bnm{font-size:20px}
+  .brand .b-logo,.brand .b-mark{display:none;flex:0 0 auto}
+  .brand .b-logo{height:32px;width:auto;filter:drop-shadow(0 0 14px color-mix(in srgb,var(--accent) 45%,transparent))}
+  .brand .b-mark{width:28px;height:28px;
+    -webkit-mask:url(../assets/silhuete_dragon_1.png) center/contain no-repeat;mask:url(../assets/silhuete_dragon_1.png) center/contain no-repeat}
+
+  /* меню (центр) */
+  .shownav{display:flex;align-items:center;gap:24px;overflow-x:auto;scrollbar-width:none}
+  .shownav::-webkit-scrollbar{display:none}
+  .shownav a{font:500 14px/1 var(--body);letter-spacing:.02em;color:var(--muted);text-decoration:none;cursor:pointer;
+    white-space:nowrap;transition:.2s}
+  .shownav a:hover{color:var(--ink)}
+  .shownav a.on{color:var(--ac);font-weight:700}
+
+  /* CTA «Book the show» (справа) */
+  .nav-cta{flex:0 0 auto;font:700 13px/1 var(--display);letter-spacing:.04em;white-space:nowrap;
+    background:linear-gradient(100deg,var(--accent),var(--accent2));color:#160405;padding:12px 20px;border-radius:100px;
+    box-shadow:0 0 22px color-mix(in srgb,var(--accent) 30%,transparent);transition:.25s}
   .nav-cta:hover{transform:translateY(-2px);filter:brightness(1.08)}
-  /* standalone: бренд+CTA, кнопка «All shows» скрыта; embed (FLIP-панель hybrid): наоборот */
-  .back{display:none}
-  .is-embed .back{display:inline-flex}
-  .is-embed .brand,.is-embed .nav-cta{display:none}
-  @media(max-width:600px){.nav-cta{display:none}.brand .bnm{display:none}}
-  .back{align-items:center;gap:9px;cursor:pointer;border:1px solid var(--line);
+
+  /* embed (FLIP-панель hybrid): прежняя кнопка «All shows» вместо бренда/CTA */
+  .back{display:none;align-items:center;gap:9px;cursor:pointer;border:1px solid var(--line);
     background:rgba(255,255,255,.05);color:var(--ink);font:800 12px/1 var(--body);letter-spacing:.06em;
     text-transform:uppercase;padding:11px 17px;border-radius:100px;transition:.2s;white-space:nowrap}
   .back:hover{border-color:var(--ac);color:var(--ac)}
   .back .mk{width:11px;height:11px;border-radius:50%;flex:0 0 auto;
     background:conic-gradient(from 210deg,var(--accent3),var(--accent),var(--accent2),var(--cool),var(--accent3))}
   .back .ar{font-size:15px;line-height:0}
-  .shownav{display:flex;align-items:center;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
-  .shownav::-webkit-scrollbar{display:none}
-  .shownav a{font:700 13px/1 var(--body);letter-spacing:.02em;color:var(--muted);text-decoration:none;cursor:pointer;
-    padding:10px 13px;border-radius:100px;white-space:nowrap;transition:.18s}
-  .shownav a:hover{color:var(--ink)}
-  .shownav a.on{color:#160405;background:linear-gradient(100deg,var(--accent),var(--accent3));font-weight:800}
-  .shownav .sep{width:1px;height:18px;background:var(--line);margin:0 4px;flex:0 0 auto}
-  .shownav a.contact{border:1px solid var(--line)}
-  .shownav a.contact:hover{border-color:var(--ac);color:var(--ac)}
-  @media(max-width:760px){.brand{font-size:17px}.shownav a{padding:9px 10px;font-size:12px}}
+  .is-embed .back{display:inline-flex}
+  .is-embed .brand,.is-embed .nav-cta{display:none}
+
+  /* ===== per-theme: шапка под стиль макета-носителя ===== */
+  /* marquee + kinetic: реальный логотип + меню body, CTA — градиентная пилюля */
+  .theme-marquee .brand .b-logo,.theme-kinetic .brand .b-logo,.theme-hybrid .brand .b-logo{display:block}
+  .theme-marquee .brand .bnm,.theme-kinetic .brand .bnm{font-size:19px;letter-spacing:.06em}
+  .theme-marquee .shownav a,.theme-kinetic .shownav a{font:400 13.5px/1 var(--body)}
+  /* kinetic-full: силуэт-дракон (золото→огонь) + меню .82rem, CTA — прямоугольная */
+  .theme-kinetic-full .brand .b-mark{display:block;background:linear-gradient(150deg,var(--accent2),var(--accent))}
+  .theme-kinetic-full .brand .bnm{font-size:1.2rem}
+  .theme-kinetic-full .shownav a{font:500 .82rem/1 var(--body)}
+  .theme-kinetic-full .nav-cta{border-radius:8px;background:var(--accent);font-family:var(--body);font-weight:600;text-transform:uppercase;font-size:.78rem}
+  /* fireflow: силуэт-дракон (конус) + меню CAPS + CTA CAPS пилюля */
+  .theme-fireflow-full .brand .b-mark{display:block;background:conic-gradient(from 200deg,var(--accent3),var(--accent),var(--accent2),var(--cool),var(--accent3))}
+  .theme-fireflow-full .brand .bnm{font-family:var(--body);font-weight:800;text-transform:uppercase;letter-spacing:.22em;font-size:13px}
+  .theme-fireflow-full .shownav a{font:800 12.5px/1 var(--body);text-transform:uppercase;letter-spacing:.08em}
+  .theme-fireflow-full .nav-cta{font-family:var(--body);font-weight:800;text-transform:uppercase;font-size:11.5px;letter-spacing:.1em}
+
+  @media(max-width:880px){.shownav{display:none}}
+  @media(max-width:600px){.nav-cta{display:none}.brand .bnm{display:none}}
 
   /* ===== sub-nav (секции текущего шоу, sticky под хедером) ===== */
   .subnav{position:sticky;top:70px;z-index:90;background:rgba(11,7,18,.92);backdrop-filter:blur(12px);
@@ -282,12 +306,12 @@
 </head>
 <body>
 
-<header class="topbar" id="topbar">
+<header class="topbar" id="topbar"><div class="topbar-in">
   <button class="back" onclick="parent.postMessage('ss-close','*')"><span class="mk"></span><span class="ar">←</span> All shows</button>
-  <a class="brand" id="brandHome" href="index.html"><img class="blogo" src="../assets/Logo_final.png" alt="Steam Show"><span class="bnm">Steam Show</span></a>
+  <a class="brand" id="brandHome" href="index.html"><img class="b-logo" src="../assets/Logo_final.png" alt="Steam Show"><span class="b-mark"></span><span class="bnm">Steam Show</span></a>
   <nav class="shownav" id="shownav"></nav>
-  <a class="nav-cta book" id="bookCta" href="#book">Book the show</a>
-</header>
+  <a class="nav-cta" id="bookCta" href="#book">Book the show</a>
+</div></header>
 
 <main id="page"></main>
 
@@ -417,9 +441,13 @@
       +'<div class="'+(cls||'vrail')+'">'+inner+'</div>'
       +'<button class="rnav r" aria-label="Scroll right">›</button></div>';
   }
-  function go(id){
+  function go(id,push){
     document.querySelectorAll('#shownav a[data-id]').forEach(function(a){a.classList.toggle('on',a.getAttribute('data-id')===id);});
     render(id);
+    if(push!==false){
+      var qs=new URLSearchParams(location.search); qs.set('show',id);
+      history.pushState({show:id},'','?'+qs.toString());
+    }
   }
 
   function render(id){
@@ -820,25 +848,32 @@
   },{passive:true});
   totop.onclick=function(){scrollTo({top:0,behavior:'smooth'});};
 
-  /* ----- хедер: логотип ведёт на главную макета-носителя ----- */
-  (function(){
-    var CARRIER={'marquee':'marquee.html','kinetic':'kinetic.html','kinetic-full':'kinetic-full.html',
-      'fireflow-full':'fireflow-full.html','hybrid':'hybrid.html'};
-    var th=(new URLSearchParams(location.search)).get('theme'),b=document.getElementById('brandHome');
-    if(b) b.setAttribute('href',CARRIER[th]||'index.html');
-  })();
+  /* ----- хедер: логотип и «Process» ведут на главную макета-носителя ----- */
+  var CARRIER={'marquee':'marquee.html','kinetic':'kinetic.html','kinetic-full':'kinetic-full.html',
+    'fireflow-full':'fireflow-full.html','hybrid':'hybrid.html'};
+  var carrierHome=CARRIER[(new URLSearchParams(location.search)).get('theme')]||'index.html';
+  var brandEl=document.getElementById('brandHome');
+  if(brandEl) brandEl.setAttribute('href',carrierHome);
 
-  /* ----- хедер: список шоу + Contact ----- */
+  /* ----- хедер: список шоу + Process (= How we work на главной макета) ----- */
   var shownav=document.getElementById('shownav');
   var navHtml=ORDER.map(function(id){return '<a data-id="'+id+'">'+SHOWS[id].nav+'</a>';}).join('');
-  navHtml+='<span class="sep"></span><a class="contact" href="#book">Contact</a>';
+  navHtml+='<a class="process" href="'+carrierHome+'#howwe">Process</a>';
   shownav.innerHTML=navHtml;
   shownav.querySelectorAll('a[data-id]').forEach(function(a){
     a.addEventListener('click',function(){go(a.getAttribute('data-id'));});
   });
 
+  /* ----- история: URL отражает текущее шоу, работают «назад/вперёд» и F5 ----- */
+  window.addEventListener('popstate',function(e){
+    var id=(e.state&&e.state.show)||(new URLSearchParams(location.search)).get('show')||'dragon';
+    go(SHOWS[id]?id:'dragon',false);
+  });
+
   var startId=(new URLSearchParams(location.search)).get('show');
-  go(SHOWS[startId]?startId:'dragon');
+  startId=SHOWS[startId]?startId:'dragon';
+  history.replaceState({show:startId},'',location.href);
+  go(startId,false);
 })();
 </script>
 </body>
