@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Steam Show — Итерация 3 (разворот карточек)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0a0708; --panel:#140d12; --text:#F7F1E8; --muted:#a89b8e;
+    --line:rgba(247,241,232,.10); --line-2:rgba(247,241,232,.18);
+    --fire:#FF5A1F; --ember:#FF7A18; --gold:#FFB347; --gold-2:#E7C27A; --cool:#3DE0E6;
+    --ease:cubic-bezier(.16,1,.3,1);
+    --display:"Anton",Impact,sans-serif; --body:"Space Grotesk",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.55;
+    -webkit-font-smoothing:antialiased;min-height:100vh;
+    background-image:
+      radial-gradient(120% 80% at 50% 0%,rgba(60,60,110,.16),transparent 60%),
+      radial-gradient(140% 90% at 50% 120%,rgba(255,90,31,.18),transparent 56%)}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1180px;margin:0 auto;padding:clamp(40px,8vh,90px) clamp(20px,4vw,40px)}
+  .head{margin-bottom:clamp(36px,6vh,64px)}
+  .head .kick{font-size:.74rem;font-weight:600;letter-spacing:.26em;text-transform:uppercase;
+    color:var(--fire);display:flex;align-items:center;gap:12px;margin-bottom:18px}
+  .head .kick .dot{width:8px;height:8px;border-radius:50%;background:var(--fire);box-shadow:0 0 14px var(--fire)}
+  .head h1{font-family:var(--display);text-transform:uppercase;font-size:clamp(40px,8vw,96px);
+    line-height:.86;letter-spacing:.01em}
+  .head h1 em{font-style:normal;color:transparent;-webkit-text-stroke:1.6px var(--gold)}
+  .head p{color:var(--muted);max-width:62ch;margin-top:18px;font-size:1.02rem}
+
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+
+  .card{position:relative;display:flex;flex-direction:column;gap:14px;
+    border:1px solid var(--line-2);border-radius:18px;padding:clamp(24px,3vw,34px);
+    background:linear-gradient(180deg,rgba(20,13,18,.6),rgba(20,13,18,.2));
+    transition:transform .4s var(--ease),border-color .4s var(--ease),box-shadow .4s var(--ease);
+    --c:var(--fire)}
+  .card:nth-child(1){--c:var(--cool)} .card:nth-child(2){--c:var(--fire)}
+  .card:nth-child(3){--c:var(--gold)} .card:nth-child(4){--c:var(--ember)} .card:nth-child(5){--c:var(--gold-2)}
+  .card:hover{transform:translateY(-6px);border-color:var(--c);box-shadow:0 22px 60px -28px var(--c)}
+  .card .top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+  .card .n{font-family:var(--display);font-size:2.4rem;line-height:1;color:transparent;
+    -webkit-text-stroke:1.5px var(--c)}
+  .card .badge{font-size:.62rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--c);border:1px solid var(--line-2);padding:6px 11px;border-radius:30px;white-space:nowrap}
+  .card h2{font-family:var(--display);text-transform:uppercase;font-size:clamp(26px,3.4vw,40px);
+    line-height:.95;letter-spacing:.01em}
+  .card .path{font-size:.78rem;color:var(--muted);font-family:var(--body);word-break:break-all}
+  .card .note{color:var(--muted);font-size:.92rem}
+  .card .added{list-style:none;display:flex;flex-direction:column;gap:7px;margin-top:2px}
+  .card .added li{font-size:.84rem;color:var(--text);padding-left:20px;position:relative}
+  .card .added li::before{content:"+";position:absolute;left:0;top:0;color:var(--c);font-weight:700}
+  .card .added li.ok::before{content:"✓";color:var(--cool)}
+  .card .open{margin-top:auto;display:inline-flex;align-items:center;gap:10px;align-self:flex-start;
+    font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+    background:var(--c);color:#180603;padding:13px 22px;border-radius:100px;transition:.25s}
+  .card .open:hover{gap:16px;filter:brightness(1.08)}
+
+  footer{color:var(--muted);font-size:.78rem;margin-top:clamp(34px,5vh,56px);text-align:center}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <div class="kick"><span class="dot"></span> Steam Show · итерация 3</div>
+      <h1>Разворот <em>карточек</em></h1>
+      <p>Та же пятёрка макетов, теперь у каждого — раскрытие шоу-карточки в полноценную страницу
+        <b>show-detail</b> (hero, темы / гардероб с фильтром, видео, галерея, контакты) прямо поверх макета,
+        без перехода. У <b>Hybrid</b> карточки заменены на tilt-ряд и раскрываются по модели «Full» (FLIP-панель).
+        Жми «Открыть» — макет откроется в новой вкладке, затем кликни любую карточку шоу.</p>
+    </div>
+
+    <div class="grid">
+      <article class="card">
+        <div class="top"><span class="n">01</span><span class="badge">pitch2 · video hero</span></div>
+        <h2>Kinetic Full</h2>
+        <div class="path">_v3/kinetic-full.html</div>
+        <ul class="added">
+          <li class="ok">Клик по шоу → разворот в полную страницу show-detail</li>
+          <li>Описание (абзац) для каждого из 5 шоу</li>
+          <li class="ok">How we work, Selected stages, 20+ Countries — уже были</li>
+        </ul>
+        <a class="open" href="kinetic-full.html" target="_blank" rel="noopener">Открыть →</a>
+      </article>
+
+      <article class="card">
+        <div class="top"><span class="n">02</span><span class="badge">эталон · fireflow</span></div>
+        <h2>Fireflow Full</h2>
+        <div class="path">_v3/fireflow-full.html</div>
+        <ul class="added">
+          <li class="ok">Клик по шоу → разворот в полную страницу show-detail</li>
+          <li class="ok">Эталон — содержит все разделы, взят за основу сравнения</li>
+        </ul>
+        <a class="open" href="fireflow-full.html" target="_blank" rel="noopener">Открыть →</a>
+      </article>
+
+      <article class="card">
+        <div class="top"><span class="n">03</span><span class="badge">pitch5 · marquee</span></div>
+        <h2>Marquee</h2>
+        <div class="path">_v3/marquee.html</div>
+        <ul class="added">
+          <li class="ok">Клик по шоу → разворот в полную страницу show-detail</li>
+          <li>Раздел «How we work» (+ ссылка в меню)</li>
+          <li>«Selected stages» (фестивали)</li>
+          <li>Описание + спеки (Duration / Format / Cast) в карточках</li>
+          <li>Стат «20+ Countries», страны Egypt / Cyprus</li>
+        </ul>
+        <a class="open" href="marquee.html" target="_blank" rel="noopener">Открыть →</a>
+      </article>
+
+      <article class="card">
+        <div class="top"><span class="n">04</span><span class="badge">pitch5 · photo-wall</span></div>
+        <h2>Hybrid</h2>
+        <div class="path">_v3/hybrid.html</div>
+        <ul class="added">
+          <li class="ok">Карточки → tilt-ряд (как cards-lab), разворот «Модель 1 · Full» (FLIP-панель)</li>
+          <li>Раздел «How we work» (+ ссылка в меню)</li>
+          <li>«Selected stages» (фестивали)</li>
+          <li>Описание + спеки в карточках</li>
+          <li>Список стран (Egypt / Cyprus и др.) + стат «20+ Countries»</li>
+        </ul>
+        <a class="open" href="hybrid.html" target="_blank" rel="noopener">Открыть →</a>
+      </article>
+
+      <article class="card">
+        <div class="top"><span class="n">05</span><span class="badge">pitch5 · bento</span></div>
+        <h2>Kinetic</h2>
+        <div class="path">_v3/kinetic.html</div>
+        <ul class="added">
+          <li class="ok">Клик по шоу → разворот в полную страницу show-detail</li>
+          <li>Раздел «How we work» (+ ссылка в меню)</li>
+          <li>«Selected stages» (фестивали)</li>
+          <li>Описание + спеки в карточках (описание — на флагмане)</li>
+          <li>Стат «20+ Countries», страны Egypt / Cyprus</li>
+        </ul>
+        <a class="open" href="kinetic.html" target="_blank" rel="noopener">Открыть →</a>
+      </article>
+    </div>
+
+    <footer>Steam Show — итерация 3 · разворот шоу-карточек в show-detail</footer>
+  </div>
+</body>
+</html>
