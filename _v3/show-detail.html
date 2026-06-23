@@ -262,6 +262,11 @@
   .totop.on{opacity:1;pointer-events:auto;transform:none}
 
   .foot{padding:46px 0;border-top:1px solid var(--line);color:var(--muted);font-size:13px;text-align:center}
+
+  /* тема kinetic: дисплейный шрифт Space Grotesk — крупным заголовкам нужен вес 700 */
+  .theme-kinetic .htitle,.theme-kinetic .shead h2,.theme-kinetic .ccta,
+  .theme-kinetic .world .wc h3,.theme-kinetic .star h3,.theme-kinetic .tblock .th h4,
+  .theme-kinetic .exp-hero h2,.theme-kinetic .pnav .pv,.theme-kinetic .brand{font-weight:700;letter-spacing:-.01em}
 </style>
 </head>
 <body>
@@ -290,6 +295,40 @@
 <script>
 (function(){
   var DATA = window.SS_DATA, accentMap={dragon:'#FF6A1F',fire:'#FFD23E',ledfire:'#FF2E84',led:'#25F4EE',stilts:'#FF6A1F'};
+
+  /* ===== тема под макет-носитель (передаётся через &theme=) ===== */
+  var THEMES={
+    hybrid:{display:'"Anton",Impact,sans-serif',body:'"Manrope",system-ui,sans-serif',
+      vars:{'--bg':'#0b0712','--bg2':'#15101e','--ink':'#f5eff7','--muted':'#a89fb0','--line':'rgba(255,255,255,.11)',
+        '--accent':'#FF6A1F','--accent2':'#FFD23E','--accent3':'#FF2E84','--cool':'#25F4EE'},
+      accents:{dragon:'#FF6A1F',fire:'#FFD23E',ledfire:'#FF2E84',led:'#25F4EE',stilts:'#FF6A1F'}},
+    kinetic:{display:'"Space Grotesk","Inter",sans-serif',body:'"Inter",system-ui,sans-serif',
+      vars:{'--bg':'#07070C','--bg2':'#0C0C18','--ink':'#EAEAF5','--muted':'#9A9AB8','--line':'rgba(255,255,255,.09)',
+        '--accent':'#2AD4FF','--accent2':'#FF2AD4','--accent3':'#B6FF2A','--cool':'#2AD4FF'},
+      accents:{dragon:'#2AD4FF',fire:'#FF2AD4',ledfire:'#B6FF2A',led:'#2AD4FF',stilts:'#FF2AD4'}},
+    'kinetic-full':{display:'"Anton",Impact,sans-serif',body:'"Space Grotesk",system-ui,sans-serif',
+      vars:{'--bg':'#0a0708','--bg2':'#140d12','--ink':'#F7F1E8','--muted':'#a89b8e','--line':'rgba(247,241,232,.10)',
+        '--accent':'#FF5A1F','--accent2':'#FFB347','--accent3':'#FF7A18','--cool':'#3DE0E6'},
+      accents:{dragon:'#FF5A1F',fire:'#FFB347',ledfire:'#FF7A18',led:'#3DE0E6',stilts:'#FFB347'}},
+    marquee:{display:'"Anton",Impact,sans-serif',body:'"Manrope",system-ui,sans-serif',
+      vars:{'--bg':'#0C0710','--bg2':'#160C18','--ink':'#F6EBDD','--muted':'rgba(246,235,221,.62)','--line':'#2a1c24',
+        '--accent':'#FF6A1F','--accent2':'#FFC53D','--accent3':'#FF3D2E','--cool':'#25F4EE'},
+      accents:{dragon:'#FF6A1F',fire:'#FFC53D',ledfire:'#FF3D2E',led:'#25F4EE',stilts:'#FF6A1F'}},
+    'fireflow-full':{display:'"Anton",Impact,sans-serif',body:'"Manrope",system-ui,sans-serif',
+      vars:{'--bg':'#0C0710','--bg2':'#160C18','--ink':'#F6EBDD','--muted':'rgba(246,235,221,.62)','--line':'#2a1c24',
+        '--accent':'#FF6A1F','--accent2':'#FFC53D','--accent3':'#FF2E9A','--cool':'#25F4EE'},
+      accents:{dragon:'#FF6A1F',fire:'#FFC53D',ledfire:'#FF2E9A',led:'#25F4EE',stilts:'#FF6A1F'}}
+  };
+  (function(){
+    var t=(new URLSearchParams(location.search)).get('theme');
+    var th=THEMES[t]||THEMES.hybrid, root=document.documentElement.style;
+    for(var k in th.vars) root.setProperty(k,th.vars[k]);
+    root.setProperty('--display',th.display);
+    root.setProperty('--body',th.body);
+    document.documentElement.classList.add('theme-'+(THEMES[t]?t:'hybrid'));
+    accentMap=th.accents;
+  })();
+
   var ytThumb=function(id){return 'https://i.ytimg.com/vi/'+id+'/hqdefault.jpg';};
   var ytEmbed=function(id){return 'https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0&modestbranding=1&playsinline=1';};
 

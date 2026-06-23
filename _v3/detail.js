@@ -49,7 +49,8 @@
     if(!id) return;
     if(originEl && originEl.getBoundingClientRect) lastRect = originEl.getBoundingClientRect();
     ensure();
-    frame.src = 'show-detail.html?show=' + id + '&embed=1';
+    frame.src = 'show-detail.html?show=' + id + '&embed=1'
+      + (window.SS_THEME ? '&theme=' + encodeURIComponent(window.SS_THEME) : '');
     ov.classList.remove('animating');
     ov.style.clipPath = insetFromRect(lastRect);
     ov.classList.add('show');

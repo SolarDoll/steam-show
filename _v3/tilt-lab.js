@@ -31,7 +31,7 @@
   var CVAR = {dragon:'--c-dragon',fire:'--c-fire',ledfire:'--c-ledfire',led:'--c-led',stilts:'--c-stilts'};
   /* «богатые» шоу — те, у кого в show-detail своя структура (themes/catalogue/wardrobe) */
   var RICH = {fire:1,led:1,stilts:1};
-  function detailURL(id){return 'show-detail.html?show='+id+'&embed=1';}
+  function detailURL(id){return 'show-detail.html?show='+id+'&embed=1'+(window.SS_THEME?'&theme='+encodeURIComponent(window.SS_THEME):'');}
 
   function d(id){return DATA.shows[id] || {photos:[],costumes:[],videos:[]};}
   function photos(id){return d(id).photos || [];}
