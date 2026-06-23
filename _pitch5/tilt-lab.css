@@ -126,6 +126,25 @@ section.lab{padding:34px 0}
 /* fade соседних карточек при открытии */
 .tilt-row.dim .tcard:not(.is-open){opacity:.28;filter:saturate(.6)}
 
+/* CTA «открыть полную страницу» (teaser / drawer-cta) */
+.exp-cta{display:inline-flex;align-items:center;gap:8px;margin:0 0 22px;
+  font:800 13px/1 var(--body);letter-spacing:.04em;text-transform:uppercase;
+  color:#10070a;background:var(--c,var(--accent));border:none;border-radius:100px;
+  padding:13px 20px;cursor:pointer;text-decoration:none;transition:.2s}
+.exp-cta:hover{transform:translateY(-2px);filter:brightness(1.07)}
+
+/* МОДЕЛЬ FULL — show-detail во весь объём растущей панели */
+.exp-panel.is-full{width:min(1200px,96vw);height:min(94vh,1040px)}
+.exp-frame{width:100%;height:100%;border:0;display:block;background:var(--bg)}
+.exp-panel.is-full .exp-x{top:12px;right:14px}
+
+/* МОДЕЛЬ HYBRID — бейдж режима на карточке */
+.tcard .rich-badge{display:inline-block;margin-bottom:9px;font:800 9.5px/1 var(--body);
+  letter-spacing:.12em;text-transform:uppercase;color:#10070a;background:var(--c);
+  padding:5px 9px;border-radius:100px}
+.tcard .rich-badge.lite{color:var(--ink);background:rgba(0,0,0,.4);
+  border:1px solid var(--line2);backdrop-filter:blur(5px)}
+
 /* ============================================================
    ВАРИАНТ B — DRAWER (панель раскрывается под рядом)
    ============================================================ */

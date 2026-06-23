@@ -267,7 +267,7 @@
 <body>
 
 <header class="topbar" id="topbar">
-  <button class="back" onclick="alert('В реальном сайте — назад к списку всех шоу')"><span class="mk"></span><span class="ar">←</span> All shows</button>
+  <button class="back" onclick="history.length>1?history.back():location.href='index.html'"><span class="mk"></span><span class="ar">←</span> All shows</button>
   <nav class="shownav" id="shownav"></nav>
 </header>
 
@@ -679,7 +679,8 @@
     a.addEventListener('click',function(){go(a.getAttribute('data-id'));});
   });
 
-  go('dragon');
+  var startId=(new URLSearchParams(location.search)).get('show');
+  go(SHOWS[startId]?startId:'dragon');
 })();
 </script>
 </body>

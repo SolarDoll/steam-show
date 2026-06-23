@@ -39,10 +39,80 @@
 <div class="wrap lab-top">
   <a class="back" href="cards-lab.html">← лаборатория карточек</a>
   <h1>Tilt-ряд → разворот на странице</h1>
-  <p>Три способа развернуть полную информацию о шоу прямо из Tilt-ряда — <b>без перехода на отдельную страницу и без классической модалки-поверх</b>. Везде реальные данные пяти шоу, реальные фото, галерея с лайтбоксом. Открой каждый и пощупай ощущение.</p>
+  <p>Здесь две независимые оси решения. <b>Модель контента</b> — сколько информации даём в развороте и как это уживается с богатой <a href="show-detail.html" style="color:var(--accent)">show-detail</a> (где у каждого шоу своя структура: темы, каталог, гардероб с фильтром). <b>Механика</b> — как именно разворот выглядит и движется. Везде реальные данные пяти шоу.</p>
 </div>
 
 <section class="lab"><div class="wrap">
+
+  <h2 style="font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(22px,3vw,34px);margin:0 0 6px">Модель контента</h2>
+  <p class="hint" style="margin-bottom:0">Главный вопрос: разворот заменяет show-detail или ведёт в неё?</p>
+
+  <div class="vgrid">
+    <a class="vcard" href="model-full.html">
+      <div class="vis"><svg viewBox="0 0 320 200" fill="none">
+        <rect x="40" y="14" width="240" height="172" rx="12" fill="#15151f" stroke="#FF6A1F" stroke-width="2"/>
+        <rect x="40" y="14" width="240" height="58" rx="12" fill="#FF6A1F" opacity=".85"/>
+        <rect x="56" y="40" width="120" height="14" rx="4" fill="#10070a"/>
+        <rect x="56" y="86" width="60" height="9" rx="4" fill="#3a3a4a"/>
+        <rect x="124" y="86" width="60" height="9" rx="4" fill="#3a3a4a"/>
+        <rect x="192" y="86" width="60" height="9" rx="4" fill="#3a3a4a"/>
+        <rect x="56" y="108" width="60" height="40" rx="5" fill="#2a2a3a"/>
+        <rect x="124" y="108" width="60" height="40" rx="5" fill="#2a2a3a"/>
+        <rect x="192" y="108" width="60" height="40" rx="5" fill="#2a2a3a"/>
+        <rect x="56" y="158" width="196" height="8" rx="4" fill="#2f2f3f"/>
+      </svg></div>
+      <div class="body">
+        <div class="k">Модель 1</div><h3>Full</h3>
+        <p>Весь show-detail рендерится внутри растущей панели. Полная страница шоу без перехода и без отдельного URL.</p>
+        <span class="tag">Заменяет show-detail</span>
+        <span class="go">Открыть →</span>
+      </div>
+    </a>
+
+    <a class="vcard" href="model-teaser.html">
+      <div class="vis"><svg viewBox="0 0 320 200" fill="none">
+        <rect x="60" y="18" width="60" height="48" rx="6" fill="#222230"/>
+        <rect x="128" y="18" width="60" height="48" rx="6" fill="#FF6A1F"/>
+        <rect x="196" y="18" width="60" height="48" rx="6" fill="#222230"/>
+        <rect x="60" y="82" width="196" height="64" rx="9" fill="#15151f" stroke="#FF6A1F" stroke-width="1.5"/>
+        <rect x="74" y="96" width="60" height="36" rx="5" fill="#2a2a3a"/>
+        <rect x="146" y="100" width="96" height="8" rx="4" fill="#3a3a4a"/>
+        <rect x="146" y="116" width="70" height="14" rx="7" fill="#FF6A1F"/>
+        <path d="M150 160 h120" stroke="#FF6A1F" stroke-width="2" stroke-dasharray="5 5"/>
+        <rect x="60" y="170" width="196" height="16" rx="6" fill="#222230"/>
+      </svg></div>
+      <div class="body">
+        <div class="k">Модель 2</div><h3>Teaser</h3>
+        <p>На месте — компактный тизер с кнопкой «Open full show». Глубину отдаёт существующая show-detail. Оба формата живут вместе.</p>
+        <span class="tag">Тизер → show-detail</span>
+        <span class="go">Открыть →</span>
+      </div>
+    </a>
+
+    <a class="vcard" href="model-hybrid.html">
+      <div class="vis"><svg viewBox="0 0 320 200" fill="none">
+        <rect x="26" y="40" width="60" height="120" rx="8" fill="#222230"/>
+        <rect x="34" y="46" width="40" height="10" rx="4" fill="#18C7FF"/>
+        <rect x="94" y="40" width="60" height="120" rx="8" fill="#15151f" stroke="#FF6A1F" stroke-width="2"/>
+        <rect x="102" y="46" width="44" height="10" rx="4" fill="#FF6A1F"/>
+        <rect x="162" y="40" width="60" height="120" rx="8" fill="#15151f" stroke="#FF6A1F" stroke-width="2"/>
+        <rect x="170" y="46" width="44" height="10" rx="4" fill="#FF6A1F"/>
+        <rect x="230" y="40" width="60" height="120" rx="8" fill="#222230"/>
+        <rect x="238" y="46" width="40" height="10" rx="4" fill="#18C7FF"/>
+        <path d="M122 168 v14 h76 v-14" stroke="#FF6A1F" stroke-width="2" fill="none"/>
+        <text x="160" y="195" fill="#FF6A1F" font-size="11" text-anchor="middle" font-family="sans-serif">→ full page</text>
+      </svg></div>
+      <div class="body">
+        <div class="k">Модель 3</div><h3>Hybrid</h3>
+        <p>Простые шоу разворачиваются на месте, богатые (темы, гардероб, фильтр) ведут на полную show-detail. Делёж по объёму контента.</p>
+        <span class="tag">Простые vs богатые</span>
+        <span class="go">Открыть →</span>
+      </div>
+    </a>
+  </div>
+
+  <h2 style="font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(22px,3vw,34px);margin:46px 0 6px">Механика разворота</h2>
+  <p class="hint" style="margin-bottom:0">Как разворот выглядит и движется (на обзорном контенте). Любую механику можно скрестить с любой моделью.</p>
 
   <div class="vgrid">
     <a class="vcard" href="tilt-a.html">

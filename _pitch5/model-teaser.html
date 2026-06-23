@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Модель 2 — Тизер → show-detail</title>
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="tilt-lab.css">
+</head>
+<body>
+
+<div class="wrap lab-top">
+  <a class="back" href="tilt-lab.html">← все варианты</a>
+  <h1>Модель 2 · Teaser</h1>
+  <p>Клик разворачивает на месте <b>компактный тизер</b> — описание, статистика, мини-галерея — с явной кнопкой <b>«Open full show page →»</b>. Краткую преамбулу даём без перехода, а всю глубину (темы, гардероб, фильтр) показывает полноценная <b>show-detail.html</b> нужного шоу. Сохраняем оба формата.</p>
+  <div class="pills">
+    <a href="model-full.html">1 · Full</a>
+    <a class="on" href="model-teaser.html">2 · Teaser</a>
+    <a href="model-hybrid.html">3 · Hybrid</a>
+  </div>
+</div>
+
+<section class="lab"><div class="wrap">
+  <p class="hint">Кликни карточку — под рядом раскроется тизер. Кнопка <b>Open full show page</b> ведёт на show-detail именно этого шоу (через <code>?show=id</code>), «← All shows» там возвращает назад.</p>
+  <div id="tiltMount"></div>
+</div></section>
+
+<script src="media.js"></script>
+<script src="tilt-lab.js"></script>
+<script>TiltLab.init('teaser');</script>
+</body>
+</html>
