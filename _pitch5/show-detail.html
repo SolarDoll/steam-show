@@ -286,6 +286,7 @@
 </div>
 
 <script src="media.js"></script>
+<script src="media-stilts.js"></script>
 <script>
 (function(){
   var DATA = window.SS_DATA, accentMap={dragon:'#FF6A1F',fire:'#FFD23E',ledfire:'#FF2E84',led:'#25F4EE',stilts:'#FF6A1F'};
@@ -492,6 +493,57 @@
   }
 
   function renderStilts(id,s,d){
+    var ST=window.SS_STILTS;
+    if(!ST||!ST.themes||!ST.themes.length) return renderStiltsLegacy(id,s,d);
+    var h='<section id="sec-variants"><div class="wrap">';
+    h+='<div class="shead"><span class="kicker">Costumes & themes</span><h2>The wardrobe</h2>'
+      +'<p>100+ towering characters. Start with our showstoppers, then explore each theme — its film and costume gallery. The same costume can appear in several themes.</p></div>';
+
+    /* 1. Showstoppers */
+    if(ST.stars&&ST.stars.length){
+      h+='<div class="stars">';
+      ST.stars.forEach(function(st){
+        h+='<div class="star" data-gallery="star:'+st.key+'"><img loading="lazy" src="'+st.photos[0]+'" alt="">'
+          +'<div class="sc"><span class="badge">★ Showstopper</span><h3>'+esc(st.name)+'</h3><p>'+esc(st.blurb||'')+'</p></div></div>';
+      });
+      h+='</div>';
+    }
+
+    /* 2. Тема-блоки: основное видео (если есть mp4) или крупное фото + доп-галерея */
+    ST.themes.forEach(function(t){
+      var photos=t.photos||[]; if(!photos.length) return;
+      var feat;
+      if(t.video){
+        feat='<div class="feat" data-localvideo="'+t.video+'" data-vlabel="'+esc(t.name)+' — film">'
+          +'<div class="vw"><img loading="lazy" src="'+(t.poster||photos[0])+'" alt=""><span class="pl"></span></div>'
+          +'<span class="vlbl">'+esc(t.name)+' — film</span></div>';
+      }else{
+        feat='<div class="feat" data-gallery="theme:'+t.key+'" data-gi="0"><div class="vw"><img loading="lazy" src="'+photos[0]+'" alt=""></div>'
+          +'<span class="vlbl">'+esc(t.name)+'</span></div>';
+      }
+      var gi=t.video?0:1;                       // если фичер — фото, не дублируем его в сетке
+      var gridPhotos=photos.slice(gi,gi+6);
+      var grid='<div class="mini-grid">'+gridPhotos.map(function(p,k){
+        return '<div class="cell" data-gallery="theme:'+t.key+'" data-gi="'+(gi+k)+'"><img loading="lazy" src="'+p+'" alt=""></div>';
+      }).join('')+'</div>';
+      var more=photos.length>(gi+6)?'<button class="tmore" data-gallery="theme:'+t.key+'">View all '+photos.length+' '+esc(t.name)+' looks →</button>':'';
+      h+='<div class="tblock"><div class="th"><h4>'+esc(t.name)+'</h4><span class="cnt">'+photos.length+' looks</span></div>'
+        +'<div class="tb">'+feat+'<div class="side">'+grid+more+'</div></div></div>';
+    });
+
+    /* 2b. Остальные костюмы */
+    if(ST.other&&ST.other.length){
+      h+='<div class="tblock"><div class="th"><h4>More characters</h4><span class="cnt">'+ST.other.length+' looks</span></div>'
+        +'<p style="color:var(--muted);font-size:14px;margin:-6px 0 16px;max-width:60ch">One-offs and crossovers that don\'t sit in a single theme — still fully available for your event.</p>'
+        +'<div class="gridc">'+ST.other.map(function(p,k){
+          return '<div class="cell" data-gallery="other" data-gi="'+k+'"><img loading="lazy" src="'+p+'" alt=""></div>';
+        }).join('')+'</div></div>';
+    }
+
+    return h+'</div></section>';
+  }
+
+  function renderStiltsLegacy(id,s,d){
     var cs=d.costumes||[], vids=d.videos||[];
     var h='<section id="sec-variants"><div class="wrap">';
     h+='<div class="shead"><span class="kicker">Costumes & themes</span><h2>The wardrobe</h2>'
@@ -581,6 +633,21 @@
     page.querySelectorAll('[data-costume]').forEach(function(el){
       el.addEventListener('click',function(){LB.openList(costList,+el.getAttribute('data-costume'));});
     });
+    // реальные тематические галереи ходулистов (data-gallery="theme:key|star:key|other")
+    function galleryFor(g){var ST=window.SS_STILTS;if(!ST)return null;
+      if(g==='other')return {photos:ST.other,name:'Character'};
+      var p=g.split(':'),arr=p[0]==='star'?ST.stars:ST.themes;
+      return (arr||[]).filter(function(x){return x.key===p[1];})[0]||null;}
+    page.querySelectorAll('[data-gallery]').forEach(function(el){
+      el.addEventListener('click',function(){
+        var f=galleryFor(el.getAttribute('data-gallery'));if(!f||!f.photos)return;
+        var gi=+(el.getAttribute('data-gi')||0);
+        LB.openList(f.photos.map(function(p,i){return {img:p,label:f.name+' '+(i+1)};}),gi);
+      });
+    });
+    page.querySelectorAll('[data-localvideo]').forEach(function(el){
+      el.addEventListener('click',function(){LB.openLocal(el.getAttribute('data-localvideo'),el.getAttribute('data-vlabel'));});
+    });
     var worldEls=page.querySelectorAll('[data-world]'),wn=worldEls.length;
     worldEls.forEach(function(el){
       el.addEventListener('click',function(){
@@ -649,11 +716,13 @@
       cap=document.getElementById('lbCap'),idx=document.getElementById('lbIdx');
   var L=[],P=0;
   function paint(){var x=L[P]||{};
-    if(x.video) stage.innerHTML='<iframe src="'+ytEmbed(x.video)+'" allow="autoplay;fullscreen;encrypted-media" allowfullscreen></iframe>';
+    if(x.file) stage.innerHTML='<video src="'+x.file+'" controls autoplay playsinline style="width:100%;height:100%;object-fit:contain;background:#000"></video>';
+    else if(x.video) stage.innerHTML='<iframe src="'+ytEmbed(x.video)+'" allow="autoplay;fullscreen;encrypted-media" allowfullscreen></iframe>';
     else stage.innerHTML='<img src="'+(x.img||'')+'" alt="">';
     cap.textContent=x.label||''; idx.textContent=L.length>1?(P+1)+' / '+L.length:'';}
   window.LB={
     openVideo:function(v,label){L=[{video:v,label:label}];P=0;paint();lb.classList.add('on');},
+    openLocal:function(f,label){L=[{file:f,label:label}];P=0;paint();lb.classList.add('on');},
     openList:function(list,i){L=list;P=i||0;paint();lb.classList.add('on');},
     step:function(dir){if(!L.length)return;P=(P+dir+L.length)%L.length;paint();},
     close:function(){lb.classList.remove('on');setTimeout(function(){stage.innerHTML='';},220);}
