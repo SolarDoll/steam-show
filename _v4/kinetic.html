@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steam Show — Kinetic (accordion · фото)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="parts.css">
+<link rel="stylesheet" href="cards.css">
+<style>
+  :root{
+    --bg:#07070C; --bg2:#0C0C18; --ink:#EAEAF5; --muted:#9A9AB8;
+    --line:rgba(255,255,255,.09); --sky-top:#13314f;
+    --accent:#2AD4FF; --accent2:#FF2AD4; --accent3:#B6FF2A;
+    --display:"Space Grotesk","Inter",sans-serif; --body:"Inter",system-ui,sans-serif;
+  }
+  .grad-text{background:linear-gradient(100deg,var(--accent),var(--accent2) 55%,var(--accent3));
+    -webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 100%;animation:hue 8s linear infinite}
+  @keyframes hue{to{background-position:200% 0}}
+  .kh{position:relative;height:100svh;min-height:620px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;
+    padding:0 clamp(20px,4vw,46px) clamp(34px,6vh,72px)}
+  .kh-bg{position:absolute;inset:0;z-index:0}
+  .kh-bg .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.12);
+    transition:opacity 1.4s ease,transform 6s linear;filter:saturate(1.15)}
+  .kh-bg .slide.on{opacity:1;transform:scale(1)}
+  .kh::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:radial-gradient(120% 80% at 50% 30%,transparent 28%,color-mix(in srgb,var(--bg) 60%,transparent) 100%),
+      linear-gradient(180deg,color-mix(in srgb,var(--bg) 55%,transparent) 0%,transparent 24%,transparent 48%,var(--bg) 100%)}
+  .kh::before{content:"";position:absolute;inset:0;z-index:1;mix-blend-mode:overlay;opacity:.5;pointer-events:none;
+    background:radial-gradient(60% 80% at 85% 30%,var(--accent2),transparent 60%),radial-gradient(50% 70% at 10% 80%,var(--accent),transparent 60%)}
+  .kh-in{position:relative;z-index:2}
+  .kh-eyebrow{display:inline-flex;align-items:center;gap:9px;font:600 12px/1 var(--display);letter-spacing:.28em;text-transform:uppercase;
+    color:var(--accent);padding:8px 14px;border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);border-radius:99px;
+    background:color-mix(in srgb,var(--accent) 5%,transparent);margin-bottom:20px}
+  .kh-eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);animation:kp 1.8s infinite}
+  @keyframes kp{0%,100%{opacity:.4;transform:scale(.8)}50%{opacity:1;transform:scale(1.25)}}
+  .kh h1{font-family:var(--display);font-weight:700;font-size:clamp(50px,12vw,150px);line-height:.92;color:var(--ink);letter-spacing:-.01em}
+  .kh .we{display:block}
+  .rotator{position:relative;display:inline-block;min-width:5em;height:1em;overflow:hidden;vertical-align:bottom}
+  .rotator .word{position:absolute;left:0;top:0;white-space:nowrap;opacity:0;transform:translateY(.6em);
+    transition:opacity .5s ease,transform .5s cubic-bezier(.2,.9,.2,1);
+    background:linear-gradient(100deg,var(--accent),var(--accent2) 55%,var(--accent3));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .rotator .word.on{opacity:1;transform:none}
+  .rotator .word.out{opacity:0;transform:translateY(-.6em)}
+  .kh-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:26px}
+  .kh-foot p{max-width:46ch;color:var(--muted);font-size:clamp(14px,1.5vw,17px)}
+  .kh-cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hbtn{font:600 14px/1 var(--display);letter-spacing:.03em;padding:15px 26px;border-radius:100px;transition:.25s;display:inline-flex;align-items:center;gap:9px}
+  .hbtn.solid{background:linear-gradient(100deg,var(--accent),var(--accent2));color:#07070C;box-shadow:0 0 28px color-mix(in srgb,var(--accent) 40%,transparent)}
+  .hbtn.solid:hover{transform:translateY(-2px);box-shadow:0 0 44px color-mix(in srgb,var(--accent2) 55%,transparent)}
+  .hbtn.ghost{border:1px solid rgba(255,255,255,.18);color:var(--ink);background:rgba(255,255,255,.02)}
+  .hbtn.ghost:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .kh-dots{position:absolute;right:clamp(20px,4vw,46px);bottom:clamp(34px,6vh,72px);z-index:3;display:flex;flex-direction:column;gap:9px}
+  .kh-dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3);transition:.3s}
+  .kh-dots i.on{background:var(--accent);transform:scale(1.4)}
+  @media(max-width:760px){.kh-dots{display:none}}
+  /* ГЕО — дуги-перелёты между городами */
+  .fa{position:relative;aspect-ratio:1;border-radius:20px;overflow:hidden;border:1px solid var(--line);
+    background:radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--accent) 14%,transparent),transparent 60%),
+      radial-gradient(circle at 72% 80%,color-mix(in srgb,var(--accent2) 12%,transparent),transparent 55%),var(--bg2)}
+  .fa svg{position:absolute;inset:0;width:100%;height:100%}
+  .fa .base{fill:none;stroke:color-mix(in srgb,var(--ink) 16%,transparent);stroke-width:1}
+  .fa .fly{fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-dasharray:5 320;
+    filter:drop-shadow(0 0 6px var(--accent2))}
+  .fa .city{fill:var(--accent2);filter:drop-shadow(0 0 6px var(--accent2))}
+  .fa .halo{fill:none;stroke:var(--accent2);stroke-width:1.2;animation:faHalo 2.6s ease-out infinite}
+  @keyframes faHalo{0%{r:4;opacity:.6}100%{r:17;opacity:0}}
+  @keyframes faFly{to{stroke-dashoffset:-325}}
+  .fa .spike{fill:var(--accent);filter:drop-shadow(0 0 4px var(--accent))}
+  .fa .horn{stroke:var(--accent2);stroke-width:2;stroke-linecap:round;fill:none}
+  .fa .head{fill:var(--accent2);filter:drop-shadow(0 0 8px var(--accent2))}
+  .fa .eye{fill:var(--bg2)}
+  .fa-core{position:absolute;left:18px;bottom:16px;text-align:left;pointer-events:none}
+  .fa-core b{display:block;font-family:var(--display);font-weight:700;font-size:clamp(18px,2.6vw,26px);
+    background:linear-gradient(100deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .fa-core small{display:block;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+  @media(prefers-reduced-motion:reduce){.fa .fly,.fa .halo{animation:none}}
+  /* ГЕО — голографический глобус (проекция с базы) */
+  .holo{position:relative;aspect-ratio:1}
+  .holo .cone{position:absolute;left:50%;bottom:9%;transform:translateX(-50%);width:66%;height:60%;z-index:0;
+    clip-path:polygon(45% 100%,55% 100%,94% 4%,6% 4%);filter:blur(2px);opacity:.5;
+    background:linear-gradient(0deg,color-mix(in srgb,var(--accent) 32%,transparent),transparent 84%);
+    animation:holoFlick 5s ease-in-out infinite}
+  .holo .base{position:absolute;left:50%;bottom:6%;transform:translateX(-50%);width:52%;height:7%;border-radius:50%;z-index:2;
+    background:radial-gradient(ellipse at 50% 50%,color-mix(in srgb,var(--accent) 75%,#fff),color-mix(in srgb,var(--accent) 30%,transparent) 58%,transparent 76%);
+    box-shadow:0 0 36px color-mix(in srgb,var(--accent) 55%,transparent)}
+  .holo .ball{position:absolute;left:50%;top:6%;transform:translateX(-50%);width:64%;aspect-ratio:1;border-radius:50%;z-index:1;
+    overflow:hidden;perspective:600px;border:1px solid color-mix(in srgb,var(--accent) 55%,transparent);
+    background:radial-gradient(circle at 38% 32%,color-mix(in srgb,var(--accent) 22%,transparent),transparent 60%),
+      radial-gradient(circle at 50% 50%,color-mix(in srgb,var(--accent) 9%,transparent),transparent 72%);
+    box-shadow:0 0 44px color-mix(in srgb,var(--accent) 45%,transparent),inset 0 0 44px color-mix(in srgb,var(--accent) 22%,transparent);
+    animation:holoFlick 5s ease-in-out infinite}
+  .holo .ball::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:repeating-linear-gradient(0deg,rgba(255,255,255,.06) 0 1px,transparent 1px 4px)}
+  .holo .grid{position:absolute;inset:0;transform-style:preserve-3d;animation:holoSpin 18s linear infinite}
+  .holo .lon{position:absolute;inset:0;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent) 30%,transparent)}
+  .holo .lon:nth-child(1){transform:rotateY(0)}.holo .lon:nth-child(2){transform:rotateY(36deg)}
+  .holo .lon:nth-child(3){transform:rotateY(72deg)}.holo .lon:nth-child(4){transform:rotateY(108deg)}
+  .holo .lon:nth-child(5){transform:rotateY(144deg)}
+  @keyframes holoSpin{to{transform:rotateY(360deg)}}
+  @keyframes holoFlick{0%,100%{opacity:1}47%{opacity:.94}49%{opacity:.8}51%{opacity:.96}}
+  .holo .ping{position:absolute;z-index:3;width:7px;height:7px;border-radius:50%;background:var(--accent2);
+    box-shadow:0 0 10px var(--accent2);transform:translate(-50%,-50%);animation:holoBlink 4s ease-in-out infinite}
+  .holo .ping.near{width:11px;height:11px;background:#eafcff;box-shadow:0 0 16px var(--accent2),0 0 4px #fff}
+  .holo .ping.far{width:5px;height:5px;filter:blur(.6px);animation:holoBlinkFar 5s ease-in-out infinite}
+  .holo .ping::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1px solid var(--accent2);animation:holoPing 2.6s ease-out infinite}
+  .holo .ping.far::after{display:none}
+  @keyframes holoPing{0%{transform:scale(.6);opacity:.9}100%{transform:scale(2.6);opacity:0}}
+  @keyframes holoBlink{0%,100%{opacity:.3;transform:translate(-50%,-50%) scale(.85)}50%{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+  @keyframes holoBlinkFar{0%,100%{opacity:.12;transform:translate(-50%,-50%) scale(.8)}50%{opacity:.5;transform:translate(-50%,-50%) scale(.95)}}
+  .holo-core{position:absolute;left:0;right:0;bottom:-2%;text-align:center;z-index:3}
+  .holo-core b{font-family:var(--display);font-weight:700;font-size:clamp(18px,2.6vw,26px);
+    background:linear-gradient(100deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .holo-core small{display:block;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+  @media(prefers-reduced-motion:reduce){.holo .cone,.holo .ball,.holo .grid,.holo .ping::after{animation:none}}
+</style>
+</head>
+<body>
+
+<div id="sky"></div>
+<div id="embers" aria-hidden="true"></div>
+<div id="prog"></div>
+<div class="spine" id="spine" aria-hidden="true"><div class="spine__track"></div><div class="spine__fill" id="spineFill"></div></div>
+
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="#top"><img src="../assets/Logo_final.png" alt="Steam Show"><span class="nm">Steam Show</span></a>
+    <nav class="menu"><a href="#" onclick="SSDetail.open('dragon',this);return false;">Dragon</a><a href="#" onclick="SSDetail.open('fire',this);return false;">Fire</a><a href="#" onclick="SSDetail.open('ledfire',this);return false;">LED Fire</a><a href="#" onclick="SSDetail.open('led',this);return false;">LED</a><a href="#" onclick="SSDetail.open('stilts',this);return false;">Stilts</a><a href="#contact">Contact</a></nav>
+    <a class="nav-cta" href="#contact">Book the show</a>
+    <button class="nav-toggle" id="navBtn" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<main id="top">
+  <header class="kh">
+    <div class="kh-bg" id="khBg"></div>
+    <div class="kh-dots" id="khDots"></div>
+    <div class="kh-in">
+      <div class="kh-eyebrow"><span class="dot"></span> Live · Fire · Light</div>
+      <h1><span class="we glitch" data-t="We bring">We bring</span><span class="rotator" id="rotator"></span></h1>
+      <div class="kh-foot">
+        <p>A touring spectacle of LED choreography, live fire and a fire-breathing mechanical dragon — engineered to light up festivals and arenas anywhere on earth.</p>
+        <div class="kh-cta">
+          <a class="hbtn solid" href="#contact">Book the show →</a>
+          <a class="hbtn ghost" href="#programs">See the programs</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="ticker" aria-hidden="true"><div class="tt">
+    <b>Dragon fire</b><b>LED couture</b><b>Stilt giants</b><b>Pyrotechnics</b><b>Flame cannons</b><b>Flamethrowers</b><b>Fire cubes</b><b>Fire hearts</b><b>Paper show</b><b>Confetti</b>
+    <b>Dragon fire</b><b>LED couture</b><b>Stilt giants</b><b>Pyrotechnics</b><b>Flame cannons</b><b>Flamethrowers</b><b>Fire cubes</b><b>Fire hearts</b><b>Paper show</b><b>Confetti</b>
+  </div></div>
+
+  <!-- ПРОГРАММЫ — BENTO (как pitch2): 1 крупная + 4 -->
+  <section id="programs" data-spine>
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="kicker">Our Shows</span>
+        <h2>Our shows.</h2>
+        <p>Все пять на одном экране, флагман — крупнее. Название и теги читаются сразу, кнопка View more открывает галерею.</p></div>
+      <div data-cards="bento" data-media="static"></div>
+    </div>
+  </section>
+
+  <!-- HOW WE WORK -->
+  <section id="howwe" data-spine>
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="kicker">How we work</span>
+        <h2>Our shows. <span class="grad-text">Your stage</span>.</h2>
+        <p>Five signature shows, ready to book and tour — we bring our own crew, costumes and equipment. For large-scale events we can also build something bespoke, on request.</p></div>
+      <div class="howwe-grid" data-stagger>
+        <div class="hw-card reveal"><span class="n">01</span><h4>Made in-house</h4>
+          <p>Every costume and prop is designed and built in our own workshop — full control over quality and look.</p></div>
+        <div class="hw-card reveal"><span class="n">02</span><h4>Adaptable</h4>
+          <p>Each show flexes to your venue, theme, timing and audience — indoor or outdoor, tuned to your run of show.</p></div>
+        <div class="hw-card reveal"><span class="n">03</span><h4>Custom on request</h4>
+          <p>For large-scale events we can develop bespoke costumes and concepts — an optional add-on, built to your brief.</p></div>
+        <div class="hw-card reveal"><span class="n">04</span><h4>Touring</h4>
+          <p>We travel worldwide with our own crew and equipment — ready wherever the stage is.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="world" data-spine>
+    <div class="wrap geo-grid">
+      <div class="reveal from-left">
+        <span class="kicker">On tour</span>
+        <h2 style="font-size:clamp(32px,5.5vw,58px);line-height:1.02;margin-bottom:16px">Performed <span class="grad-text">worldwide</span>.</h2>
+        <p style="color:var(--muted);font-size:17px;margin:0 0 26px">A road-tested touring crew with full kit logistics. We bring the rig, the safety and the show to your venue.</p>
+        <div class="geo-list">
+          <span class="geo-pill">UAE</span><span class="geo-pill">Qatar</span><span class="geo-pill">Oman</span>
+          <span class="geo-pill">Jordan</span><span class="geo-pill">Saudi Arabia</span><span class="geo-pill">Turkey</span>
+          <span class="geo-pill">Egypt</span><span class="geo-pill">Cyprus</span><span class="geo-pill world">+ Europe &amp; beyond</span>
+        </div>
+      </div>
+      <div class="reveal from-right"><div class="holo">
+        <span class="cone"></span>
+        <div class="ball">
+          <div class="grid"><span class="lon"></span><span class="lon"></span><span class="lon"></span><span class="lon"></span><span class="lon"></span></div>
+          <span class="ping near" style="top:48%;left:46%"></span>
+          <span class="ping" style="top:38%;left:60%;animation-delay:.6s"></span>
+          <span class="ping" style="top:58%;left:54%;animation-delay:1.2s"></span>
+          <span class="ping near" style="top:62%;left:40%;animation-delay:1.8s"></span>
+          <span class="ping" style="top:44%;left:70%;animation-delay:.9s"></span>
+          <span class="ping far" style="top:28%;left:34%;animation-delay:.3s"></span>
+          <span class="ping far" style="top:30%;left:72%;animation-delay:1.5s"></span>
+          <span class="ping far" style="top:70%;left:30%;animation-delay:2.1s"></span>
+          <span class="ping far" style="top:72%;left:66%;animation-delay:.7s"></span>
+          <span class="ping" style="top:52%;left:64%;animation-delay:2.4s"></span>
+        </div>
+        <span class="base"></span>
+        <div class="holo-core"><b>WORLDWIDE</b><small>live network</small></div>
+      </div></div>
+    </div>
+    <!-- SELECTED STAGES -->
+    <div class="wrap"><div class="stages reveal">
+      <span class="kicker">Selected stages</span>
+      <div class="evlist">
+        <span>Annotopia</span><span>Elfia</span><span>Medieval Cyprus Festival</span><span>Jeddah Season</span><span>Lestival</span>
+      </div>
+    </div></div>
+
+    <div class="wrap"><div class="stats reveal">
+      <div class="s"><b>12+</b><span>Years on stage</span></div>
+      <div class="s"><b>20+</b><span>Countries</span></div>
+      <div class="s"><b>5</b><span>Programs</span></div>
+      <div class="s"><b>100+</b><span>Costumes</span></div>
+    </div></div>
+  </section>
+
+  <section id="contact" data-spine>
+    <div class="wrap"><div class="contact-card reveal"><div class="contact-in">
+      <span class="kicker" style="justify-content:center">Book the Steam Show</span>
+      <h2>Book the <span class="grad-text">Steam Show</span>.</h2>
+      <p>Tell us the venue, the date and the vibe. We'll design a fire-and-light run that fits your stage and your crowd.</p>
+      <div class="channels">
+        <a class="ch" href="#"><span class="chic" data-ic="instagram"></span><span class="lbl">Instagram</span><span class="val">@steamshow</span><span class="arrow2">Follow →</span></a>
+        <a class="ch" href="mailto:hello@steamshow.com"><span class="chic" data-ic="email"></span><span class="lbl">Email</span><span class="val">hello@steamshow</span><span class="arrow2">Write →</span></a>
+        <a class="ch" href="#"><span class="chic" data-ic="whatsapp"></span><span class="lbl">WhatsApp · Telegram</span><span class="val">Message us</span><span class="arrow2">Chat →</span></a>
+        <a class="ch" href="https://www.youtube.com/@SteamShowby" target="_blank" rel="noopener"><span class="chic" data-ic="youtube"></span><span class="lbl">YouTube</span><span class="val">@SteamShowby</span><span class="arrow2">Watch →</span></a>
+      </div>
+    </div></div></div>
+  </section>
+</main>
+
+<footer class="foot"><div class="wrap foot-in">
+  <div style="display:flex;align-items:center;gap:12px"><img src="../assets/Logo_final.png" alt="Steam Show"><span>Steam Show — Fire · LED · Dragons</span></div>
+  <div>© <span id="yr"></span> Steam Show — Kinetic · accordion</div>
+</div></footer>
+
+<script src="media.js"></script>
+<script src="lib.js"></script>
+<script>window.SS_THEME='kinetic';</script>
+<script src="detail.js"></script>
+<script src="parts.js"></script>
+<script src="cards.js"></script>
+<script>
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var pools=SS.ORDER.map(function(id){return (SS.data(id).photos||[]).slice();}),pics=[];
+  for(var r=0;r<6;r++){pools.forEach(function(p){if(p[r])pics.push(p[r]);});}
+  if(!pics.length)pics=[SS.cover(SS.ORDER[0])];
+  var bg=document.getElementById('khBg'),dotsBox=document.getElementById('khDots'),max=Math.min(pics.length,8),slides=[];
+  for(var i=0;i<max;i++){var s=document.createElement('div');s.className='slide'+(i===0?' on':'');
+    s.style.backgroundImage='url("'+pics[i]+'")';bg.appendChild(s);slides.push(s);
+    var d=document.createElement('i');if(i===0)d.classList.add('on');dotsBox.appendChild(d);var im=new Image();im.src=pics[i];}
+  var dots=dotsBox.querySelectorAll('i'),cur=0;
+  function show(n){slides[cur].classList.remove('on');if(dots[cur])dots[cur].classList.remove('on');cur=n;
+    slides[cur].classList.add('on');if(dots[cur])dots[cur].classList.add('on');}
+  if(!reduce&&slides.length>1)setInterval(function(){show((cur+1)%slides.length);},3500);
+
+  var words=['Dragons.','Fire.','LED.','Giants.','the Light.'],rot=document.getElementById('rotator');
+  var spans=words.map(function(w,idx){var e=document.createElement('span');e.className='word'+(idx===0?' on':'');e.textContent=w;rot.appendChild(e);return e;});
+  rot.style.minWidth=Math.max.apply(null,words.map(function(w){return w.length;}))*0.6+'em';
+  var wi=0;
+  if(!reduce)setInterval(function(){spans[wi].classList.remove('on');spans[wi].classList.add('out');
+    var p=wi;wi=(wi+1)%spans.length;spans[wi].classList.remove('out');spans[wi].classList.add('on');
+    (function(pp){setTimeout(function(){spans[pp].classList.remove('out');},600);})(p);},2200);
+})();
+</script>
+</body>
+</html>
