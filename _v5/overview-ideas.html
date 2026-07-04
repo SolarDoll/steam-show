@@ -94,6 +94,64 @@
   @media(max-width:900px){.vC .tiles{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:460px){.vC .tiles{grid-template-columns:1fr}}
 
+  /* ============================================================
+     Компактные варианты «быстрого меню» БЕЗ пилюль
+     ============================================================ */
+
+  /* ----- D — «Строка с искрами»: имена через светящиеся точки (в одну строку) ----- */
+  .vD .run{display:flex;flex-wrap:wrap;align-items:center;gap:2px 0}
+  .vD .run a{font-family:var(--display);text-transform:uppercase;letter-spacing:.02em;
+    font-size:clamp(1.15rem,2.7vw,2rem);line-height:1.1;color:var(--text);
+    display:inline-flex;align-items:center;cursor:pointer;transition:.28s;--c:var(--fire)}
+  .vD .run a:hover{color:var(--c);text-shadow:0 0 22px var(--c)}
+  .vD .run a::after{content:"";width:7px;height:7px;border-radius:50%;background:var(--c);
+    box-shadow:0 0 12px var(--c);margin:0 clamp(14px,2.4vw,26px);flex:none}
+  .vD .run a:last-child::after{display:none}
+
+  /* ----- E — «Сегментированная лента»: единая полоса, поделённая на 5 сегментов ----- */
+  .vE .seg{display:grid;grid-template-columns:repeat(5,1fr);
+    border:1px solid var(--line-2);border-radius:14px;overflow:hidden;background:rgba(20,13,18,.4)}
+  .vE .seg a{position:relative;padding:20px 18px 18px;cursor:pointer;transition:.3s;--c:var(--fire);
+    border-left:1px solid var(--line-2)}
+  .vE .seg a:first-child{border-left:none}
+  .vE .seg a::before{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;
+    background:var(--c);transform:scaleX(0);transform-origin:left;transition:.35s var(--ease)}
+  .vE .seg a:hover{background:color-mix(in srgb,var(--c) 9%,transparent)}
+  .vE .seg a:hover::before{transform:scaleX(1)}
+  .vE .seg .cn{font-family:var(--display);font-size:1rem;color:var(--c);opacity:.8}
+  .vE .seg .cnm{display:block;margin-top:10px;font-family:var(--display);text-transform:uppercase;
+    font-size:1.12rem;line-height:.98;letter-spacing:.01em}
+  .vE .seg .cd{display:block;margin-top:6px;color:var(--muted);font-size:.76rem}
+  @media(max-width:720px){.vE .seg{grid-template-columns:1fr;border-radius:12px}
+    .vE .seg a{border-left:none;border-top:1px solid var(--line-2)}
+    .vE .seg a:first-child{border-top:none}
+    .vE .seg a::before{top:0;bottom:auto;left:0;width:3px;height:auto;transform:scaleY(0);transform-origin:top}
+    .vE .seg a:hover::before{transform:scaleY(1)}}
+
+  /* ----- F — «Подчёркнутые табы»: имена в строке с тонким акцентным подчёркиванием ----- */
+  .vF .tabs{display:flex;flex-wrap:wrap;gap:clamp(20px,4vw,44px);align-items:baseline}
+  .vF .tabs a{position:relative;cursor:pointer;padding-bottom:12px;--c:var(--fire);transition:.28s}
+  .vF .tabs a .cnm{font-family:var(--display);text-transform:uppercase;
+    font-size:clamp(1.2rem,2.8vw,2rem);line-height:1;letter-spacing:.01em;transition:.28s}
+  .vF .tabs a .cn{position:absolute;top:-8px;right:-14px;font-family:var(--display);
+    font-size:.7rem;color:var(--faint);transition:.28s}
+  .vF .tabs a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
+    background:var(--c);transform:scaleX(.28);transform-origin:left;opacity:.5;transition:.3s var(--ease)}
+  .vF .tabs a:hover{color:var(--c)}
+  .vF .tabs a:hover::after{transform:scaleX(1);opacity:1;box-shadow:0 0 14px var(--c)}
+  .vF .tabs a:hover .cn{color:var(--c)}
+
+  /* ----- G — «Строка-каунтер»: имя + микро-счётчик масштаба, минимальная строка ----- */
+  .vG .cnt{display:flex;flex-wrap:wrap;gap:0}
+  .vG .cnt a{display:inline-flex;align-items:baseline;gap:10px;cursor:pointer;--c:var(--fire);
+    padding:8px 0;transition:.26s}
+  .vG .cnt a .cnm{font-family:var(--display);text-transform:uppercase;
+    font-size:clamp(1.1rem,2.4vw,1.7rem);line-height:1;transition:.26s}
+  .vG .cnt a .cv{font-size:.82rem;color:var(--c);font-weight:600;white-space:nowrap}
+  .vG .cnt a:hover .cnm{color:var(--c);text-shadow:0 0 18px var(--c)}
+  .vG .cnt a::after{content:"/";margin:0 clamp(16px,2.6vw,30px);color:var(--faint);align-self:center}
+  .vG .cnt a:last-child::after{display:none}
+
   /* ===== копия PROGRAMS из kinetic-full — «как сейчас», цель для якорей ===== */
   .prog-list{margin-top:8px}
   .row{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,64px);align-items:center;
@@ -132,7 +190,7 @@
   <div class="nav-in">
     <a class="brand" href="kinetic-full.html">Steam&nbsp;Show</a>
     <nav class="nav-links">
-      <a href="#optA">Idea 1</a><a href="#optB">Idea 2</a><a href="#optC">Idea 3</a><a href="#programs">Programs</a>
+      <a href="#optB">Pills</a><a href="#optD">Sparks</a><a href="#optE">Segments</a><a href="#optF">Tabs</a><a href="#optG">Counter</a><a href="#programs">Programs</a>
     </nav>
     <a class="nav-cta" href="kinetic-full.html">← Back to layout</a>
   </div>
@@ -179,6 +237,78 @@
         <a class="chip" style="--c:var(--gold)"  onclick="jump('p-stilts');return false;"><span class="dot"></span><span class="cnm">Stilt Walkers</span><span class="cn">05</span></a>
       </div>
       <div class="foot"><span>5 shows</span><span class="bar"></span><span>scroll for details ↓</span></div>
+    </div>
+  </section>
+
+  <!-- ============ ВАРИАНТ D — строка с искрами ============ -->
+  <div class="opt-tag" id="optD">
+    <span class="pill">Idea 2 · A</span>
+    <b>Строка с искрами</b>
+    <span class="cap">Имена шоу в одну строку через светящиеся точки — приём уже живёт в блоке Selected stages. Максимально компактно и «фирменно», крупная типографика.</span>
+  </div>
+  <section class="ov">
+    <div class="vD">
+      <div class="run">
+        <a style="--c:var(--fire)"  onclick="jump('p-dragon');return false;">Dragon Fire</a>
+        <a style="--c:var(--ember)" onclick="jump('p-fire');return false;">Fire Show</a>
+        <a style="--c:var(--cool)"  onclick="jump('p-ledfire');return false;">LED Fire</a>
+        <a style="--c:var(--cool)"  onclick="jump('p-led');return false;">LED Show</a>
+        <a style="--c:var(--gold)"  onclick="jump('p-stilts');return false;">Stilt Walkers</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ВАРИАНТ E — сегментированная лента ============ -->
+  <div class="opt-tag" id="optE">
+    <span class="pill">Idea 2 · B</span>
+    <b>Сегментированная лента</b>
+    <span class="cap">Единая полоса, поделённая на 5 сегментов — как навигация. Компактно, но помещается номер, имя и пара слов сути. Акцент-полоска снизу на ховере.</span>
+  </div>
+  <section class="ov">
+    <div class="vE">
+      <div class="seg">
+        <a style="--c:var(--fire)"  onclick="jump('p-dragon');return false;"><span class="cn">01</span><span class="cnm">Dragon Fire</span><span class="cd">Signature act</span></a>
+        <a style="--c:var(--ember)" onclick="jump('p-fire');return false;"><span class="cn">02</span><span class="cnm">Fire Show</span><span class="cd">Fire choreography</span></a>
+        <a style="--c:var(--cool)"  onclick="jump('p-ledfire');return false;"><span class="cn">03</span><span class="cnm">LED Fire</span><span class="cd">Glow + flame</span></a>
+        <a style="--c:var(--cool)"  onclick="jump('p-led');return false;"><span class="cn">04</span><span class="cnm">LED Show</span><span class="cd">Pure light</span></a>
+        <a style="--c:var(--gold)"  onclick="jump('p-stilts');return false;"><span class="cn">05</span><span class="cnm">Stilt Walkers</span><span class="cd">Towering chars</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ВАРИАНТ F — подчёркнутые табы ============ -->
+  <div class="opt-tag" id="optF">
+    <span class="pill">Idea 2 · C</span>
+    <b>Подчёркнутые табы</b>
+    <span class="cap">Имена в ряд с тонким акцентным подчёркиванием и мелким номером-надстрочником. Очень «редакционно» и легко — ничего лишнего, только строка названий.</span>
+  </div>
+  <section class="ov">
+    <div class="vF">
+      <div class="tabs">
+        <a style="--c:var(--fire)"  onclick="jump('p-dragon');return false;"><span class="cn">01</span><span class="cnm">Dragon Fire</span></a>
+        <a style="--c:var(--ember)" onclick="jump('p-fire');return false;"><span class="cn">02</span><span class="cnm">Fire Show</span></a>
+        <a style="--c:var(--cool)"  onclick="jump('p-ledfire');return false;"><span class="cn">03</span><span class="cnm">LED Fire</span></a>
+        <a style="--c:var(--cool)"  onclick="jump('p-led');return false;"><span class="cn">04</span><span class="cnm">LED Show</span></a>
+        <a style="--c:var(--gold)"  onclick="jump('p-stilts');return false;"><span class="cn">05</span><span class="cnm">Stilt Walkers</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ВАРИАНТ G — строка-каунтер ============ -->
+  <div class="opt-tag" id="optG">
+    <span class="pill">Idea 2 · D</span>
+    <b>Строка-каунтер</b>
+    <span class="cap">Имя + микро-счётчик масштаба (dozens of costumes, 3 worlds…). Компактная строка, которая заодно продаёт объём — цифры работают лучше слов.</span>
+  </div>
+  <section class="ov">
+    <div class="vG">
+      <div class="cnt">
+        <a style="--c:var(--fire)"  onclick="jump('p-dragon');return false;"><span class="cnm">Dragon Fire</span><span class="cv">signature</span></a>
+        <a style="--c:var(--ember)" onclick="jump('p-fire');return false;"><span class="cnm">Fire Show</span><span class="cv">3 worlds</span></a>
+        <a style="--c:var(--cool)"  onclick="jump('p-ledfire');return false;"><span class="cnm">LED Fire</span><span class="cv">glow + flame</span></a>
+        <a style="--c:var(--cool)"  onclick="jump('p-led');return false;"><span class="cnm">LED Show</span><span class="cv">many looks</span></a>
+        <a style="--c:var(--gold)"  onclick="jump('p-stilts');return false;"><span class="cnm">Stilt Walkers</span><span class="cv">dozens of costumes</span></a>
+      </div>
     </div>
   </section>
 
