@@ -235,7 +235,7 @@
   .prog-list{margin-top:8px}
   .row{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,64px);align-items:center;padding:clamp(30px,5vh,56px) 0;border-top:1px solid var(--line);scroll-margin-top:90px}
   .row .media{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:16/11;background:#0a0509;cursor:pointer}
-  .row .media video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .9s ease}
+  .row .media video{width:100%;height:100%;object-fit:cover;display:block;opacity:1;transition:transform .9s ease}
   .row .media:hover video{transform:scale(1.04)}
   .row .media::after{content:"";position:absolute;inset:0;border:1px solid rgba(255,255,255,.10);border-radius:18px;pointer-events:none;box-shadow:inset 0 0 90px rgba(0,0,0,.5)}
   .row .media .num{position:absolute;top:16px;left:18px;font-family:var(--display);font-size:54px;line-height:1;color:transparent;-webkit-text-stroke:1.5px var(--ac);z-index:2;opacity:.92}
@@ -253,7 +253,7 @@
   .row .copy .tags li{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;padding:8px 14px;border-radius:100px;border:1px solid var(--line);color:var(--ink);background:rgba(255,255,255,.03)}
   .row .copy .open{margin-top:28px;display:inline-flex;align-items:center;gap:10px;cursor:pointer;border:none;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;padding:14px 26px;border-radius:100px;background:var(--ac);color:#160b06;transition:.25s}
   .row .copy .open:hover{transform:translateY(-2px);gap:16px;box-shadow:0 14px 34px -12px var(--ac)}
-  .row .copy .open .arrow{font-size:17px;line-height:1}
+  .row .copy .open .ar{font-size:17px;line-height:1}
   @media(max-width:880px){.row,.row.alt{grid-template-columns:1fr;gap:24px}.row.alt .media,.row.alt .copy{order:0}}
 </style>
 </head>
@@ -327,7 +327,7 @@
             <p class="desc">Our signature act — a colossal, flame-breathing dragon built from fire, smoke and light. Scales from intimate galas to festival main stages.</p>
             <ul class="specs"><li><span class="sk">Format</span><span class="sv">Outdoor</span></li><li><span class="sk">Duration</span><span class="sv">10–15 min · adaptable</span></li><li><span class="sk">Cast</span><span class="sv">Scalable</span></li></ul>
             <ul class="tags"><li>Headline act</li><li>Large-scale fire</li></ul>
-            <button class="open" data-prog="dragon">View more <span class="arrow">→</span></button>
+            <button class="open" data-prog="dragon">View more <span class="ar">→</span></button>
           </div>
         </div>
         <div class="row alt reveal" id="p-fire" style="--ac:var(--c-fire)">
@@ -341,7 +341,7 @@
             <p class="desc">Large-scale fire choreography in three visual worlds — fantasy, post-apocalyptic and rock — tailored to your event.</p>
             <ul class="specs"><li><span class="sk">Format</span><span class="sv">Outdoor</span></li><li><span class="sk">Duration</span><span class="sv">10–15 min</span></li><li><span class="sk">Style</span><span class="sv">Your choice</span></li></ul>
             <ul class="tags"><li>Your chosen style</li></ul>
-            <button class="open" data-prog="fire">View more <span class="arrow">→</span></button>
+            <button class="open" data-prog="fire">View more <span class="ar">→</span></button>
           </div>
         </div>
         <div class="row reveal" id="p-ledfire" style="--ac:var(--c-ledfire)">
@@ -355,7 +355,7 @@
             <p class="desc">The best of both — live fire performed in glowing LED costumes. The heat of fire with the colour of light.</p>
             <ul class="specs"><li><span class="sk">Format</span><span class="sv">Outdoor</span></li><li><span class="sk">Duration</span><span class="sv">10–15 min</span></li><li><span class="sk">Look</span><span class="sv">Light + fire</span></li></ul>
             <ul class="tags"><li>Light + real fire</li></ul>
-            <button class="open" data-prog="ledfire">View more <span class="arrow">→</span></button>
+            <button class="open" data-prog="ledfire">View more <span class="ar">→</span></button>
           </div>
         </div>
         <div class="row alt reveal" id="p-led" style="--ac:var(--c-led)">
@@ -369,7 +369,7 @@
             <p class="desc">A fully luminous, smoke-free spectacle. Deep catalogue of LED costumes — pick the looks that fit your venue.</p>
             <ul class="specs"><li><span class="sk">Format</span><span class="sv">Indoor &amp; outdoor</span></li><li><span class="sk">Duration</span><span class="sv">10–15 min</span></li><li><span class="sk">Looks</span><span class="sv">Many</span></li></ul>
             <ul class="tags"><li>Many looks</li></ul>
-            <button class="open" data-prog="led">View more <span class="arrow">→</span></button>
+            <button class="open" data-prog="led">View more <span class="ar">→</span></button>
           </div>
         </div>
         <div class="row reveal" id="p-stilts" style="--ac:var(--c-stilts)">
@@ -383,7 +383,7 @@
             <p class="desc">A wardrobe of towering characters, as roaming animation or a full stilt performance.</p>
             <ul class="specs"><li><span class="sk">Format</span><span class="sv">Indoor &amp; outdoor</span></li><li><span class="sk">Mode</span><span class="sv">Roaming or set</span></li><li><span class="sk">Costumes</span><span class="sv">Dozens</span></li></ul>
             <ul class="tags"><li>Dozens of costumes</li></ul>
-            <button class="open" data-prog="stilts">View more <span class="arrow">→</span></button>
+            <button class="open" data-prog="stilts">View more <span class="ar">→</span></button>
           </div>
         </div>
       </div>
