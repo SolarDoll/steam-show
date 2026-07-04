@@ -1,0 +1,92 @@
+/* ============================================================
+   STEAM SHOW — tilt-ряд карточек + разворот «Модель 1 · Full»
+   Выжимка из _pitch5/tilt-lab.css: только tilt-row, FLIP-панель
+   (с iframe show-detail) и лайтбокс. Без глобальных :root/body —
+   чтобы не перетирать палитру страницы-носителя (hybrid2).
+   ============================================================ */
+:root{ --line2:rgba(255,255,255,.18); --panel:#15101e; }
+
+/* ---------- TILT-РЯД ---------- */
+.tilt-row{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;align-items:center;padding:26px 0}
+.tcard{position:relative;aspect-ratio:3/4.4;border-radius:16px;overflow:hidden;cursor:pointer;
+  background:#000;border:1px solid var(--line);
+  transform:translateY(28px) rotate(-1.6deg);opacity:0;
+  transition:transform .5s cubic-bezier(.2,.7,.2,1),opacity .5s,box-shadow .35s;
+  --c:var(--accent)}
+.tcard:nth-child(even){transform:translateY(-12px) rotate(1.2deg)}
+.tcard.in{opacity:1}
+.tcard.in:nth-child(odd){transform:translateY(26px) rotate(-1.6deg)}
+.tcard.in:nth-child(even){transform:translateY(-12px) rotate(1.2deg)}
+.tcard:hover{transform:translateY(0) rotate(0) scale(1.05)!important;z-index:5;
+  box-shadow:0 24px 60px -22px var(--c)}
+.tcard .ph{position:absolute;inset:0}
+.tcard .ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+.tcard:hover .ph img{transform:scale(1.06)}
+.tcard .grad{position:absolute;inset:0;background:
+  linear-gradient(180deg,rgba(8,8,12,.05) 36%,rgba(8,8,12,.55) 70%,rgba(8,8,12,.92) 100%)}
+.tcard .top{position:absolute;top:12px;left:12px;right:12px;display:flex;justify-content:space-between;
+  align-items:flex-start;gap:8px}
+.tcard .num{font-family:var(--display);font-size:22px;line-height:.8;color:#fff;opacity:.92;
+  text-shadow:0 2px 12px rgba(0,0,0,.5)}
+.tcard .type{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#fff;
+  background:rgba(0,0,0,.4);backdrop-filter:blur(5px);padding:5px 9px;border-radius:100px;text-align:right}
+.tcard .info{position:absolute;left:14px;right:14px;bottom:14px}
+.tcard .info h3{font-family:var(--display);font-weight:400;text-transform:uppercase;
+  font-size:clamp(16px,1.5vw,21px);line-height:.98;margin:0 0 8px;letter-spacing:.01em}
+.tcard .tags{list-style:none;display:flex;flex-wrap:wrap;gap:5px;margin:0;padding:0}
+.tcard .tags li{font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink);
+  border:1px solid var(--line2);border-radius:100px;padding:3px 8px;background:rgba(0,0,0,.25)}
+.tcard .vm{margin-top:10px;display:inline-flex;align-items:center;gap:6px;font:700 11px/1 var(--body);
+  letter-spacing:.04em;color:#10070a;background:var(--c);border:none;border-radius:100px;
+  padding:8px 13px;cursor:pointer;opacity:0;transform:translateY(6px);transition:.3s}
+.tcard:hover .vm{opacity:1;transform:none}
+
+@media(max-width:980px){
+  .tilt-row{grid-template-columns:repeat(2,1fr)}
+  .tcard,.tcard.in:nth-child(odd),.tcard.in:nth-child(even){transform:none}
+  .tcard.in{transform:none}
+  .tcard .vm{opacity:1;transform:none}
+}
+@media(max-width:520px){.tilt-row{grid-template-columns:1fr}}
+
+/* ---------- FLIP: карточка вырастает в большую панель ---------- */
+.tl-scrim{position:fixed;inset:0;z-index:80;background:rgba(5,5,9,.78);
+  backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:opacity .45s}
+.tl-scrim.on{opacity:1;visibility:visible}
+
+.exp-panel{position:fixed;z-index:90;left:0;top:0;transform-origin:0 0;
+  width:min(1080px,94vw);height:min(88vh,860px);border-radius:22px;overflow:hidden;
+  background:var(--panel);border:1px solid var(--line2);visibility:hidden;
+  box-shadow:0 40px 120px -30px #000;will-change:transform}
+.exp-panel.show{visibility:visible}
+.exp-panel.animating{transition:transform .5s cubic-bezier(.22,.65,.2,1)}
+.exp-x{position:absolute;top:16px;right:18px;z-index:3;width:42px;height:42px;border-radius:50%;
+  border:1px solid var(--line2);background:rgba(0,0,0,.4);backdrop-filter:blur(6px);
+  color:#fff;font-size:22px;line-height:1;cursor:pointer}
+.exp-x:hover{background:var(--c,#fff);color:#10070a;border-color:transparent}
+
+/* fade соседних карточек при открытии */
+.tilt-row.dim .tcard:not(.is-open){opacity:.28;filter:saturate(.6)}
+
+/* МОДЕЛЬ FULL — show-detail во весь объём растущей панели */
+.exp-panel.is-full{width:min(1200px,96vw);height:min(94vh,1040px)}
+.exp-frame{width:100%;height:100%;border:0;display:block;background:var(--bg)}
+.exp-panel.is-full .exp-x{top:12px;right:14px}
+
+/* ---------- лайтбокс (нужен tilt-lab.js: buildLB) ---------- */
+.tl-lb{position:fixed;inset:0;z-index:200;background:rgba(4,3,5,.95);backdrop-filter:blur(10px);
+  display:none;align-items:center;justify-content:center;padding:40px}
+.tl-lb.on{display:flex}
+.tl-lb .bx{width:min(1100px,100%)}
+.tl-lb .stage{aspect-ratio:16/10;border-radius:14px;overflow:hidden;background:#000}
+.tl-lb .stage img{width:100%;height:100%;object-fit:contain}
+.tl-lb .stage iframe{width:100%;height:100%;border:0}
+.tl-lb .cap{display:flex;justify-content:space-between;margin-top:14px;font-size:13px;color:var(--muted)}
+.tl-x{position:absolute;top:18px;right:22px;font-size:30px;color:#fff;cursor:pointer;background:none;border:none}
+.tl-arr{position:absolute;top:50%;transform:translateY(-50%);font-size:40px;color:rgba(255,255,255,.7);
+  cursor:pointer;background:none;border:none;padding:18px}
+.tl-arr.l{left:8px}.tl-arr.r{right:8px}.tl-arr:hover{color:#fff}
+
+@media(prefers-reduced-motion:reduce){
+  .tcard{transform:none!important;opacity:1!important}
+}
