@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steam Show — Jump-nav lab (3 варианта навигации по шоу)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0712; --bg2:#15101e; --ink:#f5eff7; --muted:#a89fb0;
+    --line:rgba(255,255,255,.11);
+    --accent:#FF6A1F; --accent2:#FFD23E; --accent3:#FF2E84; --cool:#25F4EE;
+    --c-dragon:#FF6A1F; --c-fire:#FFD23E; --c-ledfire:#FF2E84; --c-led:#25F4EE; --c-stilts:#FF6A1F;
+    --display:"Anton",Impact,sans-serif; --body:"Manrope",system-ui,sans-serif;
+    --maxw:1200px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:
+      radial-gradient(120% 80% at 80% -10%,rgba(255,46,132,.10),transparent 55%),
+      radial-gradient(100% 70% at 0% 110%,rgba(37,244,238,.08),transparent 55%),
+      var(--bg);
+    color:var(--ink);font-family:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased;
+    min-height:100vh;padding-bottom:120px}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;position:relative}
+
+  /* --- шапка лаборатории --- */
+  .labbar{padding:22px 0;border-bottom:1px solid var(--line);margin-bottom:60px;
+    font:800 12px/1 var(--body);letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+  .labbar b{color:var(--accent2)}
+
+  /* --- реальная шапка секции Our Shows (как в макете) --- */
+  .kicker{display:inline-flex;align-items:center;gap:10px;color:var(--accent);
+    font-size:.72rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase}
+  .kicker::before{content:"";width:34px;height:1px;background:var(--accent)}
+  .howwe-big{font-family:var(--display);text-transform:uppercase;font-weight:400;white-space:nowrap;
+    font-size:clamp(30px,6.2vw,92px);line-height:.9;margin:14px 0 0;letter-spacing:.01em}
+  .grad{background:linear-gradient(100deg,var(--accent),var(--accent3),var(--accent));
+    background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:hue 9s linear infinite}
+  @keyframes hue{to{background-position:200% 0}}
+  .lead{margin-top:20px;color:var(--muted);max-width:52ch}
+
+  /* --- разделитель между вариантами --- */
+  .variant{margin-top:96px;padding-top:0}
+  .variant__tag{display:flex;align-items:baseline;gap:16px;margin-bottom:30px;flex-wrap:wrap}
+  .variant__tag .vn{font-family:var(--display);font-size:clamp(28px,5vw,46px);color:transparent;
+    -webkit-text-stroke:1.4px var(--accent2)}
+  .variant__tag .vt{font:800 13px/1 var(--body);letter-spacing:.22em;text-transform:uppercase;color:var(--ink)}
+  .variant__tag .vd{font-size:13.5px;color:var(--muted);flex:1;min-width:240px;line-height:1.5}
+
+  /* общий label над навигациями */
+  .navlbl{font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);
+    margin-bottom:22px;display:block}
+
+  /* ============================================================
+     ВАРИАНТ A — КОНТУРНЫЙ ANTON (outline → заливка при hover/active)
+     ============================================================ */
+  .navA{border-top:1px solid var(--line);padding-top:26px}
+  .navA .tabs{display:flex;flex-wrap:wrap;gap:clamp(22px,4.5vw,54px);align-items:baseline}
+  .navA .tabs a{position:relative;cursor:pointer;--c:var(--accent);transition:.3s}
+  .navA .tabs a .cnm{font-family:var(--display);font-weight:400;text-transform:uppercase;
+    font-size:clamp(1.5rem,3.4vw,2.5rem);line-height:1;letter-spacing:.01em;color:transparent;
+    -webkit-text-stroke:1.3px rgba(245,239,247,.42);transition:-webkit-text-stroke .3s,color .3s,text-shadow .3s}
+  .navA .tabs a .cn{position:absolute;top:-6px;right:-16px;font-family:var(--display);font-size:.72rem;
+    color:var(--muted);-webkit-text-stroke:0;transition:.3s}
+  .navA .tabs a:hover .cnm,.navA .tabs a:focus-visible .cnm,.navA .tabs a.active .cnm{
+    -webkit-text-stroke:0;color:var(--c);text-shadow:0 0 22px color-mix(in srgb,var(--c) 55%,transparent)}
+  .navA .tabs a:hover .cn,.navA .tabs a:focus-visible .cn,.navA .tabs a.active .cn{color:var(--c)}
+  .navA .tabs a:focus-visible{outline:none}
+
+  /* ============================================================
+     ВАРИАНТ B — НОМЕР-ГЕРОЙ + имя-подпись
+     ============================================================ */
+  .navB{border-top:1px solid var(--line);padding-top:30px}
+  .navB .tabs{display:flex;flex-wrap:wrap;gap:clamp(20px,4vw,52px)}
+  .navB .tabs a{position:relative;cursor:pointer;--c:var(--accent);display:flex;flex-direction:column;gap:8px;
+    padding-bottom:10px;transition:.3s}
+  .navB .tabs a .cn{font-family:var(--display);font-weight:400;font-size:clamp(2.6rem,6vw,4.6rem);line-height:.8;
+    color:transparent;-webkit-text-stroke:1.5px color-mix(in srgb,var(--c) 60%,var(--muted));
+    transition:-webkit-text-stroke .3s,color .3s,text-shadow .3s,transform .3s}
+  .navB .tabs a .cnm{font-family:var(--body);font-weight:800;font-size:.8rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted);transition:color .3s}
+  .navB .tabs a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--c);
+    transform:scaleX(0);transform-origin:left;opacity:0;transition:.3s}
+  .navB .tabs a:hover .cn,.navB .tabs a:focus-visible .cn,.navB .tabs a.active .cn{
+    -webkit-text-stroke:0;color:var(--c);text-shadow:0 6px 30px color-mix(in srgb,var(--c) 45%,transparent);
+    transform:translateY(-2px)}
+  .navB .tabs a:hover .cnm,.navB .tabs a:focus-visible .cnm,.navB .tabs a.active .cnm{color:var(--ink)}
+  .navB .tabs a:hover::after,.navB .tabs a:focus-visible::after,.navB .tabs a.active::after{transform:scaleX(1);opacity:1}
+  .navB .tabs a:focus-visible{outline:none}
+
+  /* ============================================================
+     ВАРИАНТ C — СЕТ-ЛИСТ НА ВЕРТИКАЛЬНОЙ ЛИНИИ
+     ============================================================ */
+  .navC{position:relative;padding:8px 0 8px 0}
+  .navC .rail{list-style:none;position:relative;margin-left:6px;padding-left:34px}
+  .navC .rail::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;
+    background:linear-gradient(180deg,transparent,var(--line) 12%,var(--line) 88%,transparent)}
+  .navC .rail li{position:relative}
+  .navC .rail a{display:flex;align-items:baseline;gap:16px;cursor:pointer;--c:var(--accent);
+    padding:13px 0;transition:.3s}
+  .navC .rail a .dot{position:absolute;left:-34px;top:50%;transform:translate(-50%,-50%);
+    width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--c);
+    box-shadow:0 0 0 4px var(--bg);transition:.3s}
+  .navC .rail a .cn{font-family:var(--display);font-weight:400;font-size:1rem;color:var(--muted);
+    min-width:2.2ch;transition:.3s}
+  .navC .rail a .cnm{font-family:var(--display);font-weight:400;text-transform:uppercase;
+    font-size:clamp(1.3rem,2.8vw,1.9rem);line-height:1;color:var(--ink);letter-spacing:.01em;transition:.3s}
+  .navC .rail a:hover .dot,.navC .rail a:focus-visible .dot,.navC .rail a.active .dot{
+    background:var(--c);box-shadow:0 0 0 4px var(--bg),0 0 16px var(--c);transform:translate(-50%,-50%) scale(1.25)}
+  .navC .rail a:hover .cnm,.navC .rail a:focus-visible .cnm,.navC .rail a.active .cnm{color:var(--c)}
+  .navC .rail a:hover .cn,.navC .rail a:focus-visible .cn,.navC .rail a.active .cn{color:var(--c)}
+  .navC .rail a:hover,.navC .rail a:focus-visible{transform:translateX(6px);outline:none}
+
+  @media(max-width:520px){.howwe-big{white-space:normal;font-size:12vw}}
+</style>
+</head>
+<body>
+
+<div class="labbar wrap">Steam Show · <b>Jump-nav lab</b> — 3 варианта отображения навигации по шоу · один и тот же контент</div>
+
+<div class="wrap">
+  <!-- РЕАЛЬНАЯ ШАПКА СЕКЦИИ (общая для всех вариантов) -->
+  <span class="kicker">Our Shows</span>
+  <div class="howwe-big">Our <span class="grad">shows.</span></div>
+  <p class="lead">Five signature shows — pick one, or stack several into a single night. Tap any block to open the show.</p>
+
+  <!-- ========== ВАРИАНТ A ========== -->
+  <section class="variant">
+    <div class="variant__tag">
+      <span class="vn">A</span>
+      <span class="vt">Контурный Anton</span>
+      <span class="vd">Тот же крупный шрифт, но названия — только обводкой. Заголовок остаётся единственным залитым; при наведении пункт заливается цветом шоу. Перекликается с летящими словами в hero.</span>
+    </div>
+    <div class="navA">
+      <span class="navlbl">Jump to a show</span>
+      <div class="tabs">
+        <a tabindex="0" class="active" style="--c:var(--c-dragon)"><span class="cn">01</span><span class="cnm">Dragon Fire</span></a>
+        <a tabindex="0" style="--c:var(--c-fire)"><span class="cn">02</span><span class="cnm">Fire Show</span></a>
+        <a tabindex="0" style="--c:var(--c-ledfire)"><span class="cn">03</span><span class="cnm">LED Fire</span></a>
+        <a tabindex="0" style="--c:var(--c-led)"><span class="cn">04</span><span class="cnm">LED Show</span></a>
+        <a tabindex="0" style="--c:var(--c-stilts)"><span class="cn">05</span><span class="cnm">Stilt Walkers</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ВАРИАНТ B ========== -->
+  <section class="variant">
+    <div class="variant__tag">
+      <span class="vn">B</span>
+      <span class="vt">Номер-герой + имя-подпись</span>
+      <span class="vd">Перевёрнутая иерархия: герой пункта — крупный цветной номер, название — мелкая подпись под ним. Цифры читаются как графика/шкала, а не как второй ряд заголовков.</span>
+    </div>
+    <div class="navB">
+      <span class="navlbl">Jump to a show</span>
+      <div class="tabs">
+        <a tabindex="0" class="active" style="--c:var(--c-dragon)"><span class="cn">01</span><span class="cnm">Dragon Fire</span></a>
+        <a tabindex="0" style="--c:var(--c-fire)"><span class="cn">02</span><span class="cnm">Fire Show</span></a>
+        <a tabindex="0" style="--c:var(--c-ledfire)"><span class="cn">03</span><span class="cnm">LED Fire</span></a>
+        <a tabindex="0" style="--c:var(--c-led)"><span class="cn">04</span><span class="cnm">LED Show</span></a>
+        <a tabindex="0" style="--c:var(--c-stilts)"><span class="cn">05</span><span class="cnm">Stilt Walkers</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ВАРИАНТ C ========== -->
+  <section class="variant">
+    <div class="variant__tag">
+      <span class="vn">C</span>
+      <span class="vt">Сет-лист на вертикальной линии</span>
+      <span class="vd">Навигация как маршрут вечера: узлы-точки на вертикальной шкале с названиями. Связывается с линией-хребтом и fill-race анимацией, которые уже есть в макете. Editorial, необычно.</span>
+    </div>
+    <div class="navC">
+      <span class="navlbl">Jump to a show</span>
+      <ul class="rail">
+        <li><a tabindex="0" class="active" style="--c:var(--c-dragon)"><span class="dot"></span><span class="cn">01</span><span class="cnm">Dragon Fire</span></a></li>
+        <li><a tabindex="0" style="--c:var(--c-fire)"><span class="dot"></span><span class="cn">02</span><span class="cnm">Fire Show</span></a></li>
+        <li><a tabindex="0" style="--c:var(--c-ledfire)"><span class="dot"></span><span class="cn">03</span><span class="cnm">LED Fire</span></a></li>
+        <li><a tabindex="0" style="--c:var(--c-led)"><span class="dot"></span><span class="cn">04</span><span class="cnm">LED Show</span></a></li>
+        <li><a tabindex="0" style="--c:var(--c-stilts)"><span class="dot"></span><span class="cn">05</span><span class="cnm">Stilt Walkers</span></a></li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<script>
+/* демо: клик внутри группы переключает active (без скролла — это витрина) */
+document.querySelectorAll('.navA,.navB,.navC').forEach(function(group){
+  var links = group.querySelectorAll('a');
+  links.forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      links.forEach(function(x){ x.classList.remove('active'); });
+      a.classList.add('active');
+    });
+  });
+});
+</script>
+</body>
+</html>
