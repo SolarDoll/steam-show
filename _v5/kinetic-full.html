@@ -31,15 +31,6 @@
   .fire-text{background:linear-gradient(180deg,var(--gold),var(--ember) 55%,var(--fire));
     -webkit-background-clip:text;background-clip:text;color:transparent;
     filter:drop-shadow(0 0 24px rgba(255,90,30,.35))}
-  /* сменяющееся слово в заголовке героя (из Kinetic) */
-  .rotator{position:relative;display:inline-block;height:1.3em;overflow:hidden;vertical-align:bottom}
-  .rotator .word{position:absolute;left:0;top:0;white-space:nowrap;opacity:0;transform:translateY(.6em);
-    transition:opacity .5s ease,transform .5s cubic-bezier(.2,.9,.2,1);
-    background:linear-gradient(180deg,var(--gold),var(--ember) 55%,var(--fire));
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-    filter:drop-shadow(0 0 24px rgba(255,90,30,.35))}
-  .rotator .word.on{opacity:1;transform:none}
-  .rotator .word.out{opacity:0;transform:translateY(-.6em)}
   .hero-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;
     flex-wrap:wrap;margin-top:30px;opacity:0;animation:fadeUp 1.1s .7s var(--ease) forwards}
   .hero-foot p{max-width:46ch;font-size:clamp(14px,1.5vw,17px);color:#e3d8cc;line-height:1.5}
@@ -211,7 +202,7 @@
     </video>
     <div class="hero-inner">
       <div class="kicker"><span class="dot"></span> Live Fire · LED · Stilts — worldwide</div>
-      <h1 class="bigtype display">We bring<br><span class="rotator" id="rotator"></span></h1>
+      <h1 class="bigtype display">We set<br>the night<br><span class="fire-text">on fire</span></h1>
       <div class="hero-foot">
         <p>A flame-breathing dragon, fire choreography, glowing LED worlds and towering stilt walkers — engineered for galas, festivals and main stages.</p>
         <div class="hbtns">
@@ -450,24 +441,6 @@
       }, 3400 + Math.floor(Math.random()*1000));
     });
   })();
-</script>
-<script>
-/* word-rotator в заголовке героя: We bring → Dragons / Fire / LED / Stilts / the Light */
-(function(){
-  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-  var rot=document.getElementById('rotator'); if(!rot) return;
-  var words=['Dragons.','Fire.','LED.','Stilts.','the Light.'];
-  var spans=words.map(function(w,i){var e=document.createElement('span');e.className='word'+(i===0?' on':'');e.textContent=w;rot.appendChild(e);return e;});
-  var mw=0; spans.forEach(function(e){mw=Math.max(mw,e.offsetWidth);}); if(mw) rot.style.minWidth=mw+'px';
-  if(reduce||spans.length<2) return;
-  var wi=0;
-  setInterval(function(){
-    spans[wi].classList.remove('on'); spans[wi].classList.add('out');
-    var p=wi; wi=(wi+1)%spans.length;
-    spans[wi].classList.remove('out'); spans[wi].classList.add('on');
-    setTimeout(function(){spans[p].classList.remove('out');},600);
-  },2200);
-})();
 </script>
 </body>
 </html>
