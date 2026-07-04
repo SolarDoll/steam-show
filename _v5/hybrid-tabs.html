@@ -217,19 +217,19 @@
   .hw-card p{color:#d3cbdd;font-size:14.5px;line-height:1.6}
   .hw-card{border-color:rgba(255,255,255,.09)}
 
-  /* ===== таб-навигация шоу (jump + fill-race) ===== */
-  .ovtabs{margin:2px 0 18px;padding:24px 0 6px;border-top:1px solid var(--line)}
-  .ovtabs .lbl{font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;display:block}
-  .ovtabs .tabs{display:flex;flex-wrap:wrap;gap:clamp(20px,4vw,46px);align-items:baseline}
-  .ovtabs .tabs a{position:relative;cursor:pointer;padding-bottom:12px;--c:var(--accent);transition:.28s;color:var(--ink)}
-  .ovtabs .tabs a .cnm{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(1.2rem,2.8vw,2rem);line-height:1;letter-spacing:.01em;transition:.28s}
-  .ovtabs .tabs a .cn{position:absolute;top:-8px;right:-14px;font-family:var(--display);font-size:.7rem;color:var(--muted);transition:.28s}
-  .ovtabs .tabs a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--c);transform:scaleX(0);transform-origin:left;opacity:0;transition:.28s}
-  .ovtabs .tabs a:hover,.ovtabs .tabs a:focus-visible{color:var(--c);outline:none}
-  .ovtabs .tabs a:hover::after,.ovtabs .tabs a:focus-visible::after{transform:scaleX(1);opacity:1;box-shadow:0 0 14px var(--c)}
-  .ovtabs .tabs a:hover .cn,.ovtabs .tabs a:focus-visible .cn{color:var(--c)}
-  .ovtabs .tabs a.active .cnm{color:var(--c)}
-  .ovtabs .tabs a.active::after{transform:scaleX(1);opacity:1}
+  /* ===== таб-навигация шоу (jump + fill-race) — контурный Anton ===== */
+  /* без линии-разделителя: примыкает к шапке как единый блок */
+  .ovtabs{margin:clamp(20px,3vh,32px) 0 4px;padding:0}
+  .ovtabs .lbl{font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:18px;display:block}
+  .ovtabs .tabs{display:flex;flex-wrap:wrap;gap:clamp(22px,4.5vw,54px);align-items:baseline}
+  .ovtabs .tabs a{position:relative;cursor:pointer;--c:var(--accent);transition:.3s}
+  .ovtabs .tabs a .cnm{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(1.5rem,3.4vw,2.5rem);line-height:1;letter-spacing:.01em;
+    color:transparent;-webkit-text-stroke:1.3px rgba(245,239,247,.42);transition:-webkit-text-stroke .3s,color .3s,text-shadow .3s}
+  .ovtabs .tabs a .cn{position:absolute;top:-6px;right:-16px;font-family:var(--display);font-size:.72rem;color:var(--muted);-webkit-text-stroke:0;transition:.3s}
+  .ovtabs .tabs a:hover .cnm,.ovtabs .tabs a:focus-visible .cnm,.ovtabs .tabs a.active .cnm{
+    -webkit-text-stroke:0;color:var(--c);text-shadow:0 0 22px color-mix(in srgb,var(--c) 55%,transparent)}
+  .ovtabs .tabs a:hover .cn,.ovtabs .tabs a:focus-visible .cn,.ovtabs .tabs a.active .cn{color:var(--c)}
+  .ovtabs .tabs a:focus-visible{outline:none}
 
   /* ===== ряды-программы (как kinetic-full), превью = видео ===== */
   .prog-list{margin-top:8px}
@@ -308,11 +308,11 @@
       <div class="ovtabs reveal">
         <span class="lbl">Jump to a show</span>
         <div class="tabs">
-          <a tabindex="0" style="--c:var(--c-dragon)"  onclick="jumpFX('p-dragon',this);return false;"><span class="cn">01</span><span class="cnm">Dragon Fire</span></a>
-          <a tabindex="0" style="--c:var(--c-fire)"    onclick="jumpFX('p-fire',this);return false;"><span class="cn">02</span><span class="cnm">Fire Show</span></a>
-          <a tabindex="0" style="--c:var(--c-ledfire)" onclick="jumpFX('p-ledfire',this);return false;"><span class="cn">03</span><span class="cnm">LED Fire</span></a>
-          <a tabindex="0" style="--c:var(--c-led)"     onclick="jumpFX('p-led',this);return false;"><span class="cn">04</span><span class="cnm">LED Show</span></a>
-          <a tabindex="0" style="--c:var(--c-stilts)"  onclick="jumpFX('p-stilts',this);return false;"><span class="cn">05</span><span class="cnm">Stilt Walkers</span></a>
+          <a tabindex="0" style="--c:var(--c-dragon)"  onclick="jumpFX('p-dragon',this);return false;"><span class="cn">01</span><span class="cnm">Dragon</span></a>
+          <a tabindex="0" style="--c:var(--c-fire)"    onclick="jumpFX('p-fire',this);return false;"><span class="cn">02</span><span class="cnm">Fire</span></a>
+          <a tabindex="0" style="--c:var(--c-ledfire)" onclick="jumpFX('p-ledfire',this);return false;"><span class="cn">03</span><span class="cnm">LED + Fire</span></a>
+          <a tabindex="0" style="--c:var(--c-led)"     onclick="jumpFX('p-led',this);return false;"><span class="cn">04</span><span class="cnm">LED</span></a>
+          <a tabindex="0" style="--c:var(--c-stilts)"  onclick="jumpFX('p-stilts',this);return false;"><span class="cn">05</span><span class="cnm">Stilts</span></a>
         </div>
       </div>
       <div class="prog-list">
