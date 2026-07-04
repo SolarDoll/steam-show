@@ -23,7 +23,11 @@
     --c-dragon:#FF6A1F; --c-fire:#FFD23E; --c-ledfire:#FF2E84; --c-led:#25F4EE; --c-stilts:#FF6A1F;
     --display:"Anton",Impact,sans-serif; --body:"Manrope",system-ui,sans-serif;
   }
-  .grad{background:linear-gradient(90deg,var(--accent),var(--accent3));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .grad{background:linear-gradient(100deg,var(--accent),var(--accent3),var(--accent2),var(--cool),var(--accent));
+    background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:hue 9s linear infinite}
+  @keyframes hue{to{background-position:220% 0}}
+  @media(prefers-reduced-motion:reduce){.grad{animation:none}}
   /* HERO — фото-стена (из r4-wall), палитра hybrid2 */
   .hw{position:relative;height:100svh;min-height:620px;overflow:hidden;display:flex;flex-direction:column;
     justify-content:center;gap:clamp(8px,1.4vw,16px);padding:clamp(8px,1.4vw,16px) 0;background:var(--bg)}
@@ -98,6 +102,45 @@
   .gx .core small{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-top:8px}
   @media(prefers-reduced-motion:reduce){.gx::before,.gx .sat{animation:none}}
 
+  /* голографический глобус (из kinetic) — циан-голограмма + розовые города */
+  .holo{position:relative;aspect-ratio:1}
+  .holo .cone{position:absolute;left:50%;bottom:9%;transform:translateX(-50%);width:66%;height:60%;z-index:0;
+    clip-path:polygon(45% 100%,55% 100%,94% 4%,6% 4%);filter:blur(2px);opacity:.5;
+    background:linear-gradient(0deg,color-mix(in srgb,var(--cool) 32%,transparent),transparent 84%);
+    animation:holoFlick 5s ease-in-out infinite}
+  .holo .base{position:absolute;left:50%;bottom:6%;transform:translateX(-50%);width:52%;height:7%;border-radius:50%;z-index:2;
+    background:radial-gradient(ellipse at 50% 50%,color-mix(in srgb,var(--cool) 75%,#fff),color-mix(in srgb,var(--cool) 30%,transparent) 58%,transparent 76%);
+    box-shadow:0 0 36px color-mix(in srgb,var(--cool) 55%,transparent)}
+  .holo .ball{position:absolute;left:50%;top:6%;transform:translateX(-50%);width:64%;aspect-ratio:1;border-radius:50%;z-index:1;
+    overflow:hidden;perspective:600px;border:1px solid color-mix(in srgb,var(--cool) 55%,transparent);
+    background:radial-gradient(circle at 38% 32%,color-mix(in srgb,var(--cool) 22%,transparent),transparent 60%),
+      radial-gradient(circle at 50% 50%,color-mix(in srgb,var(--cool) 9%,transparent),transparent 72%);
+    box-shadow:0 0 44px color-mix(in srgb,var(--cool) 45%,transparent),inset 0 0 44px color-mix(in srgb,var(--cool) 22%,transparent);
+    animation:holoFlick 5s ease-in-out infinite}
+  .holo .ball::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:repeating-linear-gradient(0deg,rgba(255,255,255,.06) 0 1px,transparent 1px 4px)}
+  .holo .grid{position:absolute;inset:0;transform-style:preserve-3d;animation:holoSpin 18s linear infinite}
+  .holo .lon{position:absolute;inset:0;border-radius:50%;border:1px solid color-mix(in srgb,var(--cool) 30%,transparent)}
+  .holo .lon:nth-child(1){transform:rotateY(0)}.holo .lon:nth-child(2){transform:rotateY(36deg)}
+  .holo .lon:nth-child(3){transform:rotateY(72deg)}.holo .lon:nth-child(4){transform:rotateY(108deg)}
+  .holo .lon:nth-child(5){transform:rotateY(144deg)}
+  @keyframes holoSpin{to{transform:rotateY(360deg)}}
+  @keyframes holoFlick{0%,100%{opacity:1}47%{opacity:.94}49%{opacity:.8}51%{opacity:.96}}
+  .holo .ping{position:absolute;z-index:3;width:7px;height:7px;border-radius:50%;background:var(--accent3);
+    box-shadow:0 0 10px var(--accent3);transform:translate(-50%,-50%);animation:holoBlink 4s ease-in-out infinite}
+  .holo .ping.near{width:11px;height:11px;background:#eafcff;box-shadow:0 0 16px var(--accent3),0 0 4px #fff}
+  .holo .ping.far{width:5px;height:5px;filter:blur(.6px);animation:holoBlinkFar 5s ease-in-out infinite}
+  .holo .ping::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1px solid var(--accent3);animation:holoPing 2.6s ease-out infinite}
+  .holo .ping.far::after{display:none}
+  @keyframes holoPing{0%{transform:scale(.6);opacity:.9}100%{transform:scale(2.6);opacity:0}}
+  @keyframes holoBlink{0%,100%{opacity:.3;transform:translate(-50%,-50%) scale(.85)}50%{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+  @keyframes holoBlinkFar{0%,100%{opacity:.12;transform:translate(-50%,-50%) scale(.8)}50%{opacity:.5;transform:translate(-50%,-50%) scale(.95)}}
+  .holo-core{position:absolute;left:0;right:0;bottom:-2%;text-align:center;z-index:3}
+  .holo-core b{font-family:var(--display);font-weight:400;font-size:clamp(18px,2.6vw,26px);
+    background:linear-gradient(100deg,var(--cool),var(--accent3));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .holo-core small{display:block;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+  @media(prefers-reduced-motion:reduce){.holo .cone,.holo .ball,.holo .grid,.holo .ping::after{animation:none}}
+
   /* контакты в стиле fireflow */
   .ccta{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(40px,7vw,96px);line-height:.9;margin:14px 0 0}
   .clead{color:var(--muted);max-width:46ch;margin:20px 0 0;font-size:16px}
@@ -136,7 +179,13 @@
   .mh__scrim{position:absolute;inset:0;z-index:2;pointer-events:none;
     background:radial-gradient(120% 90% at 50% 50%,color-mix(in srgb,var(--bg) 32%,transparent),color-mix(in srgb,var(--bg) 82%,transparent) 60%,var(--bg))}
   .mh__text{position:relative;z-index:3;text-align:center;padding:24px}
-  .mh .mh-eyebrow{display:inline-block;font:800 13px/1 var(--body);letter-spacing:.4em;text-transform:uppercase;color:var(--accent2);margin-bottom:18px}
+  .mh .mh-eyebrow{display:inline-flex;align-items:center;gap:9px;font:800 12px/1 var(--body);letter-spacing:.28em;
+    text-transform:uppercase;color:var(--accent2);margin-bottom:20px;padding:8px 15px;border-radius:99px;
+    border:1px solid color-mix(in srgb,var(--accent2) 40%,transparent);background:color-mix(in srgb,var(--accent2) 7%,transparent)}
+  .mh .mh-eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;flex:0 0 auto;
+    background:var(--accent2);box-shadow:0 0 12px var(--accent2);animation:kp 1.8s infinite}
+  @keyframes kp{0%,100%{opacity:.4;transform:scale(.8)}50%{opacity:1;transform:scale(1.25)}}
+  @media(prefers-reduced-motion:reduce){.mh .mh-eyebrow::before{animation:none}}
   .mh h1{font-family:var(--display);font-weight:400;font-size:clamp(72px,16vw,220px);line-height:.82;text-transform:uppercase;letter-spacing:.01em;color:#fff;text-shadow:0 8px 60px rgba(0,0,0,.6)}
   .mh__tag{margin-top:18px;color:#e9ddcf;font-size:clamp(15px,1.7vw,20px);max-width:36ch;margin-left:auto;margin-right:auto}
   .mh__cta{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:28px}
@@ -279,16 +328,23 @@
           <span class="geo-pill">Egypt</span><span class="geo-pill">Cyprus</span><span class="geo-pill world">+ Europe &amp; beyond</span>
         </div>
       </div>
-      <div class="reveal from-right"><div class="gx">
-        <span class="cross"></span>
-        <span class="ring" style="inset:9%"></span>
-        <span class="ring" style="inset:27%"></span>
-        <span class="ring" style="inset:45%"></span>
-        <span class="sat"><i></i></span>
-        <span class="gping" style="top:30%;left:40%"></span>
-        <span class="gping" style="top:55%;left:62%;animation-delay:.8s"></span>
-        <span class="gping" style="top:66%;left:36%;animation-delay:1.5s"></span>
-        <span class="core"><b>WORLDWIDE</b><small>Europe · Gulf · +20</small></span>
+      <div class="reveal from-right"><div class="holo">
+        <span class="cone"></span>
+        <div class="ball">
+          <div class="grid"><span class="lon"></span><span class="lon"></span><span class="lon"></span><span class="lon"></span><span class="lon"></span></div>
+          <span class="ping near" style="top:48%;left:46%"></span>
+          <span class="ping" style="top:38%;left:60%;animation-delay:.6s"></span>
+          <span class="ping" style="top:58%;left:54%;animation-delay:1.2s"></span>
+          <span class="ping near" style="top:62%;left:40%;animation-delay:1.8s"></span>
+          <span class="ping" style="top:44%;left:70%;animation-delay:.9s"></span>
+          <span class="ping far" style="top:28%;left:34%;animation-delay:.3s"></span>
+          <span class="ping far" style="top:30%;left:72%;animation-delay:1.5s"></span>
+          <span class="ping far" style="top:70%;left:30%;animation-delay:2.1s"></span>
+          <span class="ping far" style="top:72%;left:66%;animation-delay:.7s"></span>
+          <span class="ping" style="top:52%;left:64%;animation-delay:2.4s"></span>
+        </div>
+        <span class="base"></span>
+        <div class="holo-core"><b>WORLDWIDE</b><small>Europe · Gulf · +20</small></div>
       </div></div>
     </div>
     <div class="wrap"><div class="stages reveal">
