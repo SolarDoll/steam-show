@@ -456,13 +456,13 @@
 <div class="fxpick">
   <div class="h"><span>Click FX</span><span>temp</span></div>
   <div class="btns">
-    <button class="on" onclick="setFX(1,this)">Ember</button>
-    <button onclick="setFX(2,this)">Sweep</button>
-    <button onclick="setFX(3,this)">Spotlight</button>
-    <button onclick="setFX(4,this)">Ring</button>
-    <button onclick="setFX(5,this)">Frame</button>
+    <button class="on" onclick="setFX(1,this)">Spine comet</button>
+    <button onclick="setFX(2,this)">Fill race</button>
+    <button onclick="setFX(3,this)">Comet trail</button>
+    <button onclick="setFX(4,this)">Curtain</button>
+    <button onclick="setFX(5,this)">Title fly</button>
   </div>
-  <div class="cur">Сейчас: <b id="fxName">Ember burst</b></div>
+  <div class="cur">Сейчас: <b id="fxName">Spine comet</b></div>
 </div>
 
 <script src="shared.js"></script>
@@ -473,7 +473,7 @@
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
   var FX = 1, T;
-  var NAMES = {1:'Ember burst',2:'Accent sweep',3:'Spotlight',4:'Ring pulse',5:'Frame draw'};
+  var NAMES = {1:'Spine comet',2:'Fill race',3:'Comet trail',4:'Curtain wipe',5:'Title fly'};
 
   window.setFX = function(n, btn){
     FX = n;
@@ -484,10 +484,9 @@
   window.jumpFX = function(id, tab){
     var row = document.getElementById(id); if(!row) return;
     document.querySelectorAll('.ovtabs .tabs a').forEach(function(a){ a.classList.toggle('active', a===tab); });
+    if(reduce){ row.scrollIntoView({behavior:'smooth', block:'start'}); return; }
+    runFX(FX, row, tab);                                  // эффект перехода стартует сразу
     row.scrollIntoView({behavior:'smooth', block:'start'});
-    if(reduce) return;
-    clearTimeout(T);
-    T = setTimeout(function(){ runFX(FX, row); }, 560);
   };
 
   function accent(el){ var c=getComputedStyle(el).getPropertyValue('--ac').trim(); return c || '#FF5A1F'; }
@@ -497,94 +496,159 @@
   }
   function ensureRel(el){ if(getComputedStyle(el).position==='static') el.style.position='relative'; }
 
-  function runFX(mode, row){
-    var media = row.querySelector('.media') || row;
+  function runFX(mode, row, tab){
     var ac = accent(row);
-    ({1:ember,2:sweep,3:spotlight,4:ring,5:frame}[mode] || ember)(media, ac);
+    ({1:spineComet,2:fillRace,3:cometTrail,4:curtain,5:titleFly}[mode] || spineComet)(row, tab, ac);
   }
 
-  /* 1 — Ember burst: искры разлетаются из центра карточки вверх */
-  function ember(media, ac){
-    var r = media.getBoundingClientRect();
-    var cx = r.left + r.width/2, cy = r.top + r.height*0.55;
-    var layer = document.createElement('div');
-    layer.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:60';
-    document.body.appendChild(layer);
-    var cols = [ac, '#FFB347', '#FF7A18'];
-    for(var i=0;i<22;i++){
-      var d = document.createElement('span');
-      var sz = 3 + Math.random()*4, col = cols[i%3];
-      d.style.cssText = 'position:absolute;left:'+cx+'px;top:'+cy+'px;width:'+sz+'px;height:'+sz+
-        'px;border-radius:50%;background:'+col+';box-shadow:0 0 10px '+col;
-      layer.appendChild(d);
-      var ang = Math.random()*Math.PI*2, dist = 60 + Math.random()*190;
-      var dx = Math.cos(ang)*dist, dy = Math.sin(ang)*dist - (70 + Math.random()*120);
-      d.animate([
-        {transform:'translate(-50%,-50%) scale(1)', opacity:1},
-        {transform:'translate(calc(-50% + '+dx+'px),calc(-50% + '+dy+'px)) scale(.15)', opacity:0}
-      ], {duration:820 + Math.random()*520, easing:'cubic-bezier(.2,.7,.3,1)'});
-    }
-    setTimeout(function(){ layer.remove(); }, 1500);
+  /* --- геометрия: положение секции на левой линии-миникарте (spine) --- */
+  function frac(el){ var docH=document.documentElement.scrollHeight;
+    return Math.max(0, Math.min(1, (el.getBoundingClientRect().top + scrollY) / docH)); }
+  function spine(){ var s=document.getElementById('spine'); if(!s || !s.offsetHeight) return null;
+    return {el:s, r:s.getBoundingClientRect()}; }
+
+  /* прибытие: вспышка-узел на линии в точке назначения */
+  function pulseNode(x, y, ac){
+    var p=document.createElement('div');
+    p.style.cssText='position:fixed;z-index:60;pointer-events:none;left:-6px;top:-6px;width:12px;height:12px;'+
+      'border-radius:50%;border:2px solid '+ac+';box-shadow:0 0 12px '+ac+';transform:translate('+x+'px,'+y+'px) scale(.4)';
+    document.body.appendChild(p);
+    p.animate([{transform:'translate('+x+'px,'+y+'px) scale(.4)',opacity:.9},
+               {transform:'translate('+x+'px,'+y+'px) scale(2.8)',opacity:0}],
+      {duration:720,easing:'ease-out'}).onfinish=function(){ p.remove(); };
+    var c=document.createElement('div');
+    c.style.cssText='position:fixed;z-index:61;pointer-events:none;left:-4px;top:-4px;width:8px;height:8px;'+
+      'border-radius:50%;background:'+ac+';box-shadow:0 0 16px '+ac+';transform:translate('+x+'px,'+y+'px)';
+    document.body.appendChild(c);
+    c.animate([{opacity:1},{opacity:0}],{duration:900,easing:'ease-out'}).onfinish=function(){ c.remove(); };
   }
 
-  /* 2 — Accent sweep: цветная полоса проходит по карточке */
-  function sweep(media, ac){
-    ensureRel(media);
-    var ov = document.createElement('div');
-    ov.style.cssText = 'position:absolute;inset:0;z-index:5;pointer-events:none;background:'+
-      'linear-gradient(100deg,transparent 32%,'+hexA(ac,0)+' 42%,'+hexA(ac,.55)+' 50%,'+hexA(ac,0)+' 58%,transparent 68%)';
-    media.appendChild(ov);
-    var an = ov.animate([{transform:'translateX(-100%)'},{transform:'translateX(100%)'}],
-      {duration:780, easing:'cubic-bezier(.4,0,.2,1)'});
-    an.onfinish = function(){ ov.remove(); };
+  /* 1 — Spine comet: подчёркивание отрывается, уходит на левую линию и едет по ней вниз к секции */
+  function spineComet(row, tab, ac){
+    var S = spine(); if(!S) return curtain(row, tab, ac);
+    var sx = S.r.left + S.r.width/2;
+    var tabR = tab.getBoundingClientRect();
+    var startX = tabR.left, startY = tabR.bottom - 1;      // из-под подчёркивания
+    var endY = S.r.top + frac(row) * S.r.height;           // точка секции на миникарте
+
+    var trail = document.createElement('div');
+    var tTop = Math.min(startY, endY), tH = Math.abs(endY - startY);
+    trail.style.cssText = 'position:fixed;z-index:59;pointer-events:none;left:'+(sx-1)+'px;top:'+tTop+'px;'+
+      'width:2px;height:'+tH+'px;transform:scaleY(0);transform-origin:'+(endY>=startY?'top':'bottom')+';'+
+      'background:linear-gradient(180deg,'+hexA(ac,0)+','+hexA(ac,.9)+');box-shadow:0 0 12px '+ac;
+    document.body.appendChild(trail);
+
+    var dot = document.createElement('div');
+    dot.style.cssText = 'position:fixed;z-index:61;pointer-events:none;left:-4px;top:-4px;width:9px;height:9px;'+
+      'border-radius:50%;background:'+ac+';box-shadow:0 0 14px '+ac+',0 0 26px '+hexA(ac,.6)+';'+
+      'transform:translate('+startX+'px,'+startY+'px)';
+    document.body.appendChild(dot);
+    dot.animate([
+      {transform:'translate('+startX+'px,'+startY+'px)'},
+      {transform:'translate('+sx+'px,'+startY+'px)', offset:.28},   // скользит влево к линии
+      {transform:'translate('+sx+'px,'+endY+'px)'}                   // едет вниз по линии
+    ], {duration:900, easing:'cubic-bezier(.5,0,.15,1)', fill:'forwards'});
+
+    setTimeout(function(){
+      trail.animate([{transform:'scaleY(0)'},{transform:'scaleY(1)'}],
+        {duration:560, easing:'cubic-bezier(.4,0,.2,1)', fill:'forwards'});
+    }, 250);
+    setTimeout(function(){
+      pulseNode(sx, endY, ac);
+      dot.animate([{opacity:1},{opacity:0}],{duration:300,fill:'forwards'}).onfinish=function(){ dot.remove(); };
+      trail.animate([{opacity:1},{opacity:0}],{duration:520,fill:'forwards'}).onfinish=function(){ trail.remove(); };
+    }, 920);
   }
 
-  /* 3 — Spotlight: затемняем всё, кроме карточки */
-  function spotlight(media, ac){
-    var r = media.getBoundingClientRect();
-    var cx = r.left + r.width/2, cy = r.top + r.height/2;
-    var rad = Math.max(r.width, r.height)*0.72;
-    var ov = document.createElement('div');
-    ov.style.cssText = 'position:fixed;inset:0;z-index:55;pointer-events:none;background:'+
-      'radial-gradient(circle '+rad+'px at '+cx+'px '+cy+'px, transparent 0, transparent 58%, rgba(8,5,6,.8) 100%)';
-    document.body.appendChild(ov);
-    var an = ov.animate([{opacity:0},{opacity:1,offset:.22},{opacity:1,offset:.7},{opacity:0}],
-      {duration:1300, easing:'ease-in-out'});
-    an.onfinish = function(){ ov.remove(); };
-  }
-
-  /* 4 — Ring pulse: акцентное кольцо-пульс вокруг карточки */
-  function ring(media, ac){
-    media.animate([
-      {boxShadow:'0 0 0 0 '+hexA(ac,0)},
-      {boxShadow:'0 0 0 5px '+hexA(ac,.75)+', 0 0 34px '+hexA(ac,.5), offset:.3},
-      {boxShadow:'0 0 0 0 '+hexA(ac,0)}
-    ], {duration:1150, easing:'cubic-bezier(.16,1,.3,1)'});
-  }
-
-  /* 5 — Frame draw: акцентная рамка «прочерчивается» по контуру */
-  function frame(media, ac){
-    var r = media.getBoundingClientRect();
-    var w = r.width, h = r.height, rad = 18;
-    var svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
-    svg.setAttribute('width', w); svg.setAttribute('height', h);
-    svg.setAttribute('viewBox', '0 0 '+w+' '+h);
-    svg.style.cssText = 'position:absolute;inset:0;z-index:6;pointer-events:none';
-    var rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
-    rect.setAttribute('x',1.5); rect.setAttribute('y',1.5);
-    rect.setAttribute('width', w-3); rect.setAttribute('height', h-3); rect.setAttribute('rx', rad);
-    rect.setAttribute('fill','none'); rect.setAttribute('stroke', ac); rect.setAttribute('stroke-width','2.5');
-    var per = 2*((w-3)+(h-3));
-    rect.style.strokeDasharray = per; rect.style.strokeDashoffset = per;
-    rect.style.filter = 'drop-shadow(0 0 6px '+ac+')';
-    svg.appendChild(rect);
-    ensureRel(media); media.appendChild(svg);
-    rect.animate([{strokeDashoffset:per},{strokeDashoffset:0}],
+  /* 2 — Fill race: левая линия быстро «заливается» вниз до уровня секции */
+  function fillRace(row, tab, ac){
+    var S = spine(); if(!S) return curtain(row, tab, ac);
+    var sx = S.r.left, endH = frac(row) * S.r.height;
+    var fill = document.createElement('div');
+    fill.style.cssText = 'position:fixed;z-index:59;pointer-events:none;left:'+sx+'px;top:'+S.r.top+'px;'+
+      'width:2px;height:'+endH+'px;transform:scaleY(0);transform-origin:top;'+
+      'background:linear-gradient(180deg,'+hexA(ac,.15)+','+ac+');box-shadow:0 0 14px '+ac;
+    document.body.appendChild(fill);
+    var cap = document.createElement('div');
+    cap.style.cssText = 'position:fixed;z-index:60;pointer-events:none;left:-3px;top:-4px;width:8px;height:8px;'+
+      'border-radius:50%;background:'+ac+';box-shadow:0 0 16px '+ac+',0 0 30px '+hexA(ac,.6)+';'+
+      'transform:translate('+(sx+1)+'px,'+S.r.top+'px)';
+    document.body.appendChild(cap);
+    fill.animate([{transform:'scaleY(0)'},{transform:'scaleY(1)'}],
+      {duration:780, easing:'cubic-bezier(.4,0,.2,1)', fill:'forwards'});
+    cap.animate([{transform:'translate('+(sx+1)+'px,'+S.r.top+'px)'},
+                 {transform:'translate('+(sx+1)+'px,'+(S.r.top+endH)+'px)'}],
       {duration:780, easing:'cubic-bezier(.4,0,.2,1)', fill:'forwards'});
     setTimeout(function(){
-      var f = svg.animate([{opacity:1},{opacity:0}], {duration:500, easing:'ease'});
-      f.onfinish = function(){ svg.remove(); };
-    }, 950);
+      pulseNode(sx+1, S.r.top+endH, ac);
+      fill.animate([{opacity:1},{opacity:0}],{duration:600,fill:'forwards'}).onfinish=function(){ fill.remove(); };
+      cap.animate([{opacity:1},{opacity:0}],{duration:400,fill:'forwards'}).onfinish=function(){ cap.remove(); };
+    }, 820);
+  }
+
+  /* 3 — Comet trail: яркая комета с хвостом стреляет вниз по левому краю к секции */
+  function cometTrail(row, tab, ac){
+    var tabR = tab.getBoundingClientRect();
+    var S = spine();
+    var x  = S ? S.r.left + S.r.width/2 : 26;
+    var y0 = tabR.bottom;
+    var y1 = (S ? S.r.top : 0) + (S ? frac(row) * S.r.height : innerHeight*0.5);
+    var startX = tabR.left;
+
+    var c = document.createElement('div');
+    c.style.cssText = 'position:fixed;z-index:61;pointer-events:none;left:-5px;top:-5px;width:10px;height:10px;'+
+      'border-radius:50%;background:#fff;box-shadow:0 0 10px 2px '+ac+',0 0 24px '+ac+',0 0 42px '+hexA(ac,.6)+';'+
+      'transform:translate('+startX+'px,'+y0+'px)';
+    document.body.appendChild(c);
+    var tail = document.createElement('div');
+    tail.style.cssText = 'position:fixed;z-index:60;pointer-events:none;left:'+(x-1.5)+'px;top:-72px;width:3px;height:72px;'+
+      'border-radius:3px;background:linear-gradient(180deg,'+hexA(ac,0)+','+ac+');filter:blur(.4px)';
+    document.body.appendChild(tail);
+
+    c.animate([
+      {transform:'translate('+startX+'px,'+y0+'px)'},
+      {transform:'translate('+x+'px,'+y0+'px)', offset:.22},
+      {transform:'translate('+x+'px,'+y1+'px)'}
+    ], {duration:840, easing:'cubic-bezier(.45,0,.15,1)', fill:'forwards'});
+    tail.animate([
+      {transform:'translateY('+y0+'px)', opacity:0},
+      {opacity:1, offset:.35},
+      {transform:'translateY('+(y1+72)+'px)', opacity:0}
+    ], {duration:840, easing:'cubic-bezier(.45,0,.15,1)', fill:'forwards'});
+    setTimeout(function(){ pulseNode(x, y1, ac); c.remove(); tail.remove(); }, 860);
+  }
+
+  /* 4 — Curtain wipe: акцентная штора проходит по экрану в направлении прокрутки */
+  function curtain(row, tab, ac){
+    var ov = document.createElement('div');
+    ov.style.cssText = 'position:fixed;left:0;right:0;top:0;height:100vh;z-index:56;pointer-events:none;'+
+      'transform:translateY(-100%);background:linear-gradient(180deg,transparent,'+
+      hexA(ac,0)+' 8%,'+hexA(ac,.30)+' 46%,'+hexA(ac,.30)+' 54%,'+hexA(ac,0)+' 92%,transparent)';
+    document.body.appendChild(ov);
+    ov.animate([{transform:'translateY(-100%)'},{transform:'translateY(100%)'}],
+      {duration:900, easing:'cubic-bezier(.5,0,.2,1)'}).onfinish=function(){ ov.remove(); };
+  }
+
+  /* 5 — Title fly: название из таба летит вниз и приземляется на заголовок программы */
+  function titleFly(row, tab, ac){
+    var lbl = tab.querySelector('.cnm');
+    var tabR = lbl.getBoundingClientRect();
+    var ghost = document.createElement('div');
+    ghost.textContent = lbl.textContent;
+    ghost.style.cssText = 'position:fixed;z-index:61;pointer-events:none;left:0;top:0;transform-origin:top left;'+
+      'font-family:var(--display);text-transform:uppercase;white-space:nowrap;color:'+ac+';'+
+      'text-shadow:0 0 20px '+hexA(ac,.6)+';font-size:'+parseFloat(getComputedStyle(lbl).fontSize)+'px;'+
+      'transform:translate('+tabR.left+'px,'+tabR.top+'px)';
+    document.body.appendChild(ghost);
+    setTimeout(function(){
+      var h3 = row.querySelector('.copy h3');
+      var hr = h3.getBoundingClientRect();
+      var scale = Math.max(.4, hr.height / tabR.height);
+      ghost.animate([
+        {transform:'translate('+tabR.left+'px,'+tabR.top+'px) scale(1)', opacity:1},
+        {transform:'translate('+hr.left+'px,'+hr.top+'px) scale('+scale+')', opacity:0}
+      ], {duration:720, easing:'cubic-bezier(.5,0,.2,1)', fill:'forwards'}).onfinish=function(){ ghost.remove(); };
+    }, 520);
   }
 })();
 </script>
