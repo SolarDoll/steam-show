@@ -62,9 +62,15 @@
   .card .spec span{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-2);
     border:1px solid var(--line-2);padding:4px 9px;border-radius:30px;background:rgba(0,0,0,.3)}
 
-  /* ===== ЛОГО-ДРАКОН в шапке (контур) ===== */
-  .brand .dragon-mark{height:30px;width:auto;display:block;
+  /* ===== ЛОГО-ДРАКОН в шапке (силуэт, градиент огня, медленный сдвиг) ===== */
+  .brand .mark{width:32px;height:32px;flex:0 0 auto;
+    -webkit-mask:url(../assets/silhuete_dragon_1.png) center/contain no-repeat;
+            mask:url(../assets/silhuete_dragon_1.png) center/contain no-repeat;
+    background:linear-gradient(120deg,var(--fire),var(--ember),var(--gold),var(--fire));
+    background-size:300% 300%;animation:brandshift 7s ease-in-out infinite;
     filter:drop-shadow(0 0 12px color-mix(in srgb,var(--fire) 55%,transparent))}
+  @keyframes brandshift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  @media(prefers-reduced-motion:reduce){.brand .mark{animation:none}}
 
   /* ===== PROGRAMS — крупный список рядами (как fireflow), превью = видео ===== */
   .prog-list{margin-top:8px}
@@ -94,10 +100,15 @@
   @media(max-width:880px){.row,.row.alt{grid-template-columns:1fr;gap:24px}.row.alt .media,.row.alt .copy{order:0}}
 
   /* ===== WORLD — крупный заголовок + глобус выше, компактнее (в 1 экран) ===== */
-  .world .sec-head{padding:clamp(40px,6vh,70px) 0 30px}
+  .world .sec-head{padding:clamp(40px,6vh,70px) 0 20px}
   .world .sec-head h2{font-size:clamp(44px,9vw,120px);line-height:.88}
   .world .geo-grid{align-items:start}
-  .world .wire{max-width:360px;margin-top:-10px}
+  .world .wire{max-width:340px;margin-top:-160px}
+  @media(max-width:780px){.world .wire{margin-top:0}}
+
+  /* ===== HOW WE WORK — заголовок в одну строку ===== */
+  .howwe .sec-head{max-width:none}
+  .howwe .sec-head h2{white-space:nowrap}
 
   /* ===== HOW WE WORK ===== */
   .howwe{padding:clamp(10px,3vh,40px) 0 clamp(40px,7vh,90px)}
@@ -175,7 +186,7 @@
 
 <header class="nav">
   <div class="nav-in">
-    <a class="brand" href="#top"><img class="dragon-mark" src="../assets/dragon-outline.png" alt="" />Steam&nbsp;Show</a>
+    <a class="brand" href="#top"><span class="mark" aria-hidden="true"></span>Steam&nbsp;Show</a>
     <nav class="nav-links">
       <a href="#" onclick="SSDetail.open('dragon',this);return false;">Dragon</a><a href="#" onclick="SSDetail.open('fire',this);return false;">Fire</a><a href="#" onclick="SSDetail.open('ledfire',this);return false;">LED Fire</a><a href="#" onclick="SSDetail.open('led',this);return false;">LED</a><a href="#" onclick="SSDetail.open('stilts',this);return false;">Stilts</a><a href="#howwe">Process</a>
     </nav>
@@ -357,9 +368,9 @@
 
       <!-- SELECTED STAGES -->
       <div class="stages reveal">
-        <span class="lbl">Selected stages</span>
+        <span class="lbl">What we play</span>
         <div class="evlist">
-          <span>Annotopia</span><span>Elfia</span><span>Medieval Cyprus Festival</span><span>Jeddah Season</span><span>Lestival</span>
+          <span>Festivals</span><span>Parades</span><span>Grand openings</span><span>Weddings</span><span>Corporate</span><span>Galas</span>
         </div>
       </div>
 
