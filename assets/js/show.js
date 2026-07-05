@@ -323,7 +323,7 @@
 
     var shownav = document.getElementById('shownav');
     shownav.innerHTML = SS.order.map(function (id) { return '<a data-id="' + id + '">' + esc(SS.show(id).nav) + '</a>'; }).join('') +
-      '<a class="process" href="index.html#howwe">Process</a>';
+      '<a class="process" href="index.html#howwe">About us</a>';
     shownav.querySelectorAll('a[data-id]').forEach(function (a) {
       a.addEventListener('click', function () { go(a.getAttribute('data-id')); });
     });

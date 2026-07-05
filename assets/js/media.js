@@ -7,7 +7,7 @@ window.SS_MEDIA = {
   },
   "shows": {
     "dragon": {
-      "video": null,
+      "video": "assets/web/dragon/dragon-preview.mp4",
       "photos": [
         "assets/web/dragon/dragon-001.jpg",
         "assets/web/dragon/dragon-002.jpg",
@@ -35,7 +35,7 @@ window.SS_MEDIA = {
       "costumes": []
     },
     "fire": {
-      "video": null,
+      "video": "assets/web/fire/fire-preview.mp4",
       "photos": [
         "assets/web/fire/fire-001.jpg",
         "assets/web/fire/fire-002.jpg",
@@ -64,7 +64,7 @@ window.SS_MEDIA = {
       "costumes": []
     },
     "ledfire": {
-      "video": null,
+      "video": "assets/web/ledfire/ledfire-preview.mp4",
       "photos": [
         "assets/web/ledfire/ledfire-001.jpg",
         "assets/web/ledfire/ledfire-002.jpg",
@@ -111,7 +111,7 @@ window.SS_MEDIA = {
       ]
     },
     "stilts": {
-      "video": null,
+      "video": "assets/web/stilts/stilts-preview.mp4",
       "photos": [
         "assets/web/stilts/stilts-001.jpg",
         "assets/web/stilts/stilts-002.jpg",

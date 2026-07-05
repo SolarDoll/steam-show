@@ -218,7 +218,7 @@ section + section{border-top:1px solid var(--line)}
 .fch .fv{font-family:var(--body);font-weight:800;font-size:19px}
 .fch .fgo{margin-top:auto;font-size:12px;letter-spacing:.06em;color:var(--ac)}
 @media(max-width:880px){.fchannels{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.fchannels{grid-template-columns:1fr}}
+@media(max-width:480px){.fchannels{gap:11px}.fch{min-height:150px;padding:18px;gap:10px}.fch .ic{width:40px;height:40px}.fch .fv{font-size:16px}}
 
 /* --- prev/next --- */
 .pnav{display:grid;grid-template-columns:1fr 1fr;gap:14px}

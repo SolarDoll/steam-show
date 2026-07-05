@@ -44,6 +44,23 @@
     if (box) box.innerHTML = SS.order.map(rowHTML).join('');
   }
 
+  /* мобильная бенто-плитка: видео + инфа поверх (первое шоу — крупное) */
+  function bentoHTML(id, i) {
+    var s = SS.show(id), c = s.card;
+    var video = s.media.video || HERO_VIDEO;
+    var poster = s.media.photos[0] || SS.cover(id);
+    return '<article class="pb-tile' + (i === 0 ? ' big' : '') + '" data-show="' + id + '" style="--c:' + s.color + '" role="button" tabindex="0" aria-label="Open ' + esc(s.name) + '">' +
+      (video ? '<video muted loop playsinline preload="none" poster="' + poster + '"><source src="' + video + '" type="video/mp4"></video>'
+             : '<img loading="lazy" src="' + poster + '" alt="' + esc(s.name) + '">') +
+      '<span class="pb-num">' + num(i) + '</span>' +
+      '<div class="pb-meta"><span class="pb-kind">' + esc(c.kind) + '</span><h3>' + esc(s.name) + '</h3></div>' +
+    '</article>';
+  }
+  function renderBento() {
+    var box = document.getElementById('progBento');
+    if (box) box.innerHTML = SS.order.map(bentoHTML).join('');
+  }
+
   /* ---------------- jump-навигация ---------------- */
   function renderTabs() {
     var box = document.getElementById('jumpTabs');
@@ -65,7 +82,6 @@
   }
   function jumpFX(targetId, tab) {
     var row = document.getElementById(targetId); if (!row) return;
-    document.querySelectorAll('#jumpTabs a').forEach(function (a) { a.classList.toggle('active', a === tab); });
     var ac = tab && tab.style.getPropertyValue('--c').trim() || '#FF6A1F';
     if (!reduce) { fillRace(row, ac); flashRow(row, ac); }
     row.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
@@ -142,7 +158,7 @@
 
   /* ---------------- видео-превью: играем только видимые ---------------- */
   function wireVideos() {
-    var vids = document.querySelectorAll('.row .media video');
+    var vids = document.querySelectorAll('.row .media video, .pb-tile video');
     if (!vids.length || reduce || !('IntersectionObserver' in window)) return;
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
@@ -159,6 +175,7 @@
   /* ---------------- init ---------------- */
   function init() {
     renderPrograms();
+    renderBento();
     renderTabs();
     var cg = document.getElementById('contactGrid');
     if (cg) cg.innerHTML = SS.contactHTML();
@@ -167,8 +184,6 @@
     document.addEventListener('click', function (e) {
       var jump = e.target.closest('[data-jump]');
       if (jump) { e.preventDefault(); jumpFX(jump.getAttribute('data-jump'), jump); return; }
-      var reel = e.target.closest('[data-reel]');
-      if (reel) { e.preventDefault(); if (window.LB) LB.openVideo(SS.reel, 'Showreel'); return; }
       var show = e.target.closest('[data-show]');
       if (show) { e.preventDefault(); openShow(show.getAttribute('data-show')); return; }
     });
@@ -199,6 +214,7 @@
 
     /* скролл: прогресс + sky --p + spine + header */
     var prog = document.getElementById('prog'), sky = document.getElementById('sky'), bar = document.querySelector('header.bar');
+    var hint = document.getElementById('scrollHint');
     var ticking = false;
     function onScroll() {
       if (ticking) return; ticking = true;
@@ -208,6 +224,7 @@
         if (prog) prog.style.width = (p * 100) + '%';
         if (sky) sky.style.setProperty('--p', p.toFixed(4));
         if (bar) bar.classList.toggle('scrolled', window.scrollY > 40);
+        if (hint) hint.classList.toggle('hidden', window.scrollY > 40);
         if (spine) {
           if (spine.fill && !reduce) spine.fill.style.height = (p * 100) + '%';
           var litTo = window.scrollY + window.innerHeight * 0.5;

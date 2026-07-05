@@ -34,8 +34,14 @@ SHOWS = [
     ("led",     "led",     "led-costumes"),
     ("stilts",  "stilts",  None),
 ]
-# видео шоу (root-relative путь в assets/web); подставляется, если файл есть
-SHOW_VIDEO = {"led": "assets/web/led/led-hero.mp4"}
+# видео-превью шоу (root-relative путь в assets/web); подставляется, если файл есть
+SHOW_VIDEO = {
+    "dragon":  "assets/web/dragon/dragon-preview.mp4",
+    "fire":    "assets/web/fire/fire-preview.mp4",
+    "ledfire": "assets/web/ledfire/ledfire-preview.mp4",
+    "led":     "assets/web/led/led-hero.mp4",
+    "stilts":  "assets/web/stilts/stilts-preview.mp4",
+}
 
 # гардероб ходулистов (порядок = порядок показа); имена/блёрбы — в content.js
 STARS  = ["stilts-star-dragons", "stilts-star-giraffe", "stilts-star-trees"]
