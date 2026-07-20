@@ -31,7 +31,7 @@ window.SS_CONTENT = {
   shows: {
     dragon: {
       name: 'Dragon Fire Show', nav: 'Dragon',
-      videos: ['95Zx38TO_5Q'],
+      videos: ['jH1iB6rw3wI', '95Zx38TO_5Q', 'kWC7arxFFXw'],
       card: {
         kind: 'Signature',
         desc: 'A fire theatrical show built around a 3-metre dragon, performed in a classic fantasy or a Slavic folk theme.',
