@@ -78,7 +78,7 @@ window.SS_CONTENT = {
 
     ledfire: {
       name: 'LED Fire Show', nav: 'LED Fire',
-      videos: ['aq-PXZIlsyo', 'NwEsu64rFzY'],
+      videos: ['aq-PXZIlsyo', 'NwEsu64rFzY', 'sckZxk4r22c'],
       card: {
         kind: 'Glow + Flame',
         desc: 'The best of both: live fire performed in glowing LED costumes. The heat of fire with the colour of light.',
@@ -105,10 +105,10 @@ window.SS_CONTENT = {
       },
       detail: {
         type: 'Electric · light',
-        desc: 'A dazzling, smoke-free light show driven by glowing LED costumes and fully programmable props. Colours and patterns are set to the music, and we can even build your logo into the props to match the brand, making it ideal for indoor galas, weddings, corporate nights and product launches where open flame is not an option.',
+        desc: 'A dazzling, smoke-free light show driven by glowing LED costumes and eye-catching props, from light-up wings to glowing cubes. We can even build your logo into the props to match the brand, making it ideal for indoor galas, weddings, corporate nights and product launches where open flame is not an option.',
         seo: {
           title: 'LED Light Show for Events & Galas - Steam Show',
-          desc: 'Smoke-free LED light show: glowing costumes and programmable props set to music, with your logo built into the props. Ideal for galas and corporate events.'
+          desc: 'Smoke-free LED light show: glowing costumes and props like light-up wings and cubes, with your logo built in. Ideal for indoor galas and corporate events.'
         },
         duration: '10–15 min · adaptable', format: 'Indoor & outdoor', cast: 'Scalable',
         chips: ['Smoke-free', 'LED catalogue', 'Full luminous'],
