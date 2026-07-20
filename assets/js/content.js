@@ -58,7 +58,11 @@ window.SS_CONTENT = {
       },
       detail: {
         type: 'Classic · fire',
-        desc: 'Large-scale fire choreography, dressed to a theme. Pick one of our themes, or for big events we build one around your concept.',
+        desc: 'Large-scale fire choreography, dressed to a theme: fire performers, flame props and live pyrotechnics. Pick one of our signature themes, or for big events we build one around your concept.',
+        seo: {
+          title: 'Fire Show for Events, Festivals & Weddings - Steam Show',
+          desc: 'Book a large-scale fire show: choreographed fire performers, flame props and pyro, themed to fantasy, rock or post-apocalyptic. Great for festivals & weddings.'
+        },
         duration: '10–15 min · adaptable', format: 'Outdoor', cast: 'Scalable',
         chips: ['Live fire', 'Choreography', 'Bespoke themes'],
         variants: {
