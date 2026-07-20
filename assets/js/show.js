@@ -62,7 +62,7 @@
     if (videoFirst) nav.push({ href: 'videos', label: 'Videos' });
     if (det.variants) nav.push({ href: 'sec-variants', label: det.variants.navLabel });
     if (!videoFirst && s.videos.length) nav.push({ href: 'videos', label: 'Videos' });
-    if (d.photos.length) nav.push({ href: 'gallery', label: 'Photos' });
+    if (d.photos.length && id !== 'stilts') nav.push({ href: 'gallery', label: 'Photos' });
     nav.push({ href: 'book', label: 'Book' });
     html += '<div class="subnav" id="subnav"><div class="si">' +
       nav.map(function (n) { return '<a href="#' + n.href + '" data-sec="' + n.href + '">' + n.label + '</a>'; }).join('') +
@@ -92,8 +92,8 @@
     if (videoFirst) { html += videosHTML; html += variantsHTML; }
     else { html += variantsHTML; html += videosHTML; }
 
-    /* GALLERY */
-    if (d.photos.length) {
+    /* GALLERY (у ходулистов не показываем — дублирует фильтруемую «Browse all» в Wardrobe) */
+    if (d.photos.length && id !== 'stilts') {
       html += '<section id="gallery"><div class="wrap">' +
         '<div class="shead"><span class="kicker">Gallery</span><h2>Photos</h2>' +
         '<p>' + d.photos.length + ' shots from real events.</p></div>' +
@@ -162,7 +162,11 @@
     W.themes.forEach(function (t) {
       if (!t.photos.length) return;
       var feat;
-      if (t.video) {
+      if (t.ytVideo) {
+        feat = '<div class="feat" data-video="' + t.ytVideo + '" data-vlabel="' + esc(t.name) + ' · film">' +
+          '<div class="vw"><img loading="lazy" src="' + t.photos[0] + '" alt=""><span class="pl"></span></div>' +
+          '<span class="vlbl">' + esc(t.name) + ' · film</span></div>';
+      } else if (t.video) {
         feat = '<div class="feat" data-localvideo="' + t.video + '" data-vlabel="' + esc(t.name) + ' · film">' +
           '<div class="vw"><img loading="lazy" src="' + (t.poster || t.photos[0]) + '" alt=""><span class="pl"></span></div>' +
           '<span class="vlbl">' + esc(t.name) + ' · film</span></div>';
@@ -170,7 +174,7 @@
         feat = '<div class="feat" data-gallery="theme:' + t.key + '" data-gi="0"><div class="vw"><img loading="lazy" src="' + t.photos[0] + '" alt=""></div>' +
           '<span class="vlbl">' + esc(t.name) + '</span></div>';
       }
-      var gi = t.video ? 0 : 1;
+      var gi = (t.ytVideo || t.video) ? 0 : 1;
       var grid = '<div class="mini-grid">' + t.photos.slice(gi, gi + 6).map(function (p, k) {
         return '<div class="cell" data-gallery="theme:' + t.key + '" data-gi="' + (gi + k) + '"><img loading="lazy" src="' + p + '" alt=""></div>';
       }).join('') + '</div>';
@@ -201,7 +205,7 @@
     groups.forEach(function (g) { g.photos.forEach(function (p) { ALL.push({ src: p, token: g.token, label: g.label }); }); });
 
     h += '<div id="browse-all" style="margin-top:clamp(40px,6vh,64px)"><div class="th" style="margin-bottom:16px">' +
-      '<h4 style="font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(22px,2.8vw,36px);margin:0">Browse all ' + ALL.length + ' costumes</h4>' +
+      '<h4 style="font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(22px,2.8vw,36px);margin:0">Browse all costumes</h4>' +
       '<span class="cnt" id="stCount" style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-left:14px">' + ALL.length + ' shown</span></div>';
     h += '<div class="filters" id="stFilters">' +
       groups.map(function (g) { return '<button class="fl" data-tag="' + g.token + '">' + esc(g.label) + '<span class="n">' + g.photos.length + '</span></button>'; }).join('') +

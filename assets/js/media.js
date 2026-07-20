@@ -182,8 +182,8 @@ window.SS_MEDIA = {
     "themes": [
       {
         "key": "stilts-fairy-garden",
-        "video": "assets/web/stilts-fairy-garden/stilts-fairy-garden.mp4",
-        "poster": "assets/web/stilts-fairy-garden/stilts-fairy-garden-poster.jpg",
+        "video": null,
+        "poster": null,
         "photos": [
           "assets/web/stilts-fairy-garden/stilts-fairy-garden-001.jpg",
           "assets/web/stilts-fairy-garden/stilts-fairy-garden-002.jpg",
@@ -220,8 +220,8 @@ window.SS_MEDIA = {
       },
       {
         "key": "stilts-pirates",
-        "video": "assets/web/stilts-pirates/stilts-pirates.mp4",
-        "poster": "assets/web/stilts-pirates/stilts-pirates-poster.jpg",
+        "video": null,
+        "poster": null,
         "photos": [
           "assets/web/stilts-pirates/stilts-pirates-001.jpg",
           "assets/web/stilts-pirates/stilts-pirates-002.jpg",

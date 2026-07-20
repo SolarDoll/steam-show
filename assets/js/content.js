@@ -143,6 +143,11 @@ window.SS_CONTENT = {
       title: 'The wardrobe',
       lead: '100+ towering characters. Explore each theme, its film and costume gallery, or browse the full set with theme filters below.'
     },
+    /* «Фильм» темы с YouTube (ключ темы -> YouTube ID). Перебивает локальное видео. */
+    themeVideos: {
+      'stilts-pirates':      'UlvKULj4Xe8',
+      'stilts-fairy-garden': 'AW1l9PbVqdY'
+    },
     themes: {
       'stilts-fairy-garden':  'Fairy Garden',
       'stilts-circus':        'Circus',
