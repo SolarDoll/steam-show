@@ -173,51 +173,17 @@ window.SS_MEDIA = {
         "assets/web/stilts/stilts-058.jpg",
         "assets/web/stilts/stilts-059.jpg"
       ],
-      "costumes": []
+      "costumes": [],
+      "heroVideo": "assets/web/stilts/stilts-hero.mp4"
     }
   },
   "stilts": {
-    "stars": [
-      {
-        "key": "stilts-star-dragons",
-        "photos": [
-          "assets/web/stilts-star-dragons/stilts-star-dragons-001.jpg",
-          "assets/web/stilts-star-dragons/stilts-star-dragons-002.jpg",
-          "assets/web/stilts-star-dragons/stilts-star-dragons-003.jpg",
-          "assets/web/stilts-star-dragons/stilts-star-dragons-004.jpg",
-          "assets/web/stilts-star-dragons/stilts-star-dragons-005.jpg",
-          "assets/web/stilts-star-dragons/stilts-star-dragons-006.jpg",
-          "assets/web/stilts-star-dragons/stilts-star-dragons-007.jpg",
-          "assets/web/stilts-star-dragons/stilts-star-dragons-008.jpg",
-          "assets/web/stilts-star-dragons/stilts-star-dragons-009.jpg",
-          "assets/web/stilts-star-dragons/stilts-star-dragons-010.jpg"
-        ]
-      },
-      {
-        "key": "stilts-star-giraffe",
-        "photos": [
-          "assets/web/stilts-star-giraffe/stilts-star-giraffe-001.jpg",
-          "assets/web/stilts-star-giraffe/stilts-star-giraffe-002.jpg",
-          "assets/web/stilts-star-giraffe/stilts-star-giraffe-003.jpg",
-          "assets/web/stilts-star-giraffe/stilts-star-giraffe-004.jpg"
-        ]
-      },
-      {
-        "key": "stilts-star-trees",
-        "photos": [
-          "assets/web/stilts-star-trees/stilts-star-trees-001.jpg",
-          "assets/web/stilts-star-trees/stilts-star-trees-002.jpg",
-          "assets/web/stilts-star-trees/stilts-star-trees-003.jpg",
-          "assets/web/stilts-star-trees/stilts-star-trees-004.jpg",
-          "assets/web/stilts-star-trees/stilts-star-trees-005.jpg"
-        ]
-      }
-    ],
+    "stars": [],
     "themes": [
       {
         "key": "stilts-fairy-garden",
-        "video": null,
-        "poster": null,
+        "video": "assets/web/stilts-fairy-garden/stilts-fairy-garden.mp4",
+        "poster": "assets/web/stilts-fairy-garden/stilts-fairy-garden-poster.jpg",
         "photos": [
           "assets/web/stilts-fairy-garden/stilts-fairy-garden-001.jpg",
           "assets/web/stilts-fairy-garden/stilts-fairy-garden-002.jpg",
@@ -237,8 +203,8 @@ window.SS_MEDIA = {
       },
       {
         "key": "stilts-circus",
-        "video": null,
-        "poster": null,
+        "video": "assets/web/stilts-circus/stilts-circus.mp4",
+        "poster": "assets/web/stilts-circus/stilts-circus-poster.jpg",
         "photos": [
           "assets/web/stilts-circus/stilts-circus-001.jpg",
           "assets/web/stilts-circus/stilts-circus-002.jpg",
@@ -254,8 +220,8 @@ window.SS_MEDIA = {
       },
       {
         "key": "stilts-pirates",
-        "video": null,
-        "poster": null,
+        "video": "assets/web/stilts-pirates/stilts-pirates.mp4",
+        "poster": "assets/web/stilts-pirates/stilts-pirates-poster.jpg",
         "photos": [
           "assets/web/stilts-pirates/stilts-pirates-001.jpg",
           "assets/web/stilts-pirates/stilts-pirates-002.jpg",
@@ -308,7 +274,26 @@ window.SS_MEDIA = {
           "assets/web/stilts-shamans/stilts-shamans-002.jpg",
           "assets/web/stilts-shamans/stilts-shamans-003.jpg",
           "assets/web/stilts-shamans/stilts-shamans-004.jpg",
-          "assets/web/stilts-shamans/stilts-shamans-005.jpg"
+          "assets/web/stilts-shamans/stilts-shamans-005.jpg",
+          "assets/web/stilts-shamans/stilts-shamans-006.jpg",
+          "assets/web/stilts-shamans/stilts-shamans-007.jpg",
+          "assets/web/stilts-shamans/stilts-shamans-008.jpg",
+          "assets/web/stilts-shamans/stilts-shamans-009.jpg",
+          "assets/web/stilts-shamans/stilts-shamans-010.jpg",
+          "assets/web/stilts-shamans/stilts-shamans-011.jpg",
+          "assets/web/stilts-shamans/stilts-shamans-012.jpg",
+          "assets/web/stilts-shamans/stilts-shamans-013.jpg"
+        ]
+      },
+      {
+        "key": "stilts-star-giraffe",
+        "video": null,
+        "poster": null,
+        "photos": [
+          "assets/web/stilts-star-giraffe/stilts-star-giraffe-001.jpg",
+          "assets/web/stilts-star-giraffe/stilts-star-giraffe-002.jpg",
+          "assets/web/stilts-star-giraffe/stilts-star-giraffe-003.jpg",
+          "assets/web/stilts-star-giraffe/stilts-star-giraffe-004.jpg"
         ]
       },
       {

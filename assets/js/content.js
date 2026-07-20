@@ -34,13 +34,13 @@ window.SS_CONTENT = {
       videos: ['95Zx38TO_5Q'],
       card: {
         kind: 'Signature',
-        desc: 'A fire theatrical show built around a 3-metre dragon — performed in a classic fantasy or a Slavic folk theme.',
+        desc: 'A fire theatrical show built around a 3-metre dragon, performed in a classic fantasy or a Slavic folk theme.',
         specs: { Format: 'Outdoor', Duration: '10–15 min · adaptable', Cast: 'Scalable' },
         tags: ['Fire show', '3-metre dragon', 'Theatrical show']
       },
       detail: {
         type: 'Flagship · fire',
-        desc: 'A fire theatrical show built around a 3-metre dragon — performed in a classic fantasy or a Slavic folk theme. Scales from intimate galas to festival main stages.',
+        desc: 'A fire theatrical show built around a 3-metre dragon, performed in a classic fantasy or a Slavic folk theme. Scales from intimate galas to festival main stages.',
         duration: '10–15 min · adaptable', format: 'Outdoor', cast: 'Scalable',
         chips: ['Flamethrowers', 'Fire cubes', 'Pyro', 'Headliner'],
         variants: null
@@ -52,24 +52,24 @@ window.SS_CONTENT = {
       videos: ['kUXyXDO6O7I', '5kWySEToST0', 'Q4SIaQwPHLs'],
       card: {
         kind: 'Fantasy · Post-apoc · Rock',
-        desc: 'Spectacular fire props — wings, cubes, sparkle staffs, flamethrowers and fire cannons — in a visual theme of your choice, from fantasy to post-apocalyptic and rock.',
+        desc: 'Spectacular fire props (wings, cubes, sparkle staffs, flamethrowers and fire cannons) in a visual theme of your choice, from fantasy to post-apocalyptic and rock.',
         specs: { Format: 'Outdoor', Duration: '10–15 min', Style: 'Your choice' },
-        tags: ['Your chosen style']
+        tags: ['Your chosen style', 'Large-scale dynamic show']
       },
       detail: {
         type: 'Classic · fire',
-        desc: 'Large-scale fire choreography, dressed to a theme. Pick one of our themes — or, for big events, we build one around your concept.',
+        desc: 'Large-scale fire choreography, dressed to a theme. Pick one of our themes, or for big events we build one around your concept.',
         duration: '10–15 min · adaptable', format: 'Outdoor', cast: 'Scalable',
         chips: ['Live fire', 'Choreography', 'Bespoke themes'],
         variants: {
           kind: 'themes', navLabel: 'Themes', title: 'Themed fire',
-          lead: 'Every theme has its own costumes, music and choreography. These are our signature ones — for large events we create a new theme to brief.',
+          lead: 'Every theme has its own costumes, music and choreography. These are our signature ones. For large events we create a new theme to brief.',
           items: [
-            { nm: 'Theme 01', h: 'Rock',             p: 'Raw, loud, rebellious — fire to a driving rock energy.' },
-            { nm: 'Theme 02', h: 'Fantasy',          p: 'Ethereal and mythic — a fairy-tale told in flame.' },
-            { nm: 'Theme 03', h: 'Post-apocalyptic', p: 'Gritty, industrial, dystopian — fire from a scorched future.' },
-            { nm: 'Theme 04', h: 'Steampunk',        p: 'Plague doctors and Victorian dames — brass, gears and gaslight.' },
-            { nm: 'Theme 05', h: 'Slavic Folk',      p: 'Born at a Maslenitsa festival — a folkloric winter fire ritual.' },
+            { nm: 'Theme 01', h: 'Rock',             p: 'Raw, loud, rebellious. Fire to a driving rock energy.' },
+            { nm: 'Theme 02', h: 'Fantasy',          p: 'Ethereal and mythic. A fairy-tale told in flame.' },
+            { nm: 'Theme 03', h: 'Post-apocalyptic', p: 'Gritty, industrial, dystopian. Fire from a scorched future.' },
+            { nm: 'Theme 04', h: 'Steampunk',        p: 'Plague doctors and Victorian dames, in brass, gears and gaslight.' },
+            { nm: 'Theme 05', h: 'Slavic Folk',      p: 'Born at a Maslenitsa festival. A folkloric winter fire ritual.' },
             { bespoke: true, nm: 'On request', h: 'Your theme', p: 'For large events we build a bespoke theme around your concept, brand or festival.' }
           ]
         }
@@ -81,13 +81,13 @@ window.SS_CONTENT = {
       videos: ['aq-PXZIlsyo', 'NwEsu64rFzY'],
       card: {
         kind: 'Glow + Flame',
-        desc: 'The best of both — live fire performed in glowing LED costumes. The heat of fire with the colour of light.',
+        desc: 'The best of both: live fire performed in glowing LED costumes. The heat of fire with the colour of light.',
         specs: { Format: 'Outdoor', Duration: '10–15 min', Look: 'Light + fire' },
         tags: ['Light + real fire']
       },
       detail: {
         type: 'Hybrid · fire + light',
-        desc: 'The best of both — live fire performed in glowing LED costumes. The heat of fire with the colour of light.',
+        desc: 'The best of both: live fire performed in glowing LED costumes. The heat of fire with the colour of light.',
         duration: '10–15 min · adaptable', format: 'Outdoor', cast: 'Scalable',
         chips: ['Live fire', 'LED costumes', 'Hybrid'],
         variants: null
@@ -99,13 +99,13 @@ window.SS_CONTENT = {
       videos: ['v3MyA-lNGok', 'U4-_8da2uuI', 'Ain3sUrpU2w'],
       card: {
         kind: 'Pure light',
-        desc: 'A fully luminous, smoke-free spectacle — a deep wardrobe of glowing LED costumes and props for any venue.',
+        desc: 'A fully luminous, smoke-free spectacle: a deep wardrobe of glowing LED costumes and props for any venue.',
         specs: { Format: 'Indoor & outdoor', Duration: '10–15 min', Looks: 'Many' },
         tags: ['Many looks', 'LED cube', 'Glowing wings']
       },
       detail: {
         type: 'Electric · light',
-        desc: 'A fully luminous, smoke-free spectacle — a deep catalogue of glowing LED costumes and props, from LED cubes to light-up wings. Pick the looks that fit your venue.',
+        desc: 'A fully luminous, smoke-free spectacle: a deep catalogue of glowing LED costumes and props, from LED cubes to light-up wings. Pick the looks that fit your venue.',
         duration: '10–15 min · adaptable', format: 'Indoor & outdoor', cast: 'Scalable',
         chips: ['Smoke-free', 'LED catalogue', 'Full luminous'],
         variants: {
@@ -117,7 +117,7 @@ window.SS_CONTENT = {
 
     stilts: {
       name: 'Stilt Walkers', nav: 'Stilts',
-      videos: ['epn4YnmNrQ8', 'wogKA0crrt0'],
+      videos: ['HLwZI7htNus', 'iAFeaUvX_Hw', 'UFmJgKILurU', 'epn4YnmNrQ8', 'wogKA0crrt0'],
       card: {
         kind: 'Animation or full show',
         desc: 'A wardrobe of towering characters, as roaming animation or a full stilt performance.',
@@ -126,7 +126,7 @@ window.SS_CONTENT = {
       },
       detail: {
         type: 'Roaming · giants',
-        desc: 'A wardrobe of towering characters — as roaming animation or a full stilt performance. Costumes group into themes, and mix freely across them.',
+        desc: 'A wardrobe of towering characters, as roaming animation or a full stilt performance. Costumes group into themes and mix freely across them.',
         duration: 'Roaming or set act', format: 'Indoor & outdoor', cast: 'Scalable',
         chips: ['Roaming', 'Full stage show', '100+ costumes'],
         variants: { kind: 'stilts', navLabel: 'Wardrobe' }
@@ -141,22 +141,18 @@ window.SS_CONTENT = {
     wardrobe: {
       kicker: 'Costumes & themes',
       title: 'The wardrobe',
-      lead: '100+ towering characters. Start with our showstoppers, then explore each theme — its film and costume gallery, or browse the full set with theme filters below.'
-    },
-    stars: {
-      'stilts-star-dragons': { name: 'Dragons', blurb: 'Towering dragons on stilts — our signature giants. A guaranteed showstopper.' },
-      'stilts-star-giraffe': { name: 'Giraffe', blurb: 'A friendly 4-metre giraffe that roams the crowd. Kids and cameras love it.' },
-      'stilts-star-trees':   { name: 'Trees',   blurb: 'Living walking trees — ethereal, photogenic and great for nature themes.' }
+      lead: '100+ towering characters. Explore each theme, its film and costume gallery, or browse the full set with theme filters below.'
     },
     themes: {
-      'stilts-fairy-garden': 'Fairy Garden',
-      'stilts-circus':       'Circus',
-      'stilts-pirates':      'Pirates',
-      'stilts-classics':     'Classics',
-      'stilts-trees':        'Trees',
-      'stilts-christmas':    'Christmas',
-      'stilts-shamans':      'Shamans',
-      'stilts-led':          'LED on stilts'
+      'stilts-fairy-garden':  'Fairy Garden',
+      'stilts-circus':        'Circus',
+      'stilts-pirates':       'Pirates',
+      'stilts-classics':      'Classics',
+      'stilts-trees':         'Trees',
+      'stilts-christmas':     'Christmas',
+      'stilts-shamans':       'Dragons & Shamans',
+      'stilts-star-giraffe':  'Giraffe',
+      'stilts-led':           'LED on stilts'
     },
     otherLabel: 'More characters'
   },

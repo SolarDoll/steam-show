@@ -32,9 +32,9 @@
   function render(id) {
     var s = SS.show(id), det = s.detail, d = s.media, ac = s.color;
     document.documentElement.style.setProperty('--ac', ac);
-    document.title = s.name + ' — Steam Show';
+    document.title = s.name + ' · Steam Show';
     var cover = d.photos[0] || (s.videos[0] ? ytThumb(s.videos[0]) : '');
-    var heroVid = d.video || (id === 'dragon' ? HERO_VIDEO : null);
+    var heroVid = d.heroVideo || d.video || (id === 'dragon' ? HERO_VIDEO : null);
 
     var html = '';
     /* HERO */
@@ -55,7 +55,7 @@
         '<a class="btn ghost" href="#book">Book the show</a></div>' +
       '</div></header>';
 
-    var videoFirst = (id === 'led') && s.videos.length;
+    var videoFirst = (id === 'led' || id === 'stilts') && s.videos.length;
 
     /* SUB-NAV */
     var nav = [{ href: 'top', label: 'Top' }];
@@ -81,11 +81,11 @@
     if (s.videos.length) {
       videosHTML = '<section id="videos"><div class="wrap">' +
         '<div class="shead"><span class="kicker">Watch</span><h2>Videos</h2>' +
-        '<p>' + s.videos.length + ' clip' + (s.videos.length > 1 ? 's' : '') + ' — full performances and highlights.</p></div>' +
+        '<p>' + s.videos.length + ' clip' + (s.videos.length > 1 ? 's' : '') + ' · full performances and highlights.</p></div>' +
         railBox(s.videos.map(function (v, i) {
-          return '<div class="vcard" data-video="' + v + '" data-vlabel="' + esc(s.name) + ' — video ' + (i + 1) + '">' +
+          return '<div class="vcard" data-video="' + v + '" data-vlabel="' + esc(s.name) + ' · video ' + (i + 1) + '">' +
             '<div class="vw"><img loading="lazy" src="' + ytThumb(v) + '" alt=""><span class="pl"></span></div>' +
-            '<div class="vl">' + esc(s.name) + ' — video ' + (i + 1) + '</div></div>';
+            '<div class="vl">' + esc(s.name) + ' · video ' + (i + 1) + '</div></div>';
         }).join('')) + '</div></section>';
     }
 
@@ -106,7 +106,7 @@
     html += '<section id="book"><div class="wrap">' +
       '<div class="kicker">Book the show</div>' +
       '<h2 class="ccta">Let\'s <span class="grad">light it up</span></h2>' +
-      '<p class="clead">Tell us the date, the venue and the vibe — we\'ll tailor ' + esc(s.name) + ' to your run of show. Reach us on whatever\'s fastest.</p>' +
+      '<p class="clead">Tell us the date, the venue and the vibe, and we\'ll tailor ' + esc(s.name) + ' to your run of show. Reach us on whatever\'s fastest.</p>' +
       '<div class="fchannels">' + SS.contactHTML() + '</div></div></section>';
 
     /* PREV / NEXT */
@@ -158,24 +158,14 @@
       '<div class="shead"><span class="kicker">' + esc(intro.kicker) + '</span><h2>' + esc(intro.title) + '</h2>' +
       '<p>' + esc(intro.lead) + '</p></div>';
 
-    /* 1. Showstoppers */
-    if (W.stars.length) {
-      h += '<div class="stars">';
-      W.stars.forEach(function (st) {
-        h += '<div class="star" data-gallery="star:' + st.key + '"><img loading="lazy" src="' + st.photos[0] + '" alt="">' +
-          '<div class="sc"><span class="badge">★ Showstopper</span><h3>' + esc(st.name) + '</h3><p>' + esc(st.blurb) + '</p></div></div>';
-      });
-      h += '</div>';
-    }
-
-    /* 2. Тема-блоки */
+    /* Тема-блоки (шоу-стопперы убраны; их место заняла секция видео вверху) */
     W.themes.forEach(function (t) {
       if (!t.photos.length) return;
       var feat;
       if (t.video) {
-        feat = '<div class="feat" data-localvideo="' + t.video + '" data-vlabel="' + esc(t.name) + ' — film">' +
+        feat = '<div class="feat" data-localvideo="' + t.video + '" data-vlabel="' + esc(t.name) + ' · film">' +
           '<div class="vw"><img loading="lazy" src="' + (t.poster || t.photos[0]) + '" alt=""><span class="pl"></span></div>' +
-          '<span class="vlbl">' + esc(t.name) + ' — film</span></div>';
+          '<span class="vlbl">' + esc(t.name) + ' · film</span></div>';
       } else {
         feat = '<div class="feat" data-gallery="theme:' + t.key + '" data-gi="0"><div class="vw"><img loading="lazy" src="' + t.photos[0] + '" alt=""></div>' +
           '<span class="vlbl">' + esc(t.name) + '</span></div>';
@@ -207,7 +197,7 @@
       return '<div class="cell" data-gallery="browse" data-gi="' + i + '" data-tags="' + x.token + '">' +
         '<img loading="lazy" src="' + x.src + '" alt=""><div class="tg"><span>' + esc(x.label) + '</span></div></div>';
     }).join('') + '</div>';
-    h += '<div class="emptymsg" id="stEmpty" style="display:none">No costumes match those themes — try clearing a filter.</div></div>';
+    h += '<div class="emptymsg" id="stEmpty" style="display:none">No costumes match those themes. Try clearing a filter.</div></div>';
 
     return h + '</div></section>';
   }
@@ -228,7 +218,7 @@
   }
 
   function wirePage(id, s) {
-    var photoList = s.media.photos.map(function (p, i) { return { img: p, label: s.name + ' — photo ' + (i + 1) }; });
+    var photoList = s.media.photos.map(function (p, i) { return { img: p, label: s.name + ' · photo ' + (i + 1) }; });
     var costList = s.media.costumes.map(function (c, i) { return { img: c, label: 'Costume ' + (i + 1) }; });
 
     page.querySelectorAll('[data-video]').forEach(function (el) {

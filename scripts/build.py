@@ -2,27 +2,32 @@
 Steam Show — сборка веб-медиа + манифест (единый скрипт).
 
   Источник:  assets/media/<folder>/*        (оригиналы, в git НЕ коммитятся)
-  Результат: assets/web/<folder>/<folder>-NNN.jpg   (ужатые, коммитятся)
+  Результат: assets/web/<key>/<key>-NNN.jpg   (ужатые, коммитятся)
              assets/js/media.js  ->  window.SS_MEDIA  (ТОЛЬКО пути, root-relative)
 
 Один костюм может лежать в нескольких папках-темах — так задаётся
-принадлежность к нескольким темам ходулистов.
+принадлежность к нескольким темам ходулистов. Раздел может собираться из
+НЕСКОЛЬКИХ папок-источников (см. STILT_THEMES) — дубли по имени файла
+отбрасываются.
+
+Обложка раздела: файл с именем `main.*` в любой из папок-источников идёт
+первым (photos[0]). Нет `main` — первым идёт файл по алфавиту.
 
 Весь копирайт (имена, описания, YouTube-ID, контакты) живёт в
 assets/js/content.js и здесь НЕ трогается.
 
-Видео (hero.mp4, led-hero.mp4) оптимизируются отдельно (ffmpeg) и здесь
-не перекодируются — скрипт лишь подставляет их пути в манифест, если файлы
-существуют в assets/web/.
+Видео (hero, превью шоу, видео тем) оптимизируются отдельно (ffmpeg) и
+кладутся в assets/web/. Скрипт лишь подставляет их пути в манифест, если
+файлы существуют, и авто-генерит постер темы из её обложки.
 
 Запуск:  python scripts/build.py
 """
-import os, json
+import os, json, shutil
 from PIL import Image, ImageOps
 
 MEDIA = "assets/media"
 WEB = "assets/web"
-MAXED = 1280          # макс. длинная сторона (было 1500)
+MAXED = 1280          # макс. длинная сторона
 Q = 80                # качество JPEG
 IMG_EXT = (".jpg", ".jpeg", ".png", ".webp", ".bmp")
 
@@ -42,76 +47,111 @@ SHOW_VIDEO = {
     "led":     "assets/web/led/led-hero.mp4",
     "stilts":  "assets/web/stilts/stilts-preview.mp4",
 }
+# отдельное видео-фон для HERO страницы шоу (если отличается от превью)
+SHOW_HERO_VIDEO = {
+    "stilts":  "assets/web/stilts/stilts-hero.mp4",
+}
 
-# гардероб ходулистов (порядок = порядок показа); имена/блёрбы — в content.js
-STARS  = ["stilts-star-dragons", "stilts-star-giraffe", "stilts-star-trees"]
-THEMES = ["stilts-fairy-garden", "stilts-circus", "stilts-pirates", "stilts-classics",
-          "stilts-trees", "stilts-christmas", "stilts-shamans", "stilts-led"]
-OTHER  = "stilts-other"
+# гардероб ходулистов — темы: (ключ-вывода, [папки-источники])
+# порядок = порядок показа; имена — в content.js (stilts.themes)
+STILT_THEMES = [
+    ("stilts-fairy-garden", ["stilts-fairy-garden"]),
+    ("stilts-circus",       ["stilts-circus"]),
+    ("stilts-pirates",      ["stilts-pirates"]),
+    ("stilts-classics",     ["stilts-classics"]),
+    ("stilts-trees",        ["stilts-trees"]),
+    ("stilts-christmas",    ["stilts-christmas"]),
+    ("stilts-shamans",      ["stilts-shamans", "stilts-star-dragons"]),
+    ("stilts-star-giraffe", ["stilts-star-giraffe"]),
+    ("stilts-led",          ["stilts-led"]),
+]
+OTHER = "stilts-other"
 
 HERO_VIDEO  = "assets/web/hero/hero.mp4"
 HERO_POSTER = "assets/web/hero/hero-poster.jpg"
 
 
-def optimize(folder):
-    """ужимает media/<folder>/* -> web/<folder>/<folder>-NNN.jpg; возвращает root-relative пути"""
-    sp = os.path.join(MEDIA, folder)
-    if not os.path.isdir(sp):
+def _sorted_sources(folders):
+    """(folder, filename) по всем папкам; дубли по basename отбрасываются;
+       файл с именем main.* — первым."""
+    picked, seen = [], set()
+    for folder in folders:
+        sp = os.path.join(MEDIA, folder)
+        if not os.path.isdir(sp):
+            continue
+        for f in sorted(x for x in os.listdir(sp)
+                        if x.lower().endswith(IMG_EXT) and not x.startswith(".")):
+            key = f.lower()
+            if key in seen:
+                continue
+            seen.add(key)
+            picked.append((folder, f))
+    picked.sort(key=lambda t: (0 if os.path.splitext(t[1])[0].lower() == "main" else 1))
+    return picked
+
+
+def optimize(out_key, folders):
+    """ужимает media/<folders...>/* -> web/<out_key>/<out_key>-NNN.jpg; root-relative пути"""
+    src = _sorted_sources(folders)
+    if not src:
         return []
-    files = sorted(f for f in os.listdir(sp)
-                   if f.lower().endswith(IMG_EXT) and not f.startswith("."))
-    wp = os.path.join(WEB, folder)
+    wp = os.path.join(WEB, out_key)
     os.makedirs(wp, exist_ok=True)
     out = []
-    for n, f in enumerate(files, 1):
-        name = f"{folder}-{n:03d}.jpg"
+    for n, (folder, f) in enumerate(src, 1):
+        name = f"{out_key}-{n:03d}.jpg"
         try:
-            im = ImageOps.exif_transpose(Image.open(os.path.join(sp, f))).convert("RGB")
+            im = ImageOps.exif_transpose(Image.open(os.path.join(MEDIA, folder, f))).convert("RGB")
             im.thumbnail((MAXED, MAXED), Image.LANCZOS)
             im.save(os.path.join(wp, name), "JPEG", quality=Q, optimize=True, progressive=True)
-            out.append(f"{WEB}/{folder}/{name}")
+            out.append(f"{WEB}/{out_key}/{name}")
         except Exception as e:
             print("  ! skip", f, e)
     return out
 
 
-def theme_video(folder):
-    """путь к <folder>.mp4/-poster.jpg в web, если оба существуют (иначе None, None)"""
-    v = f"{WEB}/{folder}/{folder}.mp4"
-    p = f"{WEB}/{folder}/{folder}-poster.jpg"
-    if os.path.isfile(v) and os.path.isfile(p):
-        return v, p
-    return None, None
+def theme_video(out_key, photos):
+    """видео темы = web/<key>/<key>.mp4, если положено вручную. Постер авто из обложки.
+       Возвращает (video|None, poster|None)."""
+    v = f"{WEB}/{out_key}/{out_key}.mp4"
+    if not os.path.isfile(v) or not photos:
+        return None, None
+    poster = f"{WEB}/{out_key}/{out_key}-poster.jpg"
+    try:
+        shutil.copyfile(photos[0], poster)     # обложка (photos[0]) -> постер
+    except Exception as e:
+        print("  ! poster", out_key, e)
+        return v, None
+    return v, poster
 
 
 print("optimizing shows...")
 shows = {}
 for sid, pf, cf in SHOWS:
-    photos = optimize(pf)
-    costumes = optimize(cf) if cf else []
-    shows[sid] = {
+    photos = optimize(pf, [pf])
+    costumes = optimize(cf, [cf]) if cf else []
+    entry = {
         "video": SHOW_VIDEO.get(sid) if (sid in SHOW_VIDEO and os.path.isfile(SHOW_VIDEO[sid])) else None,
         "photos": photos,
         "costumes": costumes,
     }
-    print(f"  {sid:8} photos={len(photos):3} costumes={len(costumes):3}")
+    hv = SHOW_HERO_VIDEO.get(sid)
+    if hv and os.path.isfile(hv):
+        entry["heroVideo"] = hv
+    shows[sid] = entry
+    print(f"  {sid:8} photos={len(photos):3} costumes={len(costumes):3}" +
+          ("  +hero" if entry.get("heroVideo") else ""))
 
 print("optimizing stilt wardrobe...")
-stars = []
-for folder in STARS:
-    photos = optimize(folder)
-    if photos:
-        stars.append({"key": folder, "photos": photos})
-        print(f"  star  {folder:22} {len(photos)}")
 themes = []
-for folder in THEMES:
-    photos = optimize(folder)
+for out_key, folders in STILT_THEMES:
+    photos = optimize(out_key, folders)
     if not photos:
         continue
-    v, p = theme_video(folder)
-    themes.append({"key": folder, "video": v, "poster": p, "photos": photos})
-    print(f"  theme {folder:22} {len(photos)}" + ("  +video" if v else ""))
-other = optimize(OTHER)
+    v, p = theme_video(out_key, photos)
+    themes.append({"key": out_key, "video": v, "poster": p, "photos": photos})
+    print(f"  theme {out_key:22} {len(photos)}" + ("  +video" if v else ""))
+other = optimize(OTHER, [OTHER])
 print(f"  other {OTHER:22} {len(other)}")
 
 data = {
@@ -120,7 +160,7 @@ data = {
         "poster": HERO_POSTER if os.path.isfile(HERO_POSTER) else None,
     },
     "shows": shows,
-    "stilts": {"stars": stars, "themes": themes, "other": other},
+    "stilts": {"stars": [], "themes": themes, "other": other},
 }
 
 out = "assets/js/media.js"
