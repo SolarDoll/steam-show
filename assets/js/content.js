@@ -73,7 +73,7 @@ window.SS_CONTENT = {
             { key: 'fire-fantasy',   nm: 'Theme 02', h: 'Fantasy',          p: 'Ethereal and mythic. A fairy-tale told in flame.' },
             { key: 'fire-postapoc',  nm: 'Theme 03', h: 'Post-apocalyptic', p: 'Gritty, industrial, dystopian. Fire from a scorched future.' },
             { key: 'fire-steampunk', nm: 'Theme 04', h: 'Steampunk',        p: 'Plague doctors and Victorian dames, in brass, gears and gaslight.' },
-            { key: 'fire-slavic',    nm: 'Theme 05', h: 'Slavic Folk',      p: 'Born at a Maslenitsa festival. A folkloric winter fire ritual.' },
+            { key: 'fire-slavic',    nm: 'Theme 05', h: 'Slavic Folk',      p: 'Pagan motifs and maidens in white. A folkloric fire ritual drawn from old Slavic myth.' },
             { bespoke: true, nm: 'On request', h: 'Your theme', p: 'For large events we build a bespoke theme around your concept, brand or festival.' }
           ]
         }
