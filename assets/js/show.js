@@ -147,14 +147,6 @@
       '<p class="clead">Tell us the date, the venue and the vibe, and we\'ll tailor ' + esc(s.name) + ' to your run of show. Reach us on whatever\'s fastest.</p>' +
       '<div class="fchannels">' + SS.contactHTML() + '</div></div></section>';
 
-    /* PREV / NEXT */
-    var order = SS.order, ci = order.indexOf(id);
-    var pv = order[(ci - 1 + order.length) % order.length], nx = order[(ci + 1) % order.length];
-    html += '<section><div class="wrap"><div class="pnav">' +
-      '<a class="prev" data-go="' + pv + '"><span class="pk">← Previous show</span><span class="pv">' + esc(SS.show(pv).name) + '</span></a>' +
-      '<a class="next" data-go="' + nx + '"><span class="pk">Next show →</span><span class="pv">' + esc(SS.show(nx).name) + '</span></a>' +
-      '</div></div></section>';
-
     page.innerHTML = html;
     wirePage(id, s);
     wireSpy(nav);
