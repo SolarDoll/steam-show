@@ -105,10 +105,10 @@ window.SS_CONTENT = {
       },
       detail: {
         type: 'Electric · light',
-        desc: 'A dazzling, smoke-free light show driven by glowing LED costumes and fully programmable props. Colours move with your soundtrack and can match your brand palette, making it ideal for indoor galas, weddings, corporate nights and product launches where open flame is not an option.',
+        desc: 'A dazzling, smoke-free light show driven by glowing LED costumes and fully programmable props. Colours and patterns are set to the music, and we can even build your logo into the props to match the brand, making it ideal for indoor galas, weddings, corporate nights and product launches where open flame is not an option.',
         seo: {
           title: 'LED Light Show for Events & Galas - Steam Show',
-          desc: 'Book a smoke-free LED light show: glowing costumes and programmable props, choreographed to your music. Great for indoor galas, weddings and corporate events.'
+          desc: 'Smoke-free LED light show: glowing costumes and programmable props set to music, with your logo built into the props. Ideal for galas and corporate events.'
         },
         duration: '10–15 min · adaptable', format: 'Indoor & outdoor', cast: 'Scalable',
         chips: ['Smoke-free', 'LED catalogue', 'Full luminous'],
