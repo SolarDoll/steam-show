@@ -52,6 +52,16 @@ SHOW_HERO_VIDEO = {
     "stilts":  "assets/web/stilts/stilts-hero.mp4",
 }
 
+# fire — тематические миры: (ключ-вывода, [папки-источники])
+# порядок = порядок карточек; имена/блёрбы — в content.js (fire.detail.variants.items, поле key)
+FIRE_THEMES = [
+    ("fire-rock",      ["fire-rock"]),
+    ("fire-fantasy",   ["fire-fantasy"]),
+    ("fire-postapoc",  ["fire-postapoc"]),
+    ("fire-steampunk", ["fire-steampunk"]),
+    ("fire-slavic",    ["fire-slavic"]),
+]
+
 # гардероб ходулистов — темы: (ключ-вывода, [папки-источники])
 # порядок = порядок показа; имена — в content.js (stilts.themes)
 STILT_THEMES = [
@@ -141,6 +151,16 @@ for sid, pf, cf in SHOWS:
     shows[sid] = entry
     print(f"  {sid:8} photos={len(photos):3} costumes={len(costumes):3}" +
           ("  +hero" if entry.get("heroVideo") else ""))
+
+print("optimizing fire themes...")
+fire_themes = []
+for out_key, folders in FIRE_THEMES:
+    photos = optimize(out_key, folders)
+    if not photos:
+        continue
+    fire_themes.append({"key": out_key, "photos": photos})
+    print(f"  theme {out_key:16} {len(photos)}")
+shows["fire"]["themes"] = fire_themes
 
 print("optimizing stilt wardrobe...")
 themes = []

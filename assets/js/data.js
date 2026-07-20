@@ -26,7 +26,7 @@
       videos: c.videos || [],
       card: c.card,
       detail: c.detail,
-      media: { photos: m.photos || [], costumes: m.costumes || [], video: m.video || null, heroVideo: m.heroVideo || null }
+      media: { photos: m.photos || [], costumes: m.costumes || [], video: m.video || null, heroVideo: m.heroVideo || null, themes: m.themes || [] }
     };
   });
 

@@ -156,6 +156,8 @@
   /* ----- fire: темы ----- */
   function renderThemes(s) {
     var v = s.detail.variants, ph = s.media.photos, n = v.items.length;
+    var byKey = {};
+    (s.media.themes || []).forEach(function (t) { byKey[t.key] = t.photos || []; });
     var h = '<section id="sec-variants"><div class="wrap"><div class="shead"><span class="kicker">Programs</span>' +
       '<h2>' + esc(v.title) + '</h2><p>' + esc(v.lead) + '</p></div><div class="worlds">';
     v.items.forEach(function (w, i) {
@@ -163,8 +165,12 @@
         h += '<div class="world bespoke"><div class="wc"><div class="wn">' + esc(w.nm) + '</div><h3>' + esc(w.h) + '</h3><p>' + esc(w.p) + '</p></div></div>';
         return;
       }
-      var cov = ph[Math.floor(i * ph.length / n)] || ph[i % ph.length] || ph[0] || '';
-      h += '<div class="world" data-world="' + i + '"><img loading="lazy" src="' + cov + '" alt="">' +
+      var themed = w.key && byKey[w.key] && byKey[w.key].length ? byKey[w.key] : null;
+      var cov = themed ? themed[0] : (ph[Math.floor(i * ph.length / n)] || ph[i % ph.length] || ph[0] || '');
+      var hook = themed
+        ? 'data-firetheme="' + w.key + '" data-fname="' + esc(w.h) + '"'
+        : 'data-world="' + i + '"';
+      h += '<div class="world" ' + hook + '><img loading="lazy" src="' + cov + '" alt="">' +
         '<div class="wc"><div class="wn">' + esc(w.nm) + '</div><h3>' + esc(w.h) + '</h3><p>' + esc(w.p) + '</p></div></div>';
     });
     return h + '</div></div></section>';
@@ -284,6 +290,15 @@
       el.addEventListener('click', function () {
         var f = galleryFor(el.getAttribute('data-gallery')); if (!f || !f.photos) return;
         LB.openList(f.photos.map(function (p, i) { return { img: p, label: f.name + ' ' + (i + 1) }; }), +(el.getAttribute('data-gi') || 0));
+      });
+    });
+    var fThemes = s.media.themes || [];
+    page.querySelectorAll('[data-firetheme]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var key = el.getAttribute('data-firetheme'), nm = el.getAttribute('data-fname') || s.name;
+        var t = fThemes.filter(function (x) { return x.key === key; })[0];
+        if (!t || !t.photos.length) return;
+        LB.openList(t.photos.map(function (p, i) { return { img: p, label: nm + ' · photo ' + (i + 1) }; }), 0);
       });
     });
     var worldEls = page.querySelectorAll('[data-world]'), wn = worldEls.length;

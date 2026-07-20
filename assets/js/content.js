@@ -69,11 +69,11 @@ window.SS_CONTENT = {
           kind: 'themes', navLabel: 'Themes', title: 'Themed fire',
           lead: 'Every theme has its own costumes and music. These are our signature ones. For large events we create a new theme to brief.',
           items: [
-            { nm: 'Theme 01', h: 'Rock',             p: 'Raw, loud, rebellious. Fire to a driving rock energy.' },
-            { nm: 'Theme 02', h: 'Fantasy',          p: 'Ethereal and mythic. A fairy-tale told in flame.' },
-            { nm: 'Theme 03', h: 'Post-apocalyptic', p: 'Gritty, industrial, dystopian. Fire from a scorched future.' },
-            { nm: 'Theme 04', h: 'Steampunk',        p: 'Plague doctors and Victorian dames, in brass, gears and gaslight.' },
-            { nm: 'Theme 05', h: 'Slavic Folk',      p: 'Born at a Maslenitsa festival. A folkloric winter fire ritual.' },
+            { key: 'fire-rock',      nm: 'Theme 01', h: 'Rock',             p: 'Raw, loud, rebellious. Fire to a driving rock energy.' },
+            { key: 'fire-fantasy',   nm: 'Theme 02', h: 'Fantasy',          p: 'Ethereal and mythic. A fairy-tale told in flame.' },
+            { key: 'fire-postapoc',  nm: 'Theme 03', h: 'Post-apocalyptic', p: 'Gritty, industrial, dystopian. Fire from a scorched future.' },
+            { key: 'fire-steampunk', nm: 'Theme 04', h: 'Steampunk',        p: 'Plague doctors and Victorian dames, in brass, gears and gaslight.' },
+            { key: 'fire-slavic',    nm: 'Theme 05', h: 'Slavic Folk',      p: 'Born at a Maslenitsa festival. A folkloric winter fire ritual.' },
             { bespoke: true, nm: 'On request', h: 'Your theme', p: 'For large events we build a bespoke theme around your concept, brand or festival.' }
           ]
         }

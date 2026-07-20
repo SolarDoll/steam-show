@@ -51,7 +51,99 @@ window.SS_MEDIA = {
       "photos": [
         "assets/web/fire/fire-001.jpg"
       ],
-      "costumes": []
+      "costumes": [],
+      "themes": [
+        {
+          "key": "fire-rock",
+          "photos": [
+            "assets/web/fire-rock/fire-rock-001.jpg",
+            "assets/web/fire-rock/fire-rock-002.jpg",
+            "assets/web/fire-rock/fire-rock-003.jpg",
+            "assets/web/fire-rock/fire-rock-004.jpg",
+            "assets/web/fire-rock/fire-rock-005.jpg",
+            "assets/web/fire-rock/fire-rock-006.jpg",
+            "assets/web/fire-rock/fire-rock-007.jpg",
+            "assets/web/fire-rock/fire-rock-008.jpg",
+            "assets/web/fire-rock/fire-rock-009.jpg",
+            "assets/web/fire-rock/fire-rock-010.jpg",
+            "assets/web/fire-rock/fire-rock-011.jpg",
+            "assets/web/fire-rock/fire-rock-012.jpg",
+            "assets/web/fire-rock/fire-rock-013.jpg",
+            "assets/web/fire-rock/fire-rock-014.jpg",
+            "assets/web/fire-rock/fire-rock-015.jpg",
+            "assets/web/fire-rock/fire-rock-016.jpg",
+            "assets/web/fire-rock/fire-rock-017.jpg",
+            "assets/web/fire-rock/fire-rock-018.jpg",
+            "assets/web/fire-rock/fire-rock-019.jpg",
+            "assets/web/fire-rock/fire-rock-020.jpg",
+            "assets/web/fire-rock/fire-rock-021.jpg",
+            "assets/web/fire-rock/fire-rock-022.jpg",
+            "assets/web/fire-rock/fire-rock-023.jpg",
+            "assets/web/fire-rock/fire-rock-024.jpg"
+          ]
+        },
+        {
+          "key": "fire-fantasy",
+          "photos": [
+            "assets/web/fire-fantasy/fire-fantasy-001.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-002.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-003.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-004.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-005.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-006.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-007.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-008.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-009.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-010.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-011.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-012.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-013.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-014.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-015.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-016.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-017.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-018.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-019.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-020.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-021.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-022.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-023.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-024.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-025.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-026.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-027.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-028.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-029.jpg",
+            "assets/web/fire-fantasy/fire-fantasy-030.jpg"
+          ]
+        },
+        {
+          "key": "fire-steampunk",
+          "photos": [
+            "assets/web/fire-steampunk/fire-steampunk-001.jpg",
+            "assets/web/fire-steampunk/fire-steampunk-002.jpg",
+            "assets/web/fire-steampunk/fire-steampunk-003.jpg",
+            "assets/web/fire-steampunk/fire-steampunk-004.jpg",
+            "assets/web/fire-steampunk/fire-steampunk-005.jpg",
+            "assets/web/fire-steampunk/fire-steampunk-006.jpg",
+            "assets/web/fire-steampunk/fire-steampunk-007.jpg"
+          ]
+        },
+        {
+          "key": "fire-slavic",
+          "photos": [
+            "assets/web/fire-slavic/fire-slavic-001.jpg",
+            "assets/web/fire-slavic/fire-slavic-002.jpg",
+            "assets/web/fire-slavic/fire-slavic-003.jpg",
+            "assets/web/fire-slavic/fire-slavic-004.jpg",
+            "assets/web/fire-slavic/fire-slavic-005.jpg",
+            "assets/web/fire-slavic/fire-slavic-006.jpg",
+            "assets/web/fire-slavic/fire-slavic-007.jpg",
+            "assets/web/fire-slavic/fire-slavic-008.jpg",
+            "assets/web/fire-slavic/fire-slavic-009.jpg"
+          ]
+        }
+      ]
     },
     "ledfire": {
       "video": "assets/web/ledfire/ledfire-preview.mp4",
