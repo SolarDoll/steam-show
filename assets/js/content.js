@@ -96,7 +96,7 @@ window.SS_CONTENT = {
 
     led: {
       name: 'LED Show', nav: 'LED',
-      videos: ['v3MyA-lNGok', 'U4-_8da2uuI', 'Ain3sUrpU2w', 'T6nHGrLrXoU', 'N7Qj5uU1bH4', '7SCXdglhHgI'],
+      videos: ['7SCXdglhHgI', 'v3MyA-lNGok', 'U4-_8da2uuI', 'Ain3sUrpU2w', 'T6nHGrLrXoU', 'N7Qj5uU1bH4'],
       card: {
         kind: 'Pure light',
         desc: 'Pure light, zero smoke or flame: glowing LED costumes and programmable props, choreographed to music. Built for indoor venues.',
