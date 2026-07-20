@@ -67,7 +67,7 @@ window.SS_CONTENT = {
         chips: ['Live fire', 'Choreography', 'Bespoke themes'],
         variants: {
           kind: 'themes', navLabel: 'Themes', title: 'Themed fire',
-          lead: 'Every theme has its own costumes, music and choreography. These are our signature ones. For large events we create a new theme to brief.',
+          lead: 'Every theme has its own costumes and music. These are our signature ones. For large events we create a new theme to brief.',
           items: [
             { nm: 'Theme 01', h: 'Rock',             p: 'Raw, loud, rebellious. Fire to a driving rock energy.' },
             { nm: 'Theme 02', h: 'Fantasy',          p: 'Ethereal and mythic. A fairy-tale told in flame.' },
