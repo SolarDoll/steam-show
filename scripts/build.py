@@ -81,18 +81,19 @@ HERO_VIDEO  = "assets/web/hero/hero.mp4"
 HERO_POSTER = "assets/web/hero/hero-poster.jpg"
 
 
-def _natkey(name):
-    """натуральный ключ сортировки: '1' < '2' < '10' (а не строкой '1' < '10' < '2').
-       Разбивает имя на числовые и текстовые куски."""
-    import re
+def _sortkey(name):
+    """порядок в папке: чисто-числовые имена первыми по возрастанию
+       (1.jpg, 2.jpg, … 10.jpg — обложка = 1.jpg), затем всё остальное по алфавиту.
+       main.* обрабатывается отдельно (в _sorted_sources) — уходит в самое начало."""
     base = os.path.splitext(name)[0].lower()
-    return [(1, int(p)) if p.isdigit() else (0, p) for p in re.split(r'(\d+)', base) if p]
+    if base.isdigit():
+        return (0, int(base), base)
+    return (1, 0, base)
 
 
 def _sorted_sources(folders):
     """(folder, filename) по всем папкам; дубли по basename отбрасываются.
-       Порядок: файл main.* — первым, дальше натуральная сортировка по имени
-       (обложка = 1.jpg, затем 2.jpg … 10.jpg)."""
+       Порядок: main.* — первым, затем нумерованные (1,2,…), затем прочие."""
     picked, seen = [], set()
     for folder in folders:
         sp = os.path.join(MEDIA, folder)
@@ -100,7 +101,7 @@ def _sorted_sources(folders):
             continue
         for f in sorted((x for x in os.listdir(sp)
                          if x.lower().endswith(IMG_EXT) and not x.startswith(".")),
-                        key=_natkey):
+                        key=_sortkey):
             key = f.lower()
             if key in seen:
                 continue

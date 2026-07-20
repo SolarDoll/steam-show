@@ -79,7 +79,7 @@
         '<a class="btn ghost" href="#book">Book the show</a></div>' +
       '</div></header>';
 
-    var videoFirst = (id === 'led' || id === 'stilts') && s.videos.length;
+    var videoFirst = (id === 'led' || id === 'stilts' || id === 'fire') && s.videos.length;
 
     /* SUB-NAV */
     var nav = [{ href: 'top', label: 'Top' }];
@@ -163,6 +163,13 @@
     v.items.forEach(function (w) { if (w.key) nameByKey[w.key] = w.h; });
     var groups = (s.media.themes || []).filter(function (t) { return t.photos.length; })
       .map(function (t) { return { token: t.key, label: nameByKey[t.key] || t.key, photos: t.photos }; });
+    /* порядок фото по-умолчанию: фэнтези, славик, рок, затем всё остальное */
+    var PREF = { 'fire-fantasy': 0, 'fire-slavic': 1, 'fire-rock': 2 };
+    groups.sort(function (a, b) {
+      var ai = PREF[a.token] == null ? 99 : PREF[a.token];
+      var bi = PREF[b.token] == null ? 99 : PREF[b.token];
+      return ai - bi;
+    });
     var ALL = [];
     groups.forEach(function (g) { g.photos.forEach(function (p) { ALL.push({ src: p, token: g.token, label: g.label }); }); });
     return { groups: groups, ALL: ALL };

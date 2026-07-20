@@ -125,8 +125,7 @@ window.SS_MEDIA = {
             "assets/web/fire-steampunk/fire-steampunk-003.jpg",
             "assets/web/fire-steampunk/fire-steampunk-004.jpg",
             "assets/web/fire-steampunk/fire-steampunk-005.jpg",
-            "assets/web/fire-steampunk/fire-steampunk-006.jpg",
-            "assets/web/fire-steampunk/fire-steampunk-007.jpg"
+            "assets/web/fire-steampunk/fire-steampunk-006.jpg"
           ]
         },
         {
