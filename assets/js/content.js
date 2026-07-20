@@ -96,10 +96,10 @@ window.SS_CONTENT = {
 
     led: {
       name: 'LED Show', nav: 'LED',
-      videos: ['v3MyA-lNGok', 'U4-_8da2uuI', 'Ain3sUrpU2w'],
+      videos: ['v3MyA-lNGok', 'U4-_8da2uuI', 'Ain3sUrpU2w', 'T6nHGrLrXoU', 'N7Qj5uU1bH4', '7SCXdglhHgI'],
       card: {
         kind: 'Pure light',
-        desc: 'Pure light, zero smoke or flame: glowing LED costumes and programmable props, choreographed to your music. Built for indoor venues.',
+        desc: 'Pure light, zero smoke or flame: glowing LED costumes and programmable props, choreographed to music. Built for indoor venues.',
         specs: { Format: 'Indoor & outdoor', Duration: '10–15 min', Looks: 'Many' },
         tags: ['Many looks', 'LED cube', 'Glowing wings']
       },
