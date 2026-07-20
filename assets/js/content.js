@@ -159,7 +159,7 @@ window.SS_CONTENT = {
       'stilts-star-giraffe':  'Giraffe',
       'stilts-led':           'LED costumes'
     },
-    otherLabel: 'Wildcards'
+    otherLabel: 'More characters'
   },
 
   /* ---------------------------------------------------------
