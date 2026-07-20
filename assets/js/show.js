@@ -179,6 +179,19 @@
         '<div class="tb">' + feat + '<div class="side">' + grid + more + '</div></div></div>';
     });
 
+    /* Некатегоризированные костюмы — отдельный блок */
+    if (W.other.length) {
+      var oname = W.otherLabel;
+      var ofeat = '<div class="feat" data-gallery="other" data-gi="0"><div class="vw"><img loading="lazy" src="' + W.other[0] + '" alt=""></div>' +
+        '<span class="vlbl">' + esc(oname) + '</span></div>';
+      var ogrid = '<div class="mini-grid">' + W.other.slice(1, 7).map(function (p, k) {
+        return '<div class="cell" data-gallery="other" data-gi="' + (1 + k) + '"><img loading="lazy" src="' + p + '" alt=""></div>';
+      }).join('') + '</div>';
+      var omore = W.other.length > 7 ? '<button class="tmore" data-filter="other">View all ' + W.other.length + ' ' + esc(oname) + ' looks →</button>' : '';
+      h += '<div class="tblock"><div class="th"><h4>' + esc(oname) + '</h4><span class="cnt">' + W.other.length + ' looks</span></div>' +
+        '<div class="tb">' + ofeat + '<div class="side">' + ogrid + omore + '</div></div></div>';
+    }
+
     /* 3. Browse all + фильтр по темам */
     var groups = [];
     W.themes.forEach(function (t) { if (t.photos.length) groups.push({ token: t.key, label: t.name, photos: t.photos }); });

@@ -117,7 +117,7 @@ window.SS_CONTENT = {
 
     stilts: {
       name: 'Stilt Walkers', nav: 'Stilts',
-      videos: ['HLwZI7htNus', 'iAFeaUvX_Hw', 'UFmJgKILurU', 'epn4YnmNrQ8', 'wogKA0crrt0'],
+      videos: ['HLwZI7htNus', 'iAFeaUvX_Hw', 'UFmJgKILurU', 'UlvKULj4Xe8', 'AW1l9PbVqdY', 'epn4YnmNrQ8', 'wogKA0crrt0'],
       card: {
         kind: 'Animation or full show',
         desc: 'A wardrobe of towering characters, as roaming animation or a full stilt performance.',
@@ -152,9 +152,9 @@ window.SS_CONTENT = {
       'stilts-christmas':     'Christmas',
       'stilts-shamans':       'Dragons & Shamans',
       'stilts-star-giraffe':  'Giraffe',
-      'stilts-led':           'LED on stilts'
+      'stilts-led':           'LED costumes'
     },
-    otherLabel: 'More characters'
+    otherLabel: 'Wildcards'
   },
 
   /* ---------------------------------------------------------

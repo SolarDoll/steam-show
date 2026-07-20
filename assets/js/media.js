@@ -262,7 +262,8 @@ window.SS_MEDIA = {
           "assets/web/stilts-christmas/stilts-christmas-001.jpg",
           "assets/web/stilts-christmas/stilts-christmas-002.jpg",
           "assets/web/stilts-christmas/stilts-christmas-003.jpg",
-          "assets/web/stilts-christmas/stilts-christmas-004.jpg"
+          "assets/web/stilts-christmas/stilts-christmas-004.jpg",
+          "assets/web/stilts-christmas/stilts-christmas-005.jpg"
         ]
       },
       {
@@ -306,7 +307,9 @@ window.SS_MEDIA = {
           "assets/web/stilts-led/stilts-led-003.jpg",
           "assets/web/stilts-led/stilts-led-004.jpg",
           "assets/web/stilts-led/stilts-led-005.jpg",
-          "assets/web/stilts-led/stilts-led-006.jpg"
+          "assets/web/stilts-led/stilts-led-006.jpg",
+          "assets/web/stilts-led/stilts-led-007.jpg",
+          "assets/web/stilts-led/stilts-led-008.jpg"
         ]
       }
     ],
