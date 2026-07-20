@@ -117,7 +117,11 @@ window.SS_CONTENT = {
 
     stilts: {
       name: 'Stilt Walkers', nav: 'Stilts',
-      videos: ['HLwZI7htNus', 'iAFeaUvX_Hw', 'UFmJgKILurU', 'UlvKULj4Xe8', 'AW1l9PbVqdY', 'epn4YnmNrQ8', 'wogKA0crrt0'],
+      videos: [
+        { id: 'UlvKULj4Xe8', label: 'Pirates' },
+        { id: 'AW1l9PbVqdY', label: 'Fairy Garden' },
+        'HLwZI7htNus', 'iAFeaUvX_Hw', 'UFmJgKILurU', 'epn4YnmNrQ8', 'wogKA0crrt0'
+      ],
       card: {
         kind: 'Animation or full show',
         desc: 'A wardrobe of towering characters, as roaming animation or a full stilt performance.',

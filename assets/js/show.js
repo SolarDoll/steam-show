@@ -83,9 +83,11 @@
         '<div class="shead"><span class="kicker">Watch</span><h2>Videos</h2>' +
         '<p>' + s.videos.length + ' clip' + (s.videos.length > 1 ? 's' : '') + ' · full performances and highlights.</p></div>' +
         railBox(s.videos.map(function (v, i) {
-          return '<div class="vcard" data-video="' + v + '" data-vlabel="' + esc(s.name) + ' · video ' + (i + 1) + '">' +
-            '<div class="vw"><img loading="lazy" src="' + ytThumb(v) + '" alt=""><span class="pl"></span></div>' +
-            '<div class="vl">' + esc(s.name) + ' · video ' + (i + 1) + '</div></div>';
+          var vidId = typeof v === 'string' ? v : v.id;
+          var vlbl = (v && v.label) ? esc(v.label) : (esc(s.name) + ' · video ' + (i + 1));
+          return '<div class="vcard" data-video="' + vidId + '" data-vlabel="' + vlbl + '">' +
+            '<div class="vw"><img loading="lazy" src="' + ytThumb(vidId) + '" alt=""><span class="pl"></span></div>' +
+            '<div class="vl">' + vlbl + '</div></div>';
         }).join('')) + '</div></section>';
     }
 
@@ -178,7 +180,7 @@
       var grid = '<div class="mini-grid">' + t.photos.slice(gi, gi + 6).map(function (p, k) {
         return '<div class="cell" data-gallery="theme:' + t.key + '" data-gi="' + (gi + k) + '"><img loading="lazy" src="' + p + '" alt=""></div>';
       }).join('') + '</div>';
-      var more = t.photos.length > (gi + 6) ? '<button class="tmore" data-filter="' + t.key + '">View all ' + t.photos.length + ' ' + esc(t.name) + ' looks →</button>' : '';
+      var more = t.photos.length > (gi + 6) ? '<button class="tmore" data-filter="' + t.key + '">View more photos →</button>' : '';
       h += '<div class="tblock"><div class="th"><h4>' + esc(t.name) + '</h4></div>' +
         '<div class="tb">' + feat + '<div class="side">' + grid + more + '</div></div></div>';
     });
@@ -191,7 +193,7 @@
       var ogrid = '<div class="mini-grid">' + W.other.slice(1, 7).map(function (p, k) {
         return '<div class="cell" data-gallery="other" data-gi="' + (1 + k) + '"><img loading="lazy" src="' + p + '" alt=""></div>';
       }).join('') + '</div>';
-      var omore = W.other.length > 7 ? '<button class="tmore" data-filter="other">View all ' + W.other.length + ' ' + esc(oname) + ' looks →</button>' : '';
+      var omore = W.other.length > 7 ? '<button class="tmore" data-filter="other">View more photos →</button>' : '';
       h += '<div class="tblock"><div class="th"><h4>' + esc(oname) + '</h4></div>' +
         '<div class="tb">' + ofeat + '<div class="side">' + ogrid + omore + '</div></div></div>';
     }
