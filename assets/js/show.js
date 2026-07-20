@@ -2,12 +2,16 @@
    STEAM SHOW — show.js (страница отдельного шоу)
    Рендерит показ из window.SS (?show=<id>). Лайтбокс — общий
    (window.LB из lightbox.js). Одна тема hybrid2.
-   Подключать ПОСЛЕ data.js и lightbox.js.
+   Микрокопирайт локализуется через window.T (i18n.js), контент —
+   уже развёрнут в нужный язык в data.js.
+   Подключать ПОСЛЕ i18n.js, data.js и lightbox.js.
    ============================================================ */
 (function () {
   var SS = window.SS;
   if (!SS) { console.error('[SS] data.js не загружен'); return; }
   var esc = SS.esc, ytThumb = SS.ytThumb;
+  var T = window.T || function (k) { return k; };
+  var LANG = window.SS_LANG || 'en';
   var HERO_VIDEO = (window.SS_MEDIA && SS_MEDIA.hero && SS_MEDIA.hero.video) || '';
   var page = document.getElementById('page');
 
@@ -33,7 +37,7 @@
 
   /* переход к другому шоу (меню, prev/next) */
   function go(id, push) {
-    document.querySelectorAll('#shownav a[data-id]').forEach(function (a) {
+    document.querySelectorAll('#shownav a[data-id],#mobmenu a[data-id]').forEach(function (a) {
       a.classList.toggle('on', a.getAttribute('data-id') === id);
     });
     render(id);
@@ -71,28 +75,28 @@
       '<h1 class="htitle">' + esc(s.name) + '</h1>' +
       '<p class="hdesc">' + esc(det.desc) + '</p>' +
       '<div class="meta">' +
-        '<div class="m"><div class="k">Duration</div><div class="v">' + esc(det.duration) + '</div></div>' +
-        '<div class="m"><div class="k">Format</div><div class="v">' + esc(det.format) + '</div></div>' +
-        '<div class="m"><div class="k">Cast</div><div class="v">' + esc(det.cast) + '</div></div></div>' +
+        '<div class="m"><div class="k">' + esc(T('show.duration')) + '</div><div class="v">' + esc(det.duration) + '</div></div>' +
+        '<div class="m"><div class="k">' + esc(T('show.format')) + '</div><div class="v">' + esc(det.format) + '</div></div>' +
+        '<div class="m"><div class="k">' + esc(T('show.cast')) + '</div><div class="v">' + esc(det.cast) + '</div></div></div>' +
       '<div class="chips">' + det.chips.map(function (c) { return '<span class="chip"><b>·</b>' + esc(c) + '</span>'; }).join('') + '</div>' +
-      '<div class="hcta"><a class="btn solid" href="#videos"><span class="pd"></span> Watch the show</a>' +
-        '<a class="btn ghost" href="#book">Book the show</a></div>' +
+      '<div class="hcta"><a class="btn solid" href="#videos"><span class="pd"></span> ' + esc(T('show.watchCta')) + '</a>' +
+        '<a class="btn ghost" href="#book">' + esc(T('cta.book')) + '</a></div>' +
       '</div></header>';
 
     var videoFirst = (id === 'led' || id === 'stilts' || id === 'fire') && s.videos.length;
 
     /* SUB-NAV */
-    var nav = [{ href: 'top', label: 'Top' }];
-    if (videoFirst) nav.push({ href: 'videos', label: 'Videos' });
+    var nav = [{ href: 'top', label: T('show.top') }];
+    if (videoFirst) nav.push({ href: 'videos', label: T('show.videos') });
     if (det.variants) nav.push({ href: 'sec-variants', label: det.variants.navLabel });
-    if (!videoFirst && s.videos.length) nav.push({ href: 'videos', label: 'Videos' });
+    if (!videoFirst && s.videos.length) nav.push({ href: 'videos', label: T('show.videos') });
     var hasBrowseAllNav = id === 'stilts' || (det.variants && det.variants.kind === 'themes' && (d.themes || []).length);
-    if (d.photos.length && !hasBrowseAllNav) nav.push({ href: 'gallery', label: 'Photos' });
-    else if (det.variants && det.variants.kind === 'themes' && (d.themes || []).length) nav.push({ href: 'browse-all', label: 'Photos' });
-    if (det.addon) nav.push({ href: 'addon', label: 'Add-ons' });
-    nav.push({ href: 'book', label: 'Book' });
+    if (d.photos.length && !hasBrowseAllNav) nav.push({ href: 'gallery', label: T('show.photos') });
+    else if (det.variants && det.variants.kind === 'themes' && (d.themes || []).length) nav.push({ href: 'browse-all', label: T('show.photos') });
+    if (det.addon) nav.push({ href: 'addon', label: T('show.addons') });
+    nav.push({ href: 'book', label: T('show.book') });
     html += '<div class="subnav" id="subnav"><div class="si">' +
-      nav.map(function (n) { return '<a href="#' + n.href + '" data-sec="' + n.href + '">' + n.label + '</a>'; }).join('') +
+      nav.map(function (n) { return '<a href="#' + n.href + '" data-sec="' + n.href + '">' + esc(n.label) + '</a>'; }).join('') +
       '</div></div>';
 
     /* VARIANTS */
@@ -106,12 +110,14 @@
     /* VIDEOS */
     var videosHTML = '';
     if (s.videos.length) {
+      var vn = s.videos.length;
+      var vcount = LANG === 'en' ? (vn + ' clip' + (vn > 1 ? 's' : '')) : (vn + ' видео');
       videosHTML = '<section id="videos"><div class="wrap">' +
-        '<div class="shead"><span class="kicker">Watch</span><h2>Videos</h2>' +
-        '<p>' + s.videos.length + ' clip' + (s.videos.length > 1 ? 's' : '') + ' · full performances and highlights.</p></div>' +
+        '<div class="shead"><span class="kicker">' + esc(T('show.watchKicker')) + '</span><h2>' + esc(T('show.videos')) + '</h2>' +
+        '<p>' + esc(T('show.videosBlurb', { n: vcount })) + '</p></div>' +
         railBox(s.videos.map(function (v, i) {
           var vidId = typeof v === 'string' ? v : v.id;
-          var vlbl = (v && v.label) ? esc(v.label) : (esc(s.name) + ' · video ' + (i + 1));
+          var vlbl = (v && v.label) ? esc(v.label) : (esc(s.name) + ' · ' + T('show.label.video') + ' ' + (i + 1));
           return '<div class="vcard" data-video="' + vidId + '" data-vlabel="' + vlbl + '">' +
             '<div class="vw"><img loading="lazy" src="' + ytThumb(vidId) + '" alt=""><span class="pl"></span></div>' +
             '<div class="vl">' + vlbl + '</div></div>';
@@ -125,8 +131,8 @@
     var hasBrowseAll = id === 'stilts' || (det.variants && det.variants.kind === 'themes' && (d.themes || []).length);
     if (d.photos.length && !hasBrowseAll) {
       html += '<section id="gallery"><div class="wrap">' +
-        '<div class="shead"><span class="kicker">Gallery</span><h2>Photos</h2>' +
-        '<p>' + d.photos.length + ' shots from real events.</p></div>' +
+        '<div class="shead"><span class="kicker">' + esc(T('show.galleryKicker')) + '</span><h2>' + esc(T('show.photos')) + '</h2>' +
+        '<p>' + esc(T('show.photosBlurb', { n: d.photos.length })) + '</p></div>' +
         '<div class="gallery">' + d.photos.map(function (p, i) {
           return '<div class="g" data-photo="' + i + '"><img loading="lazy" src="' + p + '" alt=""></div>';
         }).join('') + '</div></div></section>';
@@ -145,9 +151,9 @@
 
     /* BOOK — общий блок контактов */
     html += '<section id="book"><div class="wrap">' +
-      '<div class="kicker">Book the show</div>' +
-      '<h2 class="ccta">Let\'s <span class="grad">light it up</span></h2>' +
-      '<p class="clead">Tell us the date, the venue and the vibe, and we\'ll tailor ' + esc(s.name) + ' to your run of show. Reach us on whatever\'s fastest.</p>' +
+      '<div class="kicker">' + esc(T('show.bookKicker')) + '</div>' +
+      '<h2 class="ccta">' + T('contact.h') + '</h2>' +
+      '<p class="clead">' + esc(T('show.bookLead', { name: s.name })) + '</p>' +
       '<div class="fchannels">' + SS.contactHTML() + '</div></div></section>';
 
     page.innerHTML = html;
@@ -179,7 +185,7 @@
     var v = s.detail.variants, ph = s.media.photos, n = v.items.length;
     var byKey = {};
     (s.media.themes || []).forEach(function (t) { byKey[t.key] = t.photos || []; });
-    var h = '<section id="sec-variants"><div class="wrap"><div class="shead"><span class="kicker">Programs</span>' +
+    var h = '<section id="sec-variants"><div class="wrap"><div class="shead"><span class="kicker">' + esc(T('show.programsKicker')) + '</span>' +
       '<h2>' + esc(v.title) + '</h2><p>' + esc(v.lead) + '</p></div><div class="worlds">';
     v.items.forEach(function (w, i) {
       if (w.bespoke) {
@@ -200,16 +206,16 @@
     var fb = fireBrowse(s);
     if (fb.ALL.length) {
       h += '<div id="browse-all" style="margin-top:clamp(40px,6vh,64px)"><div class="th" style="margin-bottom:16px">' +
-        '<h4 style="font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(22px,2.8vw,36px);margin:0">Browse all photos</h4>' +
-        '<span class="cnt" id="stCount" style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-left:14px">' + fb.ALL.length + ' shown</span></div>';
+        '<h4 style="font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(22px,2.8vw,36px);margin:0">' + esc(T('show.browsePhotos')) + '</h4>' +
+        '<span class="cnt" id="stCount" style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-left:14px">' + esc(T('show.shown', { n: fb.ALL.length })) + '</span></div>';
       h += '<div class="filters" id="stFilters">' +
         fb.groups.map(function (g) { return '<button class="fl" data-tag="' + g.token + '">' + esc(g.label) + '<span class="n">' + g.photos.length + '</span></button>'; }).join('') +
-        '<button class="clr" id="stClear">Clear</button></div>';
+        '<button class="clr" id="stClear">' + esc(T('show.clear')) + '</button></div>';
       h += '<div class="gridc" id="stGrid">' + fb.ALL.map(function (x, i) {
         return '<div class="cell" data-firegallery="' + i + '" data-tags="' + x.token + '">' +
           '<img loading="lazy" src="' + x.src + '" alt=""><div class="tg"><span>' + esc(x.label) + '</span></div></div>';
       }).join('') + '</div>';
-      h += '<div class="emptymsg" id="stEmpty" style="display:none">No photos match those themes. Try clearing a filter.</div></div>';
+      h += '<div class="emptymsg" id="stEmpty" style="display:none">' + esc(T('show.emptyPhotos')) + '</div></div>';
     }
 
     return h + '</div></section>';
@@ -219,7 +225,7 @@
   function renderCatalogue(s) {
     var cs = s.media.costumes;
     if (!cs.length) return '';
-    return '<section id="sec-variants"><div class="wrap"><div class="shead"><span class="kicker">Costumes</span>' +
+    return '<section id="sec-variants"><div class="wrap"><div class="shead"><span class="kicker">' + esc(T('show.costumesKicker')) + '</span>' +
       '<h2>' + esc(s.detail.variants.title) + '</h2><p>' + esc(s.detail.variants.lead) + '</p></div>' +
       '<div class="gridc">' + cs.map(function (c, i) {
         return '<div class="cell" data-costume="' + i + '"><img loading="lazy" src="' + c + '" alt=""></div>';
@@ -229,6 +235,7 @@
   /* ----- stilts: гардероб (звёзды → тема-блоки → browse all + фильтр) ----- */
   function renderStilts() {
     var W = SS.stilts, intro = W.intro;
+    var filmLbl = T('show.label.film');
     var h = '<section id="sec-variants"><div class="wrap">' +
       '<div class="shead"><span class="kicker">' + esc(intro.kicker) + '</span><h2>' + esc(intro.title) + '</h2>' +
       '<p>' + esc(intro.lead) + '</p></div>';
@@ -238,13 +245,13 @@
       if (!t.photos.length) return;
       var feat, fp = t.focus ? ' style="object-position:' + t.focus + '"' : '';
       if (t.ytVideo) {
-        feat = '<div class="feat" data-video="' + t.ytVideo + '" data-vlabel="' + esc(t.name) + ' · film">' +
+        feat = '<div class="feat" data-video="' + t.ytVideo + '" data-vlabel="' + esc(t.name) + ' · ' + esc(filmLbl) + '">' +
           '<div class="vw"><img loading="lazy" src="' + t.photos[0] + '" alt=""' + fp + '><span class="pl"></span></div>' +
-          '<span class="vlbl">' + esc(t.name) + ' · film</span></div>';
+          '<span class="vlbl">' + esc(t.name) + ' · ' + esc(filmLbl) + '</span></div>';
       } else if (t.video) {
-        feat = '<div class="feat" data-localvideo="' + t.video + '" data-vlabel="' + esc(t.name) + ' · film">' +
+        feat = '<div class="feat" data-localvideo="' + t.video + '" data-vlabel="' + esc(t.name) + ' · ' + esc(filmLbl) + '">' +
           '<div class="vw"><img loading="lazy" src="' + (t.poster || t.photos[0]) + '" alt=""' + fp + '><span class="pl"></span></div>' +
-          '<span class="vlbl">' + esc(t.name) + ' · film</span></div>';
+          '<span class="vlbl">' + esc(t.name) + ' · ' + esc(filmLbl) + '</span></div>';
       } else {
         feat = '<div class="feat" data-gallery="theme:' + t.key + '" data-gi="0"><div class="vw"><img loading="lazy" src="' + t.photos[0] + '" alt=""' + fp + '></div>' +
           '<span class="vlbl">' + esc(t.name) + '</span></div>';
@@ -253,7 +260,7 @@
       var grid = '<div class="mini-grid">' + t.photos.slice(gi, gi + 6).map(function (p, k) {
         return '<div class="cell" data-gallery="theme:' + t.key + '" data-gi="' + (gi + k) + '"><img loading="lazy" src="' + p + '" alt=""></div>';
       }).join('') + '</div>';
-      var more = t.photos.length > (gi + 6) ? '<button class="tmore" data-filter="' + t.key + '">View more photos →</button>' : '';
+      var more = t.photos.length > (gi + 6) ? '<button class="tmore" data-filter="' + t.key + '">' + esc(T('show.viewMorePhotos')) + '</button>' : '';
       h += '<div class="tblock"><div class="th"><h4>' + esc(t.name) + '</h4></div>' +
         '<div class="tb">' + feat + '<div class="side">' + grid + more + '</div></div></div>';
     });
@@ -266,7 +273,7 @@
       var ogrid = '<div class="mini-grid">' + W.other.slice(1, 7).map(function (p, k) {
         return '<div class="cell" data-gallery="other" data-gi="' + (1 + k) + '"><img loading="lazy" src="' + p + '" alt=""></div>';
       }).join('') + '</div>';
-      var omore = W.other.length > 7 ? '<button class="tmore" data-filter="other">View more photos →</button>' : '';
+      var omore = W.other.length > 7 ? '<button class="tmore" data-filter="other">' + esc(T('show.viewMorePhotos')) + '</button>' : '';
       h += '<div class="tblock"><div class="th"><h4>' + esc(oname) + '</h4></div>' +
         '<div class="tb">' + ofeat + '<div class="side">' + ogrid + omore + '</div></div></div>';
     }
@@ -280,16 +287,16 @@
     groups.forEach(function (g) { g.photos.forEach(function (p) { ALL.push({ src: p, token: g.token, label: g.label }); }); });
 
     h += '<div id="browse-all" style="margin-top:clamp(40px,6vh,64px)"><div class="th" style="margin-bottom:16px">' +
-      '<h4 style="font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(22px,2.8vw,36px);margin:0">Browse all costumes</h4>' +
-      '<span class="cnt" id="stCount" style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-left:14px">' + ALL.length + ' shown</span></div>';
+      '<h4 style="font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(22px,2.8vw,36px);margin:0">' + esc(T('show.browseCostumes')) + '</h4>' +
+      '<span class="cnt" id="stCount" style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-left:14px">' + esc(T('show.shown', { n: ALL.length })) + '</span></div>';
     h += '<div class="filters" id="stFilters">' +
       groups.map(function (g) { return '<button class="fl" data-tag="' + g.token + '">' + esc(g.label) + '<span class="n">' + g.photos.length + '</span></button>'; }).join('') +
-      '<button class="clr" id="stClear">Clear</button></div>';
+      '<button class="clr" id="stClear">' + esc(T('show.clear')) + '</button></div>';
     h += '<div class="gridc" id="stGrid">' + ALL.map(function (x, i) {
       return '<div class="cell" data-gallery="browse" data-gi="' + i + '" data-tags="' + x.token + '">' +
         '<img loading="lazy" src="' + x.src + '" alt=""><div class="tg"><span>' + esc(x.label) + '</span></div></div>';
     }).join('') + '</div>';
-    h += '<div class="emptymsg" id="stEmpty" style="display:none">No costumes match those themes. Try clearing a filter.</div></div>';
+    h += '<div class="emptymsg" id="stEmpty" style="display:none">' + esc(T('show.emptyCostumes')) + '</div></div>';
 
     return h + '</div></section>';
   }
@@ -297,21 +304,22 @@
   /* ----- клики / галереи / фильтр ----- */
   function galleryFor(g) {
     var W = SS.stilts;
-    if (g === 'other') return { photos: W.other, name: 'Character' };
+    if (g === 'other') return { photos: W.other, name: T('show.label.character') };
     if (g === 'browse') {
       var ph = [];
       W.themes.forEach(function (t) { t.photos.forEach(function (p) { ph.push(p); }); });
       W.stars.forEach(function (st) { st.photos.forEach(function (p) { ph.push(p); }); });
       W.other.forEach(function (p) { ph.push(p); });
-      return { photos: ph, name: 'Costume' };
+      return { photos: ph, name: T('show.label.costume') };
     }
     var parts = g.split(':'), arr = parts[0] === 'star' ? W.stars : W.themes;
     return arr.filter(function (x) { return x.key === parts[1]; })[0] || null;
   }
 
   function wirePage(id, s) {
-    var photoList = s.media.photos.map(function (p, i) { return { img: p, label: s.name + ' · photo ' + (i + 1) }; });
-    var costList = s.media.costumes.map(function (c, i) { return { img: c, label: 'Costume ' + (i + 1) }; });
+    var photoLbl = T('show.label.photo'), costumeLbl = T('show.label.costume');
+    var photoList = s.media.photos.map(function (p, i) { return { img: p, label: s.name + ' · ' + photoLbl + ' ' + (i + 1) }; });
+    var costList = s.media.costumes.map(function (c, i) { return { img: c, label: costumeLbl + ' ' + (i + 1) }; });
 
     page.querySelectorAll('[data-video]').forEach(function (el) {
       el.addEventListener('click', function () { LB.openVideo(el.getAttribute('data-video'), el.getAttribute('data-vlabel')); });
@@ -337,11 +345,11 @@
         var key = el.getAttribute('data-firetheme'), nm = el.getAttribute('data-fname') || s.name;
         var t = fThemes.filter(function (x) { return x.key === key; })[0];
         if (!t || !t.photos.length) return;
-        LB.openList(t.photos.map(function (p, i) { return { img: p, label: nm + ' · photo ' + (i + 1) }; }), 0);
+        LB.openList(t.photos.map(function (p, i) { return { img: p, label: nm + ' · ' + photoLbl + ' ' + (i + 1) }; }), 0);
       });
     });
     if (fThemes.length && s.detail.variants && s.detail.variants.kind === 'themes') {
-      var fbList = fireBrowse(s).ALL.map(function (x, i) { return { img: x.src, label: x.label + ' · photo ' + (i + 1) }; });
+      var fbList = fireBrowse(s).ALL.map(function (x, i) { return { img: x.src, label: x.label + ' · ' + photoLbl + ' ' + (i + 1) }; });
       page.querySelectorAll('[data-firegallery]').forEach(function (el) {
         el.addEventListener('click', function () { LB.openList(fbList, +(el.getAttribute('data-firegallery') || 0)); });
       });
@@ -376,7 +384,7 @@
           var ok = active.length === 0 || active.some(function (a) { return tags.indexOf(a) >= 0; });
           c.classList.toggle('hide', !ok); if (ok) shown++;
         });
-        count.textContent = shown + ' shown';
+        count.textContent = T('show.shown', { n: shown });
         empty.style.display = shown ? 'none' : 'block';
       }
       function syncBtns() { filters.querySelectorAll('.fl').forEach(function (b) { b.classList.toggle('on', active.indexOf(b.getAttribute('data-tag')) >= 0); }); }
@@ -420,10 +428,29 @@
 
     var shownav = document.getElementById('shownav');
     shownav.innerHTML = SS.order.map(function (id) { return '<a data-id="' + id + '">' + esc(SS.show(id).nav) + '</a>'; }).join('') +
-      '<a class="process" href="index.html#howwe">About us</a>';
+      '<a class="process" href="index.html#howwe">' + esc(T('nav.about')) + '</a>';
     shownav.querySelectorAll('a[data-id]').forEach(function (a) {
       a.addEventListener('click', function () { go(a.getAttribute('data-id')); });
     });
+
+    /* мобильное меню — те же шоу + About + Book */
+    var mob = document.getElementById('mobmenu'), nb = document.getElementById('navBtn');
+    if (mob) {
+      mob.innerHTML = SS.order.map(function (id) { return '<a data-id="' + id + '">' + esc(SS.show(id).nav) + '</a>'; }).join('') +
+        '<a href="index.html#howwe">' + esc(T('nav.about')) + '</a>' +
+        '<a class="m-book" href="#book">' + esc(T('cta.book')) + '</a>';
+      function closeMenu() { document.body.classList.remove('nav-open'); if (nb) nb.setAttribute('aria-expanded', 'false'); }
+      mob.querySelectorAll('a[data-id]').forEach(function (a) {
+        a.addEventListener('click', function () { go(a.getAttribute('data-id')); closeMenu(); });
+      });
+      mob.querySelectorAll('a:not([data-id])').forEach(function (a) {
+        a.addEventListener('click', closeMenu);
+      });
+      if (nb) nb.addEventListener('click', function () {
+        var open = document.body.classList.toggle('nav-open');
+        nb.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    }
 
     window.addEventListener('popstate', function (e) {
       var id = (e.state && e.state.show) || new URLSearchParams(location.search).get('show') || 'dragon';

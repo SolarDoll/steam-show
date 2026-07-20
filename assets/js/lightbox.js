@@ -19,15 +19,20 @@
     'display:none;align-items:center;justify-content:center;padding:clamp(16px,4vw,48px)}' +
     '.lb.on{display:flex}' +
     '.lb .bx{width:min(1080px,100%)}' +
-    '.lb .stage{aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000}' +
+    '.lb .stage{aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000;display:flex;align-items:center;justify-content:center}' +
+    /* фото: занимают высоту экрана (важно для вертикальных кадров на телефоне) */
+    '.lb .stage.photo{aspect-ratio:auto;max-height:82svh;background:transparent;overflow:visible}' +
+    '.lb .stage.photo img{width:auto;height:auto;max-width:100%;max-height:82svh;object-fit:contain;border-radius:12px}' +
     '.lb .stage img{width:100%;height:100%;object-fit:contain}' +
     '.lb .stage iframe,.lb .stage video{width:100%;height:100%;border:0;object-fit:contain;background:#000}' +
     '.lb .cap{display:flex;justify-content:space-between;gap:16px;margin-top:13px;font-size:14px;color:var(--muted,#a89fb0)}' +
-    '.lb .x{position:absolute;top:18px;right:22px;font-size:32px;color:#fff;cursor:pointer;background:none;border:none;line-height:1}' +
+    '.lb .x{position:absolute;top:max(18px,env(safe-area-inset-top));right:max(22px,env(safe-area-inset-right));' +
+    'width:44px;height:44px;font-size:32px;color:#fff;cursor:pointer;background:none;border:none;line-height:1;z-index:2}' +
     '.lb .arr{position:absolute;top:50%;transform:translateY(-50%);font-size:44px;color:rgba(255,255,255,.65);' +
-    'cursor:pointer;background:none;border:none;padding:16px;transition:color .2s}' +
-    '.lb .arr:hover{color:#fff}.lb .arr.l{left:4px}.lb .arr.r{right:4px}' +
-    '.lb .arr[hidden]{display:none}';
+    'cursor:pointer;background:none;border:none;padding:16px;transition:color .2s;z-index:2}' +
+    '.lb .arr:hover{color:#fff}.lb .arr.l{left:max(4px,env(safe-area-inset-left))}.lb .arr.r{right:max(4px,env(safe-area-inset-right))}' +
+    '.lb .arr[hidden]{display:none}' +
+    '@media(hover:none){.lb .arr{font-size:38px;color:rgba(255,255,255,.85)}}';
   var style = document.createElement('style');
   style.textContent = css;
   document.head.appendChild(style);
@@ -57,9 +62,11 @@
 
   function paint() {
     var x = list[pos] || {};
+    var isPhoto = !x.file && !x.yt;
     if (x.file) stage.innerHTML = '<video src="' + x.file + '" controls autoplay playsinline></video>';
     else if (x.yt) stage.innerHTML = '<iframe src="' + ytEmbed(x.yt) + '" allow="autoplay;fullscreen;encrypted-media" allowfullscreen></iframe>';
     else stage.innerHTML = '<img src="' + (x.img || '') + '" alt="' + (x.label || '') + '">';
+    stage.classList.toggle('photo', isPhoto);
     capL.textContent = x.label || '';
     var multi = list.length > 1;
     capI.textContent = multi ? (pos + 1) + ' / ' + list.length : '';
@@ -89,6 +96,18 @@
     else if (e.key === 'ArrowRight') LB.step(1);
     else if (e.key === 'ArrowLeft') LB.step(-1);
   });
+
+  /* свайп по галерее на тач-устройствах */
+  var tx = 0, ty = 0, tracking = false;
+  stage.addEventListener('touchstart', function (e) {
+    if (list.length < 2 || e.touches.length !== 1) { tracking = false; return; }
+    tracking = true; tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener('touchend', function (e) {
+    if (!tracking) return; tracking = false;
+    var t = e.changedTouches[0], dx = t.clientX - tx, dy = t.clientY - ty;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) LB.step(dx < 0 ? 1 : -1);
+  }, { passive: true });
 
   window.LB = LB;
 })();

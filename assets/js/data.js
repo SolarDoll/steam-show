@@ -6,8 +6,30 @@
    Подключать ПОСЛЕ content.js и media.js.
    ============================================================ */
 (function () {
-  var C = window.SS_CONTENT, M = window.SS_MEDIA;
-  if (!C || !M) { console.error('[SS] content.js / media.js не загружены'); return; }
+  var C0 = window.SS_CONTENT, M = window.SS_MEDIA;
+  if (!C0 || !M) { console.error('[SS] content.js / media.js не загружены'); return; }
+
+  /* ---- локализация: развернуть {en,ru}-листья по текущему языку ----
+     Строки в content.js вида {en:'…', ru:'…'} схлопываются в строку
+     нужного языка. Всё остальное (ключи, hex-цвета, id, пути) —
+     как есть. Источник языка — window.SS_LANG (i18n.js). */
+  var LANG = window.SS_LANG || 'en';
+  function isLeaf(o) {
+    if (!o || typeof o !== 'object' || Array.isArray(o)) return false;
+    var ks = Object.keys(o); if (!ks.length) return false;
+    for (var i = 0; i < ks.length; i++) if (ks[i] !== 'en' && ks[i] !== 'ru') return false;
+    return true;
+  }
+  function loc(node) {
+    if (Array.isArray(node)) return node.map(loc);
+    if (node && typeof node === 'object') {
+      if (isLeaf(node)) return node[LANG] != null ? node[LANG] : node.en;
+      var out = {}; for (var k in node) if (Object.prototype.hasOwnProperty.call(node, k)) out[k] = loc(node[k]);
+      return out;
+    }
+    return node;
+  }
+  var C = loc(C0);
 
   var YT_THUMB = function (id) { return 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg'; };
   var YT_EMBED = function (id) {

@@ -42,7 +42,36 @@ a{color:inherit;text-decoration:none}
   background:linear-gradient(100deg,var(--accent),var(--accent2));
   box-shadow:0 0 22px color-mix(in srgb,var(--accent) 35%,transparent);transition:.3s}
 .nav-cta:hover{transform:translateY(-2px);filter:brightness(1.08)}
-@media(max-width:880px){.shownav{display:none}}
+/* переключатель языка (общий вид с главной) */
+.langsw{flex:0 0 auto;display:inline-flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:99px;
+  background:color-mix(in srgb,var(--ink) 3%,transparent)}
+.langsw__b{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.04em;color:var(--muted);
+  background:none;border:0;cursor:pointer;padding:5px 11px;border-radius:99px;transition:.25s;line-height:1}
+.langsw__b:hover{color:var(--ink)}
+.langsw__b.on{color:#160405;background:linear-gradient(100deg,var(--accent),var(--accent2))}
+/* RU: у Anton нет кириллицы — заголовки падают на Impact (есть кириллица).
+   TODO: подключить self-host кириллический дисплей-шрифт. */
+html[lang="ru"]{--display:"Anton",Impact,"PT Sans Narrow","Arial Narrow",sans-serif}
+.topbar-in{padding-left:max(clamp(20px,4vw,40px),env(safe-area-inset-left));padding-right:max(clamp(20px,4vw,40px),env(safe-area-inset-right))}
+/* бургер + мобильное меню (совпадает с главной) */
+.nav-toggle{display:none;background:none;border:1px solid var(--line);color:var(--ink);border-radius:10px;
+  min-width:44px;min-height:44px;font-size:18px;cursor:pointer;flex:0 0 auto}
+.mobmenu{display:none}
+@media(max-width:880px){
+  .shownav{display:none}
+  .nav-toggle{display:grid;place-items:center}
+  .mobmenu{display:flex;position:fixed;top:70px;left:0;right:0;flex-direction:column;gap:0;z-index:95;
+    background:color-mix(in srgb,var(--bg) 96%,transparent);backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--line);padding:4px 0 max(4px,env(safe-area-inset-bottom));
+    box-shadow:0 24px 44px rgba(0,0,0,.5);transform:translateY(-118%);transition:transform .32s cubic-bezier(.16,1,.3,1);
+    max-height:calc(100dvh - 70px);overflow-y:auto}
+  body.nav-open .mobmenu{transform:none}
+  .mobmenu a{padding:15px max(28px,env(safe-area-inset-left));font-size:15px;color:var(--muted);
+    border-bottom:1px solid rgba(255,255,255,.05)}
+  .mobmenu a:last-child{border-bottom:none}
+  .mobmenu a.on{color:var(--ac)}
+  .mobmenu a.m-book{color:var(--accent2);font-weight:700}
+}
 @media(max-width:600px){.nav-cta{display:none}.brand .nm{display:none}}
 
 /* ===== SUB-NAV (секции шоу, sticky) ===== */
@@ -56,7 +85,7 @@ a{color:inherit;text-decoration:none}
 .subnav a.on{color:var(--ac);border-bottom-color:var(--ac)}
 
 /* ===== HERO ===== */
-.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden}
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden}
 .hero .bg{position:absolute;inset:0;z-index:0}
 .hero .bg img,.hero .bg video{width:100%;height:100%;object-fit:cover}
 .hero .scrim{position:absolute;inset:0;z-index:1;
@@ -224,7 +253,7 @@ section + section{border-top:1px solid var(--line)}
 .fch .fv{font-family:var(--body);font-weight:800;font-size:19px}
 .fch .fgo{margin-top:auto;font-size:12px;letter-spacing:.06em;color:var(--ac)}
 @media(max-width:880px){.fchannels{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.fchannels{gap:11px}.fch{min-height:150px;padding:18px;gap:10px}.fch .ic{width:40px;height:40px}.fch .fv{font-size:16px}}
+@media(max-width:480px){.fchannels{gap:11px}.fch{min-height:150px;padding:16px;gap:10px}.fch .ic{width:40px;height:40px}.fch .fv{font-size:15px}}
 
 /* --- add-ons box (клубный формат и т.п.) --- */
 .addon-box{position:relative;border-radius:18px;overflow:hidden;padding:clamp(28px,4vw,46px);
@@ -251,4 +280,39 @@ section + section{border-top:1px solid var(--line)}
   border:none;box-shadow:0 14px 36px -10px rgba(255,46,132,.6);opacity:0;pointer-events:none;transform:translateY(10px);transition:.3s}
 .totop.on{opacity:1;pointer-events:auto;transform:none}
 
-.foot{padding:46px 0;border-top:1px solid var(--line);color:var(--muted);font-size:13px;text-align:center}
+.foot{padding:46px 0 max(46px,env(safe-area-inset-bottom));border-top:1px solid var(--line);color:var(--muted);font-size:13px;text-align:center}
+
+/* ============================================================
+   МОБИЛЬНАЯ ПОЛИРОВКА (2025–2026 стандарты)
+   ============================================================ */
+/* якоря sub-nav не должны уезжать под sticky-хедер (70 topbar + subnav) */
+section[id],[id="browse-all"],[id="top"]{scroll-margin-top:124px}
+/* контакты: длинные значения переносятся, а не режутся overflow:hidden */
+.fch{min-width:0}
+.fch .fv{overflow-wrap:anywhere;line-height:1.15}
+/* totop над home-indicator */
+.totop{right:max(20px,env(safe-area-inset-right));bottom:max(24px,env(safe-area-inset-bottom))}
+/* клавиатурный фокус — видимая рамка */
+:focus-visible{outline:2px solid var(--accent2);outline-offset:2px;border-radius:4px}
+/* тач-фидбек на нажатие вместо залипающего hover */
+@media(hover:none){
+  .btn:active,.nav-cta:active,.tmore:active,.filters .fl:active{transform:scale(.98)}
+  /* сбрасываем hover-состояния, которые «залипают» на тач */
+  .world:hover img,.star:hover img,.vcard:hover .vw img,.gallery .g:hover img,
+  .mini-grid .cell:hover img,.gridc .cell:hover img,.tblock .feat:hover .vw img,
+  .fch:hover,.pnav a:hover,.nav-cta:hover,.btn:hover{transform:none}
+  .fch:hover{box-shadow:none}
+  .fch:hover::before{opacity:0}
+  .gridc .cell:hover .tg{opacity:0}
+}
+/* тема-карточки (fire/stilts): ниже на телефоне — меньше пустого скролла */
+@media(max-width:560px){
+  .worlds .world,.stars .star{min-height:0;aspect-ratio:4/3}
+  .world.bespoke{aspect-ratio:auto}
+}
+/* лёгкое ужатие вертикальных отступов секций на телефоне */
+@media(max-width:560px){section{padding:clamp(44px,8vh,72px) 0}}
+/* уважение к reduced-motion (в show.css не было) */
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}

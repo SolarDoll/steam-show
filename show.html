@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Steam Show · Show</title>
 <meta name="description" content="Steam Show · fire, LED, dragon and stilt performances. Full details, videos and galleries for each show.">
 <meta name="theme-color" content="#0b0712">
@@ -15,15 +15,20 @@
 <header class="topbar" id="topbar"><div class="topbar-in">
   <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span><span class="nm">Steam Show</span></a>
   <nav class="shownav" id="shownav" aria-label="Shows"></nav>
-  <a class="nav-cta" href="#book">Book the show</a>
-</div></header>
+  <div class="langsw" data-langsw></div>
+  <a class="nav-cta" href="#book" data-i18n="cta.book">Book the show</a>
+  <button class="nav-toggle" id="navBtn" aria-label="Menu" aria-expanded="false">☰</button>
+</div>
+  <nav class="mobmenu" id="mobmenu" aria-label="Shows"></nav>
+</header>
 
 <main id="page"></main>
 
-<footer class="foot">Steam Show · fire · LED · dragons · stilts</footer>
+<footer class="foot" data-i18n="footer.tagline">Steam Show · fire · LED · dragons · stilts</footer>
 
 <button class="totop" id="totop" aria-label="Back to top">↑</button>
 
+<script defer src="assets/js/i18n.js"></script>
 <script defer src="assets/js/content.js"></script>
 <script defer src="assets/js/media.js"></script>
 <script defer src="assets/js/data.js"></script>

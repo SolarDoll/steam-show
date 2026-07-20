@@ -3,7 +3,14 @@
    Здесь живёт ВСЁ, что пишет человек: имена, описания, спеки,
    теги, YouTube-ID, тексты секций, контакты. Пути к медиа —
    в media.js (автогенерация). Сшивка — в data.js (window.SS).
-   Правьте смело — структуру не ломайте.
+
+   ДВУЯЗЫЧНОСТЬ: каждая читаемая человеком строка — объект
+   { en:'…', ru:'…' }. data.js разворачивает её в нужный язык
+   по window.SS_LANG (см. i18n.js). EN — база (мировой рынок),
+   RU — локальный акцент (Минск, РБ; упор на форматы событий).
+   Config-поля (order, colors, ключи тем, variants.kind) —
+   обычные строки, НЕ переводятся. Правьте смело — оба языка
+   рядом; структуру не ломайте.
    ============================================================ */
 window.SS_CONTENT = {
   /* Витринный showreel (YouTube ID) */
@@ -27,120 +34,205 @@ window.SS_CONTENT = {
        videos              — YouTube ID (порядок = порядок показа)
        card { ... }        — тизер в ряду на ГЛАВНОЙ
        detail { ... }      — полная страница show.html
+     Читаемые строки — { en, ru }. Ключи specs (Format/Duration/…)
+     остаются английскими — их подписи переводит i18n (spec.*).
      --------------------------------------------------------- */
   shows: {
     dragon: {
-      name: 'Dragon Fire Show', nav: 'Dragon',
+      name: { en: 'Dragon Fire Show', ru: 'Огненное шоу с драконом' }, nav: { en: 'Dragon', ru: 'Дракон' },
       videos: ['jH1iB6rw3wI', '95Zx38TO_5Q', 'kWC7arxFFXw'],
       card: {
-        kind: 'Signature',
-        desc: 'A fire theatrical show built around a 3-metre dragon, performed in a classic fantasy or a Slavic folk theme.',
-        specs: { Format: 'Outdoor', Duration: '10–15 min · adaptable', Cast: 'Scalable' },
-        tags: ['Fire show', '3-metre dragon', 'Theatrical show']
+        kind: { en: 'Signature', ru: 'Фирменное' },
+        desc: { en: 'A fire theatrical show built around a 3-metre dragon, performed in a classic fantasy or a Slavic folk theme.',
+                ru: 'Огненное театрализованное шоу вокруг 3-метрового дракона — в классическом фэнтези или славянском фолк-стиле.' },
+        specs: {
+          Format:   { en: 'Outdoor', ru: 'Улица' },
+          Duration: { en: '10–15 min · adaptable', ru: '10–15 мин · гибко' },
+          Cast:     { en: 'Scalable', ru: 'Масштабируется' }
+        },
+        tags: [
+          { en: 'Fire show', ru: 'Фаер-шоу' },
+          { en: '3-metre dragon', ru: '3-метровый дракон' },
+          { en: 'Theatrical show', ru: 'Театрализация' }
+        ]
       },
       detail: {
-        type: 'Flagship · fire',
-        desc: 'A fire theatrical show built around a 3-metre dragon, performed in a classic fantasy or a Slavic folk theme. Scales from intimate galas to festival main stages.',
-        duration: '10–15 min · adaptable', format: 'Outdoor', cast: 'Scalable',
-        chips: ['Flamethrowers', 'Fire cubes', 'Pyro', 'Headliner'],
+        type: { en: 'Flagship · fire', ru: 'Флагман · огонь' },
+        desc: { en: 'A fire theatrical show built around a 3-metre dragon, performed in a classic fantasy or a Slavic folk theme. Scales from intimate galas to festival main stages.',
+                ru: 'Огненное театрализованное шоу вокруг 3-метрового дракона — в классическом фэнтези или славянском фолк-стиле. Масштабируется от камерного гала до главной сцены фестиваля.' },
+        duration: { en: '10–15 min · adaptable', ru: '10–15 мин · гибко' },
+        format:   { en: 'Outdoor', ru: 'Улица' },
+        cast:     { en: 'Scalable', ru: 'Масштабируется' },
+        chips: [
+          { en: 'Flamethrowers', ru: 'Огнемёты' },
+          { en: 'Fire cubes', ru: 'Огненные кубы' },
+          { en: 'Pyro', ru: 'Пиро' },
+          { en: 'Headliner', ru: 'Хедлайнер' }
+        ],
         variants: null
       }
     },
 
     fire: {
-      name: 'Fire Show', nav: 'Fire',
+      name: { en: 'Fire Show', ru: 'Фаер-шоу' }, nav: { en: 'Fire', ru: 'Огонь' },
       videos: ['5kWySEToST0', 'f3witZXJ3s8', 'MvgSbUl1i64', 'kUXyXDO6O7I', 'Q4SIaQwPHLs', '_HabSQ_Wyo4'],
       card: {
-        kind: 'Fantasy · Post-apoc · Rock',
-        desc: 'Spectacular fire props (wings, cubes, sparkle staffs, flamethrowers and fire cannons) in a visual theme of your choice, from fantasy to post-apocalyptic and rock.',
-        specs: { Format: 'Outdoor', Duration: '10–15 min', Style: 'Your choice' },
-        tags: ['Your chosen style', 'Large-scale dynamic show']
+        kind: { en: 'Fantasy · Post-apoc · Rock', ru: 'Фэнтези · Постапок · Рок' },
+        desc: { en: 'Spectacular fire props (wings, cubes, sparkle staffs, flamethrowers and fire cannons) in a visual theme of your choice, from fantasy to post-apocalyptic and rock.',
+                ru: 'Эффектный огненный реквизит (крылья, кубы, искрящие посохи, огнемёты и фаер-пушки) в выбранной вами теме — от фэнтези до постапокалипсиса и рока.' },
+        specs: {
+          Format:   { en: 'Outdoor', ru: 'Улица' },
+          Duration: { en: '10–15 min', ru: '10–15 мин' },
+          Style:    { en: 'Your choice', ru: 'На ваш выбор' }
+        },
+        tags: [
+          { en: 'Your chosen style', ru: 'Ваша тема' },
+          { en: 'Large-scale dynamic show', ru: 'Масштабное динамичное шоу' }
+        ]
       },
       detail: {
-        type: 'Classic · fire',
-        desc: 'Large-scale fire choreography, dressed to a theme: fire performers, flame props and live pyrotechnics. Pick one of our signature themes, or for big events we build one around your concept.',
+        type: { en: 'Classic · fire', ru: 'Классика · огонь' },
+        desc: { en: 'Large-scale fire choreography, dressed to a theme: fire performers, flame props and live pyrotechnics. Pick one of our signature themes, or for big events we build one around your concept.',
+                ru: 'Масштабная огненная хореография под тему: фаерщики, огненный реквизит и живая пиротехника. Выберите одну из фирменных тем — или для крупных событий соберём тему под вашу концепцию.' },
         seo: {
-          title: 'Fire Show for Events, Festivals & Weddings - Steam Show',
-          desc: 'Book a large-scale fire show: choreographed fire performers, flame props and pyro, themed to fantasy, rock or post-apocalyptic. Great for festivals & weddings.'
+          title: { en: 'Fire Show for Events, Festivals & Weddings - Steam Show',
+                   ru: 'Фаер-шоу на праздник, фестиваль и свадьбу — Steam Show' },
+          desc: { en: 'Book a large-scale fire show: choreographed fire performers, flame props and pyro, themed to fantasy, rock or post-apocalyptic. Great for festivals & weddings.',
+                  ru: 'Закажите масштабное фаер-шоу: хореография фаерщиков, огненный реквизит и пиротехника в теме фэнтези, рок или постапокалипсис. Отлично для фестивалей и свадеб.' }
         },
-        duration: '10–15 min · adaptable', format: 'Outdoor', cast: 'Scalable',
-        chips: ['Live fire', 'Choreography', 'Bespoke themes'],
+        duration: { en: '10–15 min · adaptable', ru: '10–15 мин · гибко' },
+        format:   { en: 'Outdoor', ru: 'Улица' },
+        cast:     { en: 'Scalable', ru: 'Масштабируется' },
+        chips: [
+          { en: 'Live fire', ru: 'Живой огонь' },
+          { en: 'Choreography', ru: 'Хореография' },
+          { en: 'Bespoke themes', ru: 'Темы под заказ' }
+        ],
         variants: {
-          kind: 'themes', navLabel: 'Themes', title: 'Themed fire',
-          lead: 'Every theme has its own costumes and music. These are our signature ones. For large events we create a new theme to brief.',
+          kind: 'themes', navLabel: { en: 'Themes', ru: 'Темы' }, title: { en: 'Themed fire', ru: 'Тематическое пламя' },
+          lead: { en: 'Every theme has its own costumes and music. These are our signature ones. For large events we create a new theme to brief.',
+                  ru: 'У каждой темы свои костюмы и музыка. Вот наши фирменные. Для крупных событий создаём новую тему под бриф.' },
           items: [
-            { key: 'fire-rock',      nm: 'Theme 01', h: 'Rock',             p: 'Raw, loud, rebellious. Fire to a driving rock energy.' },
-            { key: 'fire-fantasy',   nm: 'Theme 02', h: 'Fantasy',          p: 'Ethereal and mythic. A fairy-tale told in flame.' },
-            { key: 'fire-postapoc',  nm: 'Theme 03', h: 'Post-apocalyptic', p: 'Gritty, industrial, dystopian. Fire from a scorched future.' },
-            { key: 'fire-steampunk', nm: 'Theme 04', h: 'Steampunk',        p: 'Plague doctors and Victorian dames, in brass, gears and gaslight.' },
-            { key: 'fire-slavic',    nm: 'Theme 05', h: 'Slavic Folk',      p: 'Pagan motifs and maidens in white. A folkloric fire ritual drawn from old Slavic myth.' },
-            { bespoke: true, nm: 'On request', h: 'Your theme', p: 'For large events we build a bespoke theme around your concept, brand or festival.' }
+            { key: 'fire-rock',      nm: { en: 'Theme 01', ru: 'Тема 01' }, h: { en: 'Rock', ru: 'Рок' },                       p: { en: 'Raw, loud, rebellious. Fire to a driving rock energy.', ru: 'Дерзко, громко, бунтарски. Огонь под драйвовую рок-энергетику.' } },
+            { key: 'fire-fantasy',   nm: { en: 'Theme 02', ru: 'Тема 02' }, h: { en: 'Fantasy', ru: 'Фэнтези' },                 p: { en: 'Ethereal and mythic. A fairy-tale told in flame.', ru: 'Воздушно и мифически. Сказка, рассказанная пламенем.' } },
+            { key: 'fire-postapoc',  nm: { en: 'Theme 03', ru: 'Тема 03' }, h: { en: 'Post-apocalyptic', ru: 'Постапокалипсис' }, p: { en: 'Gritty, industrial, dystopian. Fire from a scorched future.', ru: 'Жёстко, индустриально, антиутопично. Огонь из выжженного будущего.' } },
+            { key: 'fire-steampunk', nm: { en: 'Theme 04', ru: 'Тема 04' }, h: { en: 'Steampunk', ru: 'Стимпанк' },               p: { en: 'Plague doctors and Victorian dames, in brass, gears and gaslight.', ru: 'Чумные доктора и викторианские дамы — латунь, шестерни и газовый свет.' } },
+            { key: 'fire-slavic',    nm: { en: 'Theme 05', ru: 'Тема 05' }, h: { en: 'Slavic Folk', ru: 'Славянский фолк' },      p: { en: 'Pagan motifs and maidens in white. A folkloric fire ritual drawn from old Slavic myth.', ru: 'Языческие мотивы и девы в белом. Фольклорный огненный ритуал по мотивам славянских мифов.' } },
+            { bespoke: true, nm: { en: 'On request', ru: 'Под заказ' }, h: { en: 'Your theme', ru: 'Ваша тема' }, p: { en: 'For large events we build a bespoke theme around your concept, brand or festival.', ru: 'Для крупных событий соберём тему под вашу концепцию, бренд или фестиваль.' } }
           ]
         }
       }
     },
 
     ledfire: {
-      name: 'LED Fire Show', nav: 'LED Fire',
+      name: { en: 'LED Fire Show', ru: 'LED фаер-шоу' }, nav: { en: 'LED Fire', ru: 'LED-огонь' },
       videos: ['aq-PXZIlsyo', 'NwEsu64rFzY', 'sckZxk4r22c', 'vWRxsfORdOg'],
       card: {
-        kind: 'Glow + Flame',
-        desc: 'The best of both: live fire performed in glowing LED costumes. The heat of fire with the colour of light.',
-        specs: { Format: 'Outdoor', Duration: '10–15 min', Look: 'Light + fire' },
-        tags: ['Light + real fire']
+        kind: { en: 'Glow + Flame', ru: 'Свет + огонь' },
+        desc: { en: 'The best of both: live fire performed in glowing LED costumes. The heat of fire with the colour of light.',
+                ru: 'Лучшее из двух миров: живой огонь в светящихся LED-костюмах. Жар огня и цвет света.' },
+        specs: {
+          Format:   { en: 'Outdoor', ru: 'Улица' },
+          Duration: { en: '10–15 min', ru: '10–15 мин' },
+          Look:     { en: 'Light + fire', ru: 'Свет + огонь' }
+        },
+        tags: [ { en: 'Light + real fire', ru: 'Свет + живой огонь' } ]
       },
       detail: {
-        type: 'Hybrid · fire + light',
-        desc: 'The best of both: live fire performed in glowing LED costumes. The heat of fire with the colour of light.',
-        duration: '10–15 min · adaptable', format: 'Outdoor', cast: 'Scalable',
-        chips: ['Live fire', 'LED costumes', 'Hybrid'],
+        type: { en: 'Hybrid · fire + light', ru: 'Гибрид · огонь + свет' },
+        desc: { en: 'The best of both: live fire performed in glowing LED costumes. The heat of fire with the colour of light.',
+                ru: 'Лучшее из двух миров: живой огонь в светящихся LED-костюмах. Жар огня и цвет света.' },
+        duration: { en: '10–15 min · adaptable', ru: '10–15 мин · гибко' },
+        format:   { en: 'Outdoor', ru: 'Улица' },
+        cast:     { en: 'Scalable', ru: 'Масштабируется' },
+        chips: [
+          { en: 'Live fire', ru: 'Живой огонь' },
+          { en: 'LED costumes', ru: 'LED-костюмы' },
+          { en: 'Hybrid', ru: 'Гибрид' }
+        ],
         variants: null
       }
     },
 
     led: {
-      name: 'LED Show', nav: 'LED',
+      name: { en: 'LED Show', ru: 'LED-шоу' }, nav: { en: 'LED', ru: 'LED' },
       videos: ['7SCXdglhHgI', 'v3MyA-lNGok', 'U4-_8da2uuI', 'Ain3sUrpU2w', 'T6nHGrLrXoU', 'N7Qj5uU1bH4'],
       card: {
-        kind: 'Pure light',
-        desc: 'Pure light, zero smoke or flame: glowing LED costumes and programmable props, choreographed to music. Built for indoor venues.',
-        specs: { Format: 'Indoor & outdoor', Duration: '10–15 min', Looks: 'Many' },
-        tags: ['Many looks', 'LED cube', 'Glowing wings']
+        kind: { en: 'Pure light', ru: 'Чистый свет' },
+        desc: { en: 'Pure light, zero smoke or flame: glowing LED costumes and programmable props, choreographed to music. Built for indoor venues.',
+                ru: 'Чистый свет, без дыма и огня: светящиеся LED-костюмы и программируемый реквизит под музыку. Создано для помещений.' },
+        specs: {
+          Format:   { en: 'Indoor & outdoor', ru: 'Зал и улица' },
+          Duration: { en: '10–15 min', ru: '10–15 мин' },
+          Looks:    { en: 'Many', ru: 'Много' }
+        },
+        tags: [
+          { en: 'Many looks', ru: 'Много образов' },
+          { en: 'LED cube', ru: 'LED-куб' },
+          { en: 'Glowing wings', ru: 'Светящиеся крылья' }
+        ]
       },
       detail: {
-        type: 'Electric · light',
-        desc: 'A dazzling, smoke-free light show of glowing LED costumes and eye-catching props, from light-up wings to glowing cubes. We can brand the props with your logo, or scale it up into a full club party. Perfect for indoor venues where open flame is not an option.',
+        type: { en: 'Electric · light', ru: 'Электрик · свет' },
+        desc: { en: 'A dazzling, smoke-free light show of glowing LED costumes and eye-catching props, from light-up wings to glowing cubes. We can brand the props with your logo, or scale it up into a full club party. Perfect for indoor venues where open flame is not an option.',
+                ru: 'Яркое бездымное световое шоу: светящиеся LED-костюмы и эффектный реквизит — от светящихся крыльев до кубов. Можем нанести на реквизит ваш логотип или развернуть шоу в полноценную клубную вечеринку. Идеально для помещений, где открытый огонь невозможен.' },
         seo: {
-          title: 'LED Light Show for Events & Galas - Steam Show',
-          desc: 'Smoke-free LED light show: glowing costumes and props like light-up wings and cubes, with your logo built in. Ideal for indoor galas and corporate events.'
+          title: { en: 'LED Light Show for Events & Galas - Steam Show',
+                   ru: 'LED световое шоу на мероприятие и гала — Steam Show' },
+          desc: { en: 'Smoke-free LED light show: glowing costumes and props like light-up wings and cubes, with your logo built in. Ideal for indoor galas and corporate events.',
+                  ru: 'Бездымное LED световое шоу: светящиеся костюмы и реквизит (крылья, кубы) с вашим логотипом. Идеально для гала и корпоративов в помещении.' }
         },
-        duration: '10–15 min · adaptable', format: 'Indoor & outdoor', cast: 'Scalable',
-        chips: ['Smoke-free', 'LED catalogue', 'Full luminous'],
+        duration: { en: '10–15 min · adaptable', ru: '10–15 мин · гибко' },
+        format:   { en: 'Indoor & outdoor', ru: 'Зал и улица' },
+        cast:     { en: 'Scalable', ru: 'Масштабируется' },
+        chips: [
+          { en: 'Smoke-free', ru: 'Без дыма' },
+          { en: 'LED catalogue', ru: 'Каталог LED' },
+          { en: 'Full luminous', ru: 'Полный свет' }
+        ],
         addon: {
-          kicker: 'Add-ons',
-          title: 'Turn it into a full club show',
-          text: 'Playing a club or a party? We can bundle the LED show with our other party formats into one high-energy set: stilt-walking animators, a paper show, confetti blasts and CO₂ cannons.',
-          tags: ['Paper show', 'Confetti', 'CO₂ cannons', 'Stilt animators']
+          kicker: { en: 'Add-ons', ru: 'Дополнения' },
+          title: { en: 'Turn it into a full club show', ru: 'Разверните в полноценное клубное шоу' },
+          text: { en: 'Playing a club or a party? We can bundle the LED show with our other party formats into one high-energy set: stilt-walking animators, a paper show, confetti blasts and CO₂ cannons.',
+                  ru: 'Клуб или вечеринка? Соберём LED-шоу с другими форматами в один заряженный сет: аниматоры на ходулях, бумажное шоу, конфетти-пушки и CO₂-пушки.' },
+          tags: [
+            { en: 'Paper show', ru: 'Бумажное шоу' },
+            { en: 'Confetti', ru: 'Конфетти' },
+            { en: 'CO₂ cannons', ru: 'CO₂-пушки' },
+            { en: 'Stilt animators', ru: 'Аниматоры на ходулях' }
+          ]
         },
         variants: null
       }
     },
 
     stilts: {
-      name: 'Stilt Walkers', nav: 'Stilts',
+      name: { en: 'Stilt Walkers', ru: 'Ходулисты' }, nav: { en: 'Stilts', ru: 'Ходули' },
       videos: ['UlvKULj4Xe8', 'AW1l9PbVqdY', 'HLwZI7htNus', 'iAFeaUvX_Hw', 'UFmJgKILurU', 'epn4YnmNrQ8', 'wogKA0crrt0'],
       card: {
-        kind: 'Animation or full show',
-        desc: 'A wardrobe of towering characters, as roaming animation or a full stilt performance.',
-        specs: { Format: 'Indoor & outdoor', Mode: 'Roaming or set', Costumes: 'Dozens' },
-        tags: ['Dozens of costumes']
+        kind: { en: 'Animation or full show', ru: 'Анимация или полное шоу' },
+        desc: { en: 'A wardrobe of towering characters, as roaming animation or a full stilt performance.',
+                ru: 'Гардероб великанов-персонажей — как роуминг-анимация или полноценное ходульное шоу.' },
+        specs: {
+          Format:   { en: 'Indoor & outdoor', ru: 'Зал и улица' },
+          Mode:     { en: 'Roaming or set', ru: 'Роуминг или номер' },
+          Costumes: { en: 'Dozens', ru: 'Десятки' }
+        },
+        tags: [ { en: 'Dozens of costumes', ru: 'Десятки костюмов' } ]
       },
       detail: {
-        type: 'Roaming · giants',
-        desc: 'A wardrobe of towering characters, as roaming animation or a full stilt performance. Perfect for welcome zones, parades and club nights. Costumes group into themes and mix freely across them.',
-        duration: 'Roaming or set act', format: 'Indoor & outdoor', cast: 'Scalable',
-        chips: ['Roaming', 'Full stage show', '100+ costumes'],
-        variants: { kind: 'stilts', navLabel: 'Wardrobe' }
+        type: { en: 'Roaming · giants', ru: 'Роуминг · великаны' },
+        desc: { en: 'A wardrobe of towering characters, as roaming animation or a full stilt performance. Perfect for welcome zones, parades and club nights. Costumes group into themes and mix freely across them.',
+                ru: 'Гардероб великанов-персонажей — роуминг-анимация или полноценное ходульное шоу. Идеально для welcome-зон, парадов и клубных вечеринок. Костюмы сгруппированы по темам и свободно комбинируются.' },
+        duration: { en: 'Roaming or set act', ru: 'Роуминг или номер' },
+        format:   { en: 'Indoor & outdoor', ru: 'Зал и улица' },
+        cast:     { en: 'Scalable', ru: 'Масштабируется' },
+        chips: [
+          { en: 'Roaming', ru: 'Роуминг' },
+          { en: 'Full stage show', ru: 'Полное шоу' },
+          { en: '100+ costumes', ru: '100+ костюмов' }
+        ],
+        variants: { kind: 'stilts', navLabel: { en: 'Wardrobe', ru: 'Гардероб' } }
       }
     }
   },
@@ -150,9 +242,10 @@ window.SS_CONTENT = {
      --------------------------------------------------------- */
   stilts: {
     wardrobe: {
-      kicker: 'Costumes & themes',
-      title: 'The wardrobe',
-      lead: '100+ towering characters. Explore each theme, its film and costume gallery, or browse the full set with theme filters below.'
+      kicker: { en: 'Costumes & themes', ru: 'Костюмы и темы' },
+      title: { en: 'The wardrobe', ru: 'Гардероб' },
+      lead: { en: '100+ towering characters. Explore each theme, its film and costume gallery, or browse the full set with theme filters below.',
+              ru: '100+ великанов-персонажей. Изучите каждую тему, её фильм и галерею костюмов — или просмотрите весь набор с фильтрами ниже.' }
     },
     /* «Фильм» темы с YouTube (ключ темы -> YouTube ID). Перебивает локальное видео. */
     themeVideos: {
@@ -164,17 +257,17 @@ window.SS_CONTENT = {
       'stilts-christmas': 'top'
     },
     themes: {
-      'stilts-fairy-garden':  'Fairy Garden',
-      'stilts-circus':        'Circus',
-      'stilts-pirates':       'Pirates',
-      'stilts-classics':      'Classics',
-      'stilts-trees':         'Trees',
-      'stilts-christmas':     'Christmas',
-      'stilts-shamans':       'Dragons & Shamans',
-      'stilts-star-giraffe':  'Giraffe',
-      'stilts-led':           'LED costumes'
+      'stilts-fairy-garden':  { en: 'Fairy Garden', ru: 'Волшебный сад' },
+      'stilts-circus':        { en: 'Circus', ru: 'Цирк' },
+      'stilts-pirates':       { en: 'Pirates', ru: 'Пираты' },
+      'stilts-classics':      { en: 'Classics', ru: 'Классика' },
+      'stilts-trees':         { en: 'Trees', ru: 'Деревья' },
+      'stilts-christmas':     { en: 'Christmas', ru: 'Новый год' },
+      'stilts-shamans':       { en: 'Dragons & Shamans', ru: 'Драконы и шаманы' },
+      'stilts-star-giraffe':  { en: 'Giraffe', ru: 'Жираф' },
+      'stilts-led':           { en: 'LED costumes', ru: 'LED-костюмы' }
     },
-    otherLabel: 'More characters'
+    otherLabel: { en: 'More characters', ru: 'Другие персонажи' }
   },
 
   /* ---------------------------------------------------------
@@ -183,9 +276,9 @@ window.SS_CONTENT = {
      color / color2 — акценты пилюли-иконки
      --------------------------------------------------------- */
   contact: [
-    { ic: 'instagram', kicker: 'Instagram',          value: '@steam_show',     go: 'See the feed →', href: 'https://instagram.com/steam_show',       color: '#FF2E84', color2: '#FF6A1F', ext: true },
-    { ic: 'email',     kicker: 'Email',              value: 'hello@steamshow', go: 'Send a brief →', href: 'mailto:hello@steamshow.com',            color: '#FFD23E', color2: '#FF6A1F' },
-    { ic: 'whatsapp',  kicker: 'WhatsApp · Telegram', value: 'Message us',      go: 'Chat now →',     href: '#',                                     color: '#FF6A1F', color2: '#FF2E84' },
-    { ic: 'youtube',   kicker: 'YouTube',            value: '@SteamShowby',    go: 'Watch shows →',  href: 'https://www.youtube.com/@SteamShowby',  color: '#25F4EE', color2: '#FF2E84', ext: true }
+    { ic: 'instagram', kicker: { en: 'Instagram', ru: 'Instagram' },            value: '@steam_show',     go: { en: 'See the feed →', ru: 'Открыть ленту →' }, href: 'https://instagram.com/steam_show',       color: '#FF2E84', color2: '#FF6A1F', ext: true },
+    { ic: 'email',     kicker: { en: 'Email', ru: 'Email' },                    value: 'hello@steamshow', go: { en: 'Send a brief →', ru: 'Отправить бриф →' }, href: 'mailto:hello@steamshow.com',            color: '#FFD23E', color2: '#FF6A1F' },
+    { ic: 'whatsapp',  kicker: { en: 'WhatsApp · Telegram', ru: 'WhatsApp · Telegram' }, value: { en: 'Message us', ru: 'Напишите нам' }, go: { en: 'Chat now →', ru: 'Написать →' }, href: '#',                     color: '#FF6A1F', color2: '#FF2E84' },
+    { ic: 'youtube',   kicker: { en: 'YouTube', ru: 'YouTube' },                value: '@SteamShowby',    go: { en: 'Watch shows →', ru: 'Смотреть шоу →' },   href: 'https://www.youtube.com/@SteamShowby',  color: '#25F4EE', color2: '#FF2E84', ext: true }
   ]
 };

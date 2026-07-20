@@ -12,11 +12,13 @@
   var HERO_VIDEO = (window.SS_MEDIA && SS_MEDIA.hero && SS_MEDIA.hero.video) || '';
   var esc = SS.esc;
   var num = function (i) { return '0' + (i + 1); };
+  var T = window.T || function (k) { return k; };
+  function specLabel(k) { var key = 'spec.' + k.toLowerCase(), t = T(key); return t === key ? k : t; }
 
   /* ---------------- рендер рядов программ ---------------- */
   function specsLI(specs) {
     return Object.keys(specs).map(function (k) {
-      return '<li><span class="sk">' + esc(k) + '</span><span class="sv">' + esc(specs[k]) + '</span></li>';
+      return '<li><span class="sk">' + esc(specLabel(k)) + '</span><span class="sv">' + esc(specs[k]) + '</span></li>';
     }).join('');
   }
   function rowHTML(id, i) {
@@ -24,18 +26,18 @@
     var video = s.media.video || HERO_VIDEO;
     var poster = s.media.photos[0] || SS.cover(id);
     return '<article class="row reveal' + (i % 2 ? ' alt' : '') + '" id="p-' + id + '" style="--ac:' + s.color + '">' +
-      '<div class="media" data-show="' + id + '" role="button" tabindex="0" aria-label="Open ' + esc(s.name) + '">' +
+      '<div class="media" data-show="' + id + '" role="button" tabindex="0" aria-label="' + esc(T('ui.open') + ' ' + s.name) + '">' +
         '<span class="num">' + num(i) + '</span>' +
         (video ? '<video muted loop playsinline preload="none" poster="' + poster + '"><source src="' + video + '" type="video/mp4"></video>'
                : '<img loading="lazy" src="' + poster + '" alt="' + esc(s.name) + '">') +
-        '<div class="openbar"><span>' + esc(s.name) + '</span><span class="go">View more →</span></div>' +
+        '<div class="openbar"><span>' + esc(s.name) + '</span><span class="go">' + esc(T('ui.viewMoreArrow')) + '</span></div>' +
       '</div>' +
       '<div class="copy">' +
         '<p class="kind">' + esc(c.kind) + '</p><h3>' + esc(s.name) + '</h3>' +
         '<p class="desc">' + esc(c.desc) + '</p>' +
         '<ul class="specs">' + specsLI(c.specs) + '</ul>' +
         '<ul class="tags">' + c.tags.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' +
-        '<button class="open" data-show="' + id + '">View more <span class="ar">→</span></button>' +
+        '<button class="open" data-show="' + id + '">' + esc(T('ui.viewMore')) + ' <span class="ar">→</span></button>' +
       '</div>' +
     '</article>';
   }
@@ -49,7 +51,7 @@
     var s = SS.show(id), c = s.card;
     var video = s.media.video || HERO_VIDEO;
     var poster = s.media.photos[0] || SS.cover(id);
-    return '<article class="pb-tile' + (i === 0 ? ' big' : '') + '" data-show="' + id + '" style="--c:' + s.color + '" role="button" tabindex="0" aria-label="Open ' + esc(s.name) + '">' +
+    return '<article class="pb-tile' + (i === 0 ? ' big' : '') + '" data-show="' + id + '" style="--c:' + s.color + '" role="button" tabindex="0" aria-label="' + esc(T('ui.open') + ' ' + s.name) + '">' +
       (video ? '<video muted loop playsinline preload="none" poster="' + poster + '"><source src="' + video + '" type="video/mp4"></video>'
              : '<img loading="lazy" src="' + poster + '" alt="' + esc(s.name) + '">') +
       '<span class="pb-num">' + num(i) + '</span>' +
@@ -59,6 +61,34 @@
   function renderBento() {
     var box = document.getElementById('progBento');
     if (box) box.innerHTML = SS.order.map(bentoHTML).join('');
+  }
+
+  /* ---------------- бегущая строка (из словаря) ---------------- */
+  function mountTicker() {
+    var items = (window.T && window.T('ticker')) || [];
+    if (!Array.isArray(items) || !items.length) return;
+    var track = document.getElementById('tickerTrack'); if (!track) return;
+    var one = items.map(function (t) { return '<b>' + esc(t) + '</b>'; }).join('');
+    track.innerHTML = one + one;  /* дубль для бесшовной прокрутки */
+  }
+
+  /* ---------------- форматы: список + «табло» ---------------- */
+  function mountFormats() {
+    var formats = (window.T && window.T('world.formats')) || [];
+    if (!Array.isArray(formats) || !formats.length) return;
+    var list = document.getElementById('fmtList');
+    if (list) list.innerHTML = formats.map(function (f) { return '<span>' + esc(f) + '</span>'; }).join('');
+    var word = document.getElementById('fboardWord');
+    if (!word) return;
+    word.textContent = formats[0];
+    if (reduce || formats.length < 2) return;
+    var i = 0;
+    setInterval(function () {
+      i = (i + 1) % formats.length;
+      word.classList.remove('flip'); void word.offsetWidth;
+      word.textContent = formats[i];
+      word.classList.add('flip');
+    }, 2200);
   }
 
   /* ---------------- jump-навигация ---------------- */
@@ -179,6 +209,8 @@
     renderTabs();
     var cg = document.getElementById('contactGrid');
     if (cg) cg.innerHTML = SS.contactHTML();
+    mountTicker();
+    mountFormats();
 
     /* делегированные клики */
     document.addEventListener('click', function (e) {
@@ -242,13 +274,21 @@
     /* мобильное меню (бургер) */
     var nb = document.getElementById('navBtn'), menu = document.querySelector('nav.menu');
     if (nb && menu) {
-      nb.addEventListener('click', function () {
-        var open = document.body.classList.toggle('nav-open');
+      function setMenu(open) {
+        document.body.classList.toggle('nav-open', open);
+        document.body.style.overflow = open ? 'hidden' : '';
         nb.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
-      menu.addEventListener('click', function (e) {
-        if (e.target.closest('a')) { document.body.classList.remove('nav-open'); nb.setAttribute('aria-expanded', 'false'); }
-      });
+      }
+      nb.addEventListener('click', function () { setMenu(!document.body.classList.contains('nav-open')); });
+      menu.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
+      /* Esc закрывает меню */
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+    }
+
+    /* reduced-motion: не проигрываем фоновое hero-видео (остаётся постер) */
+    if (reduce) {
+      var hv = document.querySelector('.mh__video');
+      if (hv) { try { hv.removeAttribute('autoplay'); hv.pause(); } catch (e) {} }
     }
 
     var yr = document.getElementById('yr'); if (yr) yr.textContent = new Date().getFullYear();
