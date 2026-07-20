@@ -362,9 +362,11 @@ section{position:relative;z-index:2;padding:clamp(70px,11vh,120px) 0}
 .fboard__foot{position:relative;z-index:1;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);text-align:center}
 @media(max-width:780px){.fboard{aspect-ratio:auto;padding:18px 0 4px;gap:16px}}
 
-/* ---------- СЕКЦИЯ ФОРМАТОВ — V5: gradient mesh + прожектор + слово ---------- */
-#world{position:relative;overflow:hidden}
+/* ---------- СЕКЦИЯ ФОРМАТОВ — V5 (gradient mesh + прожектор + слово) ----------
+   ВАЖНО: V5-арт и mesh — ТОЛЬКО для RU. В EN остаётся оригинальный глобус (.holo). */
+#world{position:relative}
 #world > .wrap{position:relative;z-index:1}
+.wmesh,.wstage,.wstage__foot{display:none}          /* по умолчанию (EN) скрыто — виден глобус */
 .wmesh{position:absolute;inset:-25% -10%;z-index:0;pointer-events:none;filter:blur(72px);opacity:.45;
   background:
    radial-gradient(38% 42% at 20% 28%,var(--accent3),transparent 60%),
@@ -372,7 +374,7 @@ section{position:relative;z-index:2;padding:clamp(70px,11vh,120px) 0}
    radial-gradient(46% 52% at 62% 84%,var(--accent),transparent 62%);
   animation:wmesh 18s ease-in-out infinite alternate}
 @keyframes wmesh{to{transform:translate3d(0,-4%,0) scale(1.1) rotate(4deg)}}
-.wstage{position:relative;display:grid;place-items:center;min-height:clamp(220px,32vh,340px)}
+.wstage{position:relative;place-items:center;min-height:clamp(220px,32vh,340px)}
 .wstage__cone{position:absolute;top:-6%;left:50%;transform:translateX(-50%);width:58%;height:122%;z-index:0;
   clip-path:polygon(38% 0,62% 0,100% 100%,0 100%);opacity:.5;filter:blur(7px);
   background:linear-gradient(180deg,color-mix(in srgb,var(--accent2) 42%,transparent),transparent 78%);
@@ -383,8 +385,14 @@ section{position:relative;z-index:2;padding:clamp(70px,11vh,120px) 0}
   background:linear-gradient(180deg,#fff,var(--accent2) 55%,var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent;
   filter:drop-shadow(0 8px 30px color-mix(in srgb,var(--accent) 40%,transparent));transition:opacity .4s,transform .5s}
 .wstage__word.out{opacity:0;transform:translateY(14px) scale(.97)}
-.wstage__foot{position:relative;z-index:1;text-align:center;margin-top:8px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
-#world .geo-pill{backdrop-filter:blur(8px);background:rgba(255,255,255,.05)}
+.wstage__foot{text-align:center;margin-top:8px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+/* RU: включаем V5-арт, mesh, стеклянные страны; прячем глобус */
+html[lang="ru"] #world{overflow:hidden}
+html[lang="ru"] .wmesh{display:block}
+html[lang="ru"] .wstage{display:grid}
+html[lang="ru"] .wstage__foot{display:block;position:relative;z-index:1}
+html[lang="ru"] .holo{display:none}
+html[lang="ru"] #world .geo-pill{backdrop-filter:blur(8px);background:rgba(255,255,255,.05)}
 
 /* ---------- ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА ---------- */
 .langsw{display:inline-flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:99px;

@@ -98,7 +98,7 @@
     'world.lead':   { en: 'From intimate weddings to festival main stages: parades, grand openings, galas and corporate nights. If there’s a crowd, we light it up. Anywhere on the map.',
                       ru: 'Наши шоу легко вписываются в любой формат, от частных событий до крупных фестивалей. Свадьбы, корпоративы, открытия, городские и детские праздники, гала-шоу — мы создаем впечатления там, где собираются люди.' },
     'world.formats.label': { en: 'Any stage, day or night', ru: 'Любая площадка, днём и ночью' },
-    'world.formats': { en: ['Weddings','Corporate','Grand openings','Festivals','City events','Malls','Parades','Galas'],
+    'world.formats': { en: ['Festivals','Parades','Grand openings','Weddings','Corporate','Galas'],
                        ru: ['Свадьбы','Корпоративы','Открытия','Фестивали','Городские праздники','Торговые центры','Парады','Гала-шоу'] },
     'world.geo.label': { en: 'Booked across', ru: 'И гастролируем по миру' },
     'world.geo.more':  { en: '+ Europe & beyond', ru: '+ Европа и дальше' },
