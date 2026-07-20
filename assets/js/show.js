@@ -11,6 +11,20 @@
   var HERO_VIDEO = (window.SS_MEDIA && SS_MEDIA.hero && SS_MEDIA.hero.video) || '';
   var page = document.getElementById('page');
 
+  /* SEO: проставляем/обновляем мета-теги под текущее шоу */
+  function setMeta(key, val, isProp) {
+    if (!val) return;
+    var sel = isProp ? 'meta[property="' + key + '"]' : 'meta[name="' + key + '"]';
+    var el = document.head.querySelector(sel);
+    if (!el) { el = document.createElement('meta'); el.setAttribute(isProp ? 'property' : 'name', key); document.head.appendChild(el); }
+    el.setAttribute('content', val);
+  }
+  function setCanonical(href) {
+    var el = document.head.querySelector('link[rel="canonical"]');
+    if (!el) { el = document.createElement('link'); el.setAttribute('rel', 'canonical'); document.head.appendChild(el); }
+    el.setAttribute('href', href);
+  }
+
   function railBox(inner) {
     return '<div class="railbox"><button class="rnav l" aria-label="Scroll left">‹</button>' +
       '<div class="vrail">' + inner + '</div>' +
@@ -32,9 +46,19 @@
   function render(id) {
     var s = SS.show(id), det = s.detail, d = s.media, ac = s.color;
     document.documentElement.style.setProperty('--ac', ac);
-    document.title = s.name + ' · Steam Show';
     var cover = d.photos[0] || (s.videos[0] ? ytThumb(s.videos[0]) : '');
     var heroVid = d.heroVideo || d.video || (id === 'dragon' ? HERO_VIDEO : null);
+    /* SEO: уникальные title/description/OG под каждое шоу */
+    var seo = det.seo || {};
+    var seoTitle = seo.title || (s.name + ' · Steam Show');
+    var seoDesc = seo.desc || det.desc;
+    document.title = seoTitle;
+    setMeta('description', seoDesc);
+    setMeta('og:title', seoTitle, true);
+    setMeta('og:description', seoDesc, true);
+    setMeta('og:type', 'website', true);
+    if (cover) { try { setMeta('og:image', new URL(cover, location.href).href, true); } catch (e) {} }
+    setCanonical(location.origin + location.pathname + '?show=' + id);
 
     var html = '';
     /* HERO */

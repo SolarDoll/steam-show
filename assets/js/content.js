@@ -99,13 +99,17 @@ window.SS_CONTENT = {
       videos: ['v3MyA-lNGok', 'U4-_8da2uuI', 'Ain3sUrpU2w'],
       card: {
         kind: 'Pure light',
-        desc: 'A fully luminous, smoke-free spectacle: a deep wardrobe of glowing LED costumes and props for any venue.',
+        desc: 'Pure light, zero smoke or flame: glowing LED costumes and programmable props, choreographed to your music. Built for indoor venues.',
         specs: { Format: 'Indoor & outdoor', Duration: '10–15 min', Looks: 'Many' },
         tags: ['Many looks', 'LED cube', 'Glowing wings']
       },
       detail: {
         type: 'Electric · light',
-        desc: 'A fully luminous, smoke-free spectacle: a deep catalogue of glowing LED costumes and props, from LED cubes to light-up wings. Pick the looks that fit your venue.',
+        desc: 'A dazzling, smoke-free light show driven by glowing LED costumes and fully programmable props. Colours move with your soundtrack and can match your brand palette, making it ideal for indoor galas, weddings, corporate nights and product launches where open flame is not an option.',
+        seo: {
+          title: 'LED Light Show for Events & Galas - Steam Show',
+          desc: 'Book a smoke-free LED light show: glowing costumes and programmable props, choreographed to your music. Great for indoor galas, weddings and corporate events.'
+        },
         duration: '10–15 min · adaptable', format: 'Indoor & outdoor', cast: 'Scalable',
         chips: ['Smoke-free', 'LED catalogue', 'Full luminous'],
         variants: {
