@@ -95,7 +95,19 @@ window.SS_MEDIA = {
         "assets/web/led/led-007.jpg",
         "assets/web/led/led-008.jpg",
         "assets/web/led/led-009.jpg",
-        "assets/web/led/led-010.jpg"
+        "assets/web/led/led-010.jpg",
+        "assets/web/led/led-011.jpg",
+        "assets/web/led/led-012.jpg",
+        "assets/web/led/led-013.jpg",
+        "assets/web/led/led-014.jpg",
+        "assets/web/led/led-015.jpg",
+        "assets/web/led/led-016.jpg",
+        "assets/web/led/led-017.jpg",
+        "assets/web/led/led-018.jpg",
+        "assets/web/led/led-019.jpg",
+        "assets/web/led/led-020.jpg",
+        "assets/web/led/led-021.jpg",
+        "assets/web/led/led-022.jpg"
       ],
       "costumes": [
         "assets/web/led-costumes/led-costumes-001.jpg",
@@ -198,7 +210,13 @@ window.SS_MEDIA = {
           "assets/web/stilts-fairy-garden/stilts-fairy-garden-011.jpg",
           "assets/web/stilts-fairy-garden/stilts-fairy-garden-012.jpg",
           "assets/web/stilts-fairy-garden/stilts-fairy-garden-013.jpg",
-          "assets/web/stilts-fairy-garden/stilts-fairy-garden-014.jpg"
+          "assets/web/stilts-fairy-garden/stilts-fairy-garden-014.jpg",
+          "assets/web/stilts-fairy-garden/stilts-fairy-garden-015.jpg",
+          "assets/web/stilts-fairy-garden/stilts-fairy-garden-016.jpg",
+          "assets/web/stilts-fairy-garden/stilts-fairy-garden-017.jpg",
+          "assets/web/stilts-fairy-garden/stilts-fairy-garden-018.jpg",
+          "assets/web/stilts-fairy-garden/stilts-fairy-garden-019.jpg",
+          "assets/web/stilts-fairy-garden/stilts-fairy-garden-020.jpg"
         ]
       },
       {
@@ -215,7 +233,10 @@ window.SS_MEDIA = {
           "assets/web/stilts-circus/stilts-circus-007.jpg",
           "assets/web/stilts-circus/stilts-circus-008.jpg",
           "assets/web/stilts-circus/stilts-circus-009.jpg",
-          "assets/web/stilts-circus/stilts-circus-010.jpg"
+          "assets/web/stilts-circus/stilts-circus-010.jpg",
+          "assets/web/stilts-circus/stilts-circus-011.jpg",
+          "assets/web/stilts-circus/stilts-circus-012.jpg",
+          "assets/web/stilts-circus/stilts-circus-013.jpg"
         ]
       },
       {
@@ -239,7 +260,12 @@ window.SS_MEDIA = {
         "poster": null,
         "photos": [
           "assets/web/stilts-classics/stilts-classics-001.jpg",
-          "assets/web/stilts-classics/stilts-classics-002.jpg"
+          "assets/web/stilts-classics/stilts-classics-002.jpg",
+          "assets/web/stilts-classics/stilts-classics-003.jpg",
+          "assets/web/stilts-classics/stilts-classics-004.jpg",
+          "assets/web/stilts-classics/stilts-classics-005.jpg",
+          "assets/web/stilts-classics/stilts-classics-006.jpg",
+          "assets/web/stilts-classics/stilts-classics-007.jpg"
         ]
       },
       {
@@ -263,7 +289,9 @@ window.SS_MEDIA = {
           "assets/web/stilts-christmas/stilts-christmas-002.jpg",
           "assets/web/stilts-christmas/stilts-christmas-003.jpg",
           "assets/web/stilts-christmas/stilts-christmas-004.jpg",
-          "assets/web/stilts-christmas/stilts-christmas-005.jpg"
+          "assets/web/stilts-christmas/stilts-christmas-005.jpg",
+          "assets/web/stilts-christmas/stilts-christmas-006.jpg",
+          "assets/web/stilts-christmas/stilts-christmas-007.jpg"
         ]
       },
       {
@@ -309,7 +337,9 @@ window.SS_MEDIA = {
           "assets/web/stilts-led/stilts-led-005.jpg",
           "assets/web/stilts-led/stilts-led-006.jpg",
           "assets/web/stilts-led/stilts-led-007.jpg",
-          "assets/web/stilts-led/stilts-led-008.jpg"
+          "assets/web/stilts-led/stilts-led-008.jpg",
+          "assets/web/stilts-led/stilts-led-009.jpg",
+          "assets/web/stilts-led/stilts-led-010.jpg"
         ]
       }
     ],
@@ -317,7 +347,12 @@ window.SS_MEDIA = {
       "assets/web/stilts-other/stilts-other-001.jpg",
       "assets/web/stilts-other/stilts-other-002.jpg",
       "assets/web/stilts-other/stilts-other-003.jpg",
-      "assets/web/stilts-other/stilts-other-004.jpg"
+      "assets/web/stilts-other/stilts-other-004.jpg",
+      "assets/web/stilts-other/stilts-other-005.jpg",
+      "assets/web/stilts-other/stilts-other-006.jpg",
+      "assets/web/stilts-other/stilts-other-007.jpg",
+      "assets/web/stilts-other/stilts-other-008.jpg",
+      "assets/web/stilts-other/stilts-other-009.jpg"
     ]
   }
 };
