@@ -277,7 +277,8 @@ window.SS_MEDIA = {
           "assets/web/stilts-trees/stilts-trees-002.jpg",
           "assets/web/stilts-trees/stilts-trees-003.jpg",
           "assets/web/stilts-trees/stilts-trees-004.jpg",
-          "assets/web/stilts-trees/stilts-trees-005.jpg"
+          "assets/web/stilts-trees/stilts-trees-005.jpg",
+          "assets/web/stilts-trees/stilts-trees-006.jpg"
         ]
       },
       {

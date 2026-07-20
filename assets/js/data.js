@@ -42,7 +42,8 @@
       return {
         key: t.key, name: (C.stilts.themes || {})[t.key] || t.key,
         photos: t.photos || [], video: t.video || null, poster: t.poster || null,
-        ytVideo: (C.stilts.themeVideos || {})[t.key] || null
+        ytVideo: (C.stilts.themeVideos || {})[t.key] || null,
+        focus: (C.stilts.themeFocus || {})[t.key] || null
       };
     }),
     other: M.stilts.other || []

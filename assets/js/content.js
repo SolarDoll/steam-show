@@ -148,6 +148,10 @@ window.SS_CONTENT = {
       'stilts-pirates':      'UlvKULj4Xe8',
       'stilts-fairy-garden': 'AW1l9PbVqdY'
     },
+    /* Кроп обложки темы на превью (ключ темы -> CSS object-position). */
+    themeFocus: {
+      'stilts-christmas': 'top'
+    },
     themes: {
       'stilts-fairy-garden':  'Fairy Garden',
       'stilts-circus':        'Circus',

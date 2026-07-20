@@ -161,17 +161,17 @@
     /* Тема-блоки (шоу-стопперы убраны; их место заняла секция видео вверху) */
     W.themes.forEach(function (t) {
       if (!t.photos.length) return;
-      var feat;
+      var feat, fp = t.focus ? ' style="object-position:' + t.focus + '"' : '';
       if (t.ytVideo) {
         feat = '<div class="feat" data-video="' + t.ytVideo + '" data-vlabel="' + esc(t.name) + ' · film">' +
-          '<div class="vw"><img loading="lazy" src="' + t.photos[0] + '" alt=""><span class="pl"></span></div>' +
+          '<div class="vw"><img loading="lazy" src="' + t.photos[0] + '" alt=""' + fp + '><span class="pl"></span></div>' +
           '<span class="vlbl">' + esc(t.name) + ' · film</span></div>';
       } else if (t.video) {
         feat = '<div class="feat" data-localvideo="' + t.video + '" data-vlabel="' + esc(t.name) + ' · film">' +
-          '<div class="vw"><img loading="lazy" src="' + (t.poster || t.photos[0]) + '" alt=""><span class="pl"></span></div>' +
+          '<div class="vw"><img loading="lazy" src="' + (t.poster || t.photos[0]) + '" alt=""' + fp + '><span class="pl"></span></div>' +
           '<span class="vlbl">' + esc(t.name) + ' · film</span></div>';
       } else {
-        feat = '<div class="feat" data-gallery="theme:' + t.key + '" data-gi="0"><div class="vw"><img loading="lazy" src="' + t.photos[0] + '" alt=""></div>' +
+        feat = '<div class="feat" data-gallery="theme:' + t.key + '" data-gi="0"><div class="vw"><img loading="lazy" src="' + t.photos[0] + '" alt=""' + fp + '></div>' +
           '<span class="vlbl">' + esc(t.name) + '</span></div>';
       }
       var gi = (t.ytVideo || t.video) ? 0 : 1;
