@@ -133,7 +133,7 @@ window.SS_CONTENT = {
       },
       detail: {
         type: 'Roaming · giants',
-        desc: 'A wardrobe of towering characters, as roaming animation or a full stilt performance. Costumes group into themes and mix freely across them.',
+        desc: 'A wardrobe of towering characters, as roaming animation or a full stilt performance. Perfect for welcome zones, parades and club nights. Costumes group into themes and mix freely across them.',
         duration: 'Roaming or set act', format: 'Indoor & outdoor', cast: 'Scalable',
         chips: ['Roaming', 'Full stage show', '100+ costumes'],
         variants: { kind: 'stilts', navLabel: 'Wardrobe' }
