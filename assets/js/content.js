@@ -167,7 +167,7 @@ window.SS_CONTENT = {
      color / color2 — акценты пилюли-иконки
      --------------------------------------------------------- */
   contact: [
-    { ic: 'instagram', kicker: 'Instagram',          value: '@steamshow',      go: 'See the feed →', href: 'https://instagram.com/steamshow',        color: '#FF2E84', color2: '#FF6A1F', ext: true },
+    { ic: 'instagram', kicker: 'Instagram',          value: '@steam_show',     go: 'See the feed →', href: 'https://instagram.com/steam_show',       color: '#FF2E84', color2: '#FF6A1F', ext: true },
     { ic: 'email',     kicker: 'Email',              value: 'hello@steamshow', go: 'Send a brief →', href: 'mailto:hello@steamshow.com',            color: '#FFD23E', color2: '#FF6A1F' },
     { ic: 'whatsapp',  kicker: 'WhatsApp · Telegram', value: 'Message us',      go: 'Chat now →',     href: '#',                                     color: '#FF6A1F', color2: '#FF2E84' },
     { ic: 'youtube',   kicker: 'YouTube',            value: '@SteamShowby',    go: 'Watch shows →',  href: 'https://www.youtube.com/@SteamShowby',  color: '#25F4EE', color2: '#FF2E84', ext: true }
