@@ -30,36 +30,26 @@ window.SS_MEDIA = {
         "assets/web/dragon/dragon-019.jpg",
         "assets/web/dragon/dragon-020.jpg",
         "assets/web/dragon/dragon-021.jpg",
-        "assets/web/dragon/dragon-022.jpg"
+        "assets/web/dragon/dragon-022.jpg",
+        "assets/web/dragon/dragon-023.jpg",
+        "assets/web/dragon/dragon-024.jpg",
+        "assets/web/dragon/dragon-025.jpg",
+        "assets/web/dragon/dragon-026.jpg",
+        "assets/web/dragon/dragon-027.jpg",
+        "assets/web/dragon/dragon-028.jpg",
+        "assets/web/dragon/dragon-029.jpg",
+        "assets/web/dragon/dragon-030.jpg",
+        "assets/web/dragon/dragon-031.jpg",
+        "assets/web/dragon/dragon-032.jpg",
+        "assets/web/dragon/dragon-033.jpg",
+        "assets/web/dragon/dragon-034.jpg"
       ],
       "costumes": []
     },
     "fire": {
       "video": "assets/web/fire/fire-preview.mp4",
       "photos": [
-        "assets/web/fire/fire-001.jpg",
-        "assets/web/fire/fire-002.jpg",
-        "assets/web/fire/fire-003.jpg",
-        "assets/web/fire/fire-004.jpg",
-        "assets/web/fire/fire-005.jpg",
-        "assets/web/fire/fire-006.jpg",
-        "assets/web/fire/fire-007.jpg",
-        "assets/web/fire/fire-008.jpg",
-        "assets/web/fire/fire-009.jpg",
-        "assets/web/fire/fire-010.jpg",
-        "assets/web/fire/fire-011.jpg",
-        "assets/web/fire/fire-012.jpg",
-        "assets/web/fire/fire-013.jpg",
-        "assets/web/fire/fire-014.jpg",
-        "assets/web/fire/fire-015.jpg",
-        "assets/web/fire/fire-016.jpg",
-        "assets/web/fire/fire-017.jpg",
-        "assets/web/fire/fire-018.jpg",
-        "assets/web/fire/fire-019.jpg",
-        "assets/web/fire/fire-020.jpg",
-        "assets/web/fire/fire-021.jpg",
-        "assets/web/fire/fire-022.jpg",
-        "assets/web/fire/fire-023.jpg"
+        "assets/web/fire/fire-001.jpg"
       ],
       "costumes": []
     },
@@ -79,7 +69,26 @@ window.SS_MEDIA = {
         "assets/web/ledfire/ledfire-011.jpg",
         "assets/web/ledfire/ledfire-012.jpg",
         "assets/web/ledfire/ledfire-013.jpg",
-        "assets/web/ledfire/ledfire-014.jpg"
+        "assets/web/ledfire/ledfire-014.jpg",
+        "assets/web/ledfire/ledfire-015.jpg",
+        "assets/web/ledfire/ledfire-016.jpg",
+        "assets/web/ledfire/ledfire-017.jpg",
+        "assets/web/ledfire/ledfire-018.jpg",
+        "assets/web/ledfire/ledfire-019.jpg",
+        "assets/web/ledfire/ledfire-020.jpg",
+        "assets/web/ledfire/ledfire-021.jpg",
+        "assets/web/ledfire/ledfire-022.jpg",
+        "assets/web/ledfire/ledfire-023.jpg",
+        "assets/web/ledfire/ledfire-024.jpg",
+        "assets/web/ledfire/ledfire-025.jpg",
+        "assets/web/ledfire/ledfire-026.jpg",
+        "assets/web/ledfire/ledfire-027.jpg",
+        "assets/web/ledfire/ledfire-028.jpg",
+        "assets/web/ledfire/ledfire-029.jpg",
+        "assets/web/ledfire/ledfire-030.jpg",
+        "assets/web/ledfire/ledfire-031.jpg",
+        "assets/web/ledfire/ledfire-032.jpg",
+        "assets/web/ledfire/ledfire-033.jpg"
       ],
       "costumes": []
     },
@@ -109,18 +118,7 @@ window.SS_MEDIA = {
         "assets/web/led/led-021.jpg",
         "assets/web/led/led-022.jpg"
       ],
-      "costumes": [
-        "assets/web/led-costumes/led-costumes-001.jpg",
-        "assets/web/led-costumes/led-costumes-002.jpg",
-        "assets/web/led-costumes/led-costumes-003.jpg",
-        "assets/web/led-costumes/led-costumes-004.jpg",
-        "assets/web/led-costumes/led-costumes-005.jpg",
-        "assets/web/led-costumes/led-costumes-006.jpg",
-        "assets/web/led-costumes/led-costumes-007.jpg",
-        "assets/web/led-costumes/led-costumes-008.jpg",
-        "assets/web/led-costumes/led-costumes-009.jpg",
-        "assets/web/led-costumes/led-costumes-010.jpg"
-      ]
+      "costumes": []
     },
     "stilts": {
       "video": "assets/web/stilts/stilts-preview.mp4",
@@ -293,7 +291,12 @@ window.SS_MEDIA = {
           "assets/web/stilts-christmas/stilts-christmas-005.jpg",
           "assets/web/stilts-christmas/stilts-christmas-006.jpg",
           "assets/web/stilts-christmas/stilts-christmas-007.jpg",
-          "assets/web/stilts-christmas/stilts-christmas-008.jpg"
+          "assets/web/stilts-christmas/stilts-christmas-008.jpg",
+          "assets/web/stilts-christmas/stilts-christmas-009.jpg",
+          "assets/web/stilts-christmas/stilts-christmas-010.jpg",
+          "assets/web/stilts-christmas/stilts-christmas-011.jpg",
+          "assets/web/stilts-christmas/stilts-christmas-012.jpg",
+          "assets/web/stilts-christmas/stilts-christmas-013.jpg"
         ]
       },
       {
