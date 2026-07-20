@@ -49,7 +49,7 @@ window.SS_CONTENT = {
 
     fire: {
       name: 'Fire Show', nav: 'Fire',
-      videos: ['f3witZXJ3s8', 'MvgSbUl1i64', 'kUXyXDO6O7I', '5kWySEToST0', 'Q4SIaQwPHLs'],
+      videos: ['5kWySEToST0', 'f3witZXJ3s8', 'MvgSbUl1i64', 'kUXyXDO6O7I', 'Q4SIaQwPHLs', '_HabSQ_Wyo4'],
       card: {
         kind: 'Fantasy · Post-apoc · Rock',
         desc: 'Spectacular fire props (wings, cubes, sparkle staffs, flamethrowers and fire cannons) in a visual theme of your choice, from fantasy to post-apocalyptic and rock.',
