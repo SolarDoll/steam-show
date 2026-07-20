@@ -34,13 +34,13 @@ window.SS_CONTENT = {
       videos: ['95Zx38TO_5Q'],
       card: {
         kind: 'Signature',
-        desc: 'Our signature act — a colossal, flame-breathing dragon built from fire, smoke and light. Scales from intimate galas to festival main stages.',
+        desc: 'A fire theatrical show built around a 3-metre dragon — performed in a classic fantasy or a Slavic folk theme.',
         specs: { Format: 'Outdoor', Duration: '10–15 min · adaptable', Cast: 'Scalable' },
-        tags: ['Headline act', 'Large-scale fire']
+        tags: ['Fire show', '3-metre dragon', 'Theatrical show']
       },
       detail: {
         type: 'Flagship · fire',
-        desc: 'Our signature act — a colossal, flame-breathing dragon built from fire, smoke and light. Scales from intimate galas to festival main stages.',
+        desc: 'A fire theatrical show built around a 3-metre dragon — performed in a classic fantasy or a Slavic folk theme. Scales from intimate galas to festival main stages.',
         duration: '10–15 min · adaptable', format: 'Outdoor', cast: 'Scalable',
         chips: ['Flamethrowers', 'Fire cubes', 'Pyro', 'Headliner'],
         variants: null
@@ -52,7 +52,7 @@ window.SS_CONTENT = {
       videos: ['kUXyXDO6O7I', '5kWySEToST0', 'Q4SIaQwPHLs'],
       card: {
         kind: 'Fantasy · Post-apoc · Rock',
-        desc: 'Large-scale fire choreography in three visual worlds — fantasy, post-apocalyptic and rock — tailored to your event.',
+        desc: 'Spectacular fire props — wings, cubes, sparkle staffs, flamethrowers and fire cannons — in a visual theme of your choice, from fantasy to post-apocalyptic and rock.',
         specs: { Format: 'Outdoor', Duration: '10–15 min', Style: 'Your choice' },
         tags: ['Your chosen style']
       },
@@ -99,13 +99,13 @@ window.SS_CONTENT = {
       videos: ['v3MyA-lNGok', 'U4-_8da2uuI', 'Ain3sUrpU2w'],
       card: {
         kind: 'Pure light',
-        desc: 'A fully luminous, smoke-free spectacle. Deep catalogue of LED costumes — pick the looks that fit your venue.',
+        desc: 'A fully luminous, smoke-free spectacle — a deep wardrobe of glowing LED costumes and props for any venue.',
         specs: { Format: 'Indoor & outdoor', Duration: '10–15 min', Looks: 'Many' },
-        tags: ['Many looks']
+        tags: ['Many looks', 'LED cube', 'Glowing wings']
       },
       detail: {
         type: 'Electric · light',
-        desc: 'A fully luminous, smoke-free spectacle. Deep catalogue of LED costumes — pick the looks that fit your venue.',
+        desc: 'A fully luminous, smoke-free spectacle — a deep catalogue of glowing LED costumes and props, from LED cubes to light-up wings. Pick the looks that fit your venue.',
         duration: '10–15 min · adaptable', format: 'Indoor & outdoor', cast: 'Scalable',
         chips: ['Smoke-free', 'LED catalogue', 'Full luminous'],
         variants: {
