@@ -86,7 +86,9 @@
     if (videoFirst) nav.push({ href: 'videos', label: 'Videos' });
     if (det.variants) nav.push({ href: 'sec-variants', label: det.variants.navLabel });
     if (!videoFirst && s.videos.length) nav.push({ href: 'videos', label: 'Videos' });
-    if (d.photos.length && id !== 'stilts') nav.push({ href: 'gallery', label: 'Photos' });
+    var hasBrowseAllNav = id === 'stilts' || (det.variants && det.variants.kind === 'themes' && (d.themes || []).length);
+    if (d.photos.length && !hasBrowseAllNav) nav.push({ href: 'gallery', label: 'Photos' });
+    else if (det.variants && det.variants.kind === 'themes' && (d.themes || []).length) nav.push({ href: 'browse-all', label: 'Photos' });
     if (det.addon) nav.push({ href: 'addon', label: 'Add-ons' });
     nav.push({ href: 'book', label: 'Book' });
     html += '<div class="subnav" id="subnav"><div class="si">' +
@@ -119,8 +121,9 @@
     if (videoFirst) { html += videosHTML; html += variantsHTML; }
     else { html += variantsHTML; html += videosHTML; }
 
-    /* GALLERY (у ходулистов не показываем — дублирует фильтруемую «Browse all» в Wardrobe) */
-    if (d.photos.length && id !== 'stilts') {
+    /* GALLERY (у ходулистов и у fire с темами не показываем — дублирует фильтруемую «Browse all») */
+    var hasBrowseAll = id === 'stilts' || (det.variants && det.variants.kind === 'themes' && (d.themes || []).length);
+    if (d.photos.length && !hasBrowseAll) {
       html += '<section id="gallery"><div class="wrap">' +
         '<div class="shead"><span class="kicker">Gallery</span><h2>Photos</h2>' +
         '<p>' + d.photos.length + ' shots from real events.</p></div>' +
@@ -154,6 +157,17 @@
   }
 
   /* ----- fire: темы ----- */
+  /* плоский список фото всех тем + группы (для «Browse all» и лайтбокса) */
+  function fireBrowse(s) {
+    var v = s.detail.variants, nameByKey = {};
+    v.items.forEach(function (w) { if (w.key) nameByKey[w.key] = w.h; });
+    var groups = (s.media.themes || []).filter(function (t) { return t.photos.length; })
+      .map(function (t) { return { token: t.key, label: nameByKey[t.key] || t.key, photos: t.photos }; });
+    var ALL = [];
+    groups.forEach(function (g) { g.photos.forEach(function (p) { ALL.push({ src: p, token: g.token, label: g.label }); }); });
+    return { groups: groups, ALL: ALL };
+  }
+
   function renderThemes(s) {
     var v = s.detail.variants, ph = s.media.photos, n = v.items.length;
     var byKey = {};
@@ -173,7 +187,25 @@
       h += '<div class="world" ' + hook + '><img loading="lazy" src="' + cov + '" alt="">' +
         '<div class="wc"><div class="wn">' + esc(w.nm) + '</div><h3>' + esc(w.h) + '</h3><p>' + esc(w.p) + '</p></div></div>';
     });
-    return h + '</div></div></section>';
+    h += '</div>';
+
+    /* Browse all — фото всех тем + фильтр по темам (как в гардеробе ходулистов) */
+    var fb = fireBrowse(s);
+    if (fb.ALL.length) {
+      h += '<div id="browse-all" style="margin-top:clamp(40px,6vh,64px)"><div class="th" style="margin-bottom:16px">' +
+        '<h4 style="font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(22px,2.8vw,36px);margin:0">Browse all photos</h4>' +
+        '<span class="cnt" id="stCount" style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-left:14px">' + fb.ALL.length + ' shown</span></div>';
+      h += '<div class="filters" id="stFilters">' +
+        fb.groups.map(function (g) { return '<button class="fl" data-tag="' + g.token + '">' + esc(g.label) + '<span class="n">' + g.photos.length + '</span></button>'; }).join('') +
+        '<button class="clr" id="stClear">Clear</button></div>';
+      h += '<div class="gridc" id="stGrid">' + fb.ALL.map(function (x, i) {
+        return '<div class="cell" data-firegallery="' + i + '" data-tags="' + x.token + '">' +
+          '<img loading="lazy" src="' + x.src + '" alt=""><div class="tg"><span>' + esc(x.label) + '</span></div></div>';
+      }).join('') + '</div>';
+      h += '<div class="emptymsg" id="stEmpty" style="display:none">No photos match those themes. Try clearing a filter.</div></div>';
+    }
+
+    return h + '</div></section>';
   }
 
   /* ----- led: каталог костюмов ----- */
@@ -301,6 +333,12 @@
         LB.openList(t.photos.map(function (p, i) { return { img: p, label: nm + ' · photo ' + (i + 1) }; }), 0);
       });
     });
+    if (fThemes.length && s.detail.variants && s.detail.variants.kind === 'themes') {
+      var fbList = fireBrowse(s).ALL.map(function (x, i) { return { img: x.src, label: x.label + ' · photo ' + (i + 1) }; });
+      page.querySelectorAll('[data-firegallery]').forEach(function (el) {
+        el.addEventListener('click', function () { LB.openList(fbList, +(el.getAttribute('data-firegallery') || 0)); });
+      });
+    }
     var worldEls = page.querySelectorAll('[data-world]'), wn = worldEls.length;
     worldEls.forEach(function (el) {
       el.addEventListener('click', function () {
