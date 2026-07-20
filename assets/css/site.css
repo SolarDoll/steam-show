@@ -373,6 +373,8 @@ section{position:relative;z-index:2;padding:clamp(70px,11vh,120px) 0}
 /* RU: у Anton нет кириллицы — дисплейные заголовки падают на Impact (тяжёлый, есть кириллица).
    TODO: подключить self-host кириллический дисплей-шрифт (Oswald/Bebas Cyrillic). */
 html[lang="ru"]{--display:"Anton",Impact,"PT Sans Narrow","Arial Narrow",sans-serif}
+/* RU hero-теглайн — всегда в одну строку (шрифт ужимается под ширину экрана) */
+html[lang="ru"] .mh__tag{white-space:nowrap;max-width:none;font-size:clamp(11px,3.1vw,20px)}
 
 /* ---------- SELECTED STAGES (что играем) ---------- */
 .stages{margin-top:clamp(36px,7vh,68px)}
