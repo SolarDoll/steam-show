@@ -112,10 +112,7 @@ window.SS_CONTENT = {
         },
         duration: '10–15 min · adaptable', format: 'Indoor & outdoor', cast: 'Scalable',
         chips: ['Smoke-free', 'LED catalogue', 'Full luminous'],
-        variants: {
-          kind: 'catalogue', navLabel: 'Costumes', title: 'LED costume catalogue',
-          lead: 'Smoke-free and fully programmable. Mix and match looks for your venue.'
-        }
+        variants: null
       }
     },
 
