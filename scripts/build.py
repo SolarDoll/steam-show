@@ -28,8 +28,14 @@ from PIL import Image, ImageOps
 MEDIA = "assets/media"
 WEB = "assets/web"
 MAXED = 1280          # макс. длинная сторона
+SM = 640              # длинная сторона адаптивной мелкой копии (для мобильных)
+SM_MIN_LONG = 800     # мельче оригинала — мелкую копию не делаем
 Q = 80                # качество JPEG
+Q_SM = 78             # качество мелкой копии
 IMG_EXT = (".jpg", ".jpeg", ".png", ".webp", ".bmp")
+
+# карта адаптивных копий: web-путь -> [ширина_sm, ширина_оригинала] -> assets/js/srcset.js
+SRCSET = {}
 
 # шоу: (id, папка-фото, папка-костюмы|None)
 SHOWS = [
@@ -125,7 +131,15 @@ def optimize(out_key, folders):
             im = ImageOps.exif_transpose(Image.open(os.path.join(MEDIA, folder, f))).convert("RGB")
             im.thumbnail((MAXED, MAXED), Image.LANCZOS)
             im.save(os.path.join(wp, name), "JPEG", quality=Q, optimize=True, progressive=True)
-            out.append(f"{WEB}/{out_key}/{name}")
+            web_path = f"{WEB}/{out_key}/{name}"
+            out.append(web_path)
+            # адаптивная мелкая копия <name>-640.jpg (для мобильных грид-превью)
+            ow = im.size[0]
+            if max(im.size) > SM_MIN_LONG:
+                sm = im.copy()
+                sm.thumbnail((SM, SM), Image.LANCZOS)
+                sm.save(os.path.join(wp, name[:-4] + "-640.jpg"), "JPEG", quality=Q_SM, optimize=True, progressive=True)
+                SRCSET[web_path] = [sm.size[0], ow]
         except Exception as e:
             print("  ! skip", f, e)
     return out
@@ -200,3 +214,11 @@ with open(out, "w", encoding="utf-8") as f:
     f.write("   Только пути к медиа. Весь копирайт/имена/YouTube-ID — в content.js. */\n")
     f.write("window.SS_MEDIA = " + json.dumps(data, ensure_ascii=False, indent=2) + ";\n")
 print("written:", out)
+
+# манифест адаптивных копий (для responsive.js)
+srcset_out = "assets/js/srcset.js"
+with open(srcset_out, "w", encoding="utf-8") as f:
+    f.write("/* АВТОГЕНЕРАЦИЯ: python scripts/build.py (или gen_srcset.py) — руками не править.\n")
+    f.write("   Карта адаптивных копий: путь -> [ширина_мелкой, ширина_оригинала]. */\n")
+    f.write("window.SS_SRCSET = " + json.dumps(SRCSET, ensure_ascii=False, separators=(",", ":")) + ";\n")
+print("written:", srcset_out, "(", len(SRCSET), "variants )")
