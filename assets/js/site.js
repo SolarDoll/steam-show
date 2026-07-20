@@ -78,17 +78,19 @@
     if (!Array.isArray(formats) || !formats.length) return;
     var list = document.getElementById('fmtList');
     if (list) list.innerHTML = formats.map(function (f) { return '<span>' + esc(f) + '</span>'; }).join('');
-    var word = document.getElementById('fboardWord');
+    var word = document.getElementById('worldWord');
     if (!word) return;
     word.textContent = formats[0];
     if (reduce || formats.length < 2) return;
     var i = 0;
     setInterval(function () {
-      i = (i + 1) % formats.length;
-      word.classList.remove('flip'); void word.offsetWidth;
-      word.textContent = formats[i];
-      word.classList.add('flip');
-    }, 2200);
+      word.classList.add('out');
+      setTimeout(function () {
+        i = (i + 1) % formats.length;
+        word.textContent = formats[i];
+        word.classList.remove('out');
+      }, 400);
+    }, 2600);
   }
 
   /* ---------------- jump-навигация ---------------- */
