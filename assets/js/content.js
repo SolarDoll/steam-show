@@ -112,6 +112,12 @@ window.SS_CONTENT = {
         },
         duration: '10–15 min · adaptable', format: 'Indoor & outdoor', cast: 'Scalable',
         chips: ['Smoke-free', 'LED catalogue', 'Full luminous'],
+        addon: {
+          kicker: 'Add-ons',
+          title: 'Turn it into a full club show',
+          text: 'Playing a club or a party? We can bundle the LED show with our other party formats into one high-energy set: stilt-walking animators, a paper show, confetti blasts and CO₂ cannons.',
+          tags: ['Paper show', 'Confetti', 'CO₂ cannons', 'Stilt animators']
+        },
         variants: null
       }
     },

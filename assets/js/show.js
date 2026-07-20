@@ -87,6 +87,7 @@
     if (det.variants) nav.push({ href: 'sec-variants', label: det.variants.navLabel });
     if (!videoFirst && s.videos.length) nav.push({ href: 'videos', label: 'Videos' });
     if (d.photos.length && id !== 'stilts') nav.push({ href: 'gallery', label: 'Photos' });
+    if (det.addon) nav.push({ href: 'addon', label: 'Add-ons' });
     nav.push({ href: 'book', label: 'Book' });
     html += '<div class="subnav" id="subnav"><div class="si">' +
       nav.map(function (n) { return '<a href="#' + n.href + '" data-sec="' + n.href + '">' + n.label + '</a>'; }).join('') +
@@ -126,6 +127,17 @@
         '<div class="gallery">' + d.photos.map(function (p, i) {
           return '<div class="g" data-photo="' + i + '"><img loading="lazy" src="' + p + '" alt=""></div>';
         }).join('') + '</div></div></section>';
+    }
+
+    /* ADD-ONS — опциональный бокс (напр. клубный формат у LED) */
+    if (det.addon) {
+      var a = det.addon;
+      html += '<section id="addon"><div class="wrap"><div class="addon-box">' +
+        '<span class="kicker">' + esc(a.kicker) + '</span>' +
+        '<h2>' + esc(a.title) + '</h2>' +
+        '<p>' + esc(a.text) + '</p>' +
+        '<div class="chips">' + (a.tags || []).map(function (t) { return '<span class="chip">' + esc(t) + '</span>'; }).join('') + '</div>' +
+        '</div></div></section>';
     }
 
     /* BOOK — общий блок контактов */
