@@ -179,7 +179,7 @@
         return '<div class="cell" data-gallery="theme:' + t.key + '" data-gi="' + (gi + k) + '"><img loading="lazy" src="' + p + '" alt=""></div>';
       }).join('') + '</div>';
       var more = t.photos.length > (gi + 6) ? '<button class="tmore" data-filter="' + t.key + '">View all ' + t.photos.length + ' ' + esc(t.name) + ' looks →</button>' : '';
-      h += '<div class="tblock"><div class="th"><h4>' + esc(t.name) + '</h4><span class="cnt">' + t.photos.length + ' looks</span></div>' +
+      h += '<div class="tblock"><div class="th"><h4>' + esc(t.name) + '</h4></div>' +
         '<div class="tb">' + feat + '<div class="side">' + grid + more + '</div></div></div>';
     });
 
@@ -192,7 +192,7 @@
         return '<div class="cell" data-gallery="other" data-gi="' + (1 + k) + '"><img loading="lazy" src="' + p + '" alt=""></div>';
       }).join('') + '</div>';
       var omore = W.other.length > 7 ? '<button class="tmore" data-filter="other">View all ' + W.other.length + ' ' + esc(oname) + ' looks →</button>' : '';
-      h += '<div class="tblock"><div class="th"><h4>' + esc(oname) + '</h4><span class="cnt">' + W.other.length + ' looks</span></div>' +
+      h += '<div class="tblock"><div class="th"><h4>' + esc(oname) + '</h4></div>' +
         '<div class="tb">' + ofeat + '<div class="side">' + ogrid + omore + '</div></div></div>';
     }
 

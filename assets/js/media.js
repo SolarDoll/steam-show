@@ -340,7 +340,8 @@ window.SS_MEDIA = {
           "assets/web/stilts-led/stilts-led-007.jpg",
           "assets/web/stilts-led/stilts-led-008.jpg",
           "assets/web/stilts-led/stilts-led-009.jpg",
-          "assets/web/stilts-led/stilts-led-010.jpg"
+          "assets/web/stilts-led/stilts-led-010.jpg",
+          "assets/web/stilts-led/stilts-led-011.jpg"
         ]
       }
     ],
