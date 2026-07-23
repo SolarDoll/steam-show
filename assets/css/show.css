@@ -52,6 +52,9 @@ a{color:inherit;text-decoration:none}
 /* RU: у Anton нет кириллицы — заголовки падают на Impact (есть кириллица).
    TODO: подключить self-host кириллический дисплей-шрифт. */
 html[lang="ru"]{--display:"Anton",Impact,"PT Sans Narrow","Arial Narrow",sans-serif}
+/* RU: кириллический дисплей жирнеет на реальном мобильном ТОЛЬКО при явном
+   font-weight:900 (см. fonts.css). Форсируем 900 на всех кириллических заголовках. */
+html[lang="ru"] :is(.htitle,.shead h2,.world .wc h3,.star h3,.tblock .th h4,.addon-box h2,.pnav .pv,.ccta){font-weight:900}
 .topbar-in{padding-left:max(clamp(20px,4vw,40px),env(safe-area-inset-left));padding-right:max(clamp(20px,4vw,40px),env(safe-area-inset-right))}
 /* бургер + мобильное меню (совпадает с главной) */
 .nav-toggle{display:none;background:none;border:1px solid var(--line);color:var(--ink);border-radius:10px;
