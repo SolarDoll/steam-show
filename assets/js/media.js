@@ -118,6 +118,25 @@ window.SS_MEDIA = {
           ]
         },
         {
+          "key": "fire-postapoc",
+          "photos": [
+            "assets/web/fire-postapoc/fire-postapoc-001.jpg",
+            "assets/web/fire-postapoc/fire-postapoc-002.jpg",
+            "assets/web/fire-postapoc/fire-postapoc-003.jpg",
+            "assets/web/fire-postapoc/fire-postapoc-004.jpg",
+            "assets/web/fire-postapoc/fire-postapoc-005.jpg",
+            "assets/web/fire-postapoc/fire-postapoc-006.jpg",
+            "assets/web/fire-postapoc/fire-postapoc-007.jpg",
+            "assets/web/fire-postapoc/fire-postapoc-008.jpg",
+            "assets/web/fire-postapoc/fire-postapoc-009.jpg",
+            "assets/web/fire-postapoc/fire-postapoc-010.jpg",
+            "assets/web/fire-postapoc/fire-postapoc-011.jpg",
+            "assets/web/fire-postapoc/fire-postapoc-012.jpg",
+            "assets/web/fire-postapoc/fire-postapoc-013.jpg",
+            "assets/web/fire-postapoc/fire-postapoc-014.jpg"
+          ]
+        },
+        {
           "key": "fire-steampunk",
           "photos": [
             "assets/web/fire-steampunk/fire-steampunk-001.jpg",
