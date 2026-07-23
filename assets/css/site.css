@@ -488,6 +488,28 @@ section[id]{scroll-margin-top:88px}
   .fch:hover::before{opacity:0}
 }
 
+/* ---------- СЕКЦИЯ «ON TOUR» — КОМПАКТНО НА ТЕЛЕФОНЕ ---------- */
+/* Убираем правый арт-столбец (глобус EN / прожектор-анимация RU): на телефоне
+   он съедал полэкрана и не нёс смысла. Остаётся текст + гео + форматы. */
+@media(max-width:780px){
+  #world .holo,#world .wstage,html[lang="ru"] #world .wstage{display:none}
+  .geo-grid{gap:20px}
+  /* подпись-тэглайн (была под анимацией) — слева, компактно */
+  .wstage__foot,html[lang="ru"] .wstage__foot{text-align:left;margin-top:4px}
+}
+@media(max-width:600px){
+  /* гео-пилюли: мельче — не занимают полэкрана */
+  .geo-list{gap:8px}
+  .geo-pill{font-size:12px;padding:7px 13px}
+  /* форматы событий: компактный список, плотнее */
+  .stages{margin-top:24px}
+  .stages .evlist{gap:9px 0;margin-top:14px}
+  .stages .evlist span{font-size:13px}
+  .stages .evlist span::after{width:5px;height:5px;margin:0 10px}
+  /* статистика ближе к форматам */
+  .stats{margin-top:26px}
+}
+
 /* ---------- УВАЖЕНИЕ К reduce-motion ---------- */
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}

@@ -65,7 +65,7 @@ window.SS_CONTENT = {
         ]
       },
       detail: {
-        type: { en: 'Flagship · fire', ru: 'Флагман · огонь' },
+        type: { en: 'Flagship · fire', ru: 'Уникальное шоу' },
         desc: { en: 'A fire theatrical show built around a 3-metre dragon, performed in a classic fantasy or a Slavic folk theme. Scales from intimate galas to festival main stages.',
                 ru: 'Огненное театрализованное шоу с трёхметровым драконом в духе классического фэнтези или славянского фольклора. Подходит как для камерных мероприятий, так и для главных сцен крупных фестивалей.' },
         duration: { en: '10–15 min · adaptable', ru: '10–15 мин · гибко' },
@@ -137,7 +137,7 @@ window.SS_CONTENT = {
       name: { en: 'LED Fire Show', ru: 'LED+Огонь' }, nav: { en: 'LED Fire', ru: 'LED-огонь' },
       videos: ['aq-PXZIlsyo', 'NwEsu64rFzY', 'sckZxk4r22c', 'vWRxsfORdOg'],
       card: {
-        kind: { en: 'Glow + Flame', ru: 'Свет + огонь' },
+        kind: { en: 'Glow + Flame', ru: 'Гибридное шоу' },
         desc: { en: 'The best of both: live fire performed in glowing LED costumes. The heat of fire with the colour of light.',
                 ru: 'Уникальное сочетание огненного искусства и LED-технологий. Артисты объединяют живое пламя и световые эффекты в яркое современное представление.' },
         specs: {
@@ -167,7 +167,7 @@ window.SS_CONTENT = {
       name: { en: 'LED Show', ru: 'LED-шоу' }, nav: { en: 'LED', ru: 'LED' },
       videos: ['7SCXdglhHgI', 'v3MyA-lNGok', 'U4-_8da2uuI', 'Ain3sUrpU2w', 'T6nHGrLrXoU', 'N7Qj5uU1bH4'],
       card: {
-        kind: { en: 'Pure light', ru: 'Чистый свет' },
+        kind: { en: 'Pure light', ru: 'Свет и технологии' },
         desc: { en: 'Pure light, zero smoke or flame: glowing LED costumes and programmable props create a stunning visual show for indoor venues.',
                 ru: 'Футуристичное световое шоу без дыма и огня: яркие LED-костюмы и программируемый реквизит создают эффектное визуальное представление для помещений любого формата.' },
         specs: {
@@ -182,7 +182,7 @@ window.SS_CONTENT = {
         ]
       },
       detail: {
-        type: { en: 'Electric · light', ru: 'Электрик · свет' },
+        type: { en: 'Electric · light', ru: 'Свет и технологии' },
         desc: { en: 'A dazzling, smoke-free light show of glowing LED costumes and eye-catching props, from light-up wings to glowing cubes. We can brand the props with your logo, or scale it up into a full club party. Perfect for indoor venues where open flame is not an option.',
                 ru: 'Яркое световое шоу с LED-костюмами и эффектным реквизитом, от светящихся крыльев до пиксельных кубов. Мы можем интегрировать ваш логотип в визуальное оформление или превратить выступление в полноценную клубную программу. Идеальное решение для площадок, где использование открытого огня невозможно.' },
         seo: {
@@ -219,7 +219,7 @@ window.SS_CONTENT = {
       name: { en: 'Stilt Walkers', ru: 'Ходулисты' }, nav: { en: 'Stilts', ru: 'Ходули' },
       videos: ['UlvKULj4Xe8', 'AW1l9PbVqdY', 'HLwZI7htNus', 'iAFeaUvX_Hw', 'UFmJgKILurU', 'epn4YnmNrQ8', 'wogKA0crrt0'],
       card: {
-        kind: { en: 'Animation or full show', ru: 'Анимация или полное шоу' },
+        kind: { en: 'Animation or full show', ru: 'Анимация или шоу на сцене' },
         desc: { en: 'Spectacular stilt characters for any type of event: from guest welcomes and interactive roaming entertainment to full-scale performances.',
                 ru: 'Яркие персонажи-великаны на ходулях для любого формата события: встреча гостей, интерактивная анимация или полноценное шоу на сцене.' },
         specs: {
