@@ -279,13 +279,17 @@ section{position:relative;z-index:2;padding:clamp(70px,11vh,120px) 0}
   .pb-tile.big .pb-num{font-size:34px}
 }
 
-/* контакты на мобиле — сетка 2×2, а не столбик */
-@media(max-width:480px){
-  .fchannels{grid-template-columns:1fr 1fr;gap:11px}
-  .fch{min-height:140px;padding:15px 13px;gap:9px}
-  .fch .ic{width:38px;height:38px}
-  .fch .fk{font-size:clamp(8.5px,2.7vw,10px);letter-spacing:.06em}
-  .fch .fgo{font-size:11px}
+/* контакты на телефоне — одна колонка, горизонтальная плитка:
+   иконка слева, текст справа во всю ширину (длинные значения и
+   «WhatsApp · Telegram» помещаются целиком, без переноса и обрезки). */
+@media(max-width:600px){
+  .fchannels{grid-template-columns:1fr;gap:10px;margin-top:26px}
+  .fch{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"ic fk" "ic fv" "ic go";
+    column-gap:15px;row-gap:3px;align-items:center;min-height:0;padding:15px 18px}
+  .fch .ic{grid-area:ic;width:46px;height:46px;align-self:center}
+  .fch .fk{grid-area:fk;font-size:10.5px;letter-spacing:.14em}
+  .fch .fv{grid-area:fv;font-size:19px}
+  .fch .fgo{grid-area:go;margin-top:0;font-size:12px}
 }
 
 /* «Any stage, day or night» — список в 2 строки на мобиле */
@@ -426,6 +430,9 @@ html[lang="ru"] #world .geo-pill:not(.world){backdrop-filter:blur(8px);backgroun
 /* RU: у Anton нет кириллицы — дисплейные заголовки падают на Impact (тяжёлый, есть кириллица).
    TODO: подключить self-host кириллический дисплей-шрифт (Oswald/Bebas Cyrillic). */
 html[lang="ru"]{--display:"Anton",Impact,"PT Sans Narrow","Arial Narrow",sans-serif}
+/* RU: кириллический дисплей (Alumni Sans) вариативный до 900 — на весе 400 он тонкий.
+   Тяжёлый «плакатный» вид даёт только 900. Латиница (Anton) — только 400, её не трогаем. */
+html[lang="ru"] .ccta{font-weight:900}
 /* RU hero-теглайн — на десктопе в одну строку (шрифт ужимается под ширину) */
 html[lang="ru"] .mh__tag{white-space:nowrap;max-width:none;font-size:clamp(11px,3.1vw,20px)}
 /* на телефоне разрешаем перенос и делаем крупнее — но название доминирует */

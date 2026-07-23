@@ -52,6 +52,9 @@ a{color:inherit;text-decoration:none}
 /* RU: у Anton нет кириллицы — заголовки падают на Impact (есть кириллица).
    TODO: подключить self-host кириллический дисплей-шрифт. */
 html[lang="ru"]{--display:"Anton",Impact,"PT Sans Narrow","Arial Narrow",sans-serif}
+/* RU: кириллический дисплей (Alumni Sans) вариативный до 900 — на весе 400 тонкий.
+   Тяжёлый «плакатный» вид даёт только 900. Латиница (Anton) — только 400, её не трогаем. */
+html[lang="ru"] .ccta{font-weight:900}
 .topbar-in{padding-left:max(clamp(20px,4vw,40px),env(safe-area-inset-left));padding-right:max(clamp(20px,4vw,40px),env(safe-area-inset-right))}
 /* бургер + мобильное меню (совпадает с главной) */
 .nav-toggle{display:none;background:none;border:1px solid var(--line);color:var(--ink);border-radius:10px;
