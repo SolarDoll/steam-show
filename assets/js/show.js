@@ -85,8 +85,8 @@
 
     var videoFirst = (id === 'led' || id === 'stilts' || id === 'fire') && s.videos.length;
 
-    /* SUB-NAV */
-    var nav = [{ href: 'top', label: T('show.top') }];
+    /* SUB-NAV (без «Top» — наверх ведут логотип и плавающая кнопка ↑) */
+    var nav = [];
     if (videoFirst) nav.push({ href: 'videos', label: T('show.videos') });
     if (det.variants) nav.push({ href: 'sec-variants', label: det.variants.navLabel });
     if (!videoFirst && s.videos.length) nav.push({ href: 'videos', label: T('show.videos') });

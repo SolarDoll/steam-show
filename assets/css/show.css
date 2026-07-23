@@ -10,7 +10,7 @@
   --ac:var(--accent);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:clip}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
 img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
@@ -312,6 +312,23 @@ section[id],[id="browse-all"],[id="top"]{scroll-margin-top:124px}
 }
 /* лёгкое ужатие вертикальных отступов секций на телефоне */
 @media(max-width:560px){section{padding:clamp(44px,8vh,72px) 0}}
+
+/* ---- HERO на телефоне: компактнее meta / chips / кнопки ---- */
+@media(max-width:600px){
+  /* duration · format · cast — тремя колонками в одну строку, а не в две */
+  .meta{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;flex-wrap:nowrap}
+  .meta .m{min-width:0}
+  .meta .m .k{font-size:9.5px;letter-spacing:.14em;margin-bottom:6px}
+  .meta .m .v{font-size:13px;line-height:1.2}
+  /* теги — компактнее, чтобы влезали в 2 строки, а не в 3 */
+  .chips{gap:8px}
+  .chip{padding:8px 12px;font-size:11px}
+  /* кнопки Watch / Book — рядом в одну строку (пополам), а не в две */
+  .hcta{gap:10px;flex-wrap:nowrap}
+  .hcta .btn{flex:1 1 0;min-width:0;justify-content:center;white-space:nowrap;padding:15px 14px;font-size:11.5px;letter-spacing:.04em}
+  /* sub-nav: компактные табы, чтобы «Book» не обрезался */
+  .subnav a{padding:14px 11px;font-size:11.5px;letter-spacing:.02em}
+}
 /* уважение к reduced-motion (в show.css не было) */
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
