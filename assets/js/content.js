@@ -72,10 +72,9 @@ window.SS_CONTENT = {
         format:   { en: 'Outdoor', ru: 'Улица' },
         cast:     { en: 'Scalable', ru: 'Масштабируется' },
         chips: [
-          { en: 'Flamethrowers', ru: 'Огнемёты' },
-          { en: 'Fire cubes', ru: 'Огненные кубы' },
-          { en: 'Pyro', ru: 'Пиро' },
-          { en: 'Headliner', ru: '3х-метровый Дракон' }
+          { en: '3-metre dragon', ru: '3-метровый дракон' },
+          { en: 'Fire theatre', ru: 'Театрализованное шоу' },
+          { en: 'Fantasy & Slavic folk', ru: 'Фэнтези · славянский фолк' }
         ],
         variants: null
       }
