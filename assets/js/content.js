@@ -103,9 +103,10 @@ window.SS_CONTENT = {
         format:   { en: 'Outdoor', ru: 'Улица' },
         cast:     { en: 'Scalable', ru: 'Масштабируется' },
         chips: [
-          { en: 'Live fire', ru: 'Живой огонь' },
-          { en: 'Choreography', ru: 'Хореография' },
-          { en: 'Bespoke themes', ru: 'Темы под заказ' }
+          { en: 'Flamethrowers', ru: 'Огнемёты' },
+          { en: 'Large-scale props', ru: 'Крупный реквизит' },
+          { en: 'High-energy show', ru: 'Драйвовое шоу' },
+          { en: 'Themes to choose', ru: 'Выбор тем' }
         ],
         variants: {
           kind: 'themes', navLabel: { en: 'Themes', ru: 'Темы' }, title: { en: 'Themed fire', ru: 'Тематическое пламя' },
