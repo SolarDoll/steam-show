@@ -117,16 +117,16 @@ window.SS_CONTENT = {
           { en: 'Themes to choose', ru: 'Выбор тем' }
         ],
         variants: {
-          kind: 'themes', navLabel: { en: 'Themes', ru: 'Темы' }, title: { en: 'Themed fire', ru: 'Тематические шоу' },
+          kind: 'themes', navLabel: { en: 'Themes', ru: 'Концепции' }, title: { en: 'Themed fire', ru: 'Концептуальные шоу' },
           lead: { en: 'Every theme has its own costumes and music. These are our signature ones. For large events we create a new theme to brief.',
-                  ru: 'Каждая тема имеет свой визуальный стиль, костюмы и музыкальное сопровождение. Выберите готовую концепцию или закажите индивидуальное шоу под ваше событие.' },
+                  ru: 'Каждая концепция имеет свой визуальный стиль, костюмы и музыкальное сопровождение. Выберите готовую концепцию или закажите индивидуальное шоу под ваше событие.' },
           items: [
-            { key: 'fire-rock',      nm: { en: 'Theme 01', ru: 'Тема 01' }, h: { en: 'Rock', ru: 'Рок' },                       p: { en: 'Raw, loud, rebellious. Fire to a driving rock energy.', ru: 'Дерзко, громко, бунтарски. Огонь под драйвовую рок-энергетику.' } },
-            { key: 'fire-fantasy',   nm: { en: 'Theme 02', ru: 'Тема 02' }, h: { en: 'Fantasy', ru: 'Фэнтези' },                 p: { en: 'Ethereal and mythic. A fairy-tale told in flame.', ru: 'Воздушно и мифически. Сказка, рассказанная пламенем.' } },
-            { key: 'fire-postapoc',  nm: { en: 'Theme 03', ru: 'Тема 03' }, h: { en: 'Post-apocalyptic', ru: 'Постапокалипсис' }, p: { en: 'Gritty, industrial, dystopian. Fire from a scorched future.', ru: 'Жёстко, индустриально, антиутопично. Огонь из выжженного будущего.' } },
-            { key: 'fire-steampunk', nm: { en: 'Theme 04', ru: 'Тема 04' }, h: { en: 'Steampunk', ru: 'Стимпанк' },               p: { en: 'Plague doctors and Victorian dames, in brass, gears and gaslight.', ru: 'Чумные доктора и викторианские дамы — латунь, шестерни и газовый свет.' } },
-            { key: 'fire-slavic',    nm: { en: 'Theme 05', ru: 'Тема 05' }, h: { en: 'Slavic Folk', ru: 'Славянский фолк' },      p: { en: 'Pagan motifs and maidens in white. A folkloric fire ritual drawn from old Slavic myth.', ru: 'Языческие мотивы и девы в белом. Фольклорный огненный ритуал по мотивам славянских мифов.' } },
-            { bespoke: true, nm: { en: 'On request', ru: 'Под заказ' }, h: { en: 'Your theme', ru: 'Ваша тема' }, p: { en: 'For large events we build a bespoke theme around your concept, brand or festival.', ru: 'Для крупных событий соберём тему под вашу концепцию, бренд или фестиваль.' } }
+            { key: 'fire-rock',      nm: { en: 'Theme 01', ru: 'Концепция 01' }, h: { en: 'Rock', ru: 'Рок' },                       p: { en: 'Raw, loud, rebellious. Fire to a driving rock energy.', ru: 'Дерзкая энергия, мощный ритм и бунтарский характер. Огонь под атмосферу настоящего рок-шоу.' } },
+            { key: 'fire-fantasy',   nm: { en: 'Theme 02', ru: 'Концепция 02' }, h: { en: 'Fantasy', ru: 'Фэнтези' },                 p: { en: 'Ethereal and mythic. A fairy-tale told in flame.', ru: 'Эпическое фэнтези с атмосферой древних легенд, магии и неизведанных миров.' } },
+            { key: 'fire-postapoc',  nm: { en: 'Theme 03', ru: 'Концепция 03' }, h: { en: 'Post-apocalyptic', ru: 'Постапокалипсис' }, p: { en: 'Gritty, industrial, dystopian. Fire from a scorched future.', ru: 'Жёсткая индустриальная эстетика, атмосфера выживания и огонь из мира после конца света.' } },
+            { key: 'fire-steampunk', nm: { en: 'Theme 04', ru: 'Концепция 04' }, h: { en: 'Steampunk', ru: 'Стимпанк' },               p: { en: 'Plague doctors and Victorian dames, in brass, gears and gaslight.', ru: 'Винтажная эстетика викторианской эпохи: механизмы, латунь, шестерни и индустриальный шарм.' } },
+            { key: 'fire-slavic',    nm: { en: 'Theme 05', ru: 'Концепция 05' }, h: { en: 'Slavic Folk', ru: 'Славянский фолк' },      p: { en: 'Pagan motifs and maidens in white. A folkloric fire ritual drawn from old Slavic myth.', ru: 'Языческие мотивы и девы в белом. Фольклорный огненный ритуал по мотивам славянских мифов.' } },
+            { bespoke: true, nm: { en: 'On request', ru: 'Под заказ' }, h: { en: 'Your theme', ru: 'Ваша концепция' }, p: { en: 'For large events we build a bespoke theme around your concept, brand or festival.', ru: 'Для крупных событий создадим отдельную концепцию под ваш бренд, событие или фестиваль.' } }
           ]
         }
       }
