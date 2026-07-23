@@ -130,7 +130,7 @@ window.SS_CONTENT = {
       card: {
         kind: { en: 'Glow + Flame', ru: 'Свет + огонь' },
         desc: { en: 'The best of both: live fire performed in glowing LED costumes. The heat of fire with the colour of light.',
-                ru: 'Сочетание живого огня и LED-костюмов в одном эффектном шоу. Динамичное выступление на грани огня, света и технологий.' },
+                ru: 'Уникальное сочетание огненного искусства и LED-технологий. Артисты объединяют живое пламя и световые эффекты в яркое современное представление.' },
         specs: {
           Format:   { en: 'Outdoor', ru: 'Улица' },
           Duration: { en: '10–15 min', ru: '10–15 мин' },
@@ -141,7 +141,7 @@ window.SS_CONTENT = {
       detail: {
         type: { en: 'Hybrid · fire + light', ru: 'Гибрид · огонь + свет' },
         desc: { en: 'The best of both: live fire performed in glowing LED costumes. The heat of fire with the colour of light.',
-                ru: 'Сочетание живого огня и LED-костюмов в одном эффектном шоу. Динамичное выступление на грани огня, света и технологий.' },
+                ru: 'Уникальное сочетание огненного искусства и LED-технологий. Артисты объединяют живое пламя и световые эффекты в яркое современное представление.' },
         duration: { en: '10–15 min · adaptable', ru: '10–15 мин · гибко' },
         format:   { en: 'Outdoor', ru: 'Улица' },
         cast:     { en: 'Scalable', ru: 'Масштабируется' },
