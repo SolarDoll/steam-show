@@ -57,7 +57,7 @@
 
     /* -- hero -- */
     'hero.eyebrow': { en: 'Fire · LED · Dragons · Stilts · worldwide',
-                      ru: 'Огонь · LED · Драконы · Ходулисты · Минск, Беларусь' },
+                      ru: 'Огонь · LED · Драконы · Ходулисты<br class="mbr">Минск, Беларусь' },
     'hero.tag':     { en: 'We bring the fire, light & dragons.',
                       ru: 'Когда на сцену выходят драконы, начинается магия.' },
     'hero.cta':     { en: 'Explore the shows', ru: 'Смотреть шоу' },

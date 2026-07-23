@@ -48,14 +48,15 @@
 
   /* мобильная бенто-плитка: видео + инфа поверх (первое шоу — крупное) */
   function bentoHTML(id, i) {
-    var s = SS.show(id), c = s.card;
+    var s = SS.show(id);
     var video = s.media.video || HERO_VIDEO;
     var poster = SS.cover(id);
+    /* на плитке — только название шоу, без под-заголовка (kind) */
     return '<article class="pb-tile' + (i === 0 ? ' big' : '') + '" data-show="' + id + '" style="--c:' + s.color + '" role="button" tabindex="0" aria-label="' + esc(T('ui.open') + ' ' + s.name) + '">' +
       (video ? '<video muted loop playsinline preload="none" poster="' + poster + '"><source src="' + video + '" type="video/mp4"></video>'
              : '<img loading="lazy" src="' + poster + '" alt="' + esc(s.name) + '">') +
       '<span class="pb-num">' + num(i) + '</span>' +
-      '<div class="pb-meta"><span class="pb-kind">' + esc(c.kind) + '</span><h3>' + esc(s.name) + '</h3></div>' +
+      '<div class="pb-meta"><h3>' + esc(s.name) + '</h3></div>' +
     '</article>';
   }
   function renderBento() {

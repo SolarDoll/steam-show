@@ -250,10 +250,11 @@ section + section{border-top:1px solid var(--line)}
   background:linear-gradient(120deg,var(--ac),var(--ac2,var(--accent)))}
 .fch .ic svg{width:24px;height:24px;display:block}
 .fch .fk{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
-.fch .fv{font-family:var(--body);font-weight:800;font-size:19px}
+/* значение контакта — одна строка, кегль подстраивается под ширину плитки */
+.fch .fv{font-family:var(--body);font-weight:800;font-size:clamp(13px,3.4vw,19px);white-space:nowrap}
 .fch .fgo{margin-top:auto;font-size:12px;letter-spacing:.06em;color:var(--ac)}
 @media(max-width:880px){.fchannels{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.fchannels{gap:11px}.fch{min-height:150px;padding:16px;gap:10px}.fch .ic{width:40px;height:40px}.fch .fv{font-size:15px}}
+@media(max-width:480px){.fchannels{gap:11px}.fch{min-height:140px;padding:15px 13px;gap:9px}.fch .ic{width:38px;height:38px}.fch .fk{font-size:9.5px;letter-spacing:.12em}}
 
 /* --- add-ons box (клубный формат и т.п.) --- */
 .addon-box{position:relative;border-radius:18px;overflow:hidden;padding:clamp(28px,4vw,46px);
@@ -289,7 +290,7 @@ section + section{border-top:1px solid var(--line)}
 section[id],[id="browse-all"],[id="top"]{scroll-margin-top:124px}
 /* контакты: длинные значения переносятся, а не режутся overflow:hidden */
 .fch{min-width:0}
-.fch .fv{overflow-wrap:anywhere;line-height:1.15}
+.fch .fv{line-height:1.2}
 /* totop над home-indicator */
 .totop{right:max(20px,env(safe-area-inset-right));bottom:max(24px,env(safe-area-inset-bottom))}
 /* клавиатурный фокус — видимая рамка */
