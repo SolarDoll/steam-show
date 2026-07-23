@@ -221,9 +221,9 @@ window.SS_CONTENT = {
         tags: [ { en: 'Dozens of costumes', ru: 'Тематические ивенты' } ]
       },
       detail: {
-        type: { en: 'Roaming · giants', ru: 'Роуминг · великаны' },
+        type: { en: 'Roaming · giants', ru: 'Шоу и Анимация' },
         desc: { en: 'A wardrobe of towering characters, as roaming animation or a full stilt performance. Perfect for welcome zones, parades and club nights. Costumes group into themes and mix freely across them.',
-                ru: 'Гардероб великанов-персонажей — роуминг-анимация или полноценное ходульное шоу. Идеально для welcome-зон, парадов и клубных вечеринок. Костюмы сгруппированы по темам и свободно комбинируются.' },
+                ru: 'Коллекция ярких образов великанов-персонажей для анимации или полноценного ходульного шоу. Идеально подходит для welcome-зон, парадов и клубных мероприятий. Костюмы объединены в тематические коллекции и легко комбинируются между собой.' },
         duration: { en: 'Roaming or set act', ru: 'Роуминг или номер' },
         format:   { en: 'Indoor & outdoor', ru: 'Зал и улица' },
         cast:     { en: 'Scalable', ru: 'Масштабируется' },
