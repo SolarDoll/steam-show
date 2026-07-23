@@ -59,13 +59,13 @@
     'hero.eyebrow': { en: 'Fire · LED · Dragons · Stilts · worldwide',
                       ru: 'Огонь · LED · Драконы · Ходулисты<br class="mbr">Минск, Беларусь' },
     'hero.tag':     { en: 'We bring the fire, light & dragons.',
-                      ru: 'Когда на сцену выходят драконы, начинается магия.' },
+                      ru: 'Когда на сцену выходят драконы, начинается магия' },
     'hero.cta':     { en: 'Explore the shows', ru: 'Смотреть шоу' },
     'hero.scroll':  { en: 'Scroll', ru: '' },
 
     /* -- бегущая строка -- */
     'ticker': { en: ['Flamethrowers','Fire cannons','Pixel props','LED costumes','Pyrotechnics','Fire cubes','Sparkle props','Confetti','Paper show','Stilts'],
-                ru: ['Огнемёты','Фаер-пушки','Пиксельный реквизит','LED-костюмы','Пиротехника','Огненные кубы','Искрящий реквизит','Конфетти','Бумажное шоу','Ходули'] },
+                ru: ['Огнемёты','Огненные пушки','Пиксельный реквизит','LED-костюмы','Пиротехника','Огненные кубы','Искрящий реквизит','Конфетти','Бумажное шоу','Ходули'] },
 
     /* -- секция «Наши шоу» -- */
     'prog.kicker':  { en: 'Our Shows', ru: 'Наши шоу' },

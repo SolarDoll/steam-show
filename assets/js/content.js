@@ -233,7 +233,7 @@ window.SS_CONTENT = {
         type: { en: 'Roaming · giants', ru: 'Шоу и Анимация' },
         desc: { en: 'A wardrobe of towering characters, as roaming animation or a full stilt performance. Perfect for welcome zones, parades and club nights. Costumes group into themes and mix freely across them.',
                 ru: 'Коллекция ярких образов великанов-персонажей для анимации или полноценного ходульного шоу. Идеально подходит для welcome-зон, парадов и клубных мероприятий. Костюмы объединены в тематические коллекции и легко комбинируются между собой.' },
-        duration: { en: 'Roaming or set act', ru: 'Роуминг или номер' },
+        duration: { en: 'Roaming or set act', ru: 'Анимация или шоу' },
         format:   { en: 'Indoor & outdoor', ru: 'Зал и улица' },
         cast:     { en: 'Scalable', ru: 'Масштабируется' },
         chips: [
@@ -241,7 +241,7 @@ window.SS_CONTENT = {
           { en: 'Full stage show', ru: 'Шоу на сцене' },
           { en: '100+ costumes', ru: 'Выбор образов' }
         ],
-        variants: { kind: 'stilts', navLabel: { en: 'Wardrobe', ru: 'Гардероб' } }
+        variants: { kind: 'stilts', navLabel: { en: 'Wardrobe', ru: 'Костюмы' } }
       }
     }
   },

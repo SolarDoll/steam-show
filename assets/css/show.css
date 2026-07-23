@@ -72,7 +72,13 @@ html[lang="ru"]{--display:"Anton",Impact,"PT Sans Narrow","Arial Narrow",sans-se
   .mobmenu a.on{color:var(--ac)}
   .mobmenu a.m-book{color:var(--accent2);font-weight:700}
 }
-@media(max-width:600px){.nav-cta{display:none}.brand .nm{display:none}}
+/* группировка хедера на мобиле: [лого+название] слева, [тогл+бургер] справа */
+@media(max-width:880px){
+  .topbar-in{gap:10px}
+  .brand{gap:8px}
+  .langsw{margin-left:auto}
+}
+@media(max-width:600px){.nav-cta{display:none}}
 
 /* ===== SUB-NAV (секции шоу, sticky) ===== */
 .subnav{position:sticky;top:70px;z-index:90;background:rgba(11,7,18,.92);backdrop-filter:blur(12px);
@@ -87,7 +93,7 @@ html[lang="ru"]{--display:"Anton",Impact,"PT Sans Narrow","Arial Narrow",sans-se
 /* ===== HERO ===== */
 .hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden}
 .hero .bg{position:absolute;inset:0;z-index:0}
-.hero .bg img,.hero .bg video{width:100%;height:100%;object-fit:cover}
+.hero .bg img,.hero .bg video{width:100%;height:100%;object-fit:cover;filter:brightness(.72) saturate(1.05)}
 .hero .scrim{position:absolute;inset:0;z-index:1;
   background:linear-gradient(180deg,rgba(11,7,18,.35),transparent 30%,transparent 42%,rgba(11,7,18,.72) 78%,var(--bg)),
     radial-gradient(70% 60% at 18% 100%,color-mix(in srgb,var(--ac) 30%,transparent),transparent 60%)}
@@ -249,12 +255,12 @@ section + section{border-top:1px solid var(--line)}
 .fch .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;color:#160405;
   background:linear-gradient(120deg,var(--ac),var(--ac2,var(--accent)))}
 .fch .ic svg{width:24px;height:24px;display:block}
-.fch .fk{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.fch .fk{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 /* значение контакта — одна строка, кегль подстраивается под ширину плитки */
 .fch .fv{font-family:var(--body);font-weight:800;font-size:clamp(13px,3.4vw,19px);white-space:nowrap}
-.fch .fgo{margin-top:auto;font-size:12px;letter-spacing:.06em;color:var(--ac)}
+.fch .fgo{margin-top:auto;font-size:12px;letter-spacing:.06em;color:var(--ac);white-space:nowrap}
 @media(max-width:880px){.fchannels{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.fchannels{gap:11px}.fch{min-height:140px;padding:15px 13px;gap:9px}.fch .ic{width:38px;height:38px}.fch .fk{font-size:9.5px;letter-spacing:.12em}}
+@media(max-width:480px){.fchannels{gap:11px}.fch{min-height:140px;padding:15px 13px;gap:9px}.fch .ic{width:38px;height:38px}.fch .fk{font-size:clamp(8.5px,2.7vw,10px);letter-spacing:.06em}.fch .fgo{font-size:11px}}
 
 /* --- add-ons box (клубный формат и т.п.) --- */
 .addon-box{position:relative;border-radius:18px;overflow:hidden;padding:clamp(28px,4vw,46px);
