@@ -151,9 +151,9 @@
 
     /* BOOK — общий блок контактов */
     html += '<section id="book"><div class="wrap">' +
-      '<div class="kicker">' + esc(T('show.bookKicker')) + '</div>' +
+      '<div class="kicker">' + esc(T('contact.kicker')) + '</div>' +
       '<h2 class="ccta">' + T('contact.h') + '</h2>' +
-      '<p class="clead">' + esc(T('show.bookLead', { name: s.name })) + '</p>' +
+      '<p class="clead">' + esc(T('contact.lead')) + '</p>' +
       '<div class="fchannels">' + SS.contactHTML() + '</div></div></section>';
 
     page.innerHTML = html;
