@@ -12,7 +12,7 @@
 
   /* палитра hybrid2 */
   --bg:#0b0712; --bg2:#15101e; --ink:#f5eff7; --muted:#a89fb0;
-  --line:rgba(255,255,255,.11); --sky-top:#2a1840;
+  --line:rgba(255,255,255,.16); --sky-top:#2a1840;
   --accent:#FF6A1F;   /* оранжевый */
   --accent2:#FFD23E;  /* жёлтый — эмберы, узлы, цифры */
   --accent3:#FF2E84;  /* розовый / hot */
@@ -37,8 +37,10 @@ img{display:block;max-width:100%}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;position:relative;z-index:2}
 
 /* тёплый перелив текста (оранж↔розовый) */
-.grad{background:linear-gradient(100deg,var(--accent),var(--accent3),var(--accent));
-  background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+.grad{color:var(--accent); /* запасной цвет, если градиент-по-тексту не рисуется */
+  background:linear-gradient(100deg,var(--accent),var(--accent3),var(--accent));
+  background-size:200% 100%;-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
   animation:hue 9s linear infinite}
 @keyframes hue{to{background-position:200% 0}}
 
@@ -354,7 +356,7 @@ section{position:relative;z-index:2;padding:clamp(70px,11vh,120px) 0}
 @keyframes holoBlinkFar{0%,100%{opacity:.12;transform:translate(-50%,-50%) scale(.8)}50%{opacity:.5;transform:translate(-50%,-50%) scale(.95)}}
 .holo-core{position:absolute;left:0;right:0;bottom:-2%;text-align:center;z-index:3}
 .holo-core b{font-family:var(--display);font-weight:400;font-size:clamp(18px,2.6vw,26px);
-  background:linear-gradient(100deg,var(--cool),var(--accent3));-webkit-background-clip:text;background-clip:text;color:transparent}
+  color:var(--cool);background:linear-gradient(100deg,var(--cool),var(--accent3));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .holo-core small{display:block;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:5px}
 
 /* ---------- ТАБЛО ФОРМАТОВ (сплит-флап, вместо глобуса) ---------- */
@@ -374,7 +376,7 @@ section{position:relative;z-index:2;padding:clamp(70px,11vh,120px) 0}
   background:repeating-linear-gradient(0deg,rgba(255,255,255,.045) 0 1px,transparent 1px 5px)}
 .fboard__word{position:relative;z-index:1;display:block;text-align:center;font-family:var(--display);font-weight:400;
   text-transform:uppercase;letter-spacing:.01em;line-height:.95;font-size:clamp(30px,5vw,56px);
-  background:linear-gradient(180deg,#fff,var(--accent2) 55%,var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent;
+  color:#fff;background:linear-gradient(180deg,#fff,var(--accent2) 55%,var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
   filter:drop-shadow(0 4px 18px color-mix(in srgb,var(--accent) 40%,transparent))}
 .fboard__word.flip{transform-origin:center;animation:fbflip .55s cubic-bezier(.4,0,.2,1)}
 @keyframes fbflip{0%{transform:rotateX(-90deg);opacity:0}55%{opacity:1}100%{transform:rotateX(0);opacity:1}}
@@ -401,7 +403,7 @@ section{position:relative;z-index:2;padding:clamp(70px,11vh,120px) 0}
 @keyframes coneFlick{0%,100%{opacity:.5}48%{opacity:.32}52%{opacity:.46}}
 .wstage__word{position:relative;z-index:1;text-align:center;font-family:var(--display);font-weight:400;text-transform:uppercase;
   line-height:.9;font-size:clamp(38px,7vw,86px);padding:0 10px;
-  background:linear-gradient(180deg,#fff,var(--accent2) 55%,var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent;
+  color:#fff;background:linear-gradient(180deg,#fff,var(--accent2) 55%,var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
   filter:drop-shadow(0 8px 30px color-mix(in srgb,var(--accent) 40%,transparent));transition:opacity .4s,transform .5s}
 .wstage__word.out{opacity:0;transform:translateY(14px) scale(.97)}
 .wstage__foot{text-align:center;margin-top:8px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
@@ -445,7 +447,7 @@ html[lang="ru"] .mh__tag{white-space:nowrap;max-width:none;font-size:clamp(11px,
   border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--line)}
 .stats .s{background:var(--bg);padding:clamp(22px,4vw,40px)}
 .stats .s b{font-family:var(--display);font-weight:800;font-size:clamp(38px,5vw,64px);line-height:1;display:block;
-  background:linear-gradient(180deg,var(--accent2),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+  color:var(--accent2);background:linear-gradient(180deg,var(--accent2),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .stats .s span{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:14px;display:block}
 @media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
 /* на телефоне: значение мельче (чтобы «Десятки» влезало),
@@ -461,7 +463,7 @@ html[lang="ru"] .mh__tag{white-space:nowrap;max-width:none;font-size:clamp(11px,
 .clead{color:var(--muted);max-width:46ch;margin:20px 0 0;font-size:16px}
 .fchannels{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:clamp(36px,5vh,56px)}
 .fch{position:relative;display:flex;flex-direction:column;gap:14px;min-height:190px;padding:26px;border-radius:18px;
-  border:1px solid var(--line);background:linear-gradient(180deg,rgba(245,239,247,.04),transparent);overflow:hidden;
+  border:1px solid rgba(255,255,255,.2);background:linear-gradient(180deg,rgba(245,239,247,.08),rgba(245,239,247,.03));overflow:hidden;
   transition:transform .35s,border-color .35s,box-shadow .35s;--ac:var(--accent)}
 .fch::before{content:"";position:absolute;inset:0;opacity:0;transition:.4s;
   background:radial-gradient(120% 120% at 0% 0%,color-mix(in srgb,var(--ac) 22%,transparent),transparent 60%)}
