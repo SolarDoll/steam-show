@@ -279,19 +279,6 @@ section{position:relative;z-index:2;padding:clamp(70px,11vh,120px) 0}
   .pb-tile.big .pb-num{font-size:34px}
 }
 
-/* контакты на телефоне — одна колонка, горизонтальная плитка:
-   иконка слева, текст справа во всю ширину (длинные значения и
-   «WhatsApp · Telegram» помещаются целиком, без переноса и обрезки). */
-@media(max-width:600px){
-  .fchannels{grid-template-columns:1fr;gap:10px;margin-top:26px}
-  .fch{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"ic fk" "ic fv" "ic go";
-    column-gap:15px;row-gap:3px;align-items:center;min-height:0;padding:15px 18px}
-  .fch .ic{grid-area:ic;width:46px;height:46px;align-self:center}
-  .fch .fk{grid-area:fk;font-size:10.5px;letter-spacing:.14em}
-  .fch .fv{grid-area:fv;font-size:19px}
-  .fch .fgo{grid-area:go;margin-top:0;font-size:12px}
-}
-
 /* «Any stage, day or night» — список в 2 строки на мобиле */
 @media(max-width:600px){
   .stages .evlist span{font-size:15px}
@@ -485,6 +472,18 @@ html[lang="ru"] .mh__tag{white-space:nowrap;max-width:none;font-size:clamp(11px,
 .fch .fv{font-family:var(--body);font-weight:800;font-size:clamp(13px,3.4vw,19px);white-space:nowrap}
 .fch .fgo{margin-top:auto;font-size:12px;letter-spacing:.06em;color:var(--ac);white-space:nowrap}
 @media(max-width:880px){.fchannels{grid-template-columns:repeat(2,1fr)}}
+/* телефон — одна колонка, горизонтальная плитка (иконка слева, текст справа):
+   длинные значения и «WhatsApp · Telegram» влезают целиком, без переноса/обрезки.
+   ВАЖНО: идёт после правила ≤880, иначе оно перебьёт колонки. */
+@media(max-width:600px){
+  .fchannels{grid-template-columns:1fr;gap:10px;margin-top:26px}
+  .fch{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"ic fk" "ic fv" "ic go";
+    column-gap:15px;row-gap:3px;align-items:center;min-height:0;padding:15px 18px}
+  .fch .ic{grid-area:ic;align-self:center}
+  .fch .fk{grid-area:fk;font-size:10.5px;letter-spacing:.14em}
+  .fch .fv{grid-area:fv;font-size:19px}
+  .fch .fgo{grid-area:go;margin-top:0;font-size:12px}
+}
 
 /* ---------- ПОДВАЛ ---------- */
 footer.foot{border-top:1px solid var(--line);padding:36px 0;position:relative;z-index:2}
