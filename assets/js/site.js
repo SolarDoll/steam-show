@@ -298,6 +298,12 @@
       menu.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
       /* Esc закрывает меню */
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+      /* тап мимо меню (не по панели и не по бургеру) — закрыть */
+      document.addEventListener('click', function (e) {
+        if (!document.body.classList.contains('nav-open')) return;
+        if (e.target.closest('nav.menu') || e.target.closest('#navBtn')) return;
+        setMenu(false);
+      });
     }
 
     /* reduced-motion: не проигрываем фоновое hero-видео (остаётся постер) */

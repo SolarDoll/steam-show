@@ -450,6 +450,12 @@
         var open = document.body.classList.toggle('nav-open');
         nb.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
+      /* тап мимо меню (не по панели и не по бургеру) — закрыть */
+      document.addEventListener('click', function (e) {
+        if (!document.body.classList.contains('nav-open')) return;
+        if (e.target.closest('#mobmenu') || (nb && e.target.closest('#navBtn'))) return;
+        closeMenu();
+      });
     }
 
     window.addEventListener('popstate', function (e) {
