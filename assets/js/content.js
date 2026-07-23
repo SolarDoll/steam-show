@@ -117,7 +117,7 @@ window.SS_CONTENT = {
           { en: 'Themes to choose', ru: 'Выбор тем' }
         ],
         variants: {
-          kind: 'themes', navLabel: { en: 'Themes', ru: 'Концепции' }, title: { en: 'Themed fire', ru: 'Концептуальные шоу' },
+          kind: 'themes', navLabel: { en: 'Themes', ru: 'Концепции' }, title: { en: 'Themed fire', ru: 'Тематические шоу' },
           lead: { en: 'Every theme has its own costumes and music. These are our signature ones. For large events we create a new theme to brief.',
                   ru: 'Каждая концепция имеет свой визуальный стиль, костюмы и музыкальное сопровождение. Выберите готовую концепцию или закажите индивидуальное шоу под ваше событие.' },
           items: [
