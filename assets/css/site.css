@@ -29,7 +29,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 /* overflow-x:clip держим на <html>, а не на <body>:
    overflow на body ломает position:fixed у хедера в iOS Safari. */
-html{scroll-behavior:smooth;overflow-x:clip}
+html{scroll-behavior:smooth;overflow-x:clip;color-scheme:dark}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);
   line-height:1.55;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
