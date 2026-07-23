@@ -175,7 +175,7 @@ window.SS_CONTENT = {
       detail: {
         type: { en: 'Electric · light', ru: 'Электрик · свет' },
         desc: { en: 'A dazzling, smoke-free light show of glowing LED costumes and eye-catching props, from light-up wings to glowing cubes. We can brand the props with your logo, or scale it up into a full club party. Perfect for indoor venues where open flame is not an option.',
-                ru: 'Яркое бездымное световое шоу: светящиеся LED-костюмы и эффектный реквизит — от светящихся крыльев до кубов. Можем нанести на реквизит ваш логотип или развернуть шоу в полноценную клубную вечеринку. Идеально для помещений, где открытый огонь невозможен.' },
+                ru: 'Яркое световое шоу с LED-костюмами и эффектным реквизитом, от светящихся крыльев до пиксельных кубов. Мы можем интегрировать ваш логотип в визуальное оформление или превратить выступление в полноценную клубную программу. Идеальное решение для площадок, где использование открытого огня невозможно.' },
         seo: {
           title: { en: 'LED Light Show for Events & Galas - Steam Show',
                    ru: 'LED световое шоу на мероприятие и гала — Steam Show' },
