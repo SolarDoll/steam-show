@@ -104,7 +104,7 @@
     'world.countries': { en: ['UAE','Qatar','Oman','Jordan','Saudi Arabia','Turkey','Egypt','Cyprus'],
                          ru: ['ОАЭ','Катар','Оман','Иордания','Саудовская Аравия','Турция','Египет','Кипр'] },
     'world.geo.more':  { en: '+ Europe & beyond', ru: '+ Европа и дальше' },
-    'world.board.foot': { en: 'One show, tuned to your event', ru: 'Одно шоу — под ваше событие' },
+    'world.board.foot': { en: 'One show, tuned to your event', ru: 'Пусть ваше событие станет запоминающимся' },
 
     /* -- статы -- */
     'stats.1v': { en: '12+',    ru: '12+' },     'stats.1k': { en: 'Years on stage',   ru: 'лет на сцене' },
