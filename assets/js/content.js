@@ -285,7 +285,7 @@ window.SS_CONTENT = {
      --------------------------------------------------------- */
   contact: [
     { ic: 'instagram', kicker: { en: 'Instagram', ru: 'Instagram' },            value: '@steam_show',     go: { en: 'See the feed →', ru: 'Открыть ленту →' }, href: 'https://instagram.com/steam_show',       color: '#FF2E84', color2: '#FF6A1F', ext: true },
-    { ic: 'email',     kicker: { en: 'Email', ru: 'Email' },                    value: 'hello@steamshow', go: { en: 'Send a brief →', ru: 'Отправить бриф →' }, href: 'mailto:hello@steamshow.com',            color: '#FFD23E', color2: '#FF6A1F' },
+    { ic: 'email',     kicker: { en: 'Email', ru: 'Email' },                    value: 'steamshowby@gmail.com', go: { en: 'Send a brief →', ru: 'Отправить бриф →' }, href: 'mailto:steamshowby@gmail.com',            color: '#FFD23E', color2: '#FF6A1F' },
     { ic: 'whatsapp',  kicker: { en: 'WhatsApp · Telegram', ru: 'WhatsApp · Telegram' }, value: { en: 'Message us', ru: 'Напишите нам' }, go: { en: 'Chat now →', ru: 'Написать →' }, href: '#',                     color: '#FF6A1F', color2: '#FF2E84' },
     { ic: 'youtube',   kicker: { en: 'YouTube', ru: 'YouTube' },                value: '@SteamShowby',    go: { en: 'Watch shows →', ru: 'Смотреть шоу →' },   href: 'https://www.youtube.com/@SteamShowby',  color: '#25F4EE', color2: '#FF2E84', ext: true }
   ]
