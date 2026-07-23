@@ -72,6 +72,17 @@
     track.innerHTML = one + one;  /* дубль для бесшовной прокрутки */
   }
 
+  /* ---------------- страны (из словаря) + пилюля «+ Европа» ---------------- */
+  function mountGeo() {
+    var box = document.getElementById('geoList'); if (!box) return;
+    var countries = (window.T && window.T('world.countries')) || [];
+    var html = (Array.isArray(countries) ? countries : []).map(function (c) {
+      return '<span class="geo-pill">' + esc(c) + '</span>';
+    }).join('');
+    html += '<span class="geo-pill world">' + esc(T('world.geo.more')) + '</span>';
+    box.innerHTML = html;
+  }
+
   /* ---------------- форматы: список + «табло» ---------------- */
   function mountFormats() {
     var formats = (window.T && window.T('world.formats')) || [];
@@ -212,6 +223,7 @@
     var cg = document.getElementById('contactGrid');
     if (cg) cg.innerHTML = SS.contactHTML();
     mountTicker();
+    mountGeo();
     mountFormats();
 
     /* делегированные клики */

@@ -392,7 +392,7 @@ html[lang="ru"] .wmesh{display:block}
 html[lang="ru"] .wstage{display:grid}
 html[lang="ru"] .wstage__foot{display:block;position:relative;z-index:1}
 html[lang="ru"] .holo{display:none}
-html[lang="ru"] #world .geo-pill{backdrop-filter:blur(8px);background:rgba(255,255,255,.05)}
+html[lang="ru"] #world .geo-pill:not(.world){backdrop-filter:blur(8px);background:rgba(255,255,255,.05)}
 
 /* ---------- ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА ---------- */
 .langsw{display:inline-flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:99px;

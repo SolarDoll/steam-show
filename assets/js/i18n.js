@@ -101,6 +101,8 @@
     'world.formats': { en: ['Festivals','Parades','Grand openings','Weddings','Corporate','Galas'],
                        ru: ['Свадьбы','Корпоративы','Открытия','Фестивали','Городские праздники','Торговые центры','Парады','Гала-шоу'] },
     'world.geo.label': { en: 'Booked across', ru: 'И гастролируем по миру' },
+    'world.countries': { en: ['UAE','Qatar','Oman','Jordan','Saudi Arabia','Turkey','Egypt','Cyprus'],
+                         ru: ['ОАЭ','Катар','Оман','Иордания','Саудовская Аравия','Турция','Египет','Кипр'] },
     'world.geo.more':  { en: '+ Europe & beyond', ru: '+ Европа и дальше' },
     'world.board.foot': { en: 'One show, tuned to your event', ru: 'Одно шоу — под ваше событие' },
 
