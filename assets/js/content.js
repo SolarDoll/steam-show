@@ -58,7 +58,7 @@ window.SS_CONTENT = {
       detail: {
         type: { en: 'Flagship · fire', ru: 'Флагман · огонь' },
         desc: { en: 'A fire theatrical show built around a 3-metre dragon, performed in a classic fantasy or a Slavic folk theme. Scales from intimate galas to festival main stages.',
-                ru: 'Огненное театрализованное шоу с трехметровым драконом в классическом фэнтези или славянском фолк-стиле. Масштабируется от камерного гала до главной сцены фестиваля.' },
+                ru: 'Огненное театрализованное шоу с трёхметровым драконом в духе классического фэнтези или славянского фольклора. Подходит как для камерных мероприятий, так и для главных сцен крупных фестивалей.' },
         duration: { en: '10–15 min · adaptable', ru: '10–15 мин · гибко' },
         format:   { en: 'Outdoor', ru: 'Улица' },
         cast:     { en: 'Scalable', ru: 'Масштабируется' },
@@ -66,7 +66,7 @@ window.SS_CONTENT = {
           { en: 'Flamethrowers', ru: 'Огнемёты' },
           { en: 'Fire cubes', ru: 'Огненные кубы' },
           { en: 'Pyro', ru: 'Пиро' },
-          { en: 'Headliner', ru: 'Хедлайнер' }
+          { en: 'Headliner', ru: '3х-метровый Дракон' }
         ],
         variants: null
       }
