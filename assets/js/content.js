@@ -109,9 +109,9 @@ window.SS_CONTENT = {
           { en: 'Themes to choose', ru: 'Выбор тем' }
         ],
         variants: {
-          kind: 'themes', navLabel: { en: 'Themes', ru: 'Темы' }, title: { en: 'Themed fire', ru: 'Тематическое пламя' },
+          kind: 'themes', navLabel: { en: 'Themes', ru: 'Темы' }, title: { en: 'Themed fire', ru: 'Тематические шоу' },
           lead: { en: 'Every theme has its own costumes and music. These are our signature ones. For large events we create a new theme to brief.',
-                  ru: 'У каждой темы свои костюмы и музыка. Вот наши фирменные. Для крупных событий создаём новую тему под бриф.' },
+                  ru: 'Каждая тема имеет свой визуальный стиль, костюмы и музыкальное сопровождение. Выберите готовую концепцию или закажите индивидуальное шоу под ваше событие.' },
           items: [
             { key: 'fire-rock',      nm: { en: 'Theme 01', ru: 'Тема 01' }, h: { en: 'Rock', ru: 'Рок' },                       p: { en: 'Raw, loud, rebellious. Fire to a driving rock energy.', ru: 'Дерзко, громко, бунтарски. Огонь под драйвовую рок-энергетику.' } },
             { key: 'fire-fantasy',   nm: { en: 'Theme 02', ru: 'Тема 02' }, h: { en: 'Fantasy', ru: 'Фэнтези' },                 p: { en: 'Ethereal and mythic. A fairy-tale told in flame.', ru: 'Воздушно и мифически. Сказка, рассказанная пламенем.' } },
