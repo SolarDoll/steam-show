@@ -92,7 +92,7 @@ window.SS_CONTENT = {
       detail: {
         type: { en: 'Classic · fire', ru: 'Классика · огонь' },
         desc: { en: 'Large-scale fire choreography, dressed to a theme: fire performers, flame props and live pyrotechnics. Pick one of our signature themes, or for big events we build one around your concept.',
-                ru: 'Масштабная огненная хореография под тему: фаерщики, огненный реквизит и живая пиротехника. Выберите одну из фирменных тем — или для крупных событий соберём тему под вашу концепцию.' },
+                ru: 'Энергичное фаер-шоу с масштабным огненным реквизитом, огнемётами, искровыми эффектами и пиротехникой. Готовые фирменные концепции можно адаптировать под ваше мероприятие.' },
         seo: {
           title: { en: 'Fire Show for Events, Festivals & Weddings - Steam Show',
                    ru: 'Фаер-шоу на праздник, фестиваль и свадьбу — Steam Show' },
