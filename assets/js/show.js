@@ -75,7 +75,7 @@
       '<h1 class="htitle">' + esc(s.name) + '</h1>' +
       '<p class="hdesc">' + esc(det.desc) + '</p>' +
       '<div class="meta">' +
-        '<div class="m"><div class="k">' + esc(T('show.duration')) + '</div><div class="v">' + esc(det.duration) + '</div></div>' +
+        '<div class="m"><div class="k">' + esc(T(id === 'stilts' ? 'show.durationStilts' : 'show.duration')) + '</div><div class="v">' + esc(det.duration) + '</div></div>' +
         '<div class="m"><div class="k">' + esc(T('show.format')) + '</div><div class="v">' + esc(det.format) + '</div></div>' +
         '<div class="m"><div class="k">' + esc(T('show.cast')) + '</div><div class="v">' + esc(det.cast) + '</div></div></div>' +
       '<div class="chips">' + det.chips.map(function (c) { return '<span class="chip"><b>·</b>' + esc(c) + '</span>'; }).join('') + '</div>' +

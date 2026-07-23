@@ -228,9 +228,9 @@ window.SS_CONTENT = {
         format:   { en: 'Indoor & outdoor', ru: 'Зал и улица' },
         cast:     { en: 'Scalable', ru: 'Масштабируется' },
         chips: [
-          { en: 'Roaming', ru: 'Роуминг' },
-          { en: 'Full stage show', ru: 'Полное шоу' },
-          { en: '100+ costumes', ru: '100+ костюмов' }
+          { en: 'Roaming', ru: 'Анимация' },
+          { en: 'Full stage show', ru: 'Шоу на сцене' },
+          { en: '100+ costumes', ru: 'Выбор образов' }
         ],
         variants: { kind: 'stilts', navLabel: { en: 'Wardrobe', ru: 'Гардероб' } }
       }

@@ -128,7 +128,8 @@
 
     /* страница шоу */
     'show.duration': { en: 'Duration', ru: 'Длительность' },
-    'show.format':   { en: 'Format',   ru: 'Формат' },
+    'show.durationStilts': { en: 'Duration', ru: 'Формат' },   /* у ходулистов слот длительности = «Формат» (RU) */
+    'show.format':   { en: 'Format',   ru: 'Площадка' },
     'show.cast':     { en: 'Cast',     ru: 'Состав' },
     'show.watchCta': { en: 'Watch the show', ru: 'Смотреть шоу' },
     'show.top':      { en: 'Top',      ru: 'Наверх' },
@@ -160,7 +161,7 @@
     'show.label.character': { en: 'Character', ru: 'Персонаж' },
 
     /* метки спецификаций в карточках/рядах (ключи specs) */
-    'spec.format':   { en: 'Format',   ru: 'Формат' },
+    'spec.format':   { en: 'Format',   ru: 'Площадка' },
     'spec.duration': { en: 'Duration', ru: 'Длительность' },
     'spec.cast':     { en: 'Cast',     ru: 'Состав' },
     'spec.style':    { en: 'Style',    ru: 'Стиль' },
