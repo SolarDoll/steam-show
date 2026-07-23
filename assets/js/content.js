@@ -242,10 +242,10 @@ window.SS_CONTENT = {
      --------------------------------------------------------- */
   stilts: {
     wardrobe: {
-      kicker: { en: 'Costumes & themes', ru: 'Костюмы и темы' },
-      title: { en: 'The wardrobe', ru: 'Гардероб' },
+      kicker: { en: 'Costumes & themes', ru: 'Костюмы и персонажи' },
+      title: { en: 'The wardrobe', ru: 'Коллекция образов' },
       lead: { en: '100+ towering characters. Explore each theme, its film and costume gallery, or browse the full set with theme filters below.',
-              ru: '100+ великанов-персонажей. Изучите каждую тему, её фильм и галерею костюмов — или просмотрите весь набор с фильтрами ниже.' }
+              ru: 'Изучите тематические коллекции, посмотрите видео и галерею костюмов или воспользуйтесь фильтрами, чтобы найти подходящий образ для вашего события.' }
     },
     /* «Фильм» темы с YouTube (ключ темы -> YouTube ID). Перебивает локальное видео. */
     themeVideos: {
