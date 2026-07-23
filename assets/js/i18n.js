@@ -139,7 +139,7 @@
     'show.watchKicker': { en: 'Watch', ru: 'Смотрите' },
     'show.programsKicker': { en: 'Programs', ru: 'Программы' },
     'show.costumesKicker': { en: 'Costumes', ru: 'Костюмы' },
-    'show.videosBlurb': { en: '{n} · full performances and highlights.', ru: '{n} · полные выступления и хайлайты.' },
+    'show.videosBlurb': { en: '{n} · highlights.', ru: '{n} · хайлайты.' },
     'show.videosCount': { en: '{n} clips', ru: '{n} видео' },
     'show.galleryKicker': { en: 'Gallery', ru: 'Галерея' },
     'show.photosBlurb': { en: '{n} shots from real events.', ru: '{n} кадров с реальных мероприятий.' },
