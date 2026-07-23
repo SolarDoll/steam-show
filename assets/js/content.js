@@ -28,6 +28,15 @@ window.SS_CONTENT = {
     stilts:  '#FF6A1F'
   },
 
+  /* Постер-обложка превью на ГЛАВНОЙ (перебивает photos[0]).
+     Пути — как есть, не переводятся. Задаём только там, где нужна
+     специально подобранная картинка; иначе берётся первое фото шоу. */
+  covers: {
+    fire:    'assets/web/fire/fire-cover.jpg',
+    ledfire: 'assets/web/ledfire/ledfire-cover.jpg',
+    stilts:  'assets/web/stilts/stilts-cover.jpg'
+  },
+
   /* ---------------------------------------------------------
      ШОУ. У каждого:
        name / nav          — полное имя и короткая подпись в меню

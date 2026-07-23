@@ -24,7 +24,7 @@
   function rowHTML(id, i) {
     var s = SS.show(id), c = s.card;
     var video = s.media.video || HERO_VIDEO;
-    var poster = s.media.photos[0] || SS.cover(id);
+    var poster = SS.cover(id);
     return '<article class="row reveal' + (i % 2 ? ' alt' : '') + '" id="p-' + id + '" style="--ac:' + s.color + '">' +
       '<div class="media" data-show="' + id + '" role="button" tabindex="0" aria-label="' + esc(T('ui.open') + ' ' + s.name) + '">' +
         '<span class="num">' + num(i) + '</span>' +
@@ -50,7 +50,7 @@
   function bentoHTML(id, i) {
     var s = SS.show(id), c = s.card;
     var video = s.media.video || HERO_VIDEO;
-    var poster = s.media.photos[0] || SS.cover(id);
+    var poster = SS.cover(id);
     return '<article class="pb-tile' + (i === 0 ? ' big' : '') + '" data-show="' + id + '" style="--c:' + s.color + '" role="button" tabindex="0" aria-label="' + esc(T('ui.open') + ' ' + s.name) + '">' +
       (video ? '<video muted loop playsinline preload="none" poster="' + poster + '"><source src="' + video + '" type="video/mp4"></video>'
              : '<img loading="lazy" src="' + poster + '" alt="' + esc(s.name) + '">') +

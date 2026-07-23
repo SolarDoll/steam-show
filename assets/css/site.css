@@ -27,9 +27,11 @@
 
 /* ---------- БАЗА ---------- */
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+/* overflow-x:clip держим на <html>, а не на <body>:
+   overflow на body ломает position:fixed у хедера в iOS Safari. */
+html{scroll-behavior:smooth;overflow-x:clip}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);
-  line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:clip}
+  line-height:1.55;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;position:relative;z-index:2}
@@ -265,15 +267,20 @@ section{position:relative;z-index:2;padding:clamp(70px,11vh,120px) 0}
 /* контакты на мобиле — сетка 2×2, а не столбик */
 @media(max-width:480px){
   .fchannels{grid-template-columns:1fr 1fr;gap:11px}
-  .fch{min-height:150px;padding:16px;gap:10px}
-  .fch .ic{width:40px;height:40px}
-  .fch .fv{font-size:15px}
+  .fch{min-height:140px;padding:15px 13px;gap:9px}
+  .fch .ic{width:38px;height:38px}
+  /* значение контакта — всегда одна строка (мельче кегль + обрезка на всякий) */
+  .fch .fv{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .fch .fk{font-size:9.5px;letter-spacing:.12em}
 }
 
 /* «Any stage, day or night» — список в 2 строки на мобиле */
 @media(max-width:600px){
   .stages .evlist span{font-size:15px}
   .stages .evlist span::after{margin:0 12px}
+  /* сам кикер-подпись: узкий трекинг, чтобы влезал в 2 строки, а не в 3 */
+  .stages .kicker{letter-spacing:.12em;font-size:11px;line-height:1.5}
+  .stages .kicker::before{width:22px}
 }
 
 /* ---------- HOW WE WORK: 4 карточки ---------- */
@@ -464,6 +471,13 @@ section[id]{scroll-margin-top:88px}
 :focus-visible{outline:2px solid var(--accent2);outline-offset:2px;border-radius:4px}
 /* меньше боковых полей на телефоне */
 @media(max-width:560px){.wrap{padding:0 20px}}
+/* компактнее вертикальные отступы секций на телефоне
+   (меньше пустоты между блоками: bento → How we work → форматы) */
+@media(max-width:640px){
+  section{padding:46px 0}
+  .sec-head{margin-bottom:30px}
+  .howwe-grid{margin-top:4px}
+}
 /* тач-фидбек вместо залипающего hover */
 @media(hover:none){
   .hbtn:active,.nav-cta:active,.geo-pill:active{transform:scale(.98)}

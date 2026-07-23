@@ -71,10 +71,11 @@
     other: M.stilts.other || []
   };
 
-  /* обложка шоу: первое фото, иначе превью первого видео */
+  /* обложка шоу: спец-постер (content.covers) → первое фото → превью видео */
+  var COVERS = C0.covers || {};
   function cover(id) {
     var s = shows[id]; if (!s) return '';
-    return s.media.photos[0] || (s.videos[0] ? YT_THUMB(s.videos[0]) : '');
+    return COVERS[id] || s.media.photos[0] || (s.videos[0] ? YT_THUMB(s.videos[0]) : '');
   }
 
   /* ---- иконки соцсетей (общие для главной и страниц шоу) ---- */
