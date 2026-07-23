@@ -83,18 +83,33 @@
     instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5.4"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor" stroke="none"/></svg>',
     email:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.6"/><path d="M3.6 7.6 12 13l8.4-5.4"/></svg>',
     whatsapp:  '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 3.5 17.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm0 2a8 8 0 1 1-4.2 14.8l-.3-.2-2.6.8.8-2.5-.2-.3A8 8 0 0 1 12 4Zm-2.7 4c-.2 0-.5 0-.7.4-.2.4-.9.9-.9 2.1 0 1.2.9 2.4 1 2.6.1.2 1.8 2.9 4.5 3.9 2.2.8 2.7.7 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.3-.2-.6-.3l-2-1c-.3-.1-.5-.1-.7.1l-.7.9c-.1.2-.3.2-.5.1-.7-.3-1.5-.7-2.3-1.7-.3-.4.3-.4.8-1.3.1-.2 0-.4 0-.5l-.9-2.1c-.2-.5-.4-.4-.6-.4Z"/></svg>',
-    youtube:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4.6"/><path d="M10.4 9.1 15.2 12l-4.8 2.9Z" fill="currentColor" stroke="none"/></svg>'
+    youtube:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4.6"/><path d="M10.4 9.1 15.2 12l-4.8 2.9Z" fill="currentColor" stroke="none"/></svg>',
+    phone:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.1-1.1a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2Z"/></svg>',
+    telegram:  '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.7.8l-4.6-3.4-2.2 2.1c-.2.2-.4.4-.9.4l.3-4.7 8.6-7.8c.4-.3-.1-.5-.6-.2L7.3 13 2.7 11.6c-1-.3-1-.9.2-1.4L20.6 3.4c.8-.3 1.5.2 1.3.9Z"/></svg>'
   };
   function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
 
   /* единый HTML блока контактов (одинаковый на всех страницах) */
   function contactHTML() {
     return C.contact.map(function (ch) {
-      var attrs = 'href="' + ch.href + '"' + (ch.ext ? ' target="_blank" rel="noopener"' : '');
-      return '<a class="fch" style="--ac:' + ch.color + ';--ac2:' + (ch.color2 || ch.color) + '" ' + attrs + '>' +
+      var style = 'style="--ac:' + ch.color + ';--ac2:' + (ch.color2 || ch.color) + '"';
+      var head =
         '<span class="ic" aria-hidden="true">' + (ICONS[ch.ic] || '') + '</span>' +
         '<span class="fk">' + esc(ch.kicker) + '</span>' +
-        '<span class="fv">' + esc(ch.value) + '</span>' +
+        '<span class="fv">' + esc(ch.value) + '</span>';
+      /* карточка с несколькими действиями (телефон + мессенджеры): не ссылка,
+         а контейнер с рядом кнопок-иконок (вложенные <a> внутри <a> недопустимы) */
+      if (ch.actions) {
+        var btns = ch.actions.map(function (a) {
+          var at = 'href="' + a.href + '"' + (a.ext ? ' target="_blank" rel="noopener"' : '');
+          return '<a class="fbtn" ' + at + ' aria-label="' + esc(a.aria) + '" title="' + esc(a.aria) + '">' +
+            (ICONS[a.ic] || '') + '</a>';
+        }).join('');
+        return '<div class="fch fch-multi" ' + style + '>' + head +
+          '<span class="fgo fch-acts">' + btns + '</span></div>';
+      }
+      var attrs = 'href="' + ch.href + '"' + (ch.ext ? ' target="_blank" rel="noopener"' : '');
+      return '<a class="fch" ' + style + ' ' + attrs + '>' + head +
         '<span class="fgo">' + esc(ch.go) + '</span></a>';
     }).join('');
   }

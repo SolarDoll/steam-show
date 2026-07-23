@@ -273,6 +273,13 @@ section + section{border-top:1px solid var(--line)}
 /* значение контакта — одна строка, кегль подстраивается под ширину плитки */
 .fch .fv{font-family:var(--body);font-weight:800;font-size:clamp(13px,3.4vw,19px);white-space:nowrap}
 .fch .fgo{margin-top:auto;font-size:12px;letter-spacing:.06em;color:var(--ac);white-space:nowrap}
+/* карточка «телефон»: ряд круглых кнопок-иконок (позвонить / WhatsApp / Telegram) */
+.fch-acts{margin-top:auto;display:flex;gap:10px}
+.fbtn{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:#fff;
+  border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.05);
+  transition:transform .25s,background .25s,border-color .25s,color .25s}
+.fbtn svg{width:20px;height:20px;display:block}
+.fbtn:hover{background:var(--ac);border-color:var(--ac);color:#160405;transform:translateY(-2px)}
 @media(max-width:880px){.fchannels{grid-template-columns:repeat(2,1fr)}}
 /* телефон — одна колонка, горизонтальная плитка (иконка слева, текст справа):
    длинные значения и «WhatsApp · Telegram» влезают целиком, без переноса/обрезки */
@@ -284,6 +291,9 @@ section + section{border-top:1px solid var(--line)}
   .fch .fk{grid-area:fk;font-size:10.5px;letter-spacing:.14em}
   .fch .fv{grid-area:fv;font-size:19px}
   .fch .fgo{grid-area:go;margin-top:0;font-size:12px}
+  .fch-acts{gap:8px}
+  .fbtn{width:38px;height:38px}
+  .fbtn svg{width:18px;height:18px}
 }
 
 /* --- add-ons box (клубный формат и т.п.) --- */
