@@ -9,7 +9,23 @@ Live: https://solardoll.github.io/steam-show/
 
 ```
 index.html            — главная (hero, программы, «как работаем», гео, контакты)
-show.html             — страница отдельного шоу (?show=dragon|fire|ledfire|led|stilts)
+
+dragon-fire-show.html — страницы шоу: по файлу на шоу. Внутри только мета-теги
+fire-show.html          (title/description/OG/canonical + JSON-LD) и строка
+led-fire-show.html      window.SS_SHOW; всё содержимое рендерит show.js.
+led-show.html           Лежат в корне, чтобы относительные пути к assets/
+stilt-walkers.html      работали без изменений.
+
+show.html             — старый адрес шоу (?show=<id>). Рабочий ради уже
+                        разосланных ссылок, но помечен noindex: в поиске
+                        участвуют отдельные страницы выше.
+404.html              — своя страница «не найдено» (GitHub Pages отдаёт её сам)
+robots.txt            — для поисковиков (действует только на своём домене,
+                        см. «Деплой»)
+sitemap.xml           — карта сайта: главная + 5 страниц шоу. Добавили
+                        страницу — дописать <url> руками.
+llms.txt              — краткое описание шоу и контактов для AI-поисковиков
+site.webmanifest      — иконки и цвета для «добавить на домашний экран»
 assets/
   css/
     fonts.css          — self-host шрифты Anton + Manrope

@@ -6,9 +6,15 @@ Steam Show — генератор адаптивных копий фото (resp
 манифест `assets/js/srcset.js` (window.SS_SRCSET), из которого responsive.js
 навешивает srcset/sizes на ленивые <img> уже после рендера.
 
-В манифесте на каждый файл — [ширина_мелкой, ширина_оригинала, высота_оригинала].
-Высота нужна responsive.js, чтобы проставить width/height и браузер заранее
-знал пропорции: иначе масонри-галерея скачет по мере загрузки картинок.
+Рядом с мелкой копией кладём ещё и `<name>-640.avif` — на фото AVIF даёт
+примерно вдвое меньший вес при том же качестве. Браузерам без поддержки AVIF
+(старые Safari/iOS) responsive.js отдаёт прежний JPEG, так что ничего не
+ломается. Полноразмерные копии остаются JPEG: они нужны только в лайтбоксе,
+по клику, и не влияют на вес страницы.
+
+В манифесте на каждый файл — [ширина_мелкой, ширина_оригинала, высота_оригинала,
+есть_ли_avif]. Высота нужна responsive.js, чтобы проставить width/height и
+браузер заранее знал пропорции: иначе масонри-галерея скачет по мере загрузки.
 
 Уже существующие `-640.jpg` НЕ перезаписываются (иначе каждый запуск давал бы
 бинарно другие файлы и раздувал историю git) — из них только читаются размеры.
@@ -26,6 +32,7 @@ WEB = "assets/web"
 SM = 640            # длинная сторона мелкой копии
 ONLY_IF_LONG_OVER = 800   # мельче — не трогаем (уже маленькие)
 Q = 78
+Q_AVIF = 55        # AVIF: на фото при 55 вес примерно вдвое ниже JPEG
 OUT = "assets/js/srcset.js"
 
 
@@ -46,7 +53,7 @@ def main():
     files = sorted(f.replace("\\", "/") for f in glob.glob(WEB + "/**/*.jpg", recursive=True))
     gal = [f for f in files if is_gallery(f)]
     manifest = {}
-    made = kept = skipped = 0
+    made = kept = skipped = avif_made = 0
     for f in gal:
         try:
             im = Image.open(f)
@@ -64,15 +71,27 @@ def main():
                 sw = sm.size[0]
                 sm.save(sm_path, "JPEG", quality=Q, optimize=True, progressive=True)
                 made += 1
-            manifest[f] = [sw, ow, oh]
+            # AVIF-вариант мелкой копии (вдвое легче JPEG на фото)
+            av_path = f[:-4] + "-640.avif"
+            has_av = 1
+            if not os.path.exists(av_path):
+                try:
+                    av = Image.open(sm_path).convert("RGB")
+                    av.save(av_path, "AVIF", quality=Q_AVIF)
+                    avif_made += 1
+                except Exception as e:
+                    print("  ! avif skip", f, e)
+                    has_av = 0
+            manifest[f] = [sw, ow, oh, has_av]
         except Exception as e:
             print("  ! skip", f, e)
     with open(OUT, "w", encoding="utf-8") as out:
         out.write("/* АВТОГЕНЕРАЦИЯ: python scripts/gen_srcset.py — руками не править.\n")
         out.write("   Карта адаптивных копий: путь ->\n")
-        out.write("   [ширина_мелкой, ширина_оригинала, высота_оригинала]. */\n")
+        out.write("   [ширина_мелкой, ширина_оригинала, высота_оригинала, есть_avif]. */\n")
         out.write("window.SS_SRCSET = " + json.dumps(manifest, ensure_ascii=False, separators=(",", ":")) + ";\n")
-    print("gallery imgs:", len(gal), " new variants:", made, " existing:", kept, " skipped(small):", skipped)
+    print("gallery imgs:", len(gal), " new jpg:", made, " existing:", kept,
+          " new avif:", avif_made, " skipped(small):", skipped)
     print("written:", OUT)
 
 
