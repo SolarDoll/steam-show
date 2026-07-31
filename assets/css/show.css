@@ -260,7 +260,7 @@ section + section{border-top:1px solid var(--line)}
 .fchannels{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:clamp(30px,5vh,48px)}
 .fch{position:relative;display:flex;flex-direction:column;gap:14px;min-height:190px;padding:26px;border-radius:18px;
   border:1px solid var(--line);background:linear-gradient(180deg,rgba(245,239,247,.04),transparent);overflow:hidden;
-  transition:transform .35s,border-color .35s,box-shadow .35s;--ac:var(--accent)}
+  transition:transform .35s,border-color .35s,box-shadow .35s;--ac:var(--accent);container-type:inline-size}
 .fch::before{content:"";position:absolute;inset:0;opacity:0;transition:.4s;
   background:radial-gradient(120% 120% at 0% 0%,color-mix(in srgb,var(--ac) 22%,transparent),transparent 60%)}
 .fch:hover{transform:translateY(-6px);border-color:var(--ac);box-shadow:0 20px 50px rgba(0,0,0,.5)}
@@ -272,6 +272,10 @@ section + section{border-top:1px solid var(--line)}
 .fch .fk{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 /* значение контакта — одна строка, кегль подстраивается под ширину плитки */
 .fch .fv{font-family:var(--body);font-weight:800;font-size:clamp(13px,3.4vw,19px);white-space:nowrap}
+/* автокегль по длине строки: 100cqi — ширина плитки без падингов, --fvk из data.js.
+   Короткие значения остаются 19px, длинные (email) сжимаются, но не мельче 13px.
+   Отдельным правилом — в браузерах без container queries работает клампа выше. */
+.fch .fv{font-size:max(13px,min(19px,calc(100cqi * var(--fvk,.08))))}
 .fch .fgo{margin-top:auto;font-size:12px;letter-spacing:.06em;color:var(--ac);white-space:nowrap}
 /* карточка «телефон»: ряд круглых кнопок-иконок (позвонить / WhatsApp / Telegram) */
 .fch-acts{margin-top:auto;display:flex;gap:10px}
@@ -289,7 +293,9 @@ section + section{border-top:1px solid var(--line)}
     column-gap:15px;row-gap:3px;align-items:center;min-height:0;padding:15px 18px}
   .fch .ic{grid-area:ic;align-self:center}
   .fch .fk{grid-area:fk;font-size:10.5px;letter-spacing:.14em}
+  /* тут текст в правой колонке: вычитаем иконку (46) и column-gap (15) */
   .fch .fv{grid-area:fv;font-size:19px}
+  .fch .fv{font-size:max(13px,min(19px,calc((100cqi - 61px) * var(--fvk,.08))))}
   .fch .fgo{grid-area:go;margin-top:0;font-size:12px}
   .fch-acts{gap:8px}
   .fbtn{width:38px;height:38px}

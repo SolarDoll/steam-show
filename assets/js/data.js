@@ -93,10 +93,15 @@
   function contactHTML() {
     return C.contact.map(function (ch) {
       var style = 'style="--ac:' + ch.color + ';--ac2:' + (ch.color2 || ch.color) + '"';
+      /* --fvk — коэффициент автокегля значения: CSS считает font-size как
+         ширина_плитки × --fvk, чтобы длинные значения (email) не упирались
+         в край. 0.86 — средняя ширина глифа Manrope 800 в долях кегля. */
+      var val = String(ch.value == null ? '' : ch.value);
+      var fvk = (1 / (Math.max(val.length, 1) * 0.86)).toFixed(4);
       var head =
         '<span class="ic" aria-hidden="true">' + (ICONS[ch.ic] || '') + '</span>' +
         '<span class="fk">' + esc(ch.kicker) + '</span>' +
-        '<span class="fv">' + esc(ch.value) + '</span>';
+        '<span class="fv" style="--fvk:' + fvk + '">' + esc(val) + '</span>';
       /* карточка с несколькими действиями (телефон + мессенджеры): не ссылка,
          а контейнер с рядом кнопок-иконок (вложенные <a> внутри <a> недопустимы) */
       if (ch.actions) {
