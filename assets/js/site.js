@@ -222,7 +222,7 @@
     renderBento();
     renderTabs();
     var cg = document.getElementById('contactGrid');
-    if (cg) cg.innerHTML = SS.contactHTML();
+    if (cg) { cg.innerHTML = SS.contactHTML(); SS.fitContactValues(); }
     mountTicker();
     mountGeo();
     mountFormats();

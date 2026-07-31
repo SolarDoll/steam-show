@@ -93,15 +93,10 @@
   function contactHTML() {
     return C.contact.map(function (ch) {
       var style = 'style="--ac:' + ch.color + ';--ac2:' + (ch.color2 || ch.color) + '"';
-      /* --fvk — коэффициент автокегля значения: CSS считает font-size как
-         ширина_плитки × --fvk, чтобы длинные значения (email) не упирались
-         в край. 0.86 — средняя ширина глифа Manrope 800 в долях кегля. */
-      var val = String(ch.value == null ? '' : ch.value);
-      var fvk = (1 / (Math.max(val.length, 1) * 0.86)).toFixed(4);
       var head =
         '<span class="ic" aria-hidden="true">' + (ICONS[ch.ic] || '') + '</span>' +
         '<span class="fk">' + esc(ch.kicker) + '</span>' +
-        '<span class="fv" style="--fvk:' + fvk + '">' + esc(val) + '</span>';
+        '<span class="fv">' + esc(ch.value) + '</span>';
       /* карточка с несколькими действиями (телефон + мессенджеры): не ссылка,
          а контейнер с рядом кнопок-иконок (вложенные <a> внутри <a> недопустимы) */
       if (ch.actions) {
@@ -119,6 +114,57 @@
     }).join('');
   }
 
+  /* ---- автокегль значений контактов --------------------------------
+     Значение (.fv) обязано остаться в одну строку и не упираться в край
+     плитки. Считать «на глаз» по числу символов нельзя — ширина глифов
+     разная, поэтому меряем реальную ширину уже отрисованного текста
+     и уменьшаем кегль ровно настолько, насколько не влезает (и не более:
+     мельчить нельзя). Короткие значения кегля не теряют вовсе.
+     Вызывать после вставки contactHTML(); дальше пересчёт по загрузке
+     шрифтов и resize навешивается сам. ------------------------------- */
+  var FV_GAP = 12;   /* воздух до правого края плитки, px */
+  var FV_MIN = 14;   /* ниже не опускаемся ни при каких условиях */
+
+  function textWidth(el) {
+    if (document.createRange) {
+      var r = document.createRange();
+      r.selectNodeContents(el);
+      var w = r.getBoundingClientRect().width;
+      if (w) return w;
+    }
+    return el.scrollWidth;
+  }
+  function fitValue(el) {
+    el.style.fontSize = '';                                     /* сброс к кеглю из CSS */
+    var base = parseFloat(getComputedStyle(el).fontSize) || 19;
+    var box = el.clientWidth;
+    var w = textWidth(el);
+    if (box <= 0 || !w || w <= box) return;      /* влезает как есть — кегль не трогаем */
+    var avail = box - FV_GAP;                    /* ужимаем — оставляем воздух справа */
+    if (avail <= 0) return;
+    var size = Math.max(FV_MIN, Math.floor(base * (avail / w) * 10) / 10);
+    el.style.fontSize = size + 'px';
+    /* ширина текста от кегля зависит почти линейно, но не идеально
+       (кернинг, хинтинг) — доводим мелким шагом */
+    for (var n = 0; n < 10 && size > FV_MIN && textWidth(el) > avail; n++) {
+      size = Math.max(FV_MIN, Math.round((size - .2) * 10) / 10);
+      el.style.fontSize = size + 'px';
+    }
+  }
+  var fvArmed = false;
+  function fitContactValues() {
+    var els = document.querySelectorAll('.fch .fv');
+    for (var i = 0; i < els.length; i++) fitValue(els[i]);
+    if (fvArmed) return;
+    fvArmed = true;
+    var t;
+    window.addEventListener('resize', function () {
+      clearTimeout(t); t = setTimeout(fitContactValues, 120);
+    });
+    /* шрифт может подгрузиться позже разметки — тогда ширины другие */
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitContactValues);
+  }
+
   window.SS = {
     order: C.order,
     colors: C.colors,
@@ -132,6 +178,7 @@
     ytEmbed: YT_EMBED,
     icon: function (name) { return ICONS[name] || ''; },
     esc: esc,
-    contactHTML: contactHTML
+    contactHTML: contactHTML,
+    fitContactValues: fitContactValues
   };
 })();

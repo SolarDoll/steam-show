@@ -157,6 +157,7 @@
       '<div class="fchannels">' + SS.contactHTML() + '</div></div></section>';
 
     page.innerHTML = html;
+    SS.fitContactValues();
     wirePage(id, s);
     wireSpy(nav);
     window.scrollTo(0, 0);

@@ -469,11 +469,18 @@ html[lang="ru"] .mh__tag{white-space:nowrap;max-width:none;font-size:clamp(11px,
 /* ---------- КОНТАКТЫ ---------- */
 .ccta{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(40px,7vw,96px);line-height:.9;margin:14px 0 0}
 .clead{color:var(--muted);max-width:46ch;margin:20px 0 0;font-size:16px}
-.fchannels{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:clamp(36px,5vh,56px)}
+/* Плитка с длинным значением (email) забирает ровно нужную ей ширину, остальные
+   делят остаток поровну (299 / 266 / 266 / 266 при контейнере 1145): значения
+   остаются в одну строку полным кеглём и не упираются в край.
+   Минимум задаётся ТРЕКУ (minmax(min-content,1fr)), а не элементу: min-width
+   на .fch не работает — content-based minimum у scroll-контейнера (overflow:hidden)
+   считается нулём. Поэтому обрезки на .fch нет, скругление держит
+   border-radius:inherit у ::before, а overflow:hidden возвращается на мобилке. */
+.fchannels{display:grid;grid-template-columns:repeat(4,minmax(min-content,1fr));gap:16px;margin-top:clamp(36px,5vh,56px)}
 .fch{position:relative;display:flex;flex-direction:column;gap:14px;min-height:190px;padding:26px;border-radius:18px;
-  border:1px solid rgba(255,255,255,.2);background:linear-gradient(180deg,rgba(245,239,247,.08),rgba(245,239,247,.03));overflow:hidden;
-  transition:transform .35s,border-color .35s,box-shadow .35s;--ac:var(--accent);container-type:inline-size}
-.fch::before{content:"";position:absolute;inset:0;opacity:0;transition:.4s;
+  border:1px solid rgba(255,255,255,.2);background:linear-gradient(180deg,rgba(245,239,247,.08),rgba(245,239,247,.03));
+  transition:transform .35s,border-color .35s,box-shadow .35s;--ac:var(--accent)}
+.fch::before{content:"";position:absolute;inset:0;opacity:0;transition:.4s;border-radius:inherit;
   background:radial-gradient(120% 120% at 0% 0%,color-mix(in srgb,var(--ac) 22%,transparent),transparent 60%)}
 .fch:hover{transform:translateY(-6px);border-color:var(--ac);box-shadow:0 20px 50px rgba(0,0,0,.5)}
 .fch:hover::before{opacity:1}
@@ -482,12 +489,10 @@ html[lang="ru"] .mh__tag{white-space:nowrap;max-width:none;font-size:clamp(11px,
   background:linear-gradient(120deg,var(--ac),var(--ac2,var(--accent)))}
 .fch .ic svg{width:24px;height:24px;display:block}
 .fch .fk{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
-/* значение контакта — одна строка, кегль подстраивается под ширину плитки */
+/* значение контакта — одна строка; базовый кегль. Страховка на очень узких
+   экранах: data.js (fitContactValues) точечно уменьшает font-size по реальной
+   ширине текста — ровно до попадания в бокс и не ниже своего минимума. */
 .fch .fv{font-family:var(--body);font-weight:800;font-size:clamp(13px,3.4vw,19px);white-space:nowrap}
-/* автокегль по длине строки: 100cqi — ширина плитки без падингов, --fvk из data.js.
-   Короткие значения остаются 19px, длинные (email) сжимаются, но не мельче 13px.
-   Отдельным правилом — в браузерах без container queries работает клампа выше. */
-.fch .fv{font-size:max(13px,min(19px,calc(100cqi * var(--fvk,.08))))}
 .fch .fgo{margin-top:auto;font-size:12px;letter-spacing:.06em;color:var(--ac);white-space:nowrap}
 /* карточка «телефон»: ряд круглых кнопок-иконок (позвонить / WhatsApp / Telegram) */
 .fch-acts{margin-top:auto;display:flex;gap:10px}
@@ -496,19 +501,25 @@ html[lang="ru"] .mh__tag{white-space:nowrap;max-width:none;font-size:clamp(11px,
   transition:transform .25s,background .25s,border-color .25s,color .25s}
 .fbtn svg{width:20px;height:20px;display:block}
 .fbtn:hover{background:var(--ac);border-color:var(--ac);color:#160405;transform:translateY(-2px)}
-@media(max-width:880px){.fchannels{grid-template-columns:repeat(2,1fr)}}
+/* 2 колонки — раньше 880px: при четырёх плитки становятся уже, чем нужно
+   значениям, и email пришлось бы мельчить. Минимум по контенту сохраняем. */
+@media(max-width:1059px){.fchannels{grid-template-columns:repeat(2,minmax(min-content,1fr))}}
 /* телефон — одна колонка, горизонтальная плитка (иконка слева, текст справа):
    длинные значения и «WhatsApp · Telegram» влезают целиком, без переноса/обрезки.
-   ВАЖНО: идёт после правила ≤880, иначе оно перебьёт колонки. */
+   ВАЖНО: идёт после правила ≤1059, иначе оно перебьёт колонки.
+   overflow:hidden здесь обнуляет content-based minimum — иначе длинное значение
+   раздуло бы плитку шире экрана и появился бы горизонтальный скролл. */
 @media(max-width:600px){
   .fchannels{grid-template-columns:1fr;gap:10px;margin-top:26px}
+  .fch{overflow:hidden}
   .fch{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"ic fk" "ic fv" "ic go";
     column-gap:15px;row-gap:3px;align-items:center;min-height:0;padding:15px 18px}
   .fch .ic{grid-area:ic;align-self:center}
   .fch .fk{grid-area:fk;font-size:10.5px;letter-spacing:.14em}
-  /* тут текст в правой колонке: вычитаем иконку (46) и column-gap (15) */
-  .fch .fv{grid-area:fv;font-size:19px}
-  .fch .fv{font-size:max(13px,min(19px,calc((100cqi - 61px) * var(--fvk,.08))))}
+  /* min-width:0 обязателен: иначе nowrap-значение раздувает свою колонку до
+     своей же ширины, и подгонка кегля решает, что всё влезло, а текст уходит
+     под обрезку плитки. */
+  .fch .fv{grid-area:fv;font-size:19px;min-width:0}
   .fch .fgo{grid-area:go;margin-top:0;font-size:12px}
   .fch-acts{gap:8px}
   .fbtn{width:38px;height:38px}
