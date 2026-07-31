@@ -288,13 +288,12 @@ window.SS_CONTENT = {
     { ic: 'email',     kicker: { en: 'Email', ru: 'Email' },                    value: 'steamshowby@gmail.com', go: { en: 'Send a brief →', ru: 'Отправить бриф →' }, href: 'mailto:steamshowby@gmail.com',            color: '#FFD23E', color2: '#FF6A1F' },
     /* Телефон + мессенджеры: номер виден, под ним три кнопки-иконки.
          value          — как показываем номер (любой формат)
-         actions[].href — 'tel:+<номер>' | 'https://wa.me/<номер>' | 'https://t.me/<username>'
-       ЗАГЛУШКА — Telegram: подставить реальный username. */
+         actions[].href — 'tel:+<номер>' | 'https://wa.me/<номер>' | 'https://t.me/<username>' */
     { ic: 'phone', kicker: { en: 'Phone', ru: 'Телефон' }, value: '+375 29 259-97-27',
       actions: [
         { ic: 'phone',    aria: { en: 'Call',     ru: 'Позвонить' }, href: 'tel:+375292599727' },
         { ic: 'whatsapp', aria: { en: 'WhatsApp', ru: 'WhatsApp' },  href: 'https://wa.me/375292599727', ext: true },
-        { ic: 'telegram', aria: { en: 'Telegram', ru: 'Telegram' },  href: 'https://t.me/steamshow',    ext: true }
+        { ic: 'telegram', aria: { en: 'Telegram', ru: 'Telegram' },  href: 'https://t.me/steamshowby',  ext: true }
       ],
       color: '#FF6A1F', color2: '#FF2E84' },
     { ic: 'youtube',   kicker: { en: 'YouTube', ru: 'YouTube' },                value: '@SteamShowby',    go: { en: 'Watch shows →', ru: 'Смотреть шоу →' },   href: 'https://www.youtube.com/@SteamShowby',  color: '#25F4EE', color2: '#FF2E84', ext: true }
