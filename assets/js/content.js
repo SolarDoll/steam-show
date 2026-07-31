@@ -68,6 +68,12 @@ window.SS_CONTENT = {
         type: { en: 'Flagship · fire', ru: 'Уникальное шоу' },
         desc: { en: 'A fire theatrical show built around a 3-metre dragon, performed in a classic fantasy or a Slavic folk theme. Scales from intimate galas to festival main stages.',
                 ru: 'Огненное театрализованное шоу с трёхметровым драконом в духе классического фэнтези или славянского фольклора. Подходит как для камерных мероприятий, так и для главных сцен крупных фестивалей.' },
+        seo: {
+          title: { en: 'Dragon Fire Show for Festivals & Events - Steam Show',
+                   ru: 'Шоу с драконом — огненное шоу на праздник — Steam Show' },
+          desc: { en: 'Book our flagship dragon fire show: a 3-metre dragon in a fantasy or Slavic folk theme, scaled from intimate galas to festival main stages.',
+                  ru: 'Закажите огненное шоу с трёхметровым драконом: фэнтези или славянский фолк. Для фестивалей, свадеб и корпоративов. Минск, Беларусь и гастроли.' }
+        },
         duration: { en: '10–15 min · adaptable', ru: '10–15 мин · гибко' },
         format:   { en: 'Outdoor', ru: 'Улица' },
         cast:     { en: 'Scalable', ru: 'Масштабируется' },
@@ -150,6 +156,12 @@ window.SS_CONTENT = {
         type: { en: 'Hybrid · fire + light', ru: 'Гибрид · огонь + свет' },
         desc: { en: 'The best of both: live fire performed in glowing LED costumes. The heat of fire with the colour of light.',
                 ru: 'Уникальное сочетание огненного искусства и LED-технологий. Артисты объединяют живое пламя и световые эффекты в яркое современное представление.' },
+        seo: {
+          title: { en: 'LED Fire Show - Fire in Glowing Costumes - Steam Show',
+                   ru: 'LED-огненное шоу — огонь и светящиеся костюмы — Steam Show' },
+          desc: { en: 'A hybrid show mixing live fire with glowing LED costumes: the heat of flame and the colour of light, for festivals, galas and weddings.',
+                  ru: 'Гибридное шоу: живой огонь и LED-костюмы в одном представлении. Для фестивалей, корпоративов и свадеб. Минск, Беларусь и выезд по миру.' }
+        },
         duration: { en: '10–15 min · adaptable', ru: '10–15 мин · гибко' },
         format:   { en: 'Outdoor', ru: 'Улица' },
         cast:     { en: 'Scalable', ru: 'Масштабируется' },
@@ -232,6 +244,12 @@ window.SS_CONTENT = {
         type: { en: 'Roaming · giants', ru: 'Шоу и Анимация' },
         desc: { en: 'A wardrobe of towering characters, as roaming animation or a full stilt performance. Perfect for welcome zones, parades and club nights. Costumes group into themes and mix freely across them.',
                 ru: 'Коллекция ярких образов великанов-персонажей для анимации или полноценного ходульного шоу. Идеально подходит для welcome-зон, парадов и клубных мероприятий. Костюмы объединены в тематические коллекции и легко комбинируются между собой.' },
+        seo: {
+          title: { en: 'Stilt Walkers for Events & Parades - Steam Show',
+                   ru: 'Ходулисты на праздник — великаны и анимация — Steam Show' },
+          desc: { en: 'Book towering stilt walkers for welcome zones, parades and stage shows: dozens of costumes across themes, indoor or outdoor, touring worldwide.',
+                  ru: 'Закажите артистов на ходулях: встреча гостей, парады и шоу на сцене. Десятки образов и тематические коллекции. Минск, Беларусь и выезд по миру.' }
+        },
         duration: { en: 'Roaming or set act', ru: 'Анимация или шоу' },
         format:   { en: 'Indoor & outdoor', ru: 'Зал и улица' },
         cast:     { en: 'Scalable', ru: 'Масштабируется' },

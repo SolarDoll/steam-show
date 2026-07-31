@@ -35,16 +35,34 @@
       '<button class="rnav r" aria-label="Scroll right">›</button></div>';
   }
 
-  /* переход к другому шоу (меню, prev/next) */
+  /* переход к другому шоу (меню, prev/next).
+     Адрес — отдельный файл шоу (SS.url), а не ?show=, чтобы URL в строке
+     совпадал с индексируемой страницей: после F5 отдаётся тот же показ. */
   function go(id, push) {
     document.querySelectorAll('#shownav a[data-id],#mobmenu a[data-id]').forEach(function (a) {
       a.classList.toggle('on', a.getAttribute('data-id') === id);
     });
     render(id);
-    if (push !== false) {
-      var qs = new URLSearchParams(location.search); qs.set('show', id);
-      history.pushState({ show: id }, '', '?' + qs.toString());
-    }
+    if (push !== false) history.pushState({ show: id }, '', SS.url(id));
+  }
+
+  /* какое шоу показывать: жёстко заданное на странице (window.SS_SHOW в
+     файлах шоу) → имя файла → ?show= (старые ссылки) → флагман */
+  function currentId() {
+    var id = window.SS_SHOW || SS.idByPage(location.pathname) ||
+      new URLSearchParams(location.search).get('show');
+    return SS.show(id) ? id : 'dragon';
+  }
+
+  /* клик по ссылке-шоу: переключаем без перезагрузки, но не мешаем
+     браузеру открыть в новой вкладке (Ctrl/Cmd/Shift/средняя кнопка) */
+  function wireShowLink(a, after) {
+    a.addEventListener('click', function (e) {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
+      e.preventDefault();
+      go(a.getAttribute('data-id'));
+      if (after) after();
+    });
   }
 
   function render(id) {
@@ -62,7 +80,13 @@
     setMeta('og:description', seoDesc, true);
     setMeta('og:type', 'website', true);
     if (cover) { try { setMeta('og:image', new URL(cover, location.href).href, true); } catch (e) {} }
-    setCanonical(location.origin + location.pathname + '?show=' + id);
+    /* canonical — всегда отдельный файл шоу без ?lang/?show:
+       и старый show.html?show=, и RU-версия ссылаются на один адрес */
+    try {
+      var canon = new URL(SS.page(id), location.href).href;
+      setCanonical(canon);
+      setMeta('og:url', canon, true);
+    } catch (e) {}
 
     var html = '';
     /* HERO */
@@ -427,23 +451,24 @@
     }, { passive: true });
     totop.onclick = function () { scrollTo({ top: 0, behavior: 'smooth' }); };
 
+    /* ссылки меню — настоящие href на файлы шоу (для поисковиков и
+       «открыть в новой вкладке»); клик перехватываем для SPA-перехода */
+    function navLink(id) {
+      return '<a data-id="' + id + '" href="' + SS.url(id) + '">' + esc(SS.show(id).nav) + '</a>';
+    }
     var shownav = document.getElementById('shownav');
-    shownav.innerHTML = SS.order.map(function (id) { return '<a data-id="' + id + '">' + esc(SS.show(id).nav) + '</a>'; }).join('') +
+    shownav.innerHTML = SS.order.map(navLink).join('') +
       '<a class="process" href="index.html#howwe">' + esc(T('nav.about')) + '</a>';
-    shownav.querySelectorAll('a[data-id]').forEach(function (a) {
-      a.addEventListener('click', function () { go(a.getAttribute('data-id')); });
-    });
+    shownav.querySelectorAll('a[data-id]').forEach(function (a) { wireShowLink(a); });
 
     /* мобильное меню — те же шоу + About + Book */
     var mob = document.getElementById('mobmenu'), nb = document.getElementById('navBtn');
     if (mob) {
-      mob.innerHTML = SS.order.map(function (id) { return '<a data-id="' + id + '">' + esc(SS.show(id).nav) + '</a>'; }).join('') +
+      mob.innerHTML = SS.order.map(navLink).join('') +
         '<a href="index.html#howwe">' + esc(T('nav.about')) + '</a>' +
         '<a class="m-book" href="#book">' + esc(T('cta.book')) + '</a>';
       function closeMenu() { document.body.classList.remove('nav-open'); if (nb) nb.setAttribute('aria-expanded', 'false'); }
-      mob.querySelectorAll('a[data-id]').forEach(function (a) {
-        a.addEventListener('click', function () { go(a.getAttribute('data-id')); closeMenu(); });
-      });
+      mob.querySelectorAll('a[data-id]').forEach(function (a) { wireShowLink(a, closeMenu); });
       mob.querySelectorAll('a:not([data-id])').forEach(function (a) {
         a.addEventListener('click', closeMenu);
       });
@@ -460,12 +485,12 @@
     }
 
     window.addEventListener('popstate', function (e) {
-      var id = (e.state && e.state.show) || new URLSearchParams(location.search).get('show') || 'dragon';
+      var id = (e.state && e.state.show) || SS.idByPage(location.pathname) ||
+        new URLSearchParams(location.search).get('show') || 'dragon';
       go(SS.show(id) ? id : 'dragon', false);
     });
 
-    var startId = new URLSearchParams(location.search).get('show');
-    startId = SS.show(startId) ? startId : 'dragon';
+    var startId = currentId();
     history.replaceState({ show: startId }, '', location.href);
     go(startId, false);
   }

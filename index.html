@@ -36,11 +36,13 @@
   <div class="bar-in">
     <a class="brand" href="#top"><span class="mark" aria-hidden="true"></span><span class="nm">Steam Show</span></a>
     <nav class="menu" aria-label="Shows">
-      <a data-show="dragon" data-i18n="nav.dragon">Dragon</a>
-      <a data-show="fire" data-i18n="nav.fire">Fire</a>
-      <a data-show="ledfire" data-i18n="nav.ledfire">LED Fire</a>
-      <a data-show="led" data-i18n="nav.led">LED</a>
-      <a data-show="stilts" data-i18n="nav.stilts">Stilts</a>
+      <!-- href обязательны: по ним поисковик находит страницы шоу, а человек
+           может открыть шоу в новой вкладке. Клик перехватывает site.js. -->
+      <a data-show="dragon" href="dragon-fire-show.html" data-i18n="nav.dragon">Dragon</a>
+      <a data-show="fire" href="fire-show.html" data-i18n="nav.fire">Fire</a>
+      <a data-show="ledfire" href="led-fire-show.html" data-i18n="nav.ledfire">LED Fire</a>
+      <a data-show="led" href="led-show.html" data-i18n="nav.led">LED</a>
+      <a data-show="stilts" href="stilt-walkers.html" data-i18n="nav.stilts">Stilts</a>
       <a href="#howwe" data-i18n="nav.about">About us</a>
       <a href="#contact" class="m-book" data-i18n="cta.book">Book the show</a>
     </nav>

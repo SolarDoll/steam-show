@@ -31,6 +31,33 @@
   }
   var C = loc(C0);
 
+  /* ---- адреса страниц шоу ------------------------------------------
+     У каждого шоу свой файл в корне (не ?show=), чтобы поисковики и
+     мессенджеры видели отдельную страницу с собственными мета-тегами.
+     Файлы лежат рядом с index.html — относительные пути к assets/
+     работают из них без изменений. Единственный источник правды:
+     и меню, и карточки, и canonical берут адрес отсюда.
+     Старый show.html?show=<id> остаётся рабочим (разосланные ссылки),
+     canonical с него ведёт на новый адрес. ------------------------- */
+  var PAGES = {
+    dragon:  'dragon-fire-show.html',
+    fire:    'fire-show.html',
+    ledfire: 'led-fire-show.html',
+    led:     'led-show.html',
+    stilts:  'stilt-walkers.html'
+  };
+  /* файл шоу без параметров — для canonical и sitemap */
+  function page(id) { return PAGES[id] || 'index.html'; }
+  /* ссылка для навигации: тот же файл + текущий язык, чтобы переход
+     между шоу не сбрасывал RU (canonical всегда без ?lang) */
+  function url(id) { return page(id) + (LANG !== 'en' ? '?lang=' + LANG : ''); }
+  /* обратный разбор: файл → id шоу (popstate, определение стартового шоу) */
+  function idByPage(path) {
+    var file = String(path || '').split('/').pop();
+    for (var k in PAGES) if (PAGES[k] === file) return k;
+    return null;
+  }
+
   var YT_THUMB = function (id) { return 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg'; };
   var YT_EMBED = function (id) {
     return 'https://www.youtube-nocookie.com/embed/' + id +
@@ -173,6 +200,10 @@
     stilts: stilts,
     contact: C.contact,
     show: function (id) { return shows[id] || null; },
+    pages: PAGES,
+    page: page,
+    url: url,
+    idByPage: idByPage,
     cover: cover,
     ytThumb: YT_THUMB,
     ytEmbed: YT_EMBED,

@@ -111,13 +111,22 @@
     if (!box) return;
     box.innerHTML = SS.order.map(function (id, i) {
       var s = SS.show(id);
-      return '<a tabindex="0" role="link" data-jump="p-' + id + '" style="--c:' + s.color + '">' +
+      return '<a href="#p-' + id + '" data-jump="p-' + id + '" style="--c:' + s.color + '">' +
         '<span class="cn">' + num(i) + '</span><span class="cnm">' + esc(s.nav) + '</span></a>';
     }).join('');
   }
 
-  /* ---------------- переход на страницу шоу ---------------- */
-  function openShow(id) { if (id) location.href = 'show.html?show=' + encodeURIComponent(id); }
+  /* ---------------- переход на страницу шоу ----------------
+     Адрес берём из SS.url (единый источник, см. data.js): у каждого шоу
+     свой файл. Статические href в разметке дублируют это для поисковиков,
+     здесь же они уточняются текущим языком. */
+  function openShow(id) { if (id) location.href = SS.url(id); }
+  /* href на ссылках-шоу: с текущим ?lang, чтобы переход не сбрасывал язык */
+  function wireShowHrefs() {
+    document.querySelectorAll('a[data-show]').forEach(function (a) {
+      a.setAttribute('href', SS.url(a.getAttribute('data-show')));
+    });
+  }
 
   /* ---------------- jump → скролл + «fill race» ---------------- */
   function hexA(hex, a) {
@@ -221,6 +230,7 @@
     renderPrograms();
     renderBento();
     renderTabs();
+    wireShowHrefs();
     var cg = document.getElementById('contactGrid');
     if (cg) { cg.innerHTML = SS.contactHTML(); SS.fitContactValues(); }
     mountTicker();
@@ -232,7 +242,12 @@
       var jump = e.target.closest('[data-jump]');
       if (jump) { e.preventDefault(); jumpFX(jump.getAttribute('data-jump'), jump); return; }
       var show = e.target.closest('[data-show]');
-      if (show) { e.preventDefault(); openShow(show.getAttribute('data-show')); return; }
+      if (show) {
+        /* Ctrl/Cmd/Shift/средняя кнопка на ссылке — пусть браузер откроет
+           в новой вкладке сам, не перехватываем */
+        if (show.tagName === 'A' && (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1)) return;
+        e.preventDefault(); openShow(show.getAttribute('data-show')); return;
+      }
     });
     /* клавиатура для jump/media (role=button/link) */
     document.addEventListener('keydown', function (e) {
