@@ -195,7 +195,6 @@
   window.SS = {
     order: C.order,
     colors: C.colors,
-    reel: C.reel,
     shows: shows,
     stilts: stilts,
     contact: C.contact,

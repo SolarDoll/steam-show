@@ -13,9 +13,6 @@
    рядом; структуру не ломайте.
    ============================================================ */
 window.SS_CONTENT = {
-  /* Витринный showreel (YouTube ID) */
-  reel: 'a_CLhJkdnGg',
-
   /* Порядок шоу везде: меню, ряды, стрелки prev/next */
   order: ['dragon', 'fire', 'ledfire', 'led', 'stilts'],
 
