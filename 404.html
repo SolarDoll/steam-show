@@ -8,7 +8,12 @@
 <meta name="theme-color" content="#0b0712">
 <meta name="color-scheme" content="dark">
 <meta name="darkreader-lock">
-<link rel="icon" type="image/png" href="assets/img/logo.png">
+<!-- иконки: 32/16 для вкладки, 180 для домашнего экрана iOS,
+     манифест для Android (иконки собраны из logo.png на фоне сайта) -->
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/img/icon-16.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
 <link rel="stylesheet" href="assets/css/fonts.css">
 <!-- Автономная страница: свои стили, без site.css/JS — она должна открыться
      даже если что-то на сайте сломано. GitHub Pages отдаёт её на любой

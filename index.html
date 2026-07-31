@@ -48,7 +48,12 @@
 {"@type":"Offer","itemOffered":{"@type":"Service","name":"Stilt Walkers","url":"https://solardoll.github.io/steam-show/stilt-walkers.html"}}]}
 </script>
 
-<link rel="icon" type="image/png" href="assets/img/logo.png">
+<!-- иконки: 32/16 для вкладки, 180 для домашнего экрана iOS,
+     манифест для Android (иконки собраны из logo.png на фоне сайта) -->
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/img/icon-16.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
 <link rel="preload" as="image" href="assets/web/hero/hero-poster.jpg">
 <link rel="stylesheet" href="assets/css/fonts.css">
 <link rel="stylesheet" href="assets/css/site.css">
@@ -83,7 +88,11 @@
 <main id="top">
   <!-- HERO: летящие слова + видео-фон -->
   <header class="mh" aria-label="Steam Show hero">
-    <video class="mh__video" autoplay muted loop playsinline poster="assets/web/hero/hero-poster.jpg"><source src="assets/web/hero/hero.mp4" type="video/mp4"></video>
+    <!-- источник подставляет site.js. Так фоновое видео не начинает грузиться
+         до выполнения скриптов (не конкурирует со шрифтами и стилями), а при
+         включённой экономии трафика или reduced-motion не грузится вовсе —
+         остаётся постер с тем же кадром. -->
+    <video class="mh__video" autoplay muted loop playsinline poster="assets/web/hero/hero-poster.jpg" data-src="assets/web/hero/hero.mp4"></video>
     <div class="mh__rows" aria-hidden="true">
       <div class="mh__row l"><div class="t"><span>Fire</span><span class="on">Dragons</span><span>LED</span><span>Stilts</span><span>Light</span><span>Fire</span><span class="on">Dragons</span><span>LED</span><span>Stilts</span><span>Light</span></div></div>
       <div class="mh__row r"><div class="t"><span class="on">Light</span><span>Pyro</span><span>Flame</span><span class="on">Spectacle</span><span>Heat</span><span class="on">Light</span><span>Pyro</span><span>Flame</span><span class="on">Spectacle</span><span>Heat</span></div></div>
@@ -208,6 +217,7 @@
 <script defer src="assets/js/i18n.js"></script>
 <script defer src="assets/js/content.js"></script>
 <script defer src="assets/js/media.js"></script>
+<script defer src="assets/js/srcset.js"></script>
 <script defer src="assets/js/data.js"></script>
 <script defer src="assets/js/site.js"></script>
 </body>

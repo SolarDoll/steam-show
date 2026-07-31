@@ -14,6 +14,7 @@
   var LANG = window.SS_LANG || 'en';
   var HERO_VIDEO = (window.SS_MEDIA && SS_MEDIA.hero && SS_MEDIA.hero.video) || '';
   var page = document.getElementById('page');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
 
   /* SEO: проставляем/обновляем мета-теги под текущее шоу */
   function setMeta(key, val, isProp) {
@@ -80,6 +81,8 @@
     document.documentElement.style.setProperty('--ac', ac);
     var cover = d.photos[0] || (s.videos[0] ? ytThumb(s.videos[0]) : '');
     var heroVid = d.heroVideo || d.video || (id === 'dragon' ? HERO_VIDEO : null);
+    /* экономия трафика и reduced-motion: вместо фонового видео — обложка */
+    if (heroVid && (reduce || SS.lightMode())) heroVid = null;
     /* SEO: уникальные title/description/OG под каждое шоу */
     var seo = det.seo || {};
     var seoTitle = seo.title || (s.name + ' · Steam Show');

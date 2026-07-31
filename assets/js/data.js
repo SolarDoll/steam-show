@@ -58,6 +58,17 @@
     return null;
   }
 
+  /* ---- экономный режим ---------------------------------------------
+     Пользователь включил «экономию трафика» или сидит на очень медленной
+     сети — фоновые видео не грузим вовсе, остаётся постер (тот же кадр).
+     Проверяют и главная (site.js), и страницы шоу (show.js). ---------- */
+  function lightMode() {
+    var c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if (!c) return false;
+    if (c.saveData) return true;
+    return c.effectiveType === '2g' || c.effectiveType === 'slow-2g';
+  }
+
   var YT_THUMB = function (id) { return 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg'; };
   var YT_EMBED = function (id) {
     return 'https://www.youtube-nocookie.com/embed/' + id +
@@ -203,6 +214,7 @@
     page: page,
     url: url,
     idByPage: idByPage,
+    lightMode: lightMode,
     cover: cover,
     ytThumb: YT_THUMB,
     ytEmbed: YT_EMBED,

@@ -34,7 +34,9 @@ Q = 80                # качество JPEG
 Q_SM = 78             # качество мелкой копии
 IMG_EXT = (".jpg", ".jpeg", ".png", ".webp", ".bmp")
 
-# карта адаптивных копий: web-путь -> [ширина_sm, ширина_оригинала] -> assets/js/srcset.js
+# карта адаптивных копий: web-путь -> [ширина_sm, ширина_оригинала,
+# высота_оригинала] -> assets/js/srcset.js (высота нужна, чтобы responsive.js
+# проставил width/height и галерея не скакала при загрузке)
 SRCSET = {}
 
 # шоу: (id, папка-фото, папка-костюмы|None)
@@ -134,12 +136,12 @@ def optimize(out_key, folders):
             web_path = f"{WEB}/{out_key}/{name}"
             out.append(web_path)
             # адаптивная мелкая копия <name>-640.jpg (для мобильных грид-превью)
-            ow = im.size[0]
+            ow, oh = im.size
             if max(im.size) > SM_MIN_LONG:
                 sm = im.copy()
                 sm.thumbnail((SM, SM), Image.LANCZOS)
                 sm.save(os.path.join(wp, name[:-4] + "-640.jpg"), "JPEG", quality=Q_SM, optimize=True, progressive=True)
-                SRCSET[web_path] = [sm.size[0], ow]
+                SRCSET[web_path] = [sm.size[0], ow, oh]
         except Exception as e:
             print("  ! skip", f, e)
     return out

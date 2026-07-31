@@ -27,6 +27,13 @@
     var sm = src.slice(0, -4) + '-640.jpg';
     img.setAttribute('srcset', sm + ' ' + rec[0] + 'w, ' + src + ' ' + rec[1] + 'w');
     img.setAttribute('sizes', sizesFor(img));
+    /* пропорции заранее: в масонри-галерее (.gallery) высота не задана в CSS,
+       и без width/height страница скачет по мере подгрузки фото. Там, где CSS
+       ставит height:100% (сетки .cell), атрибуты ни на что не влияют. */
+    if (rec[2] && !img.getAttribute('width')) {
+      img.setAttribute('width', rec[1]);
+      img.setAttribute('height', rec[2]);
+    }
     img.dataset.rs = '1';
   }
 

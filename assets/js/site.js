@@ -12,6 +12,15 @@
   var HERO_VIDEO = (window.SS_MEDIA && SS_MEDIA.hero && SS_MEDIA.hero.video) || '';
   var esc = SS.esc;
   var num = function (i) { return '0' + (i + 1); };
+  /* постер превью: на узких экранах отдаём мелкую копию (-640). Постер виден
+     мгновение до старта видео — полноразмерный там не нужен. Наличие копии
+     проверяем по карте из srcset.js (там же ширины). */
+  var SMALL = window.SS_SRCSET || {};
+  function posterFor(id) {
+    var p = SS.cover(id);
+    if (!p || !SMALL[p] || window.innerWidth > 700) return p;
+    return p.slice(0, -4) + '-640.jpg';
+  }
   var T = window.T || function (k) { return k; };
   function specLabel(k) { var key = 'spec.' + k.toLowerCase(), t = T(key); return t === key ? k : t; }
 
@@ -24,7 +33,7 @@
   function rowHTML(id, i) {
     var s = SS.show(id), c = s.card;
     var video = s.media.video || HERO_VIDEO;
-    var poster = SS.cover(id);
+    var poster = posterFor(id);
     return '<article class="row reveal' + (i % 2 ? ' alt' : '') + '" id="p-' + id + '" style="--ac:' + s.color + '">' +
       '<div class="media" data-show="' + id + '" role="button" tabindex="0" aria-label="' + esc(T('ui.open') + ' ' + s.name) + '">' +
         '<span class="num">' + num(i) + '</span>' +
@@ -50,7 +59,7 @@
   function bentoHTML(id, i) {
     var s = SS.show(id);
     var video = s.media.video || HERO_VIDEO;
-    var poster = SS.cover(id);
+    var poster = posterFor(id);
     /* на плитке — только название шоу, без под-заголовка (kind) */
     return '<article class="pb-tile' + (i === 0 ? ' big' : '') + '" data-show="' + id + '" style="--c:' + s.color + '" role="button" tabindex="0" aria-label="' + esc(T('ui.open') + ' ' + s.name) + '">' +
       (video ? '<video muted loop playsinline preload="none" poster="' + poster + '"><source src="' + video + '" type="video/mp4"></video>'
@@ -209,10 +218,26 @@
     return { nodes: nodes, fill: fill };
   }
 
+  /* ---------------- hero-видео: подключаем источник из JS ----------------
+     В разметке у <video> только постер и data-src. Грузим, лишь если это
+     уместно: без экономии трафика и без prefers-reduced-motion. */
+  function wireHeroVideo() {
+    var v = document.querySelector('.mh__video');
+    if (!v || !v.getAttribute('data-src')) return;
+    if (reduce || SS.lightMode()) return;          /* остаётся постер */
+    var s = document.createElement('source');
+    s.type = 'video/mp4';
+    s.src = v.getAttribute('data-src');
+    v.appendChild(s);
+    v.load();
+    var p = v.play(); if (p && p.catch) p.catch(function () {});
+  }
+
   /* ---------------- видео-превью: играем только видимые ---------------- */
   function wireVideos() {
     var vids = document.querySelectorAll('.row .media video, .pb-tile video');
-    if (!vids.length || reduce || !('IntersectionObserver' in window)) return;
+    /* экономный режим — превью не грузим, остаётся постер */
+    if (!vids.length || reduce || SS.lightMode() || !('IntersectionObserver' in window)) return;
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
         var v = e.target;
@@ -259,6 +284,7 @@
     });
 
     seedEmbers();
+    wireHeroVideo();
     wireVideos();
     var spine = buildSpine();
 
@@ -321,11 +347,7 @@
       });
     }
 
-    /* reduced-motion: не проигрываем фоновое hero-видео (остаётся постер) */
-    if (reduce) {
-      var hv = document.querySelector('.mh__video');
-      if (hv) { try { hv.removeAttribute('autoplay'); hv.pause(); } catch (e) {} }
-    }
+    /* при reduced-motion hero-видео вообще не подключается — см. wireHeroVideo */
 
     var yr = document.getElementById('yr'); if (yr) yr.textContent = new Date().getFullYear();
   }
