@@ -287,13 +287,13 @@ window.SS_CONTENT = {
     { ic: 'instagram', kicker: { en: 'Instagram', ru: 'Instagram' },            value: '@steam_show',     go: { en: 'See the feed →', ru: 'Открыть ленту →' }, href: 'https://instagram.com/steam_show',       color: '#FF2E84', color2: '#FF6A1F', ext: true },
     { ic: 'email',     kicker: { en: 'Email', ru: 'Email' },                    value: 'steamshowby@gmail.com', go: { en: 'Send a brief →', ru: 'Отправить бриф →' }, href: 'mailto:steamshowby@gmail.com',            color: '#FFD23E', color2: '#FF6A1F' },
     /* Телефон + мессенджеры: номер виден, под ним три кнопки-иконки.
-       ЗАГЛУШКИ — заменить на реальные значения:
          value          — как показываем номер (любой формат)
-         actions[].href — 'tel:+<номер>' | 'https://wa.me/<номер>' | 'https://t.me/<username>' */
-    { ic: 'phone', kicker: { en: 'Phone', ru: 'Телефон' }, value: '+000 00 000-00-00',
+         actions[].href — 'tel:+<номер>' | 'https://wa.me/<номер>' | 'https://t.me/<username>'
+       ЗАГЛУШКА — Telegram: подставить реальный username. */
+    { ic: 'phone', kicker: { en: 'Phone', ru: 'Телефон' }, value: '+375 29 259-97-27',
       actions: [
-        { ic: 'phone',    aria: { en: 'Call',     ru: 'Позвонить' }, href: 'tel:+00000000000' },
-        { ic: 'whatsapp', aria: { en: 'WhatsApp', ru: 'WhatsApp' },  href: 'https://wa.me/00000000000', ext: true },
+        { ic: 'phone',    aria: { en: 'Call',     ru: 'Позвонить' }, href: 'tel:+375292599727' },
+        { ic: 'whatsapp', aria: { en: 'WhatsApp', ru: 'WhatsApp' },  href: 'https://wa.me/375292599727', ext: true },
         { ic: 'telegram', aria: { en: 'Telegram', ru: 'Telegram' },  href: 'https://t.me/steamshow',    ext: true }
       ],
       color: '#FF6A1F', color2: '#FF2E84' },
