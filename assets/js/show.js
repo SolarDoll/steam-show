@@ -29,6 +29,16 @@
     el.setAttribute('href', href);
   }
 
+  /* alt для галерейных снимков. Без него фото не попадают в поиск по
+     картинкам и не читаются скринридером. Описываем не сам кадр (выдумывать
+     нельзя), а к чему он относится: «<шоу или тема> — <подпись> N».
+     Аргументы — сырые строки, экранирование здесь. */
+  function altOf() {
+    var parts = [];
+    for (var i = 0; i < arguments.length; i++) if (arguments[i]) parts.push(arguments[i]);
+    return esc(parts.join(' — '));
+  }
+
   function railBox(inner) {
     return '<div class="railbox"><button class="rnav l" aria-label="Scroll left">‹</button>' +
       '<div class="vrail">' + inner + '</div>' +
@@ -143,7 +153,7 @@
           var vidId = typeof v === 'string' ? v : v.id;
           var vlbl = (v && v.label) ? esc(v.label) : (esc(s.name) + ' · ' + T('show.label.video') + ' ' + (i + 1));
           return '<div class="vcard" data-video="' + vidId + '" data-vlabel="' + vlbl + '">' +
-            '<div class="vw"><img loading="lazy" src="' + ytThumb(vidId) + '" alt=""><span class="pl"></span></div>' +
+            '<div class="vw"><img loading="lazy" src="' + ytThumb(vidId) + '" alt="' + vlbl + '"><span class="pl"></span></div>' +
             '<div class="vl">' + vlbl + '</div></div>';
         }).join('')) + '</div></section>';
     }
@@ -158,7 +168,8 @@
         '<div class="shead"><span class="kicker">' + esc(T('show.galleryKicker')) + '</span><h2>' + esc(T('show.photos')) + '</h2>' +
         '<p>' + esc(T('show.photosBlurb', { n: d.photos.length })) + '</p></div>' +
         '<div class="gallery">' + d.photos.map(function (p, i) {
-          return '<div class="g" data-photo="' + i + '"><img loading="lazy" src="' + p + '" alt=""></div>';
+          return '<div class="g" data-photo="' + i + '"><img loading="lazy" src="' + p + '" alt="' +
+            altOf(s.name, T('show.label.photo') + ' ' + (i + 1)) + '"></div>';
         }).join('') + '</div></div></section>';
     }
 
@@ -222,7 +233,7 @@
       var hook = themed
         ? 'data-firetheme="' + w.key + '" data-fname="' + esc(w.h) + '"'
         : 'data-world="' + i + '"';
-      h += '<div class="world" ' + hook + '><img loading="lazy" src="' + cov + '" alt="">' +
+      h += '<div class="world" ' + hook + '><img loading="lazy" src="' + cov + '" alt="' + altOf(s.name, w.h) + '">' +
         '<div class="wc"><div class="wn">' + esc(w.nm) + '</div><h3>' + esc(w.h) + '</h3><p>' + esc(w.p) + '</p></div></div>';
     });
     h += '</div>';
@@ -238,7 +249,8 @@
         '<button class="clr" id="stClear">' + esc(T('show.clear')) + '</button></div>';
       h += '<div class="gridc" id="stGrid">' + fb.ALL.map(function (x, i) {
         return '<div class="cell" data-firegallery="' + i + '" data-tags="' + x.token + '">' +
-          '<img loading="lazy" src="' + x.src + '" alt=""><div class="tg"><span>' + esc(x.label) + '</span></div></div>';
+          '<img loading="lazy" src="' + x.src + '" alt="' + altOf(s.name, x.label) + '">' +
+          '<div class="tg"><span>' + esc(x.label) + '</span></div></div>';
       }).join('') + '</div>';
       h += '<div class="emptymsg" id="stEmpty" style="display:none">' + esc(T('show.emptyPhotos')) + '</div></div>';
     }
@@ -253,7 +265,8 @@
     return '<section id="sec-variants"><div class="wrap"><div class="shead"><span class="kicker">' + esc(T('show.costumesKicker')) + '</span>' +
       '<h2>' + esc(s.detail.variants.title) + '</h2><p>' + esc(s.detail.variants.lead) + '</p></div>' +
       '<div class="gridc">' + cs.map(function (c, i) {
-        return '<div class="cell" data-costume="' + i + '"><img loading="lazy" src="' + c + '" alt=""></div>';
+        return '<div class="cell" data-costume="' + i + '"><img loading="lazy" src="' + c + '" alt="' +
+          altOf(s.name, T('show.label.costume') + ' ' + (i + 1)) + '"></div>';
       }).join('') + '</div></div></section>';
   }
 
@@ -261,6 +274,7 @@
   function renderStilts() {
     var W = SS.stilts, intro = W.intro;
     var filmLbl = T('show.label.film');
+    var stName = (SS.show('stilts') || {}).name || '';   /* для alt снимков */
     var h = '<section id="sec-variants"><div class="wrap">' +
       '<div class="shead"><span class="kicker">' + esc(intro.kicker) + '</span><h2>' + esc(intro.title) + '</h2>' +
       '<p>' + esc(intro.lead) + '</p></div>';
@@ -271,19 +285,20 @@
       var feat, fp = t.focus ? ' style="object-position:' + t.focus + '"' : '';
       if (t.ytVideo) {
         feat = '<div class="feat" data-video="' + t.ytVideo + '" data-vlabel="' + esc(t.name) + ' · ' + esc(filmLbl) + '">' +
-          '<div class="vw"><img loading="lazy" src="' + t.photos[0] + '" alt=""' + fp + '><span class="pl"></span></div>' +
+          '<div class="vw"><img loading="lazy" src="' + t.photos[0] + '" alt="' + altOf(stName, t.name) + '"' + fp + '><span class="pl"></span></div>' +
           '<span class="vlbl">' + esc(t.name) + ' · ' + esc(filmLbl) + '</span></div>';
       } else if (t.video) {
         feat = '<div class="feat" data-localvideo="' + t.video + '" data-vlabel="' + esc(t.name) + ' · ' + esc(filmLbl) + '">' +
-          '<div class="vw"><img loading="lazy" src="' + (t.poster || t.photos[0]) + '" alt=""' + fp + '><span class="pl"></span></div>' +
+          '<div class="vw"><img loading="lazy" src="' + (t.poster || t.photos[0]) + '" alt="' + altOf(stName, t.name) + '"' + fp + '><span class="pl"></span></div>' +
           '<span class="vlbl">' + esc(t.name) + ' · ' + esc(filmLbl) + '</span></div>';
       } else {
-        feat = '<div class="feat" data-gallery="theme:' + t.key + '" data-gi="0"><div class="vw"><img loading="lazy" src="' + t.photos[0] + '" alt=""' + fp + '></div>' +
+        feat = '<div class="feat" data-gallery="theme:' + t.key + '" data-gi="0"><div class="vw"><img loading="lazy" src="' + t.photos[0] + '" alt="' + altOf(stName, t.name) + '"' + fp + '></div>' +
           '<span class="vlbl">' + esc(t.name) + '</span></div>';
       }
       var gi = (t.ytVideo || t.video) ? 0 : 1;
       var grid = '<div class="mini-grid">' + t.photos.slice(gi, gi + 6).map(function (p, k) {
-        return '<div class="cell" data-gallery="theme:' + t.key + '" data-gi="' + (gi + k) + '"><img loading="lazy" src="' + p + '" alt=""></div>';
+        return '<div class="cell" data-gallery="theme:' + t.key + '" data-gi="' + (gi + k) + '"><img loading="lazy" src="' + p + '" alt="' +
+          altOf(stName, t.name, T('show.label.costume') + ' ' + (gi + k + 1)) + '"></div>';
       }).join('') + '</div>';
       var more = t.photos.length > (gi + 6) ? '<button class="tmore" data-filter="' + t.key + '">' + esc(T('show.viewMorePhotos')) + '</button>' : '';
       h += '<div class="tblock"><div class="th"><h4>' + esc(t.name) + '</h4></div>' +
@@ -293,10 +308,11 @@
     /* Некатегоризированные костюмы — отдельный блок */
     if (W.other.length) {
       var oname = W.otherLabel;
-      var ofeat = '<div class="feat" data-gallery="other" data-gi="0"><div class="vw"><img loading="lazy" src="' + W.other[0] + '" alt=""></div>' +
+      var ofeat = '<div class="feat" data-gallery="other" data-gi="0"><div class="vw"><img loading="lazy" src="' + W.other[0] + '" alt="' + altOf(stName, oname) + '"></div>' +
         '<span class="vlbl">' + esc(oname) + '</span></div>';
       var ogrid = '<div class="mini-grid">' + W.other.slice(1, 7).map(function (p, k) {
-        return '<div class="cell" data-gallery="other" data-gi="' + (1 + k) + '"><img loading="lazy" src="' + p + '" alt=""></div>';
+        return '<div class="cell" data-gallery="other" data-gi="' + (1 + k) + '"><img loading="lazy" src="' + p + '" alt="' +
+          altOf(stName, oname, T('show.label.costume') + ' ' + (1 + k + 1)) + '"></div>';
       }).join('') + '</div>';
       var omore = W.other.length > 7 ? '<button class="tmore" data-filter="other">' + esc(T('show.viewMorePhotos')) + '</button>' : '';
       h += '<div class="tblock"><div class="th"><h4>' + esc(oname) + '</h4></div>' +
@@ -319,7 +335,8 @@
       '<button class="clr" id="stClear">' + esc(T('show.clear')) + '</button></div>';
     h += '<div class="gridc" id="stGrid">' + ALL.map(function (x, i) {
       return '<div class="cell" data-gallery="browse" data-gi="' + i + '" data-tags="' + x.token + '">' +
-        '<img loading="lazy" src="' + x.src + '" alt=""><div class="tg"><span>' + esc(x.label) + '</span></div></div>';
+        '<img loading="lazy" src="' + x.src + '" alt="' + altOf(stName, x.label) + '">' +
+        '<div class="tg"><span>' + esc(x.label) + '</span></div></div>';
     }).join('') + '</div>';
     h += '<div class="emptymsg" id="stEmpty" style="display:none">' + esc(T('show.emptyCostumes')) + '</div></div>';
 

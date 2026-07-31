@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title data-i18n="meta.title">Steam Show · Fire, LED &amp; Dragon Performances Worldwide</title>
 <meta name="description" data-i18n-attr="content:meta.desc" content="Steam Show · large-scale fire, LED and stilt-walking performances for festivals, weddings and corporate events worldwide. Dragon fire shows, flame cannons, LED costumes and giant stilt characters.">
+<link rel="canonical" href="https://solardoll.github.io/steam-show/">
 <link rel="alternate" hreflang="en" href="https://solardoll.github.io/steam-show/">
 <link rel="alternate" hreflang="ru" href="https://solardoll.github.io/steam-show/?lang=ru">
 <link rel="alternate" hreflang="x-default" href="https://solardoll.github.io/steam-show/">
@@ -13,12 +14,39 @@
 <!-- сайт уже тёмный — просим Dark Reader и подобные расширения не накладывать свой фильтр -->
 <meta name="darkreader-lock">
 
-<!-- Open Graph -->
+<!-- Open Graph / Twitter. URL картинки обязан быть абсолютным, иначе превью
+     ссылки в WhatsApp / Telegram / Facebook / LinkedIn собирается без неё. -->
+<meta property="og:site_name" content="Steam Show">
 <meta property="og:title" content="Steam Show · Fire, LED &amp; Dragon Performances">
 <meta property="og:description" content="Large-scale fire, LED and stilt shows for events worldwide: dragons, flame, light and giants.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="assets/web/hero/hero-poster.jpg">
+<meta property="og:url" content="https://solardoll.github.io/steam-show/">
+<meta property="og:image" content="https://solardoll.github.io/steam-show/assets/web/hero/hero-poster.jpg">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ru_RU">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://solardoll.github.io/steam-show/assets/web/hero/hero-poster.jpg">
+
+<!-- Структурированные данные: кто мы и какие шоу продаём. Читают Google
+     (rich results) и AI-поисковики. Меняли контакты/шоу — поправить и здесь. -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"PerformingGroup",
+"name":"Steam Show",
+"url":"https://solardoll.github.io/steam-show/",
+"logo":"https://solardoll.github.io/steam-show/assets/img/logo.png",
+"image":"https://solardoll.github.io/steam-show/assets/web/hero/hero-poster.jpg",
+"description":"Large-scale fire, LED and stilt-walking performances for festivals, weddings and corporate events worldwide: dragon fire shows, flame cannons, LED costumes and giant stilt characters.",
+"email":"steamshowby@gmail.com",
+"telephone":"+375292599727",
+"areaServed":{"@type":"Place","name":"Worldwide"},
+"sameAs":["https://instagram.com/steam_show","https://www.youtube.com/@SteamShowby","https://t.me/steamshowby"],
+"makesOffer":[
+{"@type":"Offer","itemOffered":{"@type":"Service","name":"Dragon Fire Show","url":"https://solardoll.github.io/steam-show/dragon-fire-show.html"}},
+{"@type":"Offer","itemOffered":{"@type":"Service","name":"Fire Show","url":"https://solardoll.github.io/steam-show/fire-show.html"}},
+{"@type":"Offer","itemOffered":{"@type":"Service","name":"LED Fire Show","url":"https://solardoll.github.io/steam-show/led-fire-show.html"}},
+{"@type":"Offer","itemOffered":{"@type":"Service","name":"LED Show","url":"https://solardoll.github.io/steam-show/led-show.html"}},
+{"@type":"Offer","itemOffered":{"@type":"Service","name":"Stilt Walkers","url":"https://solardoll.github.io/steam-show/stilt-walkers.html"}}]}
+</script>
 
 <link rel="icon" type="image/png" href="assets/img/logo.png">
 <link rel="preload" as="image" href="assets/web/hero/hero-poster.jpg">
@@ -79,7 +107,7 @@
   <section id="programs" data-spine>
     <div class="wrap">
       <div class="sec-head reveal"><span class="kicker" data-i18n="prog.kicker">Our Shows</span>
-        <div class="howwe-big" data-i18n-html="prog.big">Our <span class="grad">shows.</span></div>
+        <h2 class="howwe-big" data-i18n-html="prog.big">Our <span class="grad">shows.</span></h2>
         <p style="margin-top:20px" data-i18n="prog.lead">Book a full show programme, or drop any act into go-mode (a live set that runs to your event flow or a DJ's beat). Take one show, or stack several into a single night. Tap any block to open the show.</p></div>
       <div class="ovtabs reveal">
         <span class="lbl"><span data-i18n="prog.jump">Jump to a show</span> <span class="ar" aria-hidden="true">↓</span></span>
@@ -94,7 +122,7 @@
   <section id="howwe" data-spine>
     <div class="wrap">
       <div class="reveal"><span class="kicker" data-i18n="howwe.kicker">How we work</span>
-        <div class="howwe-big" data-i18n-html="howwe.big">Our shows.<br><span class="grad">Your stage.</span></div>
+        <h2 class="howwe-big" data-i18n-html="howwe.big">Our shows.<br><span class="grad">Your stage.</span></h2>
         <p class="clead" style="margin-top:22px" data-i18n="howwe.lead">Five signature shows, ready to book and tour. We bring our own crew, costumes and equipment. For large-scale events we can also build something bespoke, on request.</p></div>
       <div class="howwe-grid">
         <div class="hw-card reveal"><span class="n">01</span><h4 data-i18n="howwe.1h">Made in-house</h4>

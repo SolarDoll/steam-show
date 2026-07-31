@@ -1,0 +1,8 @@
+# Steam Show — открыт для всех поисковиков.
+User-agent: *
+Allow: /
+
+# Исходники медиа и черновики в репозиторий не попадают (.gitignore),
+# закрывать их здесь не нужно.
+
+Sitemap: https://solardoll.github.io/steam-show/sitemap.xml
