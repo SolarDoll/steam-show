@@ -249,7 +249,10 @@ section + section{border-top:1px solid var(--line)}
 /* --- галерея masonry --- */
 .gallery{columns:4;column-gap:13px}
 .gallery .g{break-inside:avoid;margin-bottom:13px;border-radius:13px;overflow:hidden;background:#000;cursor:pointer;border:1px solid var(--line)}
-.gallery .g img{width:100%;transition:transform .5s}
+/* height:auto обязателен: responsive.js проставляет width/height из карты
+   (чтобы браузер знал пропорции и галерея не скакала), а без height:auto
+   атрибут height сработал бы как фиксированная высота и колонки поехали. */
+.gallery .g img{width:100%;height:auto;transition:transform .5s}
 .gallery .g:hover img{transform:scale(1.04)}
 @media(max-width:1000px){.gallery{columns:3}}
 @media(max-width:680px){.gallery{columns:2}}
