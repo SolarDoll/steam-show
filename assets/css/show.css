@@ -246,16 +246,16 @@ section + section{border-top:1px solid var(--line)}
 .vcard:hover .vw .pl::before{border-left-color:#160405}
 .vcard .vl{font-size:13px;color:var(--muted);margin-top:11px;letter-spacing:.02em}
 
-/* --- галерея masonry --- */
-.gallery{columns:4;column-gap:13px}
-.gallery .g{break-inside:avoid;margin-bottom:13px;border-radius:13px;overflow:hidden;background:#000;cursor:pointer;border:1px solid var(--line)}
-/* height:auto обязателен: responsive.js проставляет width/height из карты
-   (чтобы браузер знал пропорции и галерея не скакала), а без height:auto
-   атрибут height сработал бы как фиксированная высота и колонки поехали. */
-.gallery .g img{width:100%;height:auto;transition:transform .5s}
-.gallery .g:hover img{transform:scale(1.04)}
-@media(max-width:1000px){.gallery{columns:3}}
-@media(max-width:680px){.gallery{columns:2}}
+/* --- галерея: ровная плитка, один в один с .gridc (гардероб ходулистов).
+   Раньше была masonry на CSS-колонках — она по своей природе обрывается
+   разной высотой, низ выглядел рваным. Теперь все кадры одного размера
+   и кроп по центру, ряды и низ ровные. --- */
+.gallery{display:grid;grid-template-columns:repeat(5,1fr);gap:13px}
+.gallery .g{position:relative;aspect-ratio:4/5;border-radius:13px;overflow:hidden;background:#000;cursor:pointer;border:1px solid var(--line)}
+.gallery .g img{width:100%;height:100%;object-fit:cover;transition:transform .45s}
+.gallery .g:hover img{transform:scale(1.06)}
+@media(max-width:900px){.gallery{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:540px){.gallery{grid-template-columns:repeat(2,1fr)}}
 
 /* --- booking --- */
 .ccta{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(40px,7vw,96px);line-height:.9;margin:14px 0 0}

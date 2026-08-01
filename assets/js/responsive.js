@@ -20,7 +20,7 @@
 
   /* ширина слота под каждый тип сетки — чтобы браузер выбрал верный размер */
   function sizesFor(img) {
-    if (img.closest('.gallery')) return '(max-width:680px) 46vw, (max-width:1000px) 31vw, 23vw';
+    if (img.closest('.gallery')) return '(max-width:540px) 47vw, (max-width:900px) 31vw, 18vw';
     if (img.closest('.mini-grid')) return '(max-width:820px) 24vw, 12vw';
     if (img.closest('.gridc')) return '(max-width:540px) 47vw, (max-width:900px) 31vw, 18vw';
     if (img.closest('.world,.star,.feat,.vcard')) return '(max-width:820px) 92vw, 45vw';
