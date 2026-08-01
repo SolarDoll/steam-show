@@ -1,17 +1,17 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!-- Страница шоу. Разметку и рендер делает тот же show.js/show.css, что и на
      остальных страницах шоу; здесь только мета-теги под это шоу (их видят
      поисковики и мессенджеры, которые JS не выполняют) и window.SS_SHOW. -->
-<title>LED Fire Show - Fire in Glowing Costumes - Steam Show</title>
-<meta name="description" content="A hybrid show mixing live fire with glowing LED costumes: the heat of flame and the colour of light, for festivals, galas and weddings.">
-<link rel="canonical" href="https://solardoll.github.io/steam-show/led-fire-show.html">
-<link rel="alternate" hreflang="en" href="https://solardoll.github.io/steam-show/led-fire-show.html">
-<link rel="alternate" hreflang="ru" href="https://solardoll.github.io/steam-show/led-fire-show-ru.html">
-<link rel="alternate" hreflang="x-default" href="https://solardoll.github.io/steam-show/led-fire-show.html">
+<title>LED световое шоу на мероприятие и гала — Steam Show</title>
+<meta name="description" content="Бездымное LED световое шоу: светящиеся костюмы и реквизит (крылья, кубы) с вашим логотипом. Идеально для гала и корпоративов в помещении.">
+<link rel="canonical" href="https://solardoll.github.io/steam-show/led-show-ru.html">
+<link rel="alternate" hreflang="en" href="https://solardoll.github.io/steam-show/led-show.html">
+<link rel="alternate" hreflang="ru" href="https://solardoll.github.io/steam-show/led-show-ru.html">
+<link rel="alternate" hreflang="x-default" href="https://solardoll.github.io/steam-show/led-show.html">
 <meta name="theme-color" content="#0b0712">
 <meta name="color-scheme" content="dark">
 <!-- сайт уже тёмный — просим Dark Reader и подобные расширения не накладывать свой фильтр -->
@@ -19,15 +19,15 @@
 
 <!-- Open Graph / Twitter: абсолютные URL, иначе превью ссылки не собирается -->
 <meta property="og:site_name" content="Steam Show">
-<meta property="og:title" content="LED Fire Show · Steam Show">
-<meta property="og:description" content="Live fire performed in glowing LED costumes — the heat of fire with the colour of light.">
+<meta property="og:title" content="LED-шоу · Steam Show">
+<meta property="og:description" content="Яркое световое шоу без дыма и огня: LED-костюмы и программируемый реквизит для любых площадок.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://solardoll.github.io/steam-show/led-fire-show.html">
-<meta property="og:image" content="https://solardoll.github.io/steam-show/assets/web/ledfire/ledfire-cover.jpg">
-<meta property="og:locale" content="en_US">
-<meta property="og:locale:alternate" content="ru_RU">
+<meta property="og:url" content="https://solardoll.github.io/steam-show/led-show-ru.html">
+<meta property="og:image" content="https://solardoll.github.io/steam-show/assets/web/led/led-001.jpg">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://solardoll.github.io/steam-show/assets/web/ledfire/ledfire-cover.jpg">
+<meta name="twitter:image" content="https://solardoll.github.io/steam-show/assets/web/led/led-001.jpg">
 
 <!-- иконки: 32/16 для вкладки, 180 для домашнего экрана iOS,
      манифест для Android (иконки собраны из logo.png на фоне сайта) -->
@@ -35,32 +35,32 @@
 <link rel="icon" type="image/png" sizes="16x16" href="assets/img/icon-16.png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<script>window.SS_LANG_FORCE = 'en';</script>
+<script>window.SS_LANG_FORCE = 'ru';</script>
 <link rel="stylesheet" href="assets/css/fonts.css">
 <link rel="stylesheet" href="assets/css/show.css">
 
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Service",
-"name":"LED Fire Show",
-"serviceType":"Fire and light performance",
-"description":"A hybrid show: live fire performed in glowing LED costumes, combining the heat of fire with the colour of light.",
-"url":"https://solardoll.github.io/steam-show/led-fire-show.html",
-"image":"https://solardoll.github.io/steam-show/assets/web/ledfire/ledfire-cover.jpg",
+"name":"LED-шоу",
+"serviceType":"Light performance",
+"description":"Яркое световое шоу с LED-костюмами и эффектным реквизитом, от светящихся крыльев до пиксельных кубов. Возможна интеграция логотипа и разворот в клубную программу.",
+"url":"https://solardoll.github.io/steam-show/led-show-ru.html","inLanguage":"ru",
+"image":"https://solardoll.github.io/steam-show/assets/web/led/led-001.jpg",
 "areaServed":{"@type":"Place","name":"Worldwide"},
 "provider":{"@type":"PerformingGroup","name":"Steam Show","url":"https://solardoll.github.io/steam-show/"}}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
-{"@type":"ListItem","position":1,"name":"Steam Show","item":"https://solardoll.github.io/steam-show/"},
-{"@type":"ListItem","position":2,"name":"LED Fire Show","item":"https://solardoll.github.io/steam-show/led-fire-show.html"}]}
+{"@type":"ListItem","position":1,"name":"Steam Show","item":"https://solardoll.github.io/steam-show/index-ru.html"},
+{"@type":"ListItem","position":2,"name":"LED-шоу","item":"https://solardoll.github.io/steam-show/led-show-ru.html"}]}
 </script>
 
-<script>window.SS_SHOW = 'ledfire';</script>
+<script>window.SS_SHOW = 'led';</script>
 </head>
 <body>
 
 <header class="topbar" id="topbar"><div class="topbar-in">
-  <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span><span class="nm">Steam Show</span></a>
+  <a class="brand" href="index-ru.html"><span class="mark" aria-hidden="true"></span><span class="nm">Steam Show</span></a>
   <nav class="shownav" id="shownav" aria-label="Shows"></nav>
   <div class="langsw" data-langsw></div>
   <a class="nav-cta" href="#book" data-i18n="cta.book">Book the show</a>

@@ -478,14 +478,14 @@
     }
     var shownav = document.getElementById('shownav');
     shownav.innerHTML = SS.order.map(navLink).join('') +
-      '<a class="process" href="index.html#howwe">' + esc(T('nav.about')) + '</a>';
+      '<a class="process" href="' + SS.home() + '#howwe">' + esc(T('nav.about')) + '</a>';
     shownav.querySelectorAll('a[data-id]').forEach(function (a) { wireShowLink(a); });
 
     /* мобильное меню — те же шоу + About + Book */
     var mob = document.getElementById('mobmenu'), nb = document.getElementById('navBtn');
     if (mob) {
       mob.innerHTML = SS.order.map(navLink).join('') +
-        '<a href="index.html#howwe">' + esc(T('nav.about')) + '</a>' +
+        '<a href="' + SS.home() + '#howwe">' + esc(T('nav.about')) + '</a>' +
         '<a class="m-book" href="#book">' + esc(T('cta.book')) + '</a>';
       function closeMenu() { document.body.classList.remove('nav-open'); if (nb) nb.setAttribute('aria-expanded', 'false'); }
       mob.querySelectorAll('a[data-id]').forEach(function (a) { wireShowLink(a, closeMenu); });

@@ -46,14 +46,24 @@
     led:     'led-show.html',
     stilts:  'stilt-walkers.html'
   };
-  /* файл шоу без параметров — для canonical и sitemap */
-  function page(id) { return PAGES[id] || 'index.html'; }
-  /* ссылка для навигации: тот же файл + текущий язык, чтобы переход
-     между шоу не сбрасывал RU (canonical всегда без ?lang) */
-  function url(id) { return page(id) + (LANG !== 'en' ? '?lang=' + LANG : ''); }
-  /* обратный разбор: файл → id шоу (popstate, определение стартового шоу) */
+  /* У русской версии свои файлы: <имя>-ru.html рядом с английскими. Так
+     RU-текст лежит в HTML (поисковик его видит), а относительные пути к
+     assets/ остаются прежними — в подпапке они бы сломались. */
+  function ru(file) { return file.replace(/\.html$/, '-ru.html'); }
+  /* файл шоу на нужном языке — для ссылок, canonical и sitemap */
+  function page(id, lang) {
+    var f = PAGES[id] || 'index.html';
+    return (lang || LANG) === 'ru' ? ru(f) : f;
+  }
+  /* главная на текущем языке (ссылки «О нас», логотип на страницах шоу) */
+  function home(lang) { return (lang || LANG) === 'ru' ? 'index-ru.html' : 'index.html'; }
+  /* ссылка для навигации. Язык уже зашит в имя файла; ?lang добавляем только
+     если пользователь пришёл со старой ссылки вида ?lang=ru на EN-страницу */
+  function url(id) { return page(id); }
+  /* обратный разбор: файл → id шоу (popstate, определение стартового шоу).
+     Понимает оба языка. */
   function idByPage(path) {
-    var file = String(path || '').split('/').pop();
+    var file = String(path || '').split('/').pop().replace(/-ru\.html$/, '.html');
     for (var k in PAGES) if (PAGES[k] === file) return k;
     return null;
   }
@@ -212,6 +222,7 @@
     show: function (id) { return shows[id] || null; },
     pages: PAGES,
     page: page,
+    home: home,
     url: url,
     idByPage: idByPage,
     lightMode: lightMode,

@@ -15,12 +15,19 @@
 (function () {
   var STORE = 'ss_lang', SUPPORTED = ['en', 'ru'], DEFAULT = 'en';
 
-  /* ---- определить язык ---- */
+  /* ---- определить язык ----
+     Приоритет: ?lang= (явное намерение, поддержка старых ссылок) →
+     язык самой страницы (window.SS_LANG_FORCE проставлен в каждом файле:
+     у русских версий свой файл <имя>-ru.html) → запомненный выбор → EN.
+     Язык страницы важнее запомненного: иначе на английский адрес лёг бы
+     русский текст, и страница разошлась бы со своими мета-тегами. */
   var qs, urlLang = null;
   try { qs = new URLSearchParams(location.search); urlLang = qs.get('lang'); } catch (e) {}
+  var pageLang = window.SS_LANG_FORCE;
   var stored = null; try { stored = localStorage.getItem(STORE); } catch (e) {}
   var lang = DEFAULT;
   if (urlLang && SUPPORTED.indexOf(urlLang) >= 0) { lang = urlLang; try { localStorage.setItem(STORE, lang); } catch (e) {} }
+  else if (pageLang && SUPPORTED.indexOf(pageLang) >= 0) { lang = pageLang; }
   else if (stored && SUPPORTED.indexOf(stored) >= 0) { lang = stored; }
 
   window.SS_LANG = lang;
@@ -202,10 +209,27 @@
   window.SS_applyStatic = applyStatic;
 
   /* ---- переключатель языка ---- */
+  /* адрес этой же страницы на другом языке; null — если пары нет
+     (например, у старого show.html?show=) */
+  function pageForLang(next) {
+    var file = location.pathname.split('/').pop() || 'index.html';
+    var base = file.replace(/-ru\.html$/, '.html');
+    var known = ['index.html'];
+    if (window.SS && window.SS.pages) {
+      for (var k in window.SS.pages) known.push(window.SS.pages[k]);
+    }
+    if (known.indexOf(base) < 0) return null;
+    return next === 'ru' ? base.replace(/\.html$/, '-ru.html') : base;
+  }
+
   function setLang(next) {
     if (SUPPORTED.indexOf(next) < 0 || next === lang) return;
     try { localStorage.setItem(STORE, next); } catch (e) {}
-    var u = new URL(location.href);
+    /* у русской версии свой файл — переключение языка это переход на него
+       (место на странице сохраняем через хеш) */
+    var target = pageForLang(next);
+    if (target) { location.href = target + location.hash; return; }
+    var u = new URL(location.href);          /* страница без пары — по-старому */
     u.searchParams.set('lang', next);
     location.href = u.toString();   /* перезагрузка: data.js пересоберёт SS на новом языке */
   }
