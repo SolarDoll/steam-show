@@ -42,6 +42,11 @@ jobs:
         continue-on-error: true
         timeout-minutes: 6
         run: python scripts/seo.py
+      # Текстовая версия страниц для роботов, которые не выполняют JS.
+      # После seo.py: берёт оттуда свежие названия роликов (yt-meta.json).
+      - name: Пре-рендер (текстовая версия страниц)
+        continue-on-error: true
+        run: python scripts/prerender.py
       - uses: actions/configure-pages@v5
       # path: . — публикуем корень репозитория, как это делал старый сборщик
       - uses: actions/upload-pages-artifact@v3

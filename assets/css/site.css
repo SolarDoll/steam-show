@@ -595,3 +595,13 @@ section[id]{scroll-margin-top:88px}
   .reveal{opacity:1!important;transform:none!important}
   #embers{display:none}
 }
+
+/* ---------- ТЕКСТОВАЯ ВЕРСИЯ (пре-рендер) ----------
+   Список шоу, страны, форматы и контакты на главной рисует site.js —
+   в файле они пустые, и робот без JS видел бы дыры. scripts/prerender.py
+   кладёт туда текстовую версию; site.js перетирает её при загрузке. */
+.prerender{line-height:1.6}
+.prerender p,.prerender ul{color:var(--muted);margin:0 0 12px}
+.prerender ul{padding-left:20px}
+.prerender li{margin:0 0 6px}
+.prerender a{color:var(--ink)}

@@ -405,3 +405,19 @@ section[id],[id="browse-all"],[id="top"]{scroll-margin-top:124px}
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
+
+/* ---------- ТЕКСТОВАЯ ВЕРСИЯ (пре-рендер) ----------
+   Блок вписывает scripts/prerender.py, чтобы страницу видели роботы,
+   не выполняющие JS. При загрузке show.js перетирает его настоящей
+   вёрсткой, так что обычный посетитель этих стилей не увидит — они
+   нужны на случай отключённого JS и на первые миллисекунды загрузки. */
+.prerender{max-width:820px;margin:0 auto;padding:120px 22px 60px;line-height:1.6}
+.prerender h1{font-family:var(--display);font-weight:400;text-transform:uppercase;
+  font-size:clamp(30px,6vw,54px);line-height:1;margin:0 0 18px}
+.prerender h2{font-family:var(--display);font-weight:400;text-transform:uppercase;
+  font-size:clamp(20px,3.4vw,30px);margin:44px 0 12px}
+.prerender h3{font-size:17px;margin:26px 0 6px}
+.prerender p{color:var(--muted);margin:0 0 12px}
+.prerender ul{color:var(--muted);padding-left:20px;margin:0 0 14px}
+.prerender li{margin:0 0 6px}
+.prerender a{color:var(--ink)}
