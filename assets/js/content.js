@@ -209,7 +209,7 @@ window.SS_CONTENT = {
         ],
         addon: {
           kicker: { en: 'Add-ons', ru: 'Дополнения' },
-          title: { en: 'Turn it into a full club show', ru: 'Разверните в полноценное клубное шоу' },
+          title: { en: 'Turn it into a full club show', ru: 'Клубное Шоу' },
           text: { en: 'Playing a club or a party? We can bundle the LED show with our other party formats into one high-energy set: stilt-walking animators, a paper show, confetti blasts and CO₂ cannons.',
                   ru: 'Клуб или вечеринка? Соберём LED-шоу с другими форматами в один заряженный сет: аниматоры на ходулях, бумажное шоу, конфетти-пушки и CO₂-пушки.' },
           tags: [
