@@ -76,14 +76,14 @@
 
     /* -- секция «Наши шоу» -- */
     'prog.kicker':  { en: 'Our Shows', ru: 'Наши шоу' },
-    'prog.big':     { en: 'Our <span class="grad">shows.</span>', ru: 'Наши <span class="grad">шоу.</span>' },
+    'prog.big':     { en: 'Our <span class="grad">shows</span>', ru: 'Наши <span class="grad">шоу</span>' },
     'prog.lead':    { en: 'Book a full show programme, or drop any act into go-mode (a live set that runs to your event flow or a DJ’s beat). Take one show, or stack several into a single night. Tap any block to open the show.',
                       ru: 'Каждое шоу можно заказать отдельно или объединить несколько выступлений в одну программу. Мы адаптируем формат и продолжительность под ваше мероприятие — будь то полноценное шоу или яркий номер в рамках диджей-сета. Нажмите на карточку, чтобы посмотреть описание.' },
     'prog.jump':    { en: 'Jump to a show', ru: 'Перейти к шоу' },
 
     /* -- секция «Как мы работаем» -- */
     'howwe.kicker': { en: 'How we work', ru: 'Как мы работаем' },
-    'howwe.big':    { en: 'Our shows.<br><span class="grad">Your stage.</span>', ru: 'Наши шоу.<br><span class="grad">Ваша сцена.</span>' },
+    'howwe.big':    { en: 'Our shows<br><span class="grad">Your stage</span>', ru: 'Наши шоу<br><span class="grad">Ваша сцена</span>' },
     'howwe.lead':   { en: 'Five signature shows, ready to book and tour. We bring our own crew, costumes and equipment. For large-scale events we can also build something bespoke, on request.',
                       ru: 'Пять готовых шоу-программ для ярких событий. Мы приезжаем с командой артистов, костюмами и всем необходимым оборудованием. А для крупных мероприятий создаем уникальные постановки, которые превращают идею в яркое шоу.' },
     'howwe.1h':     { en: 'Made in-house', ru: 'Создаем всё сами' },
