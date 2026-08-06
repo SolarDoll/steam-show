@@ -227,7 +227,7 @@ window.SS_CONTENT = {
     },
 
     stilts: {
-      name: { en: 'Stilt Walkers', ru: 'Ходулисты' }, nav: { en: 'Stilts', ru: 'Ходули' },
+      name: { en: 'Stilt Walkers', ru: 'Ходулисты' }, nav: { en: 'Stilts', ru: 'Ходулисты' },
       videos: ['UlvKULj4Xe8', 'AW1l9PbVqdY', 'HLwZI7htNus', 'iAFeaUvX_Hw', 'UFmJgKILurU', 'epn4YnmNrQ8', 'wogKA0crrt0'],
       card: {
         kind: { en: 'Animation or full show', ru: 'Анимация или шоу на сцене' },

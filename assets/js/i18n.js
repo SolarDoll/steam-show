@@ -58,7 +58,7 @@
     'nav.fire':     { en: 'Fire',      ru: 'Огонь' },
     'nav.ledfire':  { en: 'LED Fire',  ru: 'LED+Огонь' },
     'nav.led':      { en: 'LED',       ru: 'LED' },
-    'nav.stilts':   { en: 'Stilts',    ru: 'Ходули' },
+    'nav.stilts':   { en: 'Stilts',    ru: 'Ходулисты' },
     'nav.about':    { en: 'About us',  ru: 'О нас' },
     'cta.book':     { en: 'Book the show', ru: 'Заказать шоу' },
 
