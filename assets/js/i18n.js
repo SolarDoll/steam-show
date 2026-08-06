@@ -167,7 +167,7 @@
                          ru: 'Расскажите дату, площадку и настроение — и мы подстроим «{name}» под сценарий вашего вечера. Пишите удобным способом.' },
     'show.label.photo':   { en: 'photo', ru: 'фото' },
     'show.label.video':   { en: 'video', ru: 'видео' },
-    'show.label.film':    { en: 'film', ru: 'фильм' },
+    'show.label.film':    { en: 'film', ru: 'видео' },
     'show.label.costume': { en: 'Costume', ru: 'Костюм' },
     'show.label.character': { en: 'Character', ru: 'Персонаж' },
 
