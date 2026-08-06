@@ -14,6 +14,17 @@
       '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
   };
 
+  /* Фото во весь экран — самая тяжёлая картинка на сайте, и грузится она
+     только по клику, то есть без запаса времени. Если у файла есть AVIF
+     (карта window.SS_SRCSET, пятый элемент записи) и браузер его понимает
+     (детект живёт в responsive.js, к моменту клика уже отработал) —
+     открываем его: то же фото весит вдвое меньше. Иначе прежний JPEG. */
+  function bestPhoto(src) {
+    if (!src || !window.SS_AVIF) return src;
+    var rec = (window.SS_SRCSET || {})[src];
+    return (rec && rec[4]) ? src.slice(0, -4) + '.avif' : src;
+  }
+
   var css =
     '.lb{position:fixed;inset:0;z-index:9500;background:rgba(4,3,7,.95);backdrop-filter:blur(8px);' +
     'display:none;align-items:center;justify-content:center;padding:clamp(16px,4vw,48px)}' +
@@ -65,7 +76,7 @@
     var isPhoto = !x.file && !x.yt;
     if (x.file) stage.innerHTML = '<video src="' + x.file + '" controls autoplay playsinline></video>';
     else if (x.yt) stage.innerHTML = '<iframe src="' + ytEmbed(x.yt) + '" allow="autoplay;fullscreen;encrypted-media" allowfullscreen></iframe>';
-    else stage.innerHTML = '<img src="' + (x.img || '') + '" alt="' + (x.label || '') + '">';
+    else stage.innerHTML = '<img src="' + bestPhoto(x.img || '') + '" alt="' + (x.label || '') + '">';
     stage.classList.toggle('photo', isPhoto);
     capL.textContent = x.label || '';
     var multi = list.length > 1;
