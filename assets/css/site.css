@@ -142,10 +142,9 @@ nav.menu a{transition:color .25s;cursor:pointer}nav.menu a:hover{color:var(--ink
 .mh__scrim{position:absolute;inset:0;z-index:2;pointer-events:none;
   background:radial-gradient(120% 90% at 50% 50%,color-mix(in srgb,var(--bg) 32%,transparent),color-mix(in srgb,var(--bg) 82%,transparent) 60%,var(--bg))}
 .mh__text{position:relative;z-index:3;text-align:center;padding:24px}
-.mh .mh-eyebrow{display:inline-block;font:800 13px/1 var(--body);letter-spacing:.4em;text-transform:uppercase;color:var(--accent2);margin-bottom:18px}
-/* перенос «Минск, Беларусь» — только на телефоне */
-.mh-eyebrow .mbr{display:none}
-@media(max-width:600px){.mh-eyebrow .mbr{display:inline}}
+.mh .mh-eyebrow{display:inline-block;font:800 13px/1.7 var(--body);letter-spacing:.4em;text-transform:uppercase;color:var(--accent2);margin-bottom:18px}
+/* «Минск, Беларусь» — всегда с новой строки, иначе склеивается с «Ходулисты» */
+.mh-eyebrow .mbr{display:inline}
 .mh h1{position:relative;font-family:var(--display);font-weight:400;font-size:clamp(72px,16vw,220px);line-height:.82;text-transform:uppercase;letter-spacing:.01em;color:#fff;text-shadow:0 8px 60px rgba(0,0,0,.6)}
 /* glitch — хроматический сдвиг на заголовке hero */
 .glitch::before,.glitch::after{content:attr(data-t);position:absolute;left:0;top:0;width:100%;clip-path:inset(0);pointer-events:none}
