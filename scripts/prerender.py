@@ -19,6 +19,14 @@ Steam Show — пре-рендер: текстовая версия страни
 миг заменит настоящая галерея со своими srcset-вариантами (мелкие копии и
 AVIF), то есть трафик ушёл бы впустую. Роботу ссылки видны так же.
 
+СТАТИЧЕСКИЙ UI (меню, заголовки секций, кнопки) размечен атрибутами
+[data-i18n] / [data-i18n-html], и текст в них подставляет i18n.js уже в
+браузере. В файлах при этом лежал английский текст — на русской главной робот
+без JS видел английское меню. Скрипт заодно раскладывает по этим элементам
+текст нужного языка, ровно как это сделал бы i18n.js.
+<title> и meta description не трогаем: их пишет seo.py, там свои
+поисковые заголовки, а не UI-микрокопирайт.
+
 Запуск:
   python scripts/prerender.py            вписать/обновить блоки
   python scripts/prerender.py --check    ничего не писать, только проверить,
@@ -356,6 +364,61 @@ def inject(file, tag, elem_id, block, check=False):
     return True
 
 
+# ------------------------------------------- локализация статического UI
+# элемент с data-i18n: <a … data-i18n="nav.led">LED</a>
+I18N_ELEM = re.compile(r'<(?P<tag>[a-z][a-z0-9]*)\b[^>]*?\bdata-i18n(?P<raw>-html)?="(?P<key>[\w.]+)"[^>]*>',
+                       re.I)
+
+
+def close_at(src, tag, start):
+    """индекс начала парного </tag> с учётом вложенных одноимённых тегов
+       (у заголовков внутри лежит <span class="grad">, поэтому нужен счётчик)"""
+    open_re = re.compile(r"<%s\b" % re.escape(tag), re.I)
+    close_re = re.compile(r"</%s\s*>" % re.escape(tag), re.I)
+    depth, i = 1, start
+    while True:
+        mc = close_re.search(src, i)
+        if not mc:
+            return -1
+        mo = open_re.search(src, i)
+        if mo and mo.start() < mc.start():
+            depth += 1
+            i = mo.end()
+            continue
+        depth -= 1
+        if depth == 0:
+            return mc.start()
+        i = mc.end()
+
+
+def localize_static(file, ctx, check=False):
+    """разложить по [data-i18n] / [data-i18n-html] текст языка страницы.
+       Возвращает число заменённых элементов."""
+    src = read(file)
+    out, pos, done = [], 0, 0
+    while True:
+        m = I18N_ELEM.search(src, pos)
+        if not m:
+            break
+        key, tag = m.group("key"), m.group("tag").lower()
+        end = close_at(src, tag, m.end())
+        # <title>/meta.* — вотчина seo.py; ключ без перевода — оставляем как есть
+        if tag == "title" or key.startswith("meta.") or key not in ctx.dict or end < 0:
+            out.append(src[pos:m.end()])
+            pos = m.end()
+            continue
+        text = ctx.t(key)
+        body = text if m.group("raw") else html.escape(text, quote=False)
+        if src[m.end():end] != body:
+            done += 1
+        out.append(src[pos:m.end()] + body)
+        pos = end
+    out.append(src[pos:])
+    if done and not check:
+        write(file, "".join(out))
+    return done
+
+
 def main():
     ap = argparse.ArgumentParser(description="пре-рендер текстовой версии страниц")
     ap.add_argument("--check", action="store_true", help="ничего не писать, только проверить")
@@ -366,13 +429,15 @@ def main():
     dict_ = load_literal(I18N_JS, "var DICT")
     yt = json.loads(read(YT_CACHE)) if os.path.isfile(rel(YT_CACHE)) else {}
 
-    stale, written = [], 0
+    stale, written, localized = [], 0, 0
     for lang in ("en", "ru"):
         ctx = Ctx(content, media, dict_, yt, lang)
+        pages = []
         for sid, en_file in SHOW_PAGES:
             file = en_file if lang == "en" else ru(en_file)
             if not os.path.isfile(rel(file)):
                 continue
+            pages.append(file)
             r = inject(file, "main", "page", show_block(ctx, sid, file), check=a.check)
             if r:
                 written += 1
@@ -382,6 +447,7 @@ def main():
                     print("  prerender %-26s %s" % (file, lang))
         index = INDEX if lang == "en" else ru(INDEX)
         if os.path.isfile(rel(index)):
+            pages.append(index)
             for elem_id, block in index_blocks(ctx).items():
                 r = inject(index, "div", elem_id, block, check=a.check)
                 if r:
@@ -390,13 +456,22 @@ def main():
                         stale.append("%s #%s" % (index, elem_id))
                     else:
                         print("  prerender %-26s #%s" % (index, elem_id))
+        # статический UI (меню, заголовки, кнопки) — тем же языком, что страница
+        for file in pages:
+            n = localize_static(file, ctx, check=a.check)
+            if n:
+                localized += n
+                if a.check:
+                    stale.append("%s (статический UI)" % file)
+                else:
+                    print("  localize  %-26s %s  элементов: %d" % (file, lang, n))
 
     if a.check:
         for s in sorted(set(stale)):
             print("  ! устарело или отсутствует: %s" % s)
         print("проверка: всё свежее" if not stale else "проверка: %d блоков надо пересобрать" % len(stale))
         return 1 if stale else 0
-    print("prerender: обновлено блоков —", written)
+    print("prerender: обновлено блоков — %d, локализовано элементов — %d" % (written, localized))
     return 0
 
 
