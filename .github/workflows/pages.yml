@@ -1,0 +1,38 @@
+# Деплой сайта на GitHub Pages.
+#
+# Это НЕ система сборки: сайт как лежал статикой в корне репозитория, так и
+# лежит. Workflow просто забирает файлы и отдаёт их на CDN Pages. Понадобился
+# потому, что старый (legacy) сборщик Pages перестал работать: любой коммит
+# падал с «Page build failed» без подробностей и с нулевой длительностью.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:   # кнопка «Run workflow» на случай ручного передеплоя
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Параллельные деплои не нужны, но начатый не отменяем — пусть докатится.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      # path: . — публикуем корень репозитория, как это делал старый сборщик
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4
