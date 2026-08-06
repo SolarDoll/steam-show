@@ -67,9 +67,9 @@ window.SS_CONTENT = {
                 ru: 'Огненное театрализованное шоу с трёхметровым драконом в духе классического фэнтези или славянского фольклора. Подходит как для камерных мероприятий, так и для главных сцен крупных фестивалей.' },
         seo: {
           title: { en: 'Dragon Fire Show for Festivals & Events - Steam Show',
-                   ru: 'Шоу с драконом — огненное шоу на праздник — Steam Show' },
+                   ru: 'Заказать огненное шоу с драконом в Минске — Steam Show' },
           desc: { en: 'Book our flagship dragon fire show: a 3-metre dragon in a fantasy or Slavic folk theme, scaled from intimate galas to festival main stages.',
-                  ru: 'Закажите огненное шоу с трёхметровым драконом: фэнтези или славянский фолк. Для фестивалей, свадеб и корпоративов. Минск, Беларусь и гастроли.' }
+                  ru: 'Огненное шоу с трёхметровым драконом: фэнтези или славянский фолк. Заказать на свадьбу, корпоратив или городской праздник. Минск и вся Беларусь.' }
         },
         duration: { en: '10–15 min · adaptable', ru: '10–15 мин · гибко' },
         format:   { en: 'Outdoor', ru: 'Улица' },
@@ -106,9 +106,9 @@ window.SS_CONTENT = {
                 ru: 'Энергичное фаер-шоу с масштабным огненным реквизитом, огнемётами, искровыми эффектами и пиротехникой. Готовые фирменные концепции можно адаптировать под ваше мероприятие.' },
         seo: {
           title: { en: 'Fire Show for Events, Festivals & Weddings - Steam Show',
-                   ru: 'Фаер-шоу на праздник и свадьбу в Минске — Steam Show' },
+                   ru: 'Фаер-шоу в Минске — заказать на свадьбу — Steam Show' },
           desc: { en: 'Book a large-scale fire show: choreographed fire performers, flame props and pyro, themed to fantasy, rock or post-apocalyptic. Great for festivals & weddings.',
-                  ru: 'Закажите фаер-шоу: хореография фаерщиков, огненный реквизит и пиротехника в теме фэнтези, рок или постапокалипсис. Фестивали и свадьбы. Минск, Беларусь.' }
+                  ru: 'Закажите фаер-шоу: хореография фаерщиков, огненный реквизит, огнемёты и пиротехника. Темы: фэнтези, рок, постапокалипсис. Свадьбы и праздники. Минск, Беларусь.' }
         },
         duration: { en: '10–15 min · adaptable', ru: '10–15 мин · гибко' },
         format:   { en: 'Outdoor', ru: 'Улица' },
@@ -155,9 +155,9 @@ window.SS_CONTENT = {
                 ru: 'Уникальное сочетание огненного искусства и LED-технологий. Артисты объединяют живое пламя и световые эффекты в яркое современное представление.' },
         seo: {
           title: { en: 'LED Fire Show - Fire in Glowing Costumes - Steam Show',
-                   ru: 'LED-огненное шоу — огонь и светящиеся костюмы — Steam Show' },
+                   ru: 'Фаер-шоу со светящимися костюмами в Минске — Steam Show' },
           desc: { en: 'A hybrid show mixing live fire with glowing LED costumes: the heat of flame and the colour of light, for festivals, galas and weddings.',
-                  ru: 'Гибридное шоу: живой огонь и LED-костюмы в одном представлении. Для фестивалей, корпоративов и свадеб. Минск, Беларусь и выезд по миру.' }
+                  ru: 'Гибридное шоу: живой огонь и светящиеся LED-костюмы в одном выступлении. Заказать на свадьбу, корпоратив или фестиваль. Минск, Беларусь.' }
         },
         duration: { en: '10–15 min · adaptable', ru: '10–15 мин · гибко' },
         format:   { en: 'Outdoor', ru: 'Улица' },
@@ -172,7 +172,10 @@ window.SS_CONTENT = {
     },
 
     led: {
-      name: { en: 'LED Show', ru: 'LED-шоу' }, nav: { en: 'LED', ru: 'LED' },
+      /* RU-имя — «Световое шоу»: «LED-шоу» по-русски почти не ищут (запрос
+         уводит в программу для бегущей строки и «Лёд и пламень»). В меню
+         остаётся короткое «LED» — там длинному не место. */
+      name: { en: 'LED Show', ru: 'Световое шоу' }, nav: { en: 'LED', ru: 'LED' },
       videos: ['7SCXdglhHgI', 'v3MyA-lNGok', 'U4-_8da2uuI', 'Ain3sUrpU2w', 'T6nHGrLrXoU', 'N7Qj5uU1bH4'],
       card: {
         kind: { en: 'Pure light', ru: 'Свет и технологии' },
@@ -195,9 +198,9 @@ window.SS_CONTENT = {
                 ru: 'Яркое световое шоу с LED-костюмами и эффектным реквизитом, от светящихся крыльев до пиксельных кубов. Мы можем интегрировать ваш логотип в визуальное оформление или превратить выступление в полноценную клубную программу. Идеальное решение для площадок, где использование открытого огня невозможно.' },
         seo: {
           title: { en: 'LED Light Show for Events & Galas - Steam Show',
-                   ru: 'LED световое шоу на мероприятие в Минске — Steam Show' },
+                   ru: 'Световое шоу в Минске — заказать неоновое шоу — Steam Show' },
           desc: { en: 'Smoke-free LED light show: glowing costumes and props like light-up wings and cubes, with your logo built in. Ideal for indoor galas and corporate events.',
-                  ru: 'Бездымное LED световое шоу: светящиеся костюмы и реквизит (крылья, кубы) с вашим логотипом. Для гала и корпоративов в помещении. Минск, Беларусь.' }
+                  ru: 'Световое шоу без огня и дыма: неоновые LED-костюмы и пиксельный реквизит, можно с вашим логотипом. Заказать на корпоратив или гала. Минск, Беларусь.' }
         },
         duration: { en: '10–15 min · adaptable', ru: '10–15 мин · гибко' },
         format:   { en: 'Indoor & outdoor', ru: 'Зал и улица' },
@@ -211,7 +214,7 @@ window.SS_CONTENT = {
           kicker: { en: 'Add-ons', ru: 'Дополнения' },
           title: { en: 'Turn it into a full club show', ru: 'Клубное Шоу' },
           text: { en: 'Playing a club or a party? We can bundle the LED show with our other party formats into one high-energy set: stilt-walking animators, a paper show, confetti blasts and CO₂ cannons.',
-                  ru: 'Клуб или вечеринка? Соберём LED-шоу с другими форматами в один заряженный сет: аниматоры на ходулях, бумажное шоу, конфетти-пушки и CO₂-пушки.' },
+                  ru: 'Клуб или вечеринка? Соберём световое шоу с другими форматами в один заряженный сет: аниматоры на ходулях, бумажное шоу, конфетти-пушки и CO₂-пушки.' },
           tags: [
             { en: 'Paper show', ru: 'Бумажное шоу' },
             { en: 'Confetti', ru: 'Конфетти' },
@@ -243,9 +246,9 @@ window.SS_CONTENT = {
                 ru: 'Коллекция ярких образов великанов-персонажей для анимации или полноценного ходульного шоу. Идеально подходит для welcome-зон, парадов и клубных мероприятий. Костюмы объединены в тематические коллекции и легко комбинируются между собой.' },
         seo: {
           title: { en: 'Stilt Walkers for Events & Parades - Steam Show',
-                   ru: 'Ходулисты на праздник — великаны и анимация — Steam Show' },
+                   ru: 'Ходулисты в Минске — заказать великанов на праздник — Steam Show' },
           desc: { en: 'Book towering stilt walkers for welcome zones, parades and stage shows: dozens of costumes across themes, indoor or outdoor, touring worldwide.',
-                  ru: 'Закажите артистов на ходулях: встреча гостей, парады и шоу на сцене. Десятки образов и тематические коллекции. Минск, Беларусь и выезд по миру.' }
+                  ru: 'Артисты на ходулях: встреча гостей, парады и шоу на сцене, десятки образов. Заказать великанов на праздник или фестиваль. Минск, Беларусь.' }
         },
         duration: { en: 'Roaming or set act', ru: 'Анимация или шоу' },
         format:   { en: 'Indoor & outdoor', ru: 'Зал и улица' },

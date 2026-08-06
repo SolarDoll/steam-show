@@ -49,9 +49,9 @@
   var DICT = {
     /* -- мета/SEO -- */
     'meta.title':   { en: 'Steam Show · Fire, LED & Dragon Performances Worldwide',
-                      ru: 'Steam Show · Огненные, LED и драконьи шоу · Минск' },
+                      ru: 'Заказать фаер-шоу и световое шоу в Минске — Steam Show' },
     'meta.desc':    { en: 'Steam Show · large-scale fire, LED and stilt-walking performances for festivals, weddings and corporate events worldwide. Dragon fire shows, flame cannons, LED costumes and giant stilt characters.',
-                      ru: 'Steam Show · масштабные огненные, LED и ходульные шоу для свадеб, корпоративов, открытий, фестивалей и городских праздников. Драконье фаер-шоу, фаер-пушки, LED-костюмы и великаны на ходулях. Минск, Беларусь.' },
+                      ru: 'Steam Show — фаер-шоу, световое шоу, шоу с драконом и ходулисты. Заказать выступление на свадьбу, корпоратив, открытие или городской праздник. Минск, Беларусь.' },
 
     /* -- шапка / навигация -- */
     'nav.dragon':   { en: 'Dragon',    ru: 'Дракон' },
