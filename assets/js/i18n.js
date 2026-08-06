@@ -95,7 +95,9 @@
     'howwe.3h':     { en: 'Custom on request', ru: 'Уникальные решения' },
     'howwe.3p':     { en: 'For large-scale events we can develop costumes and concepts, an optional add-on, built to your brief.',
                       ru: 'Для крупных событий при необходимости разрабатываем специальные костюмы, персонажей и концепции под вашу идею и задачу.' },
-    'howwe.4h':     { en: 'Touring', ru: 'Выезжаем по всему миру' },
+    /* RU: в заголовке карточки называем город — на локальном рынке важно,
+       что мы свои; EN остаётся про мировые гастроли */
+    'howwe.4h':     { en: 'Touring', ru: 'Из Минска — по всему миру' },
     'howwe.4p':     { en: 'We travel worldwide with our own crew and equipment, ready wherever the stage is.',
                       ru: 'Привозим свою команду, костюмы и оборудование. Работаем на площадках по Беларуси, в регионе и за рубежом.' },
 

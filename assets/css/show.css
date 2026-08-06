@@ -353,6 +353,8 @@ section + section{border-top:1px solid var(--line)}
 .totop.on{opacity:1;pointer-events:auto;transform:none}
 
 .foot{padding:46px 0 max(46px,env(safe-area-inset-bottom));border-top:1px solid var(--line);color:var(--muted);font-size:13px;text-align:center}
+/* RU-only: город второй строкой подвала (в EN-файлах этого элемента нет) */
+.foot-geo{display:block;margin-top:9px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
 
 /* ============================================================
    МОБИЛЬНАЯ ПОЛИРОВКА (2025–2026 стандарты)

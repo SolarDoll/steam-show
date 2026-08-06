@@ -310,6 +310,10 @@ section{position:relative;z-index:2;padding:clamp(70px,11vh,120px) 0}
   border:1px solid var(--line);background:color-mix(in srgb,var(--ink) 2%,transparent);transition:.3s}
 .geo-pill:hover{border-color:var(--accent2);color:var(--accent2);box-shadow:0 0 20px color-mix(in srgb,var(--accent2) 25%,transparent)}
 .geo-pill.world{background:linear-gradient(100deg,var(--accent),var(--accent2));color:#0a0708;border:none}
+/* RU-only: «база» — город, перед капс-меткой «И гастролируем по миру».
+   Кегль как у лида секции, но плотнее и в цвет текста, чтобы строка читалась
+   первой и не спорила с меткой ниже. В index.html этого элемента нет. */
+.geo-base{font-family:var(--body);font-weight:800;font-size:17px;line-height:1.4;margin:0 0 18px;color:var(--ink)}
 @media(max-width:780px){.geo-grid{grid-template-columns:1fr;gap:36px}}
 
 /* голографический глобус — циан-голограмма + розовые города */
@@ -531,11 +535,15 @@ footer.foot{border-top:1px solid var(--line);padding:36px 0;position:relative;z-
 .foot-in{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;
   color:var(--muted);font-size:13px}
 .foot-in img{height:28px;filter:drop-shadow(0 0 10px color-mix(in srgb,var(--accent) 40%,transparent))}
+/* RU-only: город в подвале — он на каждой странице, поэтому это главное место,
+   где сайт говорит, откуда мы. В EN-подвале этого элемента нет. */
+.foot-geo{font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
 /* на телефоне: логотип сверху, тэглайн — одной строкой (не разрывается) */
 @media(max-width:600px){
   .foot-in{flex-direction:column;text-align:center;gap:10px}
   .foot-in>div:first-child{flex-direction:column;gap:8px}
   .foot-in [data-i18n="footer.tagline"]{white-space:nowrap;font-size:clamp(10px,3vw,13px)}
+  .foot-geo{font-size:11px;letter-spacing:.1em}
 }
 
 /* ============================================================
