@@ -10,11 +10,11 @@ Instagram: https://instagram.com/steam_show · YouTube: https://www.youtube.com/
 
 ## Shows
 
-- [Dragon Fire Show](https://steamshow.art/dragon-fire-show.html): flagship fire theatrical show built around a 3-metre dragon, in a classic fantasy or Slavic folk theme. Outdoor, 10–15 min, cast scales to the event.
-- [Fire Show](https://steamshow.art/fire-show.html): large-scale fire choreography with flame props, flamethrowers, fire cannons and pyrotechnics. Signature themes: rock, fantasy, post-apocalyptic, steampunk, Slavic folk; bespoke themes for large events. Outdoor, 10–15 min.
-- [LED Fire Show](https://steamshow.art/led-fire-show.html): hybrid act — live fire performed in glowing LED costumes. Outdoor, 10–15 min.
-- [LED Show](https://steamshow.art/led-show.html): smoke-free light show with LED costumes and programmable props (light-up wings, glowing cubes); props can carry a client logo; expandable into a club programme with paper show, confetti and CO₂ cannons. Indoor and outdoor, 10–15 min.
-- [Stilt Walkers](https://steamshow.art/stilt-walkers.html): towering stilt characters as roaming animation or a full stilt performance. Dozens of costumes grouped into themes (fairy garden, circus, pirates, classics, trees, Christmas, dragons and shamans, giraffe, LED). Indoor and outdoor.
+- [Dragon Fire Show](https://steamshow.art/dragon-fire-show/): flagship fire theatrical show built around a 3-metre dragon, in a classic fantasy or Slavic folk theme. Outdoor, 10–15 min, cast scales to the event.
+- [Fire Show](https://steamshow.art/fire-show/): large-scale fire choreography with flame props, flamethrowers, fire cannons and pyrotechnics. Signature themes: rock, fantasy, post-apocalyptic, steampunk, Slavic folk; bespoke themes for large events. Outdoor, 10–15 min.
+- [LED Fire Show](https://steamshow.art/led-fire-show/): hybrid act — live fire performed in glowing LED costumes. Outdoor, 10–15 min.
+- [LED Show](https://steamshow.art/led-show/): smoke-free light show with LED costumes and programmable props (light-up wings, glowing cubes); props can carry a client logo; expandable into a club programme with paper show, confetti and CO₂ cannons. Indoor and outdoor, 10–15 min.
+- [Stilt Walkers](https://steamshow.art/stilt-walkers/): towering stilt characters as roaming animation or a full stilt performance. Dozens of costumes grouped into themes (fairy garden, circus, pirates, classics, trees, Christmas, dragons and shamans, giraffe, LED). Indoor and outdoor.
 
 ## How they work
 
@@ -26,5 +26,5 @@ Instagram: https://instagram.com/steam_show · YouTube: https://www.youtube.com/
 ## Languages
 
 The site is in English (default) and Russian. Russian pages live at the same
-path with a `-ru` suffix (e.g. https://steamshow.art/index-ru.html,
-https://steamshow.art/fire-show-ru.html) and address the local market.
+path with a `-ru` suffix (e.g. https://steamshow.art/ru/,
+https://steamshow.art/ru/fire-show/) and address the local market.

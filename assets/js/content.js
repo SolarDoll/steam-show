@@ -29,9 +29,9 @@ window.SS_CONTENT = {
      Пути — как есть, не переводятся. Задаём только там, где нужна
      специально подобранная картинка; иначе берётся первое фото шоу. */
   covers: {
-    fire:    'assets/web/fire/fire-cover.jpg',
-    ledfire: 'assets/web/ledfire/ledfire-cover.jpg',
-    stilts:  'assets/web/stilts/stilts-cover.jpg'
+    fire:    '/assets/web/fire/fire-cover.jpg',
+    ledfire: '/assets/web/ledfire/ledfire-cover.jpg',
+    stilts:  '/assets/web/stilts/stilts-cover.jpg'
   },
 
   /* ---------------------------------------------------------

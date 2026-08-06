@@ -32,40 +32,53 @@
   var C = loc(C0);
 
   /* ---- адреса страниц шоу ------------------------------------------
-     У каждого шоу свой файл в корне (не ?show=), чтобы поисковики и
-     мессенджеры видели отдельную страницу с собственными мета-тегами.
-     Файлы лежат рядом с index.html — относительные пути к assets/
-     работают из них без изменений. Единственный источник правды:
+     У каждого шоу свой адрес-папка (не ?show=), чтобы поисковики и
+     мессенджеры видели отдельную страницу с собственными мета-тегами:
+     /dragon-fire-show/, а русская версия — /ru/dragon-fire-show/. Файл
+     внутри папки называется index.html, поэтому адрес без расширения.
+     Все пути в проекте — от корня домена (/assets/...), иначе на разной
+     глубине папок они бы разъехались. Единственный источник правды:
      и меню, и карточки, и canonical берут адрес отсюда.
      Старый show.html?show=<id> остаётся рабочим (разосланные ссылки),
      canonical с него ведёт на новый адрес. ------------------------- */
   var PAGES = {
-    dragon:  'dragon-fire-show.html',
-    fire:    'fire-show.html',
-    ledfire: 'led-fire-show.html',
-    led:     'led-show.html',
-    stilts:  'stilt-walkers.html'
+    dragon:  '/dragon-fire-show/',
+    fire:    '/fire-show/',
+    ledfire: '/led-fire-show/',
+    led:     '/led-show/',
+    stilts:  '/stilt-walkers/'
   };
-  /* У русской версии свои файлы: <имя>-ru.html рядом с английскими. Так
-     RU-текст лежит в HTML (поисковик его видит), а относительные пути к
-     assets/ остаются прежними — в подпапке они бы сломались. */
-  function ru(file) { return file.replace(/\.html$/, '-ru.html'); }
-  /* файл шоу на нужном языке — для ссылок, canonical и sitemap */
+  /* Русская версия — те же адреса под префиксом /ru/. Язык в первом
+     сегменте пути: так у RU-страницы свой HTML (поисковик видит текст),
+     а адреса двух языков симметричны. */
+  function ru(path) { return '/ru' + path; }
+  /* адрес шоу на нужном языке — для ссылок, canonical и sitemap */
   function page(id, lang) {
-    var f = PAGES[id] || 'index.html';
-    return (lang || LANG) === 'ru' ? ru(f) : f;
+    var p = PAGES[id] || '/';
+    return (lang || LANG) === 'ru' ? ru(p) : p;
   }
   /* главная на текущем языке (ссылки «О нас», логотип на страницах шоу) */
-  function home(lang) { return (lang || LANG) === 'ru' ? 'index-ru.html' : 'index.html'; }
-  /* ссылка для навигации. Язык уже зашит в имя файла; ?lang добавляем только
+  function home(lang) { return (lang || LANG) === 'ru' ? '/ru/' : '/'; }
+  /* ссылка для навигации. Язык уже зашит в адрес; ?lang добавляем только
      если пользователь пришёл со старой ссылки вида ?lang=ru на EN-страницу */
   function url(id) { return page(id); }
-  /* обратный разбор: файл → id шоу (popstate, определение стартового шоу).
-     Понимает оба языка. */
+  /* обратный разбор: адрес → id шоу (popstate, определение стартового шоу).
+     Понимает оба языка и оба вида адреса — новый (/fire-show/) и старый
+     плоский (/fire-show.html, /fire-show-ru.html): по старым ссылкам ещё
+     ходят, а заглушка успевает отработать не мгновенно. */
   function idByPage(path) {
-    var file = String(path || '').split('/').pop().replace(/-ru\.html$/, '.html');
-    for (var k in PAGES) if (PAGES[k] === file) return k;
+    var p = normPath(path);
+    for (var k in PAGES) if (PAGES[k] === p) return k;
     return null;
+  }
+  /* адрес → «английский» адрес-папка: снимаем префикс языка, старое плоское
+     имя (/fire-show-ru.html) и явный index.html сводим к /fire-show/ */
+  function normPath(path) {
+    var p = String(path || '').replace(/^\/ru(?=\/|$)/, '');
+    p = p.replace(/-ru\.html$/, '.html').replace(/index\.html$/, '').replace(/\.html$/, '/');
+    if (p.charAt(p.length - 1) !== '/') p += '/';
+    if (p.charAt(0) !== '/') p = '/' + p;
+    return p;
   }
 
   /* ---- экономный режим ---------------------------------------------

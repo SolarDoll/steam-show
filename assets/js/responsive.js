@@ -48,7 +48,7 @@
   }
 
   function scan(root) {
-    (root || document).querySelectorAll('img[loading="lazy"][src^="assets/web/"]').forEach(upgrade);
+    (root || document).querySelectorAll('img[loading="lazy"][src^="/assets/web/"]').forEach(upgrade);
   }
 
   var host = document.getElementById('page') || document.body;

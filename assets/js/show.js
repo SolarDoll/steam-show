@@ -42,15 +42,6 @@
       else el.parentNode.removeChild(el);
     });
   }
-  /* блок «Другие шоу» лежит в HTML статикой: ссылка на своё шоу помечена
-     hidden. При SPA-переходе прячем ссылку на новое шоу и возвращаем ту,
-     с которой ушли. */
-  function syncMoreLinks(id) {
-    document.querySelectorAll('.morelinks li[data-show]').forEach(function (li) {
-      li.hidden = li.getAttribute('data-show') === id;
-    });
-  }
-
   /* alt для галерейных снимков. Без него фото не попадают в поиск по
      картинкам и не читаются скринридером. Описываем не сам кадр (выдумывать
      нельзя), а к чему он относится: «<шоу или тема> — <подпись> N».
@@ -231,7 +222,6 @@
 
     page.innerHTML = html;
     SS.fitContactValues();
-    syncMoreLinks(id);
     wirePage(id, s);
     wireSpy(nav);
     window.scrollTo(0, 0);
@@ -507,22 +497,28 @@
     }, { passive: true });
     totop.onclick = function () { scrollTo({ top: 0, behavior: 'smooth' }); };
 
-    /* ссылки меню — настоящие href на файлы шоу (для поисковиков и
-       «открыть в новой вкладке»); клик перехватываем для SPA-перехода */
+    /* Ссылки меню лежат в HTML статикой — так их видят и роботы, которые не
+       выполняют JS, и работает «открыть в новой вкладке». Строим их здесь
+       только если разметка пустая (старая show.html?show=). Клик в любом
+       случае перехватываем для перехода без перезагрузки. */
     function navLink(id) {
       return '<a data-id="' + id + '" href="' + SS.url(id) + '">' + esc(SS.show(id).nav) + '</a>';
     }
     var shownav = document.getElementById('shownav');
-    shownav.innerHTML = SS.order.map(navLink).join('') +
-      '<a class="process" href="' + SS.home() + '#howwe">' + esc(T('nav.about')) + '</a>';
+    if (!shownav.querySelector('a')) {
+      shownav.innerHTML = SS.order.map(navLink).join('') +
+        '<a class="process" href="' + SS.home() + '#howwe">' + esc(T('nav.about')) + '</a>';
+    }
     shownav.querySelectorAll('a[data-id]').forEach(function (a) { wireShowLink(a); });
 
     /* мобильное меню — те же шоу + About + Book */
     var mob = document.getElementById('mobmenu'), nb = document.getElementById('navBtn');
     if (mob) {
-      mob.innerHTML = SS.order.map(navLink).join('') +
-        '<a href="' + SS.home() + '#howwe">' + esc(T('nav.about')) + '</a>' +
-        '<a class="m-book" href="#book">' + esc(T('cta.book')) + '</a>';
+      if (!mob.querySelector('a')) {
+        mob.innerHTML = SS.order.map(navLink).join('') +
+          '<a href="' + SS.home() + '#howwe">' + esc(T('nav.about')) + '</a>' +
+          '<a class="m-book" href="#book">' + esc(T('cta.book')) + '</a>';
+      }
       function closeMenu() { document.body.classList.remove('nav-open'); if (nb) nb.setAttribute('aria-expanded', 'false'); }
       mob.querySelectorAll('a[data-id]').forEach(function (a) { wireShowLink(a, closeMenu); });
       mob.querySelectorAll('a:not([data-id])').forEach(function (a) {

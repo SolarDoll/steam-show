@@ -210,19 +210,34 @@ data = {
     "stilts": {"stars": [], "themes": themes, "other": other},
 }
 
+# Внутри скрипта пути к медиа — файловые (assets/web/...): по ним читаем и
+# копируем файлы. В манифест они уходят адресами от корня домена (/assets/...),
+# потому что страницы лежат на разной глубине (/ru/fire-show/) и относительный
+# путь из них не разрешился бы.
+def as_url(node):
+    if isinstance(node, str):
+        return "/" + node if node.startswith(WEB) else node
+    if isinstance(node, list):
+        return [as_url(x) for x in node]
+    if isinstance(node, dict):
+        # ключи тоже переводим: в манифесте адаптивных копий путь — это ключ
+        return {as_url(k): as_url(v) for k, v in node.items()}
+    return node
+
+
 out = "assets/js/media.js"
 with open(out, "w", encoding="utf-8") as f:
     f.write("/* АВТОГЕНЕРАЦИЯ: python scripts/build.py — руками не править.\n")
-    f.write("   Только пути к медиа. Весь копирайт/имена/YouTube-ID — в content.js. */\n")
-    f.write("window.SS_MEDIA = " + json.dumps(data, ensure_ascii=False, indent=2) + ";\n")
+    f.write("   Только пути к медиа (от корня домена). Копирайт/имена/YouTube-ID — в content.js. */\n")
+    f.write("window.SS_MEDIA = " + json.dumps(as_url(data), ensure_ascii=False, indent=2) + ";\n")
 print("written:", out)
 
 # манифест адаптивных копий (для responsive.js)
 srcset_out = "assets/js/srcset.js"
 with open(srcset_out, "w", encoding="utf-8") as f:
     f.write("/* АВТОГЕНЕРАЦИЯ: python scripts/build.py (или gen_srcset.py) — руками не править.\n")
-    f.write("   Карта адаптивных копий: путь -> [ширина_мелкой, ширина_оригинала]. */\n")
-    f.write("window.SS_SRCSET = " + json.dumps(SRCSET, ensure_ascii=False, separators=(",", ":")) + ";\n")
+    f.write("   Карта адаптивных копий: адрес -> [ширина_мелкой, ширина_оригинала]. */\n")
+    f.write("window.SS_SRCSET = " + json.dumps(as_url(SRCSET), ensure_ascii=False, separators=(",", ":")) + ";\n")
 print("written:", srcset_out, "(", len(SRCSET), "variants )")
 
 # SEO: карта сайта (lastmod считается сам) + видео-разметка страниц шоу.

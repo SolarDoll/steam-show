@@ -8,21 +8,28 @@ Live: https://steamshow.art/
 ## Структура
 
 ```
-index.html            — главная (hero, программы, «как работаем», гео, контакты)
+index.html            — главная, адрес /  (hero, программы, «как работаем»,
+                        гео, контакты)
 
-dragon-fire-show.html — страницы шоу: по файлу на шоу. Внутри только мета-теги
-fire-show.html          (title/description/OG/canonical + JSON-LD) и строка
-led-fire-show.html      window.SS_SHOW; всё содержимое рендерит show.js.
-led-show.html           Лежат в корне, чтобы относительные пути к assets/
-stilt-walkers.html      работали без изменений.
+dragon-fire-show/     — страницы шоу: по папке на шоу, файл внутри —
+fire-show/              index.html, поэтому адрес без расширения:
+led-fire-show/          /dragon-fire-show/. В файле только мета-теги
+led-show/               (title/description/OG/canonical + JSON-LD) и строка
+stilt-walkers/          window.SS_SHOW; содержимое рендерит show.js.
 
-index-ru.html         — русские версии тех же страниц: <имя>-ru.html.
-dragon-fire-show-ru.html  Отличаются только мета-тегами (русские
-fire-show-ru.html         title/description/OG, свой canonical, JSON-LD
-led-fire-show-ru.html     с inLanguage) и строкой window.SS_LANG_FORCE.
-led-show-ru.html          Тексты берутся из тех же content.js / i18n.js.
-stilt-walkers-ru.html     Лежат в корне (не в /ru/), иначе относительные
-                          пути к assets/ пришлось бы переписывать.
+ru/                   — русские версии тех же страниц под префиксом языка:
+  index.html            /ru/, /ru/fire-show/ и т.д. Отличаются только
+  dragon-fire-show/     мета-тегами (русские title/description/OG, свой
+  fire-show/            canonical, JSON-LD с inLanguage) и строкой
+  led-fire-show/        window.SS_LANG_FORCE. Тексты — из тех же
+  led-show/             content.js / i18n.js.
+  stilt-walkers/
+
+<имя>.html            — заглушки старых плоских адресов (fire-show.html,
+<имя>-ru.html           fire-show-ru.html, index-ru.html…). GitHub Pages не
+                        умеет 301, поэтому переадресуют мета-тегом и JS,
+                        canonical сразу указывает на новый адрес, noindex.
+                        Нужны, пока по старым ссылкам ещё ходят.
 
 show.html             — старый адрес шоу (?show=<id>). Рабочий ради уже
                         разосланных ссылок, но помечен noindex: в поиске
@@ -76,14 +83,17 @@ scripts/yt-meta.json  — кэш метаданных роликов с YouTube 
 ### Добавить новое шоу
 
 1. Описание — в `content.js` (в том числе `detail.seo` для мета-тегов).
-2. Адрес файла — в `PAGES` в `assets/js/data.js`.
-3. Два файла страницы: `<имя>.html` и `<имя>-ru.html` (проще скопировать
+2. Адрес — в `PAGES` в `assets/js/data.js` (вид `/<имя>/`).
+3. Две страницы: `<имя>/index.html` и `ru/<имя>/index.html` (проще скопировать
    соседние и заменить мета-теги, `window.SS_SHOW` и `hreflang`).
-   Не забыть блок `.morelinks` внизу — там ссылки на соседние шоу.
-4. Дописать страницу в `PAGES` и `SHOW_PAGES` в `scripts/seo.py`
-   (и кадр для превью ссылки в `OG_IMAGES`). Остальное скрипт сделает сам —
-   при деплое или по `python scripts/seo.py`: карта сайта, видео-разметка,
-   превью 1200×630 и список недостающих мета-тегов.
+   Не забыть дописать шоу в статичную шапку (`#shownav` и `#mobmenu`) на всех
+   страницах шоу — ссылки там лежат в HTML, а не рисуются JS.
+4. Дописать строку в `SHOWS` в `scripts/seo.py` (и кадр для превью ссылки
+   в `OG_IMAGES`). Остальное скрипт сделает сам — при деплое или по
+   `python scripts/seo.py`: карта сайта, видео-разметка, превью 1200×630
+   и список недостающих мета-тегов.
+5. Заглушки старых плоских адресов новому шоу не нужны — их делали только
+   для страниц, которые успели разойтись ссылками.
 
 ## Пересборка медиа
 
@@ -141,10 +151,11 @@ python scripts/seo.py --refresh   # перезабрать метаданные 
 результат в репозитории до пуша (og-картинки собираются лишь локально —
 в CI нет Pillow).
 
-Что остаётся руками (в самих `.html`): `title`, `description`, OG/Twitter,
-`og:image:alt`, JSON-LD шоу и блок перелинковки `.morelinks` внизу страницы.
+Что остаётся руками (в самих `index.html` страниц): `title`, `description`,
+OG/Twitter, `og:image:alt`, JSON-LD шоу и ссылки статичной шапки.
 Русские страницы — с локальной привязкой (`areaServed` Минск/Беларусь,
-`address`), английские — нейтрально по миру, происхождение не светим.
+`address`, город в подвале и в тексте), английские — нейтрально по миру,
+происхождение не светим.
 
 ### Пре-рендер: текстовая версия страниц
 
@@ -173,11 +184,15 @@ srcset-вариантами, и трафик ушёл бы впустую.
 
 ## Локальный запуск
 
-Сборки нет. Для корректных относительных путей поднять локальный сервер:
+Сборки нет, но **открыть файл двойным щелчком (`file://`) нельзя**: все пути
+в проекте — от корня домена (`/assets/…`, `/ru/fire-show/`), из `file://` они
+не разрешатся. Нужен локальный сервер:
 
 ```bash
 python -m http.server 8000
-# http://localhost:8000/index.html
+# http://localhost:8000/            — главная
+# http://localhost:8000/ru/         — русская версия
+# http://localhost:8000/fire-show/  — страница шоу
 ```
 
 ## Деплой

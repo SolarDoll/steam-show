@@ -18,7 +18,7 @@
   /* ---- определить язык ----
      Приоритет: ?lang= (явное намерение, поддержка старых ссылок) →
      язык самой страницы (window.SS_LANG_FORCE проставлен в каждом файле:
-     у русских версий свой файл <имя>-ru.html) → запомненный выбор → EN.
+     русские версии лежат под /ru/) → запомненный выбор → EN.
      Язык страницы важнее запомненного: иначе на английский адрес лёг бы
      русский текст, и страница разошлась бы со своими мета-тегами. */
   var qs, urlLang = null;
@@ -214,21 +214,25 @@
   /* адрес этой же страницы на другом языке; null — если пары нет
      (например, у старого show.html?show=) */
   function pageForLang(next) {
-    var file = location.pathname.split('/').pop() || 'index.html';
-    var base = file.replace(/-ru\.html$/, '.html');
-    var known = ['index.html'];
+    /* адрес приводим к «английской» форме: снимаем префикс /ru, старое плоское
+       имя (/fire-show-ru.html) и явный index.html сводим к виду /fire-show/ */
+    var base = location.pathname.replace(/^\/ru(?=\/|$)/, '');
+    base = base.replace(/-ru\.html$/, '.html').replace(/index\.html$/, '').replace(/\.html$/, '/');
+    if (!base || base.charAt(base.length - 1) !== '/') base += '/';
+    if (base.charAt(0) !== '/') base = '/' + base;
+    var known = ['/'];
     if (window.SS && window.SS.pages) {
       for (var k in window.SS.pages) known.push(window.SS.pages[k]);
     }
     if (known.indexOf(base) < 0) return null;
-    return next === 'ru' ? base.replace(/\.html$/, '-ru.html') : base;
+    return next === 'ru' ? '/ru' + base : base;
   }
 
   function setLang(next) {
     if (SUPPORTED.indexOf(next) < 0 || next === lang) return;
     try { localStorage.setItem(STORE, next); } catch (e) {}
-    /* у русской версии свой файл — переключение языка это переход на него
-       (место на странице сохраняем через хеш) */
+    /* у русской версии свой адрес под /ru/ — переключение языка это переход
+       на него (место на странице сохраняем через хеш) */
     var target = pageForLang(next);
     if (target) { location.href = target + location.hash; return; }
     var u = new URL(location.href);          /* страница без пары — по-старому */

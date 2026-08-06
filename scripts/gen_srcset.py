@@ -82,7 +82,9 @@ def main():
                 except Exception as e:
                     print("  ! avif skip", f, e)
                     has_av = 0
-            manifest[f] = [sw, ow, oh, has_av]
+            # ключ — адрес от корня домена (страницы лежат на разной глубине,
+            # относительный путь из /ru/fire-show/ не разрешился бы)
+            manifest["/" + f] = [sw, ow, oh, has_av]
         except Exception as e:
             print("  ! skip", f, e)
     with open(OUT, "w", encoding="utf-8") as out:

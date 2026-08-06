@@ -32,7 +32,7 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from seo import ROOT, SHOW_PAGES, read, write, rel, ru  # общий список страниц
+from seo import ROOT, SHOW_PAGES, read, write, rel, ru, page_path  # общий список страниц
 
 try:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -311,8 +311,9 @@ def index_blocks(ctx):
     for sid in ctx.content["order"]:
         show = ctx.content["shows"][sid]
         card = show["card"]
+        file = PAGE_OF[sid] if ctx.lang == "en" else ru(PAGE_OF[sid])
         rows.append('<a href="%s">%s</a> — %s'
-                    % (esc(PAGE_OF[sid] if ctx.lang == "en" else ru(PAGE_OF[sid])),
+                    % (esc(page_path(file)),
                        esc(ctx.p(show["name"])), esc(ctx.p(card["desc"]))))
     shows = '<div class="prerender">%s</div>' % ul(rows)
 

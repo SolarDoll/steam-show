@@ -21,7 +21,7 @@ Steam Show — SEO-автоматика: sitemap, видео-разметка, �
   python scripts/seo.py --check     ничего не пишет, только проверки
   python scripts/seo.py --refresh   перезабрать метаданные всех роликов заново
 
-Новое шоу: дописать страницу в PAGES и id в SHOW_PAGES — и прогнать скрипт.
+Новое шоу: дописать строку в SHOWS — и прогнать скрипт.
 """
 import argparse
 import datetime
@@ -46,24 +46,22 @@ CONTENT_JS = "assets/js/content.js"
 YT_CACHE = "scripts/yt-meta.json"
 SITEMAP = "sitemap.xml"
 
-# Страницы сайта: (EN-файл, приоритет). RU-версия (<имя>-ru.html) добавляется
-# автоматически с приоритетом на 0.1 ниже — она вторична по отношению к EN.
-PAGES = [
-    ("index.html", 1.0),
-    ("dragon-fire-show.html", 0.9),
-    ("fire-show.html", 0.9),
-    ("led-fire-show.html", 0.8),
-    ("led-show.html", 0.8),
-    ("stilt-walkers.html", 0.8),
+# Шоу: (id как в content.js, папка страницы, приоритет в sitemap).
+# Порядок = как в content.js. Из этого выводится всё остальное:
+#   EN-страница  <папка>/index.html      -> адрес /<папка>/
+#   RU-страница  ru/<папка>/index.html   -> адрес /ru/<папка>/
+SHOWS = [
+    ("dragon", "dragon-fire-show", 0.9),
+    ("fire", "fire-show", 0.9),
+    ("ledfire", "led-fire-show", 0.8),
+    ("led", "led-show", 0.8),
+    ("stilts", "stilt-walkers", 0.8),
 ]
-# id шоу -> EN-файл страницы (для видео-разметки; порядок = как в content.js)
-SHOW_PAGES = [
-    ("dragon", "dragon-fire-show.html"),
-    ("fire", "fire-show.html"),
-    ("ledfire", "led-fire-show.html"),
-    ("led", "led-show.html"),
-    ("stilts", "stilt-walkers.html"),
-]
+# Страницы сайта: (EN-файл, приоритет). RU-версия добавляется автоматически
+# с приоритетом на 0.1 ниже — она вторична по отношению к EN.
+PAGES = [("index.html", 1.0)] + [("%s/index.html" % slug, prio) for _sid, slug, prio in SHOWS]
+# id шоу -> EN-файл страницы (для видео-разметки)
+SHOW_PAGES = [(sid, "%s/index.html" % slug) for sid, slug, _prio in SHOWS]
 # Общие источники текста и медиа: правка в них меняет содержимое ВСЕХ страниц
 # (текст подставляет JS), поэтому lastmod считаем и по ним.
 SHARED = ["assets/js/content.js", "assets/js/media.js"]
@@ -113,12 +111,20 @@ def write(p, text):
 
 
 def ru(file):
-    return file.replace(".html", "-ru.html")
+    """русская версия страницы — тот же путь под префиксом ru/"""
+    return "ru/" + file
+
+
+def page_path(file):
+    """адрес страницы по её файлу: <папка>/index.html -> /<папка>/,
+       а корневой index.html -> /"""
+    tail = "index.html"
+    p = file[:-len(tail)] if file.endswith(tail) else file
+    return "/" + p.lstrip("/")
 
 
 def page_url(file):
-    """адрес страницы: index.html — это корень сайта, остальное — /<файл>"""
-    return SITE + "/" if file == "index.html" else SITE + "/" + file
+    return SITE + page_path(file)
 
 
 # ---------------------------------------------------------------- content.js
@@ -351,8 +357,8 @@ def build_sitemap():
            "     Список страниц и приоритеты — в PAGES внутри скрипта; lastmod\n"
            "     считается по датам коммитов страницы и общих источников контента.\n"
            "     Отправляется в Google Search Console / Яндекс.Вебмастер. Русские\n"
-           "     версии — отдельные файлы <имя>-ru.html; связь языков объявлена\n"
-           "     тегами hreflang в самих страницах. -->\n"
+           "     версии лежат под /ru/; связь языков объявлена тегами hreflang\n"
+           "     в самих страницах. -->\n"
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
            + "\n".join(rows) + "\n</urlset>\n")
     old = read(SITEMAP) if os.path.isfile(rel(SITEMAP)) else ""
