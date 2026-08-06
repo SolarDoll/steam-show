@@ -42,6 +42,13 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/icon-16.png">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
+<!-- Превью роликов и плеер грузятся с доменов YouTube. Соединение (DNS + TLS)
+     открываем заранее: к моменту, когда галерея дорисуется и запросит
+     картинки, рукопожатие уже позади. Только на страницах шоу — на главной
+     обложки свои, локальные. -->
+<link rel="preconnect" href="https://i.ytimg.com">
+<link rel="preconnect" href="https://www.youtube-nocookie.com">
+
 <script>window.SS_LANG_FORCE = 'ru';</script>
 <link rel="stylesheet" href="/assets/css/fonts.css">
 <link rel="stylesheet" href="/assets/css/show.css">
@@ -91,7 +98,10 @@
     <a data-id="stilts" href="/ru/stilt-walkers/" data-i18n="nav.stilts">Ходули</a>
     <a class="process" href="/ru/#howwe" data-i18n="nav.about">О нас</a>
   </nav>
-  <div class="langsw" data-langsw></div>
+  <!-- Языки — настоящими ссылками, а не кнопками: переключатель работает
+       до выполнения JS, открывается в новой вкладке и виден роботам.
+       Класс .on и aria-current поправит i18n.js, если язык сменится. -->
+  <div class="langsw" data-langsw role="group" aria-label="Язык"><a class="langsw__b" href="/fire-show/" data-setlang="en">EN</a><a class="langsw__b on" href="/ru/fire-show/" data-setlang="ru" aria-current="true">RU</a></div>
   <a class="nav-cta" href="#book" data-i18n="cta.book">Заказать шоу</a>
   <button class="nav-toggle" id="navBtn" aria-label="Menu" aria-expanded="false">☰</button>
 </div>

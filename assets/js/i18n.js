@@ -241,16 +241,39 @@
   }
   window.SS_setLang = setLang;
 
+  /* Переключатель лежит в HTML статикой — двумя <a> с готовыми адресами
+     (см. index.html и страницы шоу). Так он есть и без JS: работает клик,
+     средняя кнопка мыши, «открыть в новой вкладке», а роботы видят связь
+     языковых версий ссылкой, а не только тегом hreflang.
+     JS здесь только дописывает aria и запоминает выбор — переход делает
+     сам браузер по href. Если статики нет (старый /show.html, у которого
+     нет языковой пары), рисуем переключатель по-прежнему сами. */
   function buildToggle() {
     document.querySelectorAll('[data-langsw]').forEach(function (box) {
       box.setAttribute('role', 'group');
       box.setAttribute('aria-label', T('lang.aria'));
-      box.innerHTML = SUPPORTED.map(function (l) {
-        return '<button type="button" class="langsw__b' + (l === lang ? ' on' : '') + '" data-setlang="' + l +
-          '" aria-pressed="' + (l === lang) + '">' + l.toUpperCase() + '</button>';
-      }).join('');
+      if (!box.querySelector('[data-setlang]')) {
+        box.innerHTML = SUPPORTED.map(function (l) {
+          var href = pageForLang(l);
+          return '<a class="langsw__b' + (l === lang ? ' on' : '') + '" data-setlang="' + l + '"' +
+            (href ? ' href="' + href + '"' : '') +
+            (l === lang ? ' aria-current="true"' : '') + '>' + l.toUpperCase() + '</a>';
+        }).join('');
+      }
       box.querySelectorAll('[data-setlang]').forEach(function (b) {
-        b.addEventListener('click', function () { setLang(b.getAttribute('data-setlang')); });
+        /* подсветка активного: в статике она проставлена по языку страницы,
+           но ?lang= может его переопределить — сверяем с фактическим */
+        var me = b.getAttribute('data-setlang') === lang;
+        b.classList.toggle('on', me);
+        if (me) b.setAttribute('aria-current', 'true');
+        else b.removeAttribute('aria-current');
+        b.addEventListener('click', function (e) {
+          var next = b.getAttribute('data-setlang');
+          /* выбор запоминаем всегда; переход отдаём браузеру, если у ссылки
+             есть href (обычный случай) — иначе уводим сами */
+          try { localStorage.setItem(STORE, next); } catch (err) {}
+          if (!b.getAttribute('href')) { e.preventDefault(); setLang(next); }
+        });
       });
     });
   }

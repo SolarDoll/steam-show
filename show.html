@@ -20,6 +20,13 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/icon-16.png">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
+<!-- Превью роликов и плеер грузятся с доменов YouTube. Соединение (DNS + TLS)
+     открываем заранее: к моменту, когда галерея дорисуется и запросит
+     картинки, рукопожатие уже позади. Только на страницах шоу — на главной
+     обложки свои, локальные. -->
+<link rel="preconnect" href="https://i.ytimg.com">
+<link rel="preconnect" href="https://www.youtube-nocookie.com">
+
 <link rel="stylesheet" href="/assets/css/fonts.css">
 <link rel="stylesheet" href="/assets/css/show.css">
 </head>

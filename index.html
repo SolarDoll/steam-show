@@ -87,7 +87,10 @@
       <a href="#howwe" data-i18n="nav.about">About us</a>
       <a href="#contact" class="m-book" data-i18n="cta.book">Book the show</a>
     </nav>
-    <div class="langsw" data-langsw></div>
+    <!-- Языки — настоящими ссылками, а не кнопками: переключатель работает
+         до выполнения JS, открывается в новой вкладке и виден роботам.
+         Класс .on и aria-current поправит i18n.js, если язык сменится. -->
+    <div class="langsw" data-langsw role="group" aria-label="Language"><a class="langsw__b on" href="/" data-setlang="en" aria-current="true">EN</a><a class="langsw__b" href="/ru/" data-setlang="ru">RU</a></div>
     <a class="nav-cta" href="#contact" data-i18n="cta.book">Book the show</a>
     <button class="nav-toggle" id="navBtn" aria-label="Menu" aria-expanded="false">☰</button>
   </div>

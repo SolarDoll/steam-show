@@ -25,6 +25,8 @@ Instagram: https://instagram.com/steam_show · YouTube: https://www.youtube.com/
 
 ## Languages
 
-The site is in English (default) and Russian. Russian pages live at the same
-path with a `-ru` suffix (e.g. https://steamshow.art/ru/,
-https://steamshow.art/ru/fire-show/) and address the local market.
+The site is in English (default) and Russian. English pages sit at the root
+(https://steamshow.art/, https://steamshow.art/fire-show/); the Russian version
+of the same page lives under the `/ru/` prefix (https://steamshow.art/ru/,
+https://steamshow.art/ru/fire-show/) and addresses the local market — Minsk and
+Belarus — rather than the worldwide touring offer.
