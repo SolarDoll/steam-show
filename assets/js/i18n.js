@@ -56,7 +56,7 @@
     /* -- шапка / навигация -- */
     'nav.dragon':   { en: 'Dragon',    ru: 'Дракон' },
     'nav.fire':     { en: 'Fire',      ru: 'Огонь' },
-    'nav.ledfire':  { en: 'LED Fire',  ru: 'LED-огонь' },
+    'nav.ledfire':  { en: 'LED Fire',  ru: 'LED+Огонь' },
     'nav.led':      { en: 'LED',       ru: 'LED' },
     'nav.stilts':   { en: 'Stilts',    ru: 'Ходули' },
     'nav.about':    { en: 'About us',  ru: 'О нас' },

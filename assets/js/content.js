@@ -136,7 +136,7 @@ window.SS_CONTENT = {
     },
 
     ledfire: {
-      name: { en: 'LED Fire Show', ru: 'LED+Огонь' }, nav: { en: 'LED Fire', ru: 'LED-огонь' },
+      name: { en: 'LED Fire Show', ru: 'LED+Огонь' }, nav: { en: 'LED Fire', ru: 'LED+Огонь' },
       videos: ['aq-PXZIlsyo', 'NwEsu64rFzY', 'sckZxk4r22c', 'vWRxsfORdOg'],
       card: {
         kind: { en: 'Glow + Flame', ru: 'Гибридное шоу' },
