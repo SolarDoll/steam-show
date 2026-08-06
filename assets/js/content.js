@@ -203,9 +203,9 @@ window.SS_CONTENT = {
         format:   { en: 'Indoor & outdoor', ru: 'Зал и улица' },
         cast:     { en: 'Scalable', ru: 'Масштабируется' },
         chips: [
-          { en: 'Smoke-free', ru: 'Без дыма' },
-          { en: 'LED catalogue', ru: 'Каталог LED' },
-          { en: 'Full luminous', ru: 'Полный свет' }
+          { en: 'Pixel props', ru: 'Пиксельный реквизит' },
+          { en: 'Your logo', ru: 'Ваш логотип' },
+          { en: 'Smoke-free', ru: 'Без дыма' }
         ],
         addon: {
           kicker: { en: 'Add-ons', ru: 'Дополнения' },
