@@ -3,7 +3,7 @@
 Статичный промо-сайт шоу-проекта **Steam Show** (огонь · LED · драконы · ходулисты).
 Чистый HTML + CSS + vanilla JS, без фреймворков и сборки. Деплой — GitHub Pages.
 
-Live: https://solardoll.github.io/steam-show/
+Live: https://steamshow.art/
 
 ## Структура
 
@@ -28,8 +28,9 @@ show.html             — старый адрес шоу (?show=<id>). Рабо�
                         разосланных ссылок, но помечен noindex: в поиске
                         участвуют отдельные страницы выше.
 404.html              — своя страница «не найдено» (GitHub Pages отдаёт её сам)
-robots.txt            — для поисковиков (действует только на своём домене,
-                        см. «Деплой»)
+CNAME                 — свой домен steamshow.art. Файл читает GitHub Pages,
+                        удалить = вернуться на адрес *.github.io
+robots.txt            — для поисковиков
 sitemap.xml           — карта сайта: главная + 5 страниц шоу. Добавили
                         страницу — дописать <url> руками.
 llms.txt              — краткое описание шоу и контактов для AI-поисковиков
@@ -110,6 +111,13 @@ python -m http.server 8000
 ## Деплой
 
 Автоматически с ветки `main` (root) на GitHub Pages.
+
+Домен — `steamshow.art` (регистратор Porkbun), подключён файлом `CNAME`.
+DNS: четыре A и четыре AAAA записи на IP GitHub Pages для корня домена плюс
+CNAME `www` → `solardoll.github.io` (GitHub сам редиректит www на корень).
+Старый адрес `solardoll.github.io/steam-show/` редиректится на домен, но все
+абсолютные ссылки (canonical, hreflang, OG, JSON-LD, sitemap, robots, llms)
+уже переписаны на `https://steamshow.art/` — при смене домена искать по нему.
 
 ## Правила для AI-ассистентов
 

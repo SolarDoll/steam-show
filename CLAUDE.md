@@ -9,7 +9,8 @@
 
 ## Репозиторий и деплой
 - GitHub: `SolarDoll/steam-show`, рабочая ветка `main`.
-- Live (после включения Pages): https://solardoll.github.io/steam-show/
+- Live: https://steamshow.art/ (свой домен, подключён файлом `CNAME`; старый адрес
+  `solardoll.github.io/steam-show/` редиректится сюда).
 
 ## Что это за проект
 Статичный сайт проекта **Steam Show**. Пока это базовая заготовка — конкретика по контенту,

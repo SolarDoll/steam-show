@@ -5,76 +5,76 @@
      тегами hreflang в самих страницах. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://solardoll.github.io/steam-show/</loc>
-    <lastmod>2026-07-31</lastmod>
+    <loc>https://steamshow.art/</loc>
+    <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://solardoll.github.io/steam-show/dragon-fire-show.html</loc>
-    <lastmod>2026-07-31</lastmod>
+    <loc>https://steamshow.art/dragon-fire-show.html</loc>
+    <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://solardoll.github.io/steam-show/fire-show.html</loc>
-    <lastmod>2026-07-31</lastmod>
+    <loc>https://steamshow.art/fire-show.html</loc>
+    <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://solardoll.github.io/steam-show/led-fire-show.html</loc>
-    <lastmod>2026-07-31</lastmod>
+    <loc>https://steamshow.art/led-fire-show.html</loc>
+    <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://solardoll.github.io/steam-show/led-show.html</loc>
-    <lastmod>2026-07-31</lastmod>
+    <loc>https://steamshow.art/led-show.html</loc>
+    <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://solardoll.github.io/steam-show/stilt-walkers.html</loc>
-    <lastmod>2026-07-31</lastmod>
+    <loc>https://steamshow.art/stilt-walkers.html</loc>
+    <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- русская версия -->
   <url>
-    <loc>https://solardoll.github.io/steam-show/index-ru.html</loc>
-    <lastmod>2026-08-01</lastmod>
+    <loc>https://steamshow.art/index-ru.html</loc>
+    <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://solardoll.github.io/steam-show/dragon-fire-show-ru.html</loc>
-    <lastmod>2026-08-01</lastmod>
+    <loc>https://steamshow.art/dragon-fire-show-ru.html</loc>
+    <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://solardoll.github.io/steam-show/fire-show-ru.html</loc>
-    <lastmod>2026-08-01</lastmod>
+    <loc>https://steamshow.art/fire-show-ru.html</loc>
+    <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://solardoll.github.io/steam-show/led-fire-show-ru.html</loc>
-    <lastmod>2026-08-01</lastmod>
+    <loc>https://steamshow.art/led-fire-show-ru.html</loc>
+    <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://solardoll.github.io/steam-show/led-show-ru.html</loc>
-    <lastmod>2026-08-01</lastmod>
+    <loc>https://steamshow.art/led-show-ru.html</loc>
+    <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://solardoll.github.io/steam-show/stilt-walkers-ru.html</loc>
-    <lastmod>2026-08-01</lastmod>
+    <loc>https://steamshow.art/stilt-walkers-ru.html</loc>
+    <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

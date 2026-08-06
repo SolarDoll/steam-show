@@ -10,14 +10,15 @@
 <meta name="darkreader-lock">
 <!-- иконки: 32/16 для вкладки, 180 для домашнего экрана iOS,
      манифест для Android (иконки собраны из logo.png на фоне сайта) -->
-<link rel="icon" type="image/png" sizes="32x32" href="assets/img/icon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/img/icon-16.png">
-<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-<link rel="manifest" href="site.webmanifest">
-<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/img/icon-16.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/fonts.css">
 <!-- Автономная страница: свои стили, без site.css/JS — она должна открыться
      даже если что-то на сайте сломано. GitHub Pages отдаёт её на любой
-     несуществующий адрес внутри /steam-show/. -->
+     несуществующий адрес, в том числе вложенный (/foo/bar), поэтому пути
+     здесь — от корня домена, а не относительные, как на остальных страницах. -->
 <style>
   :root{--bg:#0b0712;--ink:#f5eff7;--muted:#a99fb4;--accent:#FF6A1F;--accent2:#FF2E84;
     --display:'Anton',system-ui,sans-serif;--body:'Manrope',system-ui,sans-serif}
@@ -48,17 +49,17 @@
 </head>
 <body>
 <main>
-  <img class="logo" src="assets/img/logo.png" alt="Steam Show">
+  <img class="logo" src="/assets/img/logo.png" alt="Steam Show">
   <p class="code">404</p>
   <h1>This stage is empty</h1>
   <p>The page you were looking for doesn't exist. The shows, though, are still on.</p>
-  <a class="home" href="index.html">Back to Steam Show</a>
+  <a class="home" href="/">Back to Steam Show</a>
   <ul class="shows">
-    <li><a href="dragon-fire-show.html">Dragon Fire Show</a></li>
-    <li><a href="fire-show.html">Fire Show</a></li>
-    <li><a href="led-fire-show.html">LED Fire Show</a></li>
-    <li><a href="led-show.html">LED Show</a></li>
-    <li><a href="stilt-walkers.html">Stilt Walkers</a></li>
+    <li><a href="/dragon-fire-show.html">Dragon Fire Show</a></li>
+    <li><a href="/fire-show.html">Fire Show</a></li>
+    <li><a href="/led-fire-show.html">LED Fire Show</a></li>
+    <li><a href="/led-show.html">LED Show</a></li>
+    <li><a href="/stilt-walkers.html">Stilt Walkers</a></li>
   </ul>
 </main>
 </body>

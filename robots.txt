@@ -5,4 +5,4 @@ Allow: /
 # Исходники медиа и черновики в репозиторий не попадают (.gitignore),
 # закрывать их здесь не нужно.
 
-Sitemap: https://solardoll.github.io/steam-show/sitemap.xml
+Sitemap: https://steamshow.art/sitemap.xml
