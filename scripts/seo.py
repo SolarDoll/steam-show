@@ -68,6 +68,18 @@ SHOW_PAGES = [
 # (текст подставляет JS), поэтому lastmod считаем и по ним.
 SHARED = ["assets/js/content.js", "assets/js/media.js"]
 
+# Картинки превью ссылки (og:image) — WhatsApp, Telegram, Facebook, LinkedIn.
+# Им нужен ГОРИЗОНТАЛЬНЫЙ кадр 1200x630: вертикальный они показывают узкой
+# полосой. Готовим отдельные файлы из подходящих кадров галереи:
+#   ключ -> (исходник, куда тянуть кроп по вертикали: top | center | bottom)
+# Поменять кадр в превью = поменять здесь имя файла и прогнать скрипт.
+OG_W, OG_H = 1200, 630
+OG_IMAGES = {
+    "fire": ("assets/web/fire/fire-007.jpg", "top"),
+    "ledfire": ("assets/web/ledfire/ledfire-011.jpg", "center"),
+    "stilts": ("assets/web/stilts/stilts-022.jpg", "top"),
+}
+
 LD_START = "<!-- VIDEO-LD:start — автогенерация: python scripts/seo.py. Руками не править. -->"
 LD_END = "<!-- VIDEO-LD:end -->"
 
@@ -263,6 +275,38 @@ def build_video_ld(cache):
     print("video-ld: обновлено страниц —", changed)
 
 
+# ------------------------------------------------------------- og-превью 1200x630
+def build_og_images():
+    """собрать assets/web/og/<ключ>.jpg — горизонтальные превью для мессенджеров"""
+    try:
+        from PIL import Image
+    except ImportError:
+        warn("нет Pillow — og-превью не пересобраны")
+        return
+    out_dir = rel("assets/web/og")
+    os.makedirs(out_dir, exist_ok=True)
+    for key, (src, anchor) in OG_IMAGES.items():
+        dst = "assets/web/og/%s.jpg" % key
+        if not os.path.isfile(rel(src)):
+            warn("og-превью %s: нет исходника %s" % (key, src))
+            continue
+        if os.path.isfile(rel(dst)) and os.path.getmtime(rel(dst)) >= os.path.getmtime(rel(src)):
+            continue                                   # уже собрано и не устарело
+        im = Image.open(rel(src)).convert("RGB")
+        w, h = im.size
+        need_h = int(round(w * OG_H / OG_W))
+        if need_h <= h:                                 # режем по высоте
+            top = {"top": 0, "center": (h - need_h) // 2, "bottom": h - need_h}[anchor]
+            im = im.crop((0, top, w, top + need_h))
+        else:                                           # исходник слишком «широкий»
+            need_w = int(round(h * OG_W / OG_H))
+            left = (w - need_w) // 2
+            im = im.crop((left, 0, left + need_w, h))
+        im = im.resize((OG_W, OG_H), Image.LANCZOS)
+        im.save(rel(dst), "JPEG", quality=82, optimize=True, progressive=True)
+        print("  og-превью", dst, "из", src)
+
+
 # -------------------------------------------------------------------- sitemap
 def git_out(args):
     try:
@@ -371,6 +415,7 @@ def main():
         ids = [v for sid, ids in videos_by_show().items() for v in ids]
         cache = yt_meta(ids, offline=a.offline, refresh=a.refresh)
         build_video_ld(cache)
+        build_og_images()
         build_sitemap()
     check_pages()
     print("проверки: %d замечаний" % len(warnings) if warnings else "проверки: всё чисто")

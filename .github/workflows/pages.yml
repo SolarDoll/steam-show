@@ -29,6 +29,19 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          # вся история: seo.py считает lastmod для sitemap по датам коммитов
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      # Перед выкладкой пересобираем карту сайта и видео-разметку страниц шоу.
+      # Так они всегда свежие, даже если локально скрипт прогнать забыли.
+      # Ошибка здесь не должна ронять деплой — сайт статичный и без этого рабочий.
+      - name: SEO (sitemap + видео-разметка)
+        continue-on-error: true
+        timeout-minutes: 6
+        run: python scripts/seo.py
       - uses: actions/configure-pages@v5
       # path: . — публикуем корень репозитория, как это делал старый сборщик
       - uses: actions/upload-pages-artifact@v3
