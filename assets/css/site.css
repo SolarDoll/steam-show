@@ -196,8 +196,10 @@ nav.menu a{transition:color .25s;cursor:pointer}nav.menu a:hover{color:var(--ink
   border-top:1px solid var(--line);border-bottom:1px solid var(--line);
   background:color-mix(in srgb,var(--bg2) 60%,transparent)}
 .ticker .tt{display:inline-flex;animation:marq 32s linear infinite}
-.ticker .tt b{font-family:var(--display);font-weight:700;font-size:clamp(18px,3vw,30px);
-  text-transform:uppercase;letter-spacing:.01em;padding:0 26px;display:inline-flex;align-items:center;gap:26px}
+/* --tgap — расстояние «текст ↔ ✦». Слева от точки его даёт gap, справа —
+   padding-right текущего слова + padding-left следующего, поэтому padding = половина. */
+.ticker .tt b{--tgap:26px;font-family:var(--display);font-weight:700;font-size:clamp(18px,3vw,30px);
+  text-transform:uppercase;letter-spacing:.01em;padding:0 calc(var(--tgap)/2);display:inline-flex;align-items:center;gap:var(--tgap)}
 .ticker .tt b::after{content:"✦";color:var(--accent);font-size:.5em}
 @keyframes marq{to{transform:translateX(-50%)}}
 
