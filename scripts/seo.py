@@ -75,6 +75,7 @@ SHARED = ["assets/js/content.js", "assets/js/media.js"]
 # Поменять кадр в превью = поменять здесь имя файла и прогнать скрипт.
 OG_W, OG_H = 1200, 630
 OG_IMAGES = {
+    "home": ("assets/web/dragon/dragon-025.jpg", "top"),   # главная (обе языковые версии)
     "fire": ("assets/web/fire/fire-007.jpg", "top"),
     "ledfire": ("assets/web/ledfire/ledfire-011.jpg", "center"),
     "stilts": ("assets/web/stilts/stilts-022.jpg", "top"),
