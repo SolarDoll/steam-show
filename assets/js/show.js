@@ -29,6 +29,27 @@
     if (!el) { el = document.createElement('link'); el.setAttribute('rel', 'canonical'); document.head.appendChild(el); }
     el.setAttribute('href', href);
   }
+  /* og:image:width/height описывают ровно ту картинку, что в og:image. В
+     отданном HTML они верные; при SPA-переходе картинка другая — берём её
+     размеры из манифеста srcset.js, а если их там нет, теги убираем: пустой
+     og:image:width лучше, чем врущий. */
+  function setImgDims(src) {
+    var d = (window.SS_SRCSET || {})[src];
+    ['og:image:width', 'og:image:height'].forEach(function (k, i) {
+      var el = document.head.querySelector('meta[property="' + k + '"]');
+      if (!el) return;
+      if (d) el.setAttribute('content', String(d[i + 1]));
+      else el.parentNode.removeChild(el);
+    });
+  }
+  /* блок «Другие шоу» лежит в HTML статикой: ссылка на своё шоу помечена
+     hidden. При SPA-переходе прячем ссылку на новое шоу и возвращаем ту,
+     с которой ушли. */
+  function syncMoreLinks(id) {
+    document.querySelectorAll('.morelinks li[data-show]').forEach(function (li) {
+      li.hidden = li.getAttribute('data-show') === id;
+    });
+  }
 
   /* alt для галерейных снимков. Без него фото не попадают в поиск по
      картинкам и не читаются скринридером. Описываем не сам кадр (выдумывать
@@ -92,7 +113,21 @@
     setMeta('og:title', seoTitle, true);
     setMeta('og:description', seoDesc, true);
     setMeta('og:type', 'website', true);
-    if (cover) { try { setMeta('og:image', new URL(cover, location.href).href, true); } catch (e) {} }
+    setMeta('twitter:title', seoTitle);
+    setMeta('twitter:description', seoDesc);
+    /* картинку и её alt/размеры в HTML своей страницы не трогаем — они там
+       подобраны руками. Меняем только при SPA-переходе на другое шоу. */
+    var ownId = window.SS_SHOW || SS.idByPage(location.pathname);
+    if (cover && id !== ownId) {
+      try {
+        var abs = new URL(cover, location.href).href;
+        setMeta('og:image', abs, true);
+        setMeta('twitter:image', abs);
+      } catch (e) {}
+      setMeta('og:image:alt', s.name, true);
+      setMeta('twitter:image:alt', s.name);
+      setImgDims(cover);
+    }
     /* canonical — всегда отдельный файл шоу без ?lang/?show:
        и старый show.html?show=, и RU-версия ссылаются на один адрес */
     try {
@@ -196,6 +231,7 @@
 
     page.innerHTML = html;
     SS.fitContactValues();
+    syncMoreLinks(id);
     wirePage(id, s);
     wireSpy(nav);
     window.scrollTo(0, 0);

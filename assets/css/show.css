@@ -335,6 +335,17 @@ section + section{border-top:1px solid var(--line)}
 .pnav .pv{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(20px,2.4vw,30px);line-height:.95}
 @media(max-width:600px){.pnav{grid-template-columns:1fr}.pnav a.next{text-align:left}}
 
+/* --- перелинковка: соседние шоу + разделы главной (статичный блок в HTML) --- */
+.morelinks{border-top:1px solid var(--line);padding:clamp(38px,6vh,64px) 0 clamp(28px,4vh,46px)}
+.ml-in{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,54px)}
+.ml-h{font:800 11px/1 var(--body);letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin:0 0 18px}
+.morelinks ul{list-style:none;margin:0;padding:0;display:grid;gap:13px}
+.morelinks li{font-size:14px;line-height:1.4}
+.morelinks a{color:var(--ink);font-weight:700;text-decoration:none;border-bottom:1px solid transparent;transition:.2s}
+.morelinks a:hover{color:var(--ac);border-bottom-color:var(--ac)}
+.morelinks li span{display:block;margin-top:3px;color:var(--muted);font-size:13px}
+@media(max-width:600px){.ml-in{grid-template-columns:1fr;gap:32px}}
+
 /* --- back to top --- */
 .totop{position:fixed;right:20px;bottom:24px;z-index:110;width:48px;height:48px;border-radius:50%;cursor:pointer;
   display:grid;place-items:center;font-size:21px;color:#160405;background:linear-gradient(100deg,var(--accent),var(--accent3));

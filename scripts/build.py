@@ -22,7 +22,7 @@ assets/js/content.js и здесь НЕ трогается.
 
 Запуск:  python scripts/build.py
 """
-import os, json, shutil
+import os, json, shutil, subprocess, sys
 from PIL import Image, ImageOps
 
 MEDIA = "assets/media"
@@ -224,3 +224,10 @@ with open(srcset_out, "w", encoding="utf-8") as f:
     f.write("   Карта адаптивных копий: путь -> [ширина_мелкой, ширина_оригинала]. */\n")
     f.write("window.SS_SRCSET = " + json.dumps(SRCSET, ensure_ascii=False, separators=(",", ":")) + ";\n")
 print("written:", srcset_out, "(", len(SRCSET), "variants )")
+
+# SEO: карта сайта (lastmod считается сам) + видео-разметка страниц шоу.
+# --offline: за метаданными роликов в сеть не ходим, берём кэш scripts/yt-meta.json.
+# Новые ролики в content.js — прогнать `python scripts/seo.py` отдельно, с сетью.
+print("seo (sitemap + video-ld)...")
+subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "seo.py"),
+                "--offline"], check=False)

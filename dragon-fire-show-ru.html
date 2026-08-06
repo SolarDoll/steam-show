@@ -24,10 +24,17 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://steamshow.art/dragon-fire-show-ru.html">
 <meta property="og:image" content="https://steamshow.art/assets/web/dragon/dragon-001.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="851">
+<meta property="og:image:alt" content="Артист выдыхает огонь навстречу трёхметровому дракону на сцене в красно-синем свете">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Шоу с Драконом · Steam Show">
+<meta name="twitter:description" content="Огненное театрализованное шоу с трёхметровым драконом в стиле фэнтези или славянского фолка.">
 <meta name="twitter:image" content="https://steamshow.art/assets/web/dragon/dragon-001.jpg">
+<meta name="twitter:image:alt" content="Артист выдыхает огонь навстречу трёхметровому дракону на сцене в красно-синем свете">
 
 <!-- иконки: 32/16 для вкладки, 180 для домашнего экрана iOS,
      манифест для Android (иконки собраны из logo.png на фоне сайта) -->
@@ -46,8 +53,8 @@
 "description":"Огненное театрализованное шоу с трёхметровым драконом в духе классического фэнтези или славянского фольклора. Подходит для камерных мероприятий и главных сцен крупных фестивалей.",
 "url":"https://steamshow.art/dragon-fire-show-ru.html","inLanguage":"ru",
 "image":"https://steamshow.art/assets/web/dragon/dragon-001.jpg",
-"areaServed":{"@type":"Place","name":"Worldwide"},
-"provider":{"@type":"PerformingGroup","name":"Steam Show","url":"https://steamshow.art/"}}
+"areaServed":[{"@type":"City","name":"Минск"},{"@type":"Country","name":"Беларусь"}],
+"provider":{"@type":"PerformingGroup","name":"Steam Show","url":"https://steamshow.art/index-ru.html","address":{"@type":"PostalAddress","addressLocality":"Минск","addressCountry":"BY"}}}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
@@ -55,6 +62,15 @@
 {"@type":"ListItem","position":2,"name":"Шоу с Драконом","item":"https://steamshow.art/dragon-fire-show-ru.html"}]}
 </script>
 
+<!-- VIDEO-LD:start — автогенерация: python scripts/seo.py. Руками не править. -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","itemListElement":[
+{"@type":"ListItem","position":1,"item":{"@type":"VideoObject","name":"STEAM SHOW. DRAGON FIRE SHOW. 5 performers. 2 dragons.","description":"Закажите огненное шоу с трёхметровым драконом: фэнтези или славянский фолк. Для фестивалей, свадеб и корпоративов. Минск, Беларусь и гастроли.","thumbnailUrl":["https://i.ytimg.com/vi/jH1iB6rw3wI/maxresdefault.jpg"],"uploadDate":"2026-07-04T11:33:06-07:00","duration":"PT23S","embedUrl":"https://www.youtube.com/embed/jH1iB6rw3wI","url":"https://steamshow.art/dragon-fire-show-ru.html#videos","publisher":{"@type":"Organization","name":"Steam Show","logo":{"@type":"ImageObject","url":"https://steamshow.art/assets/img/logo.png"}}}},
+{"@type":"ListItem","position":2,"item":{"@type":"VideoObject","name":"STEAM SHOW. Dragon Fantasy Show. Slavic version","description":"Закажите огненное шоу с трёхметровым драконом: фэнтези или славянский фолк. Для фестивалей, свадеб и корпоративов. Минск, Беларусь и гастроли.","thumbnailUrl":["https://i.ytimg.com/vi/95Zx38TO_5Q/maxresdefault.jpg"],"uploadDate":"2022-05-26T06:43:07-07:00","duration":"PT1M1S","embedUrl":"https://www.youtube.com/embed/95Zx38TO_5Q","url":"https://steamshow.art/dragon-fire-show-ru.html#videos","publisher":{"@type":"Organization","name":"Steam Show","logo":{"@type":"ImageObject","url":"https://steamshow.art/assets/img/logo.png"}}}},
+{"@type":"ListItem","position":3,"item":{"@type":"VideoObject","name":"STEAM SHOW. Fantasy Dragon Show. 3 performers","description":"Закажите огненное шоу с трёхметровым драконом: фэнтези или славянский фолк. Для фестивалей, свадеб и корпоративов. Минск, Беларусь и гастроли.","thumbnailUrl":["https://i.ytimg.com/vi/kWC7arxFFXw/maxresdefault.jpg"],"uploadDate":"2021-02-11T09:24:44-08:00","duration":"PT1M13S","embedUrl":"https://www.youtube.com/embed/kWC7arxFFXw","url":"https://steamshow.art/dragon-fire-show-ru.html#videos","publisher":{"@type":"Organization","name":"Steam Show","logo":{"@type":"ImageObject","url":"https://steamshow.art/assets/img/logo.png"}}}}
+]}
+</script>
+<!-- VIDEO-LD:end -->
 <script>window.SS_SHOW = 'dragon';</script>
 </head>
 <body>
@@ -70,6 +86,35 @@
 </header>
 
 <main id="page"></main>
+
+
+<!-- Перелинковка: текстовые ссылки на соседние шоу и разделы главной.
+     Лежит в HTML, а не рисуется JS — её видят и поисковики без JS-рендера.
+     Ссылка на текущее шоу помечена hidden; при SPA-переходе показ
+     переключает show.js (syncMoreLinks). -->
+<nav class="morelinks" aria-label="Другие шоу">
+  <div class="wrap ml-in">
+    <div class="ml-col">
+      <h2 class="ml-h">Другие шоу</h2>
+      <ul>
+        <li data-show="dragon" hidden><a href="dragon-fire-show-ru.html">Шоу с Драконом</a> <span>огненное шоу с трёхметровым драконом</span></li>
+        <li data-show="fire"><a href="fire-show-ru.html">Огненное шоу</a> <span>фаер-шоу с реквизитом, огнемётами и пиротехникой</span></li>
+        <li data-show="ledfire"><a href="led-fire-show-ru.html">LED+Огонь</a> <span>живой огонь и светящиеся LED-костюмы</span></li>
+        <li data-show="led"><a href="led-show-ru.html">LED-шоу</a> <span>бездымное световое шоу для помещений</span></li>
+        <li data-show="stilts"><a href="stilt-walkers-ru.html">Ходулисты</a> <span>великаны на ходулях для парадов и встречи гостей</span></li>
+      </ul>
+    </div>
+    <div class="ml-col">
+      <h2 class="ml-h">О Steam Show</h2>
+      <ul>
+        <li><a href="index-ru.html#programs">Все шоу</a> <span>пять программ рядом</span></li>
+        <li><a href="index-ru.html#howwe">Как мы работаем</a> <span>костюмы, гибкость, гастроли</span></li>
+        <li><a href="index-ru.html#world">Где выступаем</a> <span>форматы, площадки и страны</span></li>
+        <li><a href="index-ru.html#contact">Заказать шоу</a> <span>почта, телефон и мессенджеры</span></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
 <footer class="foot" data-i18n="footer.tagline">Steam Show · fire · LED · dragons · stilts</footer>
 

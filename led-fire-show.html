@@ -24,10 +24,17 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://steamshow.art/led-fire-show.html">
 <meta property="og:image" content="https://steamshow.art/assets/web/ledfire/ledfire-cover.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="852">
+<meta property="og:image:height" content="1280">
+<meta property="og:image:alt" content="A performer in golden dragon armour with glowing LED trim, holding a burning staff at dusk">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="ru_RU">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="LED Fire Show · Steam Show">
+<meta name="twitter:description" content="Live fire performed in glowing LED costumes — the heat of fire with the colour of light.">
 <meta name="twitter:image" content="https://steamshow.art/assets/web/ledfire/ledfire-cover.jpg">
+<meta name="twitter:image:alt" content="A performer in golden dragon armour with glowing LED trim, holding a burning staff at dusk">
 
 <!-- иконки: 32/16 для вкладки, 180 для домашнего экрана iOS,
      манифест для Android (иконки собраны из logo.png на фоне сайта) -->
@@ -55,6 +62,16 @@
 {"@type":"ListItem","position":2,"name":"LED Fire Show","item":"https://steamshow.art/led-fire-show.html"}]}
 </script>
 
+<!-- VIDEO-LD:start — автогенерация: python scripts/seo.py. Руками не править. -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","itemListElement":[
+{"@type":"ListItem","position":1,"item":{"@type":"VideoObject","name":"STEAM SHOW. Fire show. 3 artists. Dragons and Crystal Queen.","description":"A hybrid show mixing live fire with glowing LED costumes: the heat of flame and the colour of light, for festivals, galas and weddings.","thumbnailUrl":["https://i.ytimg.com/vi/aq-PXZIlsyo/maxresdefault.jpg"],"uploadDate":"2024-03-15T03:32:04-07:00","duration":"PT19S","embedUrl":"https://www.youtube.com/embed/aq-PXZIlsyo","url":"https://steamshow.art/led-fire-show.html#videos","publisher":{"@type":"Organization","name":"Steam Show","logo":{"@type":"ImageObject","url":"https://steamshow.art/assets/img/logo.png"}}}},
+{"@type":"ListItem","position":2,"item":{"@type":"VideoObject","name":"STEAM SHOW. Fire & Led Show. Dragon Warriors","description":"A hybrid show mixing live fire with glowing LED costumes: the heat of flame and the colour of light, for festivals, galas and weddings.","thumbnailUrl":["https://i.ytimg.com/vi/NwEsu64rFzY/maxresdefault.jpg"],"uploadDate":"2023-07-01T07:22:25-07:00","duration":"PT43S","embedUrl":"https://www.youtube.com/embed/NwEsu64rFzY","url":"https://steamshow.art/led-fire-show.html#videos","publisher":{"@type":"Organization","name":"Steam Show","logo":{"@type":"ImageObject","url":"https://steamshow.art/assets/img/logo.png"}}}},
+{"@type":"ListItem","position":3,"item":{"@type":"VideoObject","name":"STEAM SHOW. Led fire show. 5 performers","description":"A hybrid show mixing live fire with glowing LED costumes: the heat of flame and the colour of light, for festivals, galas and weddings.","thumbnailUrl":["https://i.ytimg.com/vi/sckZxk4r22c/maxresdefault.jpg"],"uploadDate":"2026-07-20T06:28:14-07:00","duration":"PT37S","embedUrl":"https://www.youtube.com/embed/sckZxk4r22c","url":"https://steamshow.art/led-fire-show.html#videos","publisher":{"@type":"Organization","name":"Steam Show","logo":{"@type":"ImageObject","url":"https://steamshow.art/assets/img/logo.png"}}}},
+{"@type":"ListItem","position":4,"item":{"@type":"VideoObject","name":"STEAM SHOW. LED Fire Show. Mirror Age","description":"A hybrid show mixing live fire with glowing LED costumes: the heat of flame and the colour of light, for festivals, galas and weddings.","thumbnailUrl":["https://i.ytimg.com/vi/vWRxsfORdOg/maxresdefault.jpg"],"uploadDate":"2022-11-13T11:24:27-08:00","duration":"PT47S","embedUrl":"https://www.youtube.com/embed/vWRxsfORdOg","url":"https://steamshow.art/led-fire-show.html#videos","publisher":{"@type":"Organization","name":"Steam Show","logo":{"@type":"ImageObject","url":"https://steamshow.art/assets/img/logo.png"}}}}
+]}
+</script>
+<!-- VIDEO-LD:end -->
 <script>window.SS_SHOW = 'ledfire';</script>
 </head>
 <body>
@@ -70,6 +87,35 @@
 </header>
 
 <main id="page"></main>
+
+
+<!-- Перелинковка: текстовые ссылки на соседние шоу и разделы главной.
+     Лежит в HTML, а не рисуется JS — её видят и поисковики без JS-рендера.
+     Ссылка на текущее шоу помечена hidden; при SPA-переходе показ
+     переключает show.js (syncMoreLinks). -->
+<nav class="morelinks" aria-label="Other shows">
+  <div class="wrap ml-in">
+    <div class="ml-col">
+      <h2 class="ml-h">Other shows</h2>
+      <ul>
+        <li data-show="dragon"><a href="dragon-fire-show.html">Dragon Fire Show</a> <span>a 3-metre dragon in fire theatre</span></li>
+        <li data-show="fire"><a href="fire-show.html">Fire Show</a> <span>themed fire choreography, flame props and pyro</span></li>
+        <li data-show="ledfire" hidden><a href="led-fire-show.html">LED Fire Show</a> <span>live fire performed in glowing LED costumes</span></li>
+        <li data-show="led"><a href="led-show.html">LED Show</a> <span>smoke-free light show for indoor venues</span></li>
+        <li data-show="stilts"><a href="stilt-walkers.html">Stilt Walkers</a> <span>towering characters for parades and welcome zones</span></li>
+      </ul>
+    </div>
+    <div class="ml-col">
+      <h2 class="ml-h">More about Steam Show</h2>
+      <ul>
+        <li><a href="index.html#programs">All shows</a> <span>five signature programmes side by side</span></li>
+        <li><a href="index.html#howwe">How we work</a> <span>in-house costumes, flexibility, touring</span></li>
+        <li><a href="index.html#world">Where we perform</a> <span>formats, stages and countries</span></li>
+        <li><a href="index.html#contact">Book the show</a> <span>email, phone and messengers</span></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
 <footer class="foot" data-i18n="footer.tagline">Steam Show · fire · LED · dragons · stilts</footer>
 

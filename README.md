@@ -31,8 +31,8 @@ show.html             — старый адрес шоу (?show=<id>). Рабо�
 CNAME                 — свой домен steamshow.art. Файл читает GitHub Pages,
                         удалить = вернуться на адрес *.github.io
 robots.txt            — для поисковиков
-sitemap.xml           — карта сайта: главная + 5 страниц шоу. Добавили
-                        страницу — дописать <url> руками.
+sitemap.xml           — карта сайта (АВТОГЕНЕРАЦИЯ: scripts/seo.py, не править
+                        руками) — главная + 5 страниц шоу × два языка
 llms.txt              — краткое описание шоу и контактов для AI-поисковиков
 site.webmanifest      — иконки и цвета для «добавить на домашний экран»
 assets/
@@ -53,6 +53,10 @@ assets/
   web/                 — ужатые фото/видео для сайта (в git)
   media/               — ОРИГИНАЛЫ медиа (вне git, см. .gitignore)
 scripts/build.py      — оптимизация media/ → web/ + генерация media.js
+scripts/seo.py        — sitemap (lastmod сам), видео-разметка страниц шоу,
+                        проверки мета-тегов. Вызывается из build.py.
+scripts/yt-meta.json  — кэш метаданных роликов с YouTube (название, дата
+                        загрузки, длительность, превью). Заполняет seo.py.
 ```
 
 Единый источник правды о шоу — `assets/js/content.js`. И главная, и страница
@@ -73,7 +77,10 @@ scripts/build.py      — оптимизация media/ → web/ + генера�
 2. Адрес файла — в `PAGES` в `assets/js/data.js`.
 3. Два файла страницы: `<имя>.html` и `<имя>-ru.html` (проще скопировать
    соседние и заменить мета-теги, `window.SS_SHOW` и `hreflang`).
-4. Оба адреса дописать в `sitemap.xml`.
+   Не забыть блок `.morelinks` внизу — там ссылки на соседние шоу.
+4. Дописать страницу в `PAGES` и `SHOW_PAGES` в `scripts/seo.py`
+   и прогнать `python scripts/seo.py` — он обновит `sitemap.xml`,
+   впишет видео-разметку и укажет, каких мета-тегов не хватает.
 
 ## Пересборка медиа
 
@@ -98,6 +105,34 @@ python scripts/gen_srcset.py
 ffmpeg -t 12 -i исходник.mp4 -an -vf "hqdn3d=3:2:6:6,scale=1280:-2,fps=25" \
   -c:v libx264 -preset slow -crf 33 -pix_fmt yuv420p -movflags +faststart out.mp4
 ```
+
+## SEO-обвязка
+
+```bash
+python scripts/seo.py             # sitemap + видео-разметка (метаданные роликов из сети)
+python scripts/seo.py --check     # ничего не пишет, только проверки
+python scripts/seo.py --refresh   # перезабрать метаданные всех роликов заново
+```
+
+Что делает скрипт (`scripts/seo.py`):
+
+- **`sitemap.xml`** пересобирает целиком. `lastmod` считается сам: дата
+  последнего коммита страницы и общих источников контента (`content.js`,
+  `media.js`), а для незакоммиченных правок — сегодняшняя. Руками не править;
+  список страниц и приоритеты — в `PAGES` внутри скрипта.
+- **`VideoObject`** — в каждую страницу шоу вписывает `ItemList` из
+  `VideoObject` по её роликам (ID берутся из `content.js`) между маркерами
+  `VIDEO-LD:start/end`. Название, дата загрузки, длительность и превью —
+  настоящие, с YouTube; кэш в `scripts/yt-meta.json` (в git, чтобы сборка
+  работала без сети). Заменили ролики в `content.js` — прогнать с сетью.
+- **Проверки** — `og:image` совпадает с реальным размером файла, на месте
+  `og:image:alt`, `twitter:title/description`, `hreflang`, canonical на своём
+  домене, все страницы есть в карте сайта.
+
+Что остаётся руками (в самих `.html`): `title`, `description`, OG/Twitter,
+`og:image:alt`, JSON-LD шоу и блок перелинковки `.morelinks` внизу страницы.
+Русские страницы — с локальной привязкой (`areaServed` Минск/Беларусь,
+`address`), английские — нейтрально по миру, происхождение не светим.
 
 ## Локальный запуск
 
