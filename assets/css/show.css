@@ -378,11 +378,16 @@ section[id],[id="browse-all"],[id="top"]{scroll-margin-top:124px}
 
 /* ---- HERO на телефоне: компактнее meta / chips / кнопки ---- */
 @media(max-width:600px){
-  /* duration · format · cast — тремя колонками в одну строку, а не в две */
-  .meta{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;flex-wrap:nowrap}
+  /* duration · format · cast — тремя колонками в одну строку, а не в две.
+     Колонки по содержимому (не 1fr): при равных колонках «Длительность»
+     и «Масштабируется» не влезали — подпись упиралась в соседнюю, значение
+     вылезало за колонку, а «10–15 мин · гибко» падало на вторую строку.
+     Кегли на vw, чтобы строка не ломалась и на 320px. */
+  .meta{display:grid;grid-template-columns:repeat(3,auto);justify-content:space-between;
+    gap:10px;flex-wrap:nowrap}
   .meta .m{min-width:0}
-  .meta .m .k{font-size:9.5px;letter-spacing:.14em;margin-bottom:6px}
-  .meta .m .v{font-size:13px;line-height:1.2}
+  .meta .m .k{font-size:clamp(8px,2.4vw,9.5px);letter-spacing:.08em;margin-bottom:6px;white-space:nowrap}
+  .meta .m .v{font-size:clamp(9.5px,3.1vw,12.5px);line-height:1.2;white-space:nowrap}
   /* теги — компактнее, чтобы влезали в 2 строки, а не в 3 */
   .chips{gap:8px}
   .chip{padding:8px 12px;font-size:11px}
