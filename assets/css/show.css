@@ -8,13 +8,22 @@
   --accent:#FF6A1F; --accent2:#FFD23E; --accent3:#FF2E84; --cool:#25F4EE;
   --display:"Anton",Impact,sans-serif; --body:"Manrope",system-ui,sans-serif;
   --ac:var(--accent);
+
+  /* ---- ПРАВИЛО ЗАЛИВОК (см. site.css) ----
+     Градиент = свет. Управляющий элемент = плоский цвет.
+     Здесь заливка = --ac, то есть цвет ЭТОГО шоу (ставится в show.js:93):
+     на LED-шоу кнопки циановые, на Fire — жёлтые, на LED Fire — розовые. */
+  --fill-ui:var(--ac);
+  --fg-on-fill:#160405;
+  --shadow-lift:0 14px 34px -18px rgba(0,0,0,.9);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;overflow-x:clip;color-scheme:dark}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
 img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
-.grad{color:var(--accent);background:linear-gradient(90deg,var(--accent),var(--accent3));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+/* акцентное слово в заголовке — цвет ЭТОГО шоу, а не всегда оранжевый */
+.grad{color:var(--ac)}
 .wrap{max-width:1240px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
 
 /* ===== HEADER (единый с главной — см. site.css .bar) ===== */
@@ -28,19 +37,17 @@ a{color:inherit;text-decoration:none}
 .brand .mark{width:34px;height:34px;flex:0 0 auto;
   -webkit-mask:url(../img/dragon-silhouette.png) center/contain no-repeat;
           mask:url(../img/dragon-silhouette.png) center/contain no-repeat;
-  background:linear-gradient(120deg,var(--accent),var(--accent3),var(--accent2),var(--accent));
-  background-size:300% 300%;animation:brandshift 7s ease-in-out infinite;
+  background:linear-gradient(120deg,var(--accent),var(--accent3),var(--accent2),var(--cool));
   filter:drop-shadow(0 0 12px color-mix(in srgb,var(--accent) 55%,transparent))}
-@keyframes brandshift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 .shownav{display:flex;align-items:center;gap:28px;font-size:13.5px;color:var(--muted);overflow-x:auto;scrollbar-width:none}
 .shownav::-webkit-scrollbar{display:none}
 .shownav a{transition:color .25s;cursor:pointer;white-space:nowrap}
 .shownav a:hover{color:var(--ink)}
 .shownav a.on{color:var(--ac)}
 .nav-cta{flex:0 0 auto;font-family:var(--body);font-weight:700;font-size:13px;letter-spacing:.02em;white-space:nowrap;
-  padding:12px 22px;border-radius:100px;color:#160405;
-  background:linear-gradient(100deg,var(--accent),var(--accent2));
-  box-shadow:0 0 22px color-mix(in srgb,var(--accent) 35%,transparent);transition:.3s}
+  padding:12px 22px;border-radius:100px;color:var(--fg-on-fill);
+  background:var(--fill-ui);
+  box-shadow:var(--shadow-lift);transition:.3s}
 .nav-cta:hover{transform:translateY(-2px);filter:brightness(1.08)}
 /* переключатель языка (общий вид с главной) */
 .langsw{flex:0 0 auto;display:inline-flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:99px;
@@ -48,7 +55,7 @@ a{color:inherit;text-decoration:none}
 .langsw__b{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.04em;color:var(--muted);
   background:none;border:0;cursor:pointer;padding:5px 11px;border-radius:99px;transition:.25s;line-height:1}
 .langsw__b:hover{color:var(--ink)}
-.langsw__b.on{color:#160405;background:linear-gradient(100deg,var(--accent),var(--accent2))}
+.langsw__b.on{color:var(--fg-on-fill);background:var(--fill-ui)}
 /* RU: у Anton нет кириллицы — заголовки падают на Impact (есть кириллица).
    TODO: подключить self-host кириллический дисплей-шрифт. */
 html[lang="ru"]{--display:"Anton",Impact,"PT Sans Narrow","Arial Narrow",sans-serif}
@@ -126,7 +133,7 @@ html[lang="ru"] .ccta{font-size:calc(clamp(40px,7vw,96px)*var(--dsc))}
 .hcta{display:flex;gap:13px;flex-wrap:wrap;margin:32px 0 0}
 .btn{display:inline-flex;align-items:center;gap:10px;cursor:pointer;border:none;font:800 13px/1 var(--body);
   letter-spacing:.06em;text-transform:uppercase;padding:16px 28px;border-radius:100px;transition:.22s}
-.btn.solid{background:linear-gradient(100deg,var(--accent),var(--accent3));color:#160405;box-shadow:0 14px 40px -12px rgba(255,46,132,.6)}
+.btn.solid{background:var(--fill-ui);color:var(--fg-on-fill);box-shadow:var(--shadow-lift)}
 .btn.solid:hover{transform:translateY(-2px);filter:brightness(1.07)}
 .btn.ghost{border:1px solid rgba(255,255,255,.26);color:#fff;background:none}
 .btn.ghost:hover{border-color:var(--ac);color:var(--ac)}
@@ -276,8 +283,8 @@ section + section{border-top:1px solid var(--line)}
 .fch:hover{transform:translateY(-6px);border-color:var(--ac);box-shadow:0 20px 50px rgba(0,0,0,.5)}
 .fch:hover::before{opacity:1}
 .fch>*{position:relative;z-index:1}
-.fch .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;color:#160405;
-  background:linear-gradient(120deg,var(--ac),var(--ac2,var(--accent)))}
+.fch .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;color:var(--fg-on-fill);
+  background:var(--ac)}
 .fch .ic svg{width:24px;height:24px;display:block}
 .fch .fk{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 /* значение контакта — одна строка; базовый кегль. Если длинное значение (email)
@@ -337,8 +344,8 @@ section + section{border-top:1px solid var(--line)}
 
 /* --- back to top --- */
 .totop{position:fixed;right:20px;bottom:24px;z-index:110;width:48px;height:48px;border-radius:50%;cursor:pointer;
-  display:grid;place-items:center;font-size:21px;color:#160405;background:linear-gradient(100deg,var(--accent),var(--accent3));
-  border:none;box-shadow:0 14px 36px -10px rgba(255,46,132,.6);opacity:0;pointer-events:none;transform:translateY(10px);transition:.3s}
+  display:grid;place-items:center;font-size:21px;color:var(--fg-on-fill);background:var(--fill-ui);
+  border:none;box-shadow:var(--shadow-lift);opacity:0;pointer-events:none;transform:translateY(10px);transition:.3s}
 .totop.on{opacity:1;pointer-events:auto;transform:none}
 
 .foot{padding:46px 0 max(46px,env(safe-area-inset-bottom));border-top:1px solid var(--line);color:var(--muted);font-size:13px;text-align:center}

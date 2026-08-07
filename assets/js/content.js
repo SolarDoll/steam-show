@@ -22,7 +22,7 @@ window.SS_CONTENT = {
     fire:    '#FFD23E',
     ledfire: '#FF2E84',
     led:     '#25F4EE',
-    stilts:  '#FF6A1F'
+    stilts:  '#A6FF3D'
   },
 
   /* Постер-обложка превью на ГЛАВНОЙ (перебивает photos[0]).

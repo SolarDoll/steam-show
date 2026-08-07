@@ -18,11 +18,21 @@
   --accent3:#FF2E84;  /* розовый / hot */
   --cool:#25F4EE;     /* циан */
 
-  /* цвет каждого шоу */
-  --c-dragon:#FF6A1F; --c-fire:#FFD23E; --c-ledfire:#FF2E84; --c-led:#25F4EE; --c-stilts:#FF6A1F;
+  /* цвет каждого шоу — источник правды в content.js (colors), здесь зеркало для CSS */
+  --c-dragon:#FF6A1F; --c-fire:#FFD23E; --c-ledfire:#FF2E84; --c-led:#25F4EE; --c-stilts:#A6FF3D;
 
   --display:"Anton",Impact,sans-serif;
   --body:"Manrope",system-ui,sans-serif;
+
+  /* ---- ПРАВИЛО ЗАЛИВОК ----
+     Градиент = свет: фоны, ореолы, скримы, раскалённые дисплейные слова.
+     Управляющий элемент (на него жмут) = плоский цвет + нейтральная тень.
+     На страницах шоу заливка идёт из --ac (цвет шоу, см. show.js).
+     На главной «текущего шоу» нет — витрина всех пяти, поэтому кремовый:
+     ни одно шоу не выигрывает и ничто не тянет в огонь. */
+  --fill-ui:var(--ink);        /* заливка кликабельного на главной */
+  --fg-on-fill:#160405;        /* текст на заливке */
+  --shadow-lift:0 14px 34px -18px rgba(0,0,0,.9);  /* подъём, не свечение */
 }
 
 /* ---------- БАЗА ---------- */
@@ -36,13 +46,10 @@ a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;position:relative;z-index:2}
 
-/* тёплый перелив текста (оранж↔розовый) */
-.grad{color:var(--accent); /* запасной цвет, если градиент-по-тексту не рисуется */
-  background:linear-gradient(100deg,var(--accent),var(--accent3),var(--accent));
-  background-size:200% 100%;-webkit-background-clip:text;background-clip:text;
-  -webkit-text-fill-color:transparent;
-  animation:hue 9s linear infinite}
-@keyframes hue{to{background-position:200% 0}}
+/* акцентное слово в заголовке — плотный оранж.
+   Градиент-по-тексту оставлен ТОЛЬКО финальному CTA (см. .ccta .grad):
+   один перелив на страницу читается как приём, пять — как шаблон. */
+.grad{color:var(--accent)}
 
 /* ---------- ФОН: «небо» + эмберы + прогресс-бар ---------- */
 #sky{position:fixed;inset:0;z-index:-2;transition:background .15s linear;
@@ -87,21 +94,23 @@ header.bar.scrolled{backdrop-filter:blur(14px);background:color-mix(in srgb,var(
   max-width:var(--maxw);margin:0 auto;padding:0 28px}
 .brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.04em}
 .brand .nm{font-family:var(--display);font-size:19px;letter-spacing:.06em}
-/* лого — силуэт дракона в фирменном градиенте */
+/* лого — силуэт дракона в фирменном градиенте.
+   Единственный градиент на управляющем элементе: это знак бренда, а четыре
+   цвета в нём — суть проекта (огонь + свет). Бесконечный перелив убран:
+   движение без причины — как раз то, что читается шаблонным. */
 .brand .mark{width:34px;height:34px;flex:0 0 auto;
   -webkit-mask:url(../img/dragon-silhouette.png) center/contain no-repeat;
           mask:url(../img/dragon-silhouette.png) center/contain no-repeat;
-  background:linear-gradient(120deg,var(--accent),var(--accent3),var(--accent2),var(--accent));
-  background-size:300% 300%;animation:brandshift 7s ease-in-out infinite;
+  background:linear-gradient(120deg,var(--accent),var(--accent3),var(--accent2),var(--cool));
   filter:drop-shadow(0 0 12px color-mix(in srgb,var(--accent) 55%,transparent))}
-@keyframes brandshift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 nav.menu{display:flex;gap:28px;font-size:13.5px;color:var(--muted)}
 nav.menu a{transition:color .25s;cursor:pointer}nav.menu a:hover{color:var(--ink)}
 .nav-cta{font-family:var(--body);font-weight:700;font-size:13px;letter-spacing:.02em;
-  padding:12px 22px;border-radius:100px;color:#160405;
-  background:linear-gradient(100deg,var(--accent),var(--accent2));
-  box-shadow:0 0 22px color-mix(in srgb,var(--accent) 35%,transparent);transition:.3s}
-.nav-cta:hover{transform:translateY(-2px);filter:brightness(1.08)}
+  padding:12px 22px;border-radius:100px;color:var(--fg-on-fill);
+  background:var(--fill-ui);
+  box-shadow:var(--shadow-lift);transition:.3s}
+/* заливка светлая — осветлять некуда, поэтому на наведении слегка гасим */
+.nav-cta:hover{transform:translateY(-2px);filter:brightness(.93)}
 .nav-toggle{display:none;background:none;border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:8px 12px;font-size:18px;cursor:pointer}
 .menu .m-book{display:none}
 /* мобильное меню — выпадающая панель под шапкой */
@@ -173,8 +182,8 @@ nav.menu a{transition:color .25s;cursor:pointer}nav.menu a:hover{color:var(--ink
 /* кнопки hero */
 .hbtn{display:inline-flex;align-items:center;gap:10px;cursor:pointer;border:none;
   font:800 13px/1 var(--body);letter-spacing:.06em;text-transform:uppercase;padding:16px 30px;border-radius:100px;transition:.25s}
-.hbtn.solid{background:linear-gradient(100deg,var(--accent),var(--accent3));color:#160405;box-shadow:0 12px 40px -12px rgba(255,46,132,.7)}
-.hbtn.solid:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.hbtn.solid{background:var(--fill-ui);color:var(--fg-on-fill);box-shadow:var(--shadow-lift)}
+.hbtn.solid:hover{transform:translateY(-2px);filter:brightness(.93)}
 .hbtn.ghost{border:1px solid rgba(255,255,255,.28);color:#fff;background:none}
 .hbtn.ghost:hover{border-color:var(--accent3);color:var(--accent2)}
 .hbtn .pd{width:9px;height:9px;border-radius:50%;background:var(--cool)}
@@ -257,7 +266,7 @@ section{position:relative;z-index:2;padding:clamp(70px,11vh,120px) 0}
 .row .copy .tags{display:flex;flex-wrap:wrap;gap:9px;margin:22px 0 0;list-style:none;padding:0}
 .row .copy .tags li{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;padding:8px 14px;border-radius:100px;border:1px solid var(--line);color:var(--ink);background:rgba(255,255,255,.03)}
 .row .copy .open{margin-top:28px;display:inline-flex;align-items:center;gap:10px;cursor:pointer;border:none;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;padding:14px 26px;border-radius:100px;background:var(--ac);color:#160b06;transition:.25s}
-.row .copy .open:hover{transform:translateY(-2px);gap:16px;box-shadow:0 14px 34px -12px var(--ac)}
+.row .copy .open:hover{transform:translateY(-2px);gap:16px;box-shadow:var(--shadow-lift)}
 .row .copy .open .ar{font-size:17px;line-height:1}
 @media(max-width:880px){.row,.row.alt{grid-template-columns:1fr;gap:24px}.row.alt .media,.row.alt .copy{order:0}}
 
@@ -310,7 +319,7 @@ section{position:relative;z-index:2;padding:clamp(70px,11vh,120px) 0}
 .geo-pill{font-family:var(--display);font-weight:500;font-size:15px;padding:11px 18px;border-radius:99px;
   border:1px solid var(--line);background:color-mix(in srgb,var(--ink) 2%,transparent);transition:.3s}
 .geo-pill:hover{border-color:var(--accent2);color:var(--accent2);box-shadow:0 0 20px color-mix(in srgb,var(--accent2) 25%,transparent)}
-.geo-pill.world{background:linear-gradient(100deg,var(--accent),var(--accent2));color:#0a0708;border:none}
+.geo-pill.world{background:var(--fill-ui);color:var(--fg-on-fill);border:none}
 /* RU-only: «база» — город, перед капс-меткой «И гастролируем по миру».
    Кегль как у лида секции, но плотнее и в цвет текста, чтобы строка читалась
    первой и не спорила с меткой ниже. В index.html этого элемента нет. */
@@ -417,7 +426,7 @@ html[lang="ru"] #world .geo-pill:not(.world){backdrop-filter:blur(8px);backgroun
 .langsw__b{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.04em;color:var(--muted);
   background:none;border:0;cursor:pointer;padding:5px 11px;border-radius:99px;transition:.25s;line-height:1}
 .langsw__b:hover{color:var(--ink)}
-.langsw__b.on{color:#160405;background:linear-gradient(100deg,var(--accent),var(--accent2))}
+.langsw__b.on{color:var(--fg-on-fill);background:var(--fill-ui)}
 
 /* RU: у Anton нет кириллицы — дисплейные заголовки падают на Impact (тяжёлый, есть кириллица).
    TODO: подключить self-host кириллический дисплей-шрифт (Oswald/Bebas Cyrillic). */
@@ -473,6 +482,9 @@ html[lang="ru"] .mh__tag{white-space:nowrap;max-width:none;font-size:clamp(11px,
 
 /* ---------- КОНТАКТЫ ---------- */
 .ccta{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(40px,7vw,96px);line-height:.9;margin:14px 0 0}
+/* единственный градиентный текст на странице — финальный призыв */
+.ccta .grad{background:linear-gradient(100deg,var(--accent),var(--accent3));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .clead{color:var(--muted);max-width:46ch;margin:20px 0 0;font-size:16px}
 /* Плитка с длинным значением (email) забирает ровно нужную ей ширину, остальные
    делят остаток поровну (299 / 266 / 266 / 266 при контейнере 1145): значения
@@ -490,8 +502,10 @@ html[lang="ru"] .mh__tag{white-space:nowrap;max-width:none;font-size:clamp(11px,
 .fch:hover{transform:translateY(-6px);border-color:var(--ac);box-shadow:0 20px 50px rgba(0,0,0,.5)}
 .fch:hover::before{opacity:1}
 .fch>*{position:relative;z-index:1}
-.fch .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;color:#160405;
-  background:linear-gradient(120deg,var(--ac),var(--ac2,var(--accent)))}
+/* плашка иконки — плоский цвет канала (--ac приходит из data.js), разноцветность
+   держится системой «цвет = сущность», а не переливом внутри одной плашки */
+.fch .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;color:var(--fg-on-fill);
+  background:var(--ac)}
 .fch .ic svg{width:24px;height:24px;display:block}
 .fch .fk{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 /* значение контакта — одна строка; базовый кегль. Страховка на очень узких
