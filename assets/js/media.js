@@ -1,5 +1,5 @@
 /* АВТОГЕНЕРАЦИЯ: python scripts/build.py — руками не править.
-   Только пути к медиа. Весь копирайт/имена/YouTube-ID — в content.js. */
+   Только пути к медиа (от корня домена). Копирайт/имена/YouTube-ID — в content.js. */
 window.SS_MEDIA = {
   "hero": {
     "video": "/assets/web/hero/hero.mp4",
@@ -114,7 +114,26 @@ window.SS_MEDIA = {
             "/assets/web/fire-fantasy/fire-fantasy-027.jpg",
             "/assets/web/fire-fantasy/fire-fantasy-028.jpg",
             "/assets/web/fire-fantasy/fire-fantasy-029.jpg",
-            "/assets/web/fire-fantasy/fire-fantasy-030.jpg"
+            "/assets/web/fire-fantasy/fire-fantasy-030.jpg",
+            "/assets/web/fire-fantasy/fire-fantasy-031.jpg",
+            "/assets/web/fire-fantasy/fire-fantasy-032.jpg",
+            "/assets/web/fire-fantasy/fire-fantasy-033.jpg",
+            "/assets/web/fire-fantasy/fire-fantasy-034.jpg",
+            "/assets/web/fire-fantasy/fire-fantasy-035.jpg",
+            "/assets/web/fire-fantasy/fire-fantasy-036.jpg",
+            "/assets/web/fire-fantasy/fire-fantasy-037.jpg",
+            "/assets/web/fire-fantasy/fire-fantasy-038.jpg",
+            "/assets/web/fire-fantasy/fire-fantasy-039.jpg",
+            "/assets/web/fire-fantasy/fire-fantasy-040.jpg",
+            "/assets/web/fire-fantasy/fire-fantasy-041.jpg",
+            "/assets/web/fire-fantasy/fire-fantasy-042.jpg",
+            "/assets/web/fire-fantasy/fire-fantasy-043.jpg",
+            "/assets/web/fire-fantasy/fire-fantasy-044.jpg",
+            "/assets/web/fire-fantasy/fire-fantasy-045.jpg",
+            "/assets/web/fire-fantasy/fire-fantasy-046.jpg",
+            "/assets/web/fire-fantasy/fire-fantasy-047.jpg",
+            "/assets/web/fire-fantasy/fire-fantasy-048.jpg",
+            "/assets/web/fire-fantasy/fire-fantasy-049.jpg"
           ]
         },
         {
