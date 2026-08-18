@@ -137,7 +137,7 @@ window.SS_CONTENT = {
 
     ledfire: {
       name: { en: 'LED Fire Show', ru: 'LED+Огонь' }, nav: { en: 'LED Fire', ru: 'LED+Огонь' },
-      videos: ['aq-PXZIlsyo', 'NwEsu64rFzY', 'sckZxk4r22c', 'vWRxsfORdOg'],
+      videos: ['aq-PXZIlsyo', 'NwEsu64rFzY', 'sckZxk4r22c', 'vWRxsfORdOg', 'oY86Hgj1V1A'],
       card: {
         kind: { en: 'Glow + Flame', ru: 'Гибридное шоу' },
         desc: { en: 'The best of both: live fire performed in glowing LED costumes. The heat of fire with the colour of light.',
