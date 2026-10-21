@@ -75,7 +75,7 @@ OG_W, OG_H = 1200, 630
 OG_IMAGES = {
     "home": ("assets/web/dragon/dragon-025.jpg", "top"),   # главная (обе языковые версии)
     "fire": ("assets/web/fire/fire-007.jpg", "top"),
-    "ledfire": ("assets/web/ledfire/ledfire-011.jpg", "center"),
+    "ledfire": ("assets/web/ledfire/ledfire-022.jpg", "center"),
     "stilts": ("assets/web/stilts/stilts-022.jpg", "top"),
 }
 

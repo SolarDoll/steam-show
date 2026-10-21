@@ -217,7 +217,18 @@ window.SS_MEDIA = {
         "/assets/web/ledfire/ledfire-030.jpg",
         "/assets/web/ledfire/ledfire-031.jpg",
         "/assets/web/ledfire/ledfire-032.jpg",
-        "/assets/web/ledfire/ledfire-033.jpg"
+        "/assets/web/ledfire/ledfire-033.jpg",
+        "/assets/web/ledfire/ledfire-034.jpg",
+        "/assets/web/ledfire/ledfire-035.jpg",
+        "/assets/web/ledfire/ledfire-036.jpg",
+        "/assets/web/ledfire/ledfire-037.jpg",
+        "/assets/web/ledfire/ledfire-038.jpg",
+        "/assets/web/ledfire/ledfire-039.jpg",
+        "/assets/web/ledfire/ledfire-040.jpg",
+        "/assets/web/ledfire/ledfire-041.jpg",
+        "/assets/web/ledfire/ledfire-042.jpg",
+        "/assets/web/ledfire/ledfire-043.jpg",
+        "/assets/web/ledfire/ledfire-044.jpg"
       ],
       "costumes": []
     },
